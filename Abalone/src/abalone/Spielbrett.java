@@ -1,6 +1,6 @@
 /**
  * @author Gruppe A4
- * @version 1.0
+ * @version 1.2
  * 
  * Die Klasse Spielbrett erschafft ein Abalone Spielbrett 
  * auf Basis einer Hash Map.
@@ -24,33 +24,45 @@ public class Spielbrett {
 
 	/**
 	 * Konstruktor für Abalone Spielbrett
+	 * 
+	 * @since 1.0
 	 */
 	 public Spielbrett() {
 		 setBrett(new HashMap<String, Spielfeld>());
-		 schaffeMapping();
-		 
-		 
+		 schaffeMapping(); 
 	 }
+	 
+	 
 	 /**
 	  * Gibt das Brettattribut des Spielbretts zurück.
 	  * @return Brettattribut in Form von einer
 	  * HashMap<String,Spielfeld>  des Spielbretts.
+	  * 
+	  * @since 1.0
 	  */
 	 public HashMap<String, Spielfeld> getBrett() {
 		 return this.brett;
 	 }
 	 
+	 
+	 
 	 /**
 	  * Setzt das Brettattribut des Spielbretts.
 	  * @param Eine HashMap<String, Spielfeld>, die das Brett modelliert
+	  * 
+	  * @since 1.0
 	  */
 	 public void setBrett(HashMap<String, Spielfeld> brett) {
 		 this.brett = brett;
 	 }
 	 
+	 
+	 
 	 /**
 	  * Verknüpft alle Feldbezeichnungen
 	  * eines Abalone-Bretts mit Spielfeld-Objekten.
+	  * 
+	  * @since 1.0
 	  */
 	 private void schaffeMapping() {
 			for(int i = 0; i < KOORDINATENQUER.length; i++) {
@@ -74,11 +86,15 @@ public class Spielbrett {
 			}
 	 }
 	 
-	 /** Ordnet die HashMap in Form eines Abalone Spielbretts mit Koordinaten an
-	  *  und gibt dieses als String zurück.
+	 
+	 
+	 /** 
+	  * Ordnet die HashMap in Form eines Abalone Spielbretts mit Koordinaten an
+	  * und gibt dieses als String zurück.
 	  *  
-	  *  @return Einen String in Form eines Abalone-Spielbretts.
+	  * @return Einen String in Form eines Abalone-Spielbretts.
 	  * 
+	  * @since 1.1
 	  */
 	 public String toString() {
 		 StringBuilder gesamtesFeld = new StringBuilder();
@@ -88,17 +104,24 @@ public class Spielbrett {
 			 String einzelneQuerlinie = baueEinzelneQuerlinie(i);
 			 gesamtesFeld.append(einzelneQuerlinie + "\n");
 		 }
-		 
+
 		 // Untere Koordinaten anfügen
 		 gesamtesFeld.append("       " + "1 2 3 4 5");
 		 return gesamtesFeld.toString();
 	 }
+	 
+	 
+	 
 	 /**
 	  * Hilfsmethode von toString.
 	  * Baut eine komplette Querzeile des Spielbretts mit passender Einrückung,
 	  * Feldern und Koordinaten und gibt diese als String zurück.
+	  * 
 	  * @param Array-Position der gewünschten Querzeilenkoordinate.
+	  * 
 	  * @return komplette Querzeile als String.
+	  * 
+	  * @since 1.1
 	  */
 	 private String baueEinzelneQuerlinie(int posKoordinateQuer) {
 		 StringBuilder einzelneQuerlinie = new StringBuilder();
@@ -122,12 +145,18 @@ public class Spielbrett {
 		 return einzelneQuerlinie.toString(); 
 	 }
 	 
+	 
+	 
 	 /**
 	  * Hilfsmethode von toString.
 	  * Fügt alle Symbole der Felder einer Zeile mit Zwischenabständen zu einem
 	  * String zusammen. Zurückgegebner String ist immer gerade.
+	  * 
 	  * @param Array-Position der gewünschten Querzeilenkoordinate.
+	  * 
 	  * @return String aus Feldsymbolen, Zwischenabständen und einem Leerzeichen
+	  * 
+	  * @since 1.1
 	  */
 	 private String fuegeFelderZusammen(int posKoordinateQuer) {
 		 
@@ -146,13 +175,20 @@ public class Spielbrett {
 		 
 		 return felder.toString(); 
 	 }
+	 
+	 
+	 
 	 /**
 	  * Weist dem übergebenem Key ein Spielfeld zu.
 	  * @param Feldbezeichnung in Form eines Strings.
+	  * 
+	  * @since 1.0
 	  */
 	 private void weiseKeyFeldZu(String key) {
 			Spielfeld feld = new Spielfeld(this, key);
 			brett.put(key, feld);
 	 }
+	 
+	 
 	 
 }
