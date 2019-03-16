@@ -1,11 +1,12 @@
 /**
  * <h1>Spiel</h1>
+
  * Die Klasse Spiel implementiert das zentrale Objekt für das Spiel Abalone. In
  * ihr laufen alle anderen Klassen zusammen, somit bildet sie die Schnittstelle
  * zu weiteren Objekten wie einer UI 
  * @author Gruppe A4
- * @Version 1.0
- * @since 14.03.2019 
+ * @version 1.1
+ * @since 1.0
  */
 package abalone;
 
@@ -23,6 +24,7 @@ public class Spiel {
 	 * werden, wirft die Methode eine IndexOutOfBounds Exception.
 	 * @param name Der für den Spieler gewaehlte Name
 	 * @param farbe Die für den Spieler gewaehlte Farbe
+	 * @since 1.0
 	 */
 	public void addSpieler(String name, String farbe) {
 		if(spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
@@ -57,6 +59,7 @@ public class Spiel {
 	 * dieses dem Spielbrett.
 	 * @param zug Ein String Array mit den Werten [0] = von wo gezogen wird,
 	 * [1] = wohin gezogen wird.
+	 * @since 1.0
 	 */
 	public void ziehe(String[] zug) {
 		Spielzug spielZug = new Spielzug(zug[0], zug[1]);
@@ -86,9 +89,10 @@ public class Spiel {
 	 * [1] = wohin gezogen wird.
 	 * @return ein zweidimensionales char Array, welches den Zug in chars 
 	 * aufteilt
+	 * @since 1.1
 	 */
 	private char[][] spielzugParser(String[] zug) {
-		char[][] geparsterZug = new int[2][];
+		char[][] geparsterZug = new char[2][];
 		if(zug.length < 2) {
 			throw new IllegalArgumentException(
 					  "Ungueltige laenge: " + zug.length
@@ -135,6 +139,7 @@ public class Spiel {
 	 * unabhaengig von der aktuellen Feldbelegegung.
 	 * @param ein zweidimensionales Char Array.
 	 * @return true oder false in Abhaengigkeit der Validitaet eines Zuges.
+	 * @since 1.1
 	 */
 	private boolean koordinatenValidieren (char[][] geparsterZug) {
 		//Pruefen ob die angegebenen Chars auch auf dem Spielbrett existieren
@@ -154,25 +159,78 @@ public class Spiel {
 			}
 		}
 		//Pruefen ob der Zug an sich valide ist
-		switch(geparsterZug[0][0]-geparsterZug[1][0]) {
-			int zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1]; //Differenz der Zahlenkoordinaten
-			case 0: return ((zahlenKoordinaten == 1) || (zahlenKoordinaten == -1));
+		if(geparsterZug[0].length == 2) { // Wenn nur eine Kugel bewegt wird
+			int zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
+			switch(geparsterZug[0][0]-geparsterZug[1][0]) { // Wert der Buchstaben Koordinate
+				 //Differenz der Zahlenkoordinaten
+				case 0: return ((zahlenKoordinaten == 1) || (zahlenKoordinaten == -1));
 			
-			case -1: return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == 1)));
+				case -1: return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == 1));
 			
-			case 1: return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == -1)));
+				case 1: return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == -1));
 			
-			default:
-				return false;
+				default: return false;
+			}
+		}else { //bei mehreren Kugeln
+			// a) pruefen ob die Kugeln so zusammen bewegt werden duerfen
+			int zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[0][3];
+			int buchstabenKoordinaten = (geparsterZug[0][0]-geparsterZug[0][2]);
+			if(buchstabenKoordinaten == 0) {
+				if(zahlenKoordinaten > 2 || zahlenKoordinaten < -2 || zahlenKoordinaten == 0) {
+					return false;
+				}
+			}else if(buchstabenKoordinaten >= -2 && buchstabenKoordinaten <= 2){
+				if(zahlenKoordinaten != buchstabenKoordinaten || zahlenKoordinaten != 0) {
+					return false;
+				}
+			}
+			//b) pruefen ob die Kugeln auf das Zielfeld bewegt werden duerfen.
+			//b) I : Ist das Zielfeld im Bereich der rechten Ausgangskoordinate?
+			boolean rechts = false;
+			zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
+			switch(geparsterZug[0][0]-geparsterZug[1][0]) { // Wert der Buchstaben Koordinate
+				case 0: rechts = zahlenKoordinaten == -1;
+						break;
+		
+				case -1: rechts = zahlenKoordinaten == 0;
+						 break;
+		
+				case 1: rechts = zahlenKoordinaten == 1;
+						break;
+		
+				default: return false;
+			};
+			boolean links = false;
+			//b) 2: Ist das Zielfeld im Bereich der linken Ausgangkoordinate?
+			zahlenKoordinaten = geparsterZug[0][3] - geparsterZug[1][1];
+			switch(geparsterZug[0][2]-geparsterZug[1][0]) { // Wert der Buchstaben Koordinate
+				case 0: links = zahlenKoordinaten == -1;
+						break;
+		
+				case -1: links = zahlenKoordinaten == -1;
+						 break;
+		
+				case 1: links = zahlenKoordinaten == 0;
+						break;
+		
+				default: return false;
+			}
+			return rechts || links;
 		}
 	}
+	
 	/**
 	 * Prueft, ob ein Spielzug in abhaengigkeit der Spielbrett belegung
 	 * valide ist. 
 	 * @param Ein Zweidimensionales String Array.
 	 * @return True oder False in abhaengigkeit von der Validitaet des Spielzuges.
+	 * @since 1.1
 	 */
 	private boolean spielzugValidieren(String[] zug) {
+		char[][] geparsterZug = this.spielzugParser(zug);
+		if(!koordinatenValidieren(geparsterZug)) {
+			return false;
+		}
 		
 	}
 
