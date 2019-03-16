@@ -1,6 +1,5 @@
 /**
  * <h1>Spiel</h1>
-
  * Die Klasse Spiel implementiert das zentrale Objekt für das Spiel Abalone. In
  * ihr laufen alle anderen Klassen zusammen, somit bildet sie die Schnittstelle
  * zu weiteren Objekten wie einer UI 
@@ -65,8 +64,7 @@ public class Spiel {
 		Spielzug spielZug = new Spielzug(zug[0], zug[1]);
 		
 		spielBrett.ziehe(spielZug);
-		historie.spielZugHinzufuegen; 
-		
+		historie.spielZugHinzufuegen;
 		
 	}
 	
@@ -91,7 +89,7 @@ public class Spiel {
 	 * aufteilt
 	 * @since 1.1
 	 */
-	private char[][] spielzugParser(String[] zug) {
+	public char[][] spielzugParser(String[] zug) {
 		char[][] geparsterZug = new char[2][];
 		if(zug.length < 2) {
 			throw new IllegalArgumentException(
@@ -146,13 +144,12 @@ public class Spiel {
 		for(char[] koordinate: geparsterZug) {
 			for(int i = 0; i < koordinate.length; i++) {
 				if(i%2 == 0) {
-					if(!(('I' - koordinate[i] <= 8) 
-					     && ('A' - koordinate[i] >= 0))) {
+					if(!('I' - koordinate[i] <= 8 && 'I' - koordinate[i] >= 0)) {
 							return false;
 					}
 				}else {
 					if(!(('9' - koordinate[i] <= 8) 
-						     && ('1' - koordinate[i] >= 0))) {
+						     && ('9' - koordinate[i] >= 0))) {
 								return false;
 						}
 				}
@@ -165,9 +162,9 @@ public class Spiel {
 				 //Differenz der Zahlenkoordinaten
 				case 0: return ((zahlenKoordinaten == 1) || (zahlenKoordinaten == -1));
 			
-				case -1: return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == 1));
+				case -1: return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == -1));
 			
-				case 1: return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == -1));
+				case 1: return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == 1));
 			
 				default: return false;
 			}
@@ -183,34 +180,37 @@ public class Spiel {
 				if(zahlenKoordinaten != buchstabenKoordinaten || zahlenKoordinaten != 0) {
 					return false;
 				}
+				
 			}
 			//b) pruefen ob die Kugeln auf das Zielfeld bewegt werden duerfen.
 			//b) I : Ist das Zielfeld im Bereich der rechten Ausgangskoordinate?
 			boolean rechts = false;
-			zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
-			switch(geparsterZug[0][0]-geparsterZug[1][0]) { // Wert der Buchstaben Koordinate
+			zahlenKoordinaten = geparsterZug[0][3] - geparsterZug[1][1];
+			buchstabenKoordinaten = geparsterZug[0][2]-geparsterZug[1][0];
+			switch(buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
 				case 0: rechts = zahlenKoordinaten == -1;
 						break;
 		
-				case -1: rechts = zahlenKoordinaten == 0;
+				case -1: rechts = zahlenKoordinaten == -1;
 						 break;
 		
-				case 1: rechts = zahlenKoordinaten == 1;
+				case 1: rechts = zahlenKoordinaten == 0;
 						break;
 		
 				default: return false;
 			};
 			boolean links = false;
 			//b) 2: Ist das Zielfeld im Bereich der linken Ausgangkoordinate?
-			zahlenKoordinaten = geparsterZug[0][3] - geparsterZug[1][1];
-			switch(geparsterZug[0][2]-geparsterZug[1][0]) { // Wert der Buchstaben Koordinate
+			zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
+			buchstabenKoordinaten = geparsterZug[0][0]-geparsterZug[1][0];
+			switch(buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
 				case 0: links = zahlenKoordinaten == -1;
 						break;
 		
-				case -1: links = zahlenKoordinaten == -1;
+				case -1: links = zahlenKoordinaten == 0;
 						 break;
 		
-				case 1: links = zahlenKoordinaten == 0;
+				case 1: links = zahlenKoordinaten == 1;
 						break;
 		
 				default: return false;
@@ -231,6 +231,7 @@ public class Spiel {
 		if(!koordinatenValidieren(geparsterZug)) {
 			return false;
 		}
+		
 		
 	}
 
