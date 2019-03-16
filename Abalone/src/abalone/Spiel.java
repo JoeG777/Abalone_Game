@@ -9,12 +9,8 @@
  */
 package abalone;
 
-import testprojekt.FarbEnum;
-import testprojekt.Spielbrett;
-import testprojekt.Spieler;
-import testprojekt.Spielzug;
-
 public class Spiel {
+	
 	
 	private Spieler spielerAmZug;
 	private Spieler[] spielerImSpiel;
@@ -84,15 +80,15 @@ public class Spiel {
 	}
 	
 	/**
-	 * Diese Methode Parst einen Spielzug zu einem Integer Array zur weiteren 
+	 * Diese Methode Parst einen Spielzug zu einem Char Array zur weiteren 
 	 * Verarbeitung
 	 * @param zug Ein String Array mit den Werten [0] = von wo gezogen wird,
 	 * [1] = wohin gezogen wird.
-	 * @return ein zweidimensionales int Array, welches den Zug in zahlen 
+	 * @return ein zweidimensionales char Array, welches den Zug in chars 
 	 * aufteilt
 	 */
-	private int[][] SpielzugParser(String[] zug) {
-		int[][] geparsterZug = new int[2][];
+	private char[][] spielzugParser(String[] zug) {
+		char[][] geparsterZug = new int[2][];
 		if(zug.length < 2) {
 			throw new IllegalArgumentException(
 					  "Ungueltige laenge: " + zug.length
@@ -105,27 +101,27 @@ public class Spiel {
 		}
 		
 		//Ausgangskoordinate(n) anlege(n)
-		int[] ausgangsPunkt = new int[zug[0].length()];
+		char[] ausgangsPunkt = new char[zug[0].length()];
 		//Erste Koordinate
 		char buchstabe1 = zug[0].charAt(0);
-		int zahl1 = Integer.parseInt(String.valueOf(zug[0].charAt(1)));
-		ausgangsPunkt[0] = this.buchstabenMapper(buchstabe1);
+		char zahl1 = zug[0].charAt(1);
+		ausgangsPunkt[0] = buchstabe1;
 		ausgangsPunkt[1] = zahl1;
 			
 		if(zug[0].length() == 4) {
 			//Zweite Koordinate
 			char buchstabe2 = zug[0].charAt(2);
-			int zahl2 = Integer.parseInt(String.valueOf(zug[0].charAt(3)));
-			ausgangsPunkt[2] = this.buchstabenMapper(buchstabe2);
+			char zahl2 = zug[0].charAt(3);
+			ausgangsPunkt[2] = buchstabe2;
 			ausgangsPunkt[3] = zahl2;
 		}
 		geparsterZug[0] = ausgangsPunkt;
 		
 		//Zielkoordinate(n) anlege(n)
-		int[] zielPunkt = new int[2];
+		char[] zielPunkt = new char[2];
 		char buchstabe = zug[1].charAt(0);
-		int zahl = Integer.parseInt(String.valueOf(zug[1].charAt(1)));
-		zielPunkt[0] = buchstabenMapper(buchstabe);
+		char zahl = (zug[1].charAt(1));
+		zielPunkt[0] = buchstabe;
 		zielPunkt[1] = zahl;
 		
 		geparsterZug[1] = zielPunkt;
@@ -133,48 +129,50 @@ public class Spiel {
 		return geparsterZug;
 		
 	}
+	
 	/**
-	 * Diese Methode Mapt Buchstaben auf Zahlen
-	 * @param ein zu Mappender Buchstabe zwischen A und I
+	 * Prueft ob die gegeben Koordinaten einem validen Zug entsprechen,
+	 * unabhaengig von der aktuellen Feldbelegegung.
+	 * @param ein zweidimensionales Char Array.
+	 * @return true oder false in Abhaengigkeit der Validitaet eines Zuges.
 	 */
-	private int buchstabenMapper(char buchstabe) {
-		int zahl;
-		switch (buchstabe) {
-			case 'A' : 
-				zahl = 1;
-				break;
-			case 'B' : 
-				zahl = 2;
-				break;
-			case 'C' : 
-				zahl = 3;
-				break;
-			case 'D' : 
-				zahl = 4;
-				break;
-			case 'E' : 
-				zahl = 5;
-				break;
-			case 'F' :
-				zahl = 6;
-				break;
-			case 'G' : 
-				zahl = 7;
-				break;
-			case 'H' : 
-				zahl = 8;
-				break;
-			case 'I' : 
-				zahl = 9;
-				break;
-			default:
-				throw new IllegalArgumentException(
-						"Ungueltiger Buchstabe " + buchstabe);
-			
+	private boolean koordinatenValidieren (char[][] geparsterZug) {
+		//Pruefen ob die angegebenen Chars auch auf dem Spielbrett existieren
+		for(char[] koordinate: geparsterZug) {
+			for(int i = 0; i < koordinate.length; i++) {
+				if(i%2 == 0) {
+					if(!(('I' - koordinate[i] <= 8) 
+					     && ('A' - koordinate[i] >= 0))) {
+							return false;
+					}
+				}else {
+					if(!(('9' - koordinate[i] <= 8) 
+						     && ('1' - koordinate[i] >= 0))) {
+								return false;
+						}
+				}
+			}
 		}
-		return zahl;
+		//Pruefen ob der Zug an sich valide ist
+		switch(geparsterZug[0][0]-geparsterZug[1][0]) {
+			int zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1]; //Differenz der Zahlenkoordinaten
+			case 0: return ((zahlenKoordinaten == 1) || (zahlenKoordinaten == -1));
+			
+			case -1: return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == 1)));
+			
+			case 1: return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == -1)));
+			
+			default:
+				return false;
+		}
 	}
-	private boolean spielZugValidieren (String[] zug) {
+	/**
+	 * Prueft, ob ein Spielzug in abhaengigkeit der Spielbrett belegung
+	 * valide ist. 
+	 * @param Ein Zweidimensionales String Array.
+	 * @return True oder False in abhaengigkeit von der Validitaet des Spielzuges.
+	 */
+	private boolean spielzugValidieren(String[] zug) {
 		
 	}
 
