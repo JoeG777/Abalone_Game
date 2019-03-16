@@ -1,5 +1,5 @@
 /**
- * @author Team A4
+ * @author Gruppe A4
  * @version 1.0
  * 
  * Die Klasse Spielbrett erschafft ein Abalone Spielbrett 
@@ -74,6 +74,78 @@ public class Spielbrett {
 			}
 	 }
 	 
+	 /** Ordnet die HashMap in Form eines Abalone Spielbretts mit Koordinaten an
+	  *  und gibt dieses als String zurück.
+	  *  
+	  *  @return Einen String in Form eines Abalone-Spielbretts.
+	  * 
+	  */
+	 public String toString() {
+		 StringBuilder gesamtesFeld = new StringBuilder();
+		 
+		 // Start am Ende des Arrays, da I oben steht
+		 for(int i = KOORDINATENQUER.length - 1; i >= 0; i--) {
+			 String einzelneQuerlinie = baueEinzelneQuerlinie(i);
+			 gesamtesFeld.append(einzelneQuerlinie + "\n");
+		 }
+		 
+		 // Untere Koordinaten anfügen
+		 gesamtesFeld.append("       " + "1 2 3 4 5");
+		 return gesamtesFeld.toString();
+	 }
+	 /**
+	  * Hilfsmethode von toString.
+	  * Baut eine komplette Querzeile des Spielbretts mit passender Einrückung,
+	  * Feldern und Koordinaten und gibt diese als String zurück.
+	  * @param Array-Position der gewünschten Querzeilenkoordinate.
+	  * @return komplette Querzeile als String.
+	  */
+	 private String baueEinzelneQuerlinie(int posKoordinateQuer) {
+		 StringBuilder einzelneQuerlinie = new StringBuilder();
+		 
+		 einzelneQuerlinie.append(KOORDINATENQUER[posKoordinateQuer] + " ");
+
+		 String felder = fuegeFelderZusammen(posKoordinateQuer);
+		 
+		 // Teilung durch 2, weil rechts von Feldern auch Abstand ist.
+		 int einrückungLänge = MAXDIAGONALE - felder.length()/2; 
+		 String einrückung = "    ".substring(0, einrückungLänge);
+		 
+		 einzelneQuerlinie.append(einrückung);
+		 einzelneQuerlinie.append(felder);
+		 
+		 //Koordinaten an rechter, unterer Seite anfügen
+		 if(posKoordinateQuer < 4) {
+			 int arrPos = MAXDIAGONALE - 4 + posKoordinateQuer;
+			 einzelneQuerlinie.append(KOORDINATENDIAGONAL[arrPos]);
+		 }
+		 return einzelneQuerlinie.toString(); 
+	 }
+	 
+	 /**
+	  * Hilfsmethode von toString.
+	  * Fügt alle Symbole der Felder einer Zeile mit Zwischenabständen zu einem
+	  * String zusammen. Zurückgegebner String ist immer gerade.
+	  * @param Array-Position der gewünschten Querzeilenkoordinate.
+	  * @return String aus Feldsymbolen, Zwischenabständen und einem Leerzeichen
+	  */
+	 private String fuegeFelderZusammen(int posKoordinateQuer) {
+		 
+		 StringBuilder felder = new StringBuilder();
+		 
+		 // Fügt Felder von RECHTS nach links zusammen
+		 for(int j = KOORDINATENDIAGONAL.length - 1; j >= 0; j--) {
+			 String key = KOORDINATENQUER[posKoordinateQuer] + 
+					 KOORDINATENDIAGONAL[j];
+			 
+			 if(brett.containsKey(key)) {
+				 felder.append(" " + brett.get(key).getFeldSymbol());
+			 }
+		 }
+		 felder.reverse(); // jetzt sind Felder von links nach rechts angeordnet
+		 
+		 return felder.toString(); 
+	 }
 	 /**
 	  * Weist dem übergebenem Key ein Spielfeld zu.
 	  * @param Feldbezeichnung in Form eines Strings.
@@ -82,4 +154,5 @@ public class Spielbrett {
 			Spielfeld feld = new Spielfeld(this, key);
 			brett.put(key, feld);
 	 }
+	 
 }
