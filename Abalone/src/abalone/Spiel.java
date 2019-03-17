@@ -141,24 +141,56 @@ public class Spiel {
 	 */
 	private boolean koordinatenValidieren (char[][] geparsterZug) {
 		//Pruefen ob die angegebenen Chars auch auf dem Spielbrett existieren
+		int buchstabenKoordinaten = 0;
+		int zahlenKoordinaten = 0;
 		for(char[] koordinate: geparsterZug) {
 			for(int i = 0; i < koordinate.length; i++) {
 				if(i%2 == 0) {
-					if(!('I' - koordinate[i] <= 8 && 'I' - koordinate[i] >= 0)) {
+					buchstabenKoordinaten = 'I' - koordinate[i];
+					if(!(buchstabenKoordinaten <= 8 && buchstabenKoordinaten >= 0)) {
 							return false;
 					}
 				}else {
-					if(!(('9' - koordinate[i] <= 8) 
-						     && ('9' - koordinate[i] >= 0))) {
-								return false;
-						}
+					zahlenKoordinaten = '9' - koordinate[i];
+					// Die cases Spiegeln die differenz Zwischen 'I' und dem aktuellen Buchstaben wider
+					// Buchstabe = I: case = 0, Buchstabe = A: case = 8
+					switch (buchstabenKoordinaten) {
+						case 0: if(zahlenKoordinaten > 5 || zahlenKoordinaten < 0) {
+									return false;
+								}
+						case 1: if(zahlenKoordinaten > 6 || zahlenKoordinaten < 0) {
+									return false;
+								}
+						case 2: if(zahlenKoordinaten > 7 || zahlenKoordinaten < 0) {
+									return false;
+								}
+						case 3: if(zahlenKoordinaten > 8 || zahlenKoordinaten < 0) {
+									return false;
+								}
+						case 4: if(zahlenKoordinaten > 9 || zahlenKoordinaten < 0) {
+									return false;
+								}
+						case 5: if(zahlenKoordinaten > 9 || zahlenKoordinaten < 1) {
+									return false;
+								}
+						case 6: if(zahlenKoordinaten > 9 || zahlenKoordinaten < 2) {
+									return false;
+								}
+						case 7: if(zahlenKoordinaten > 9 || zahlenKoordinaten < 3) {
+									return false;
+								}
+						case 8: if(zahlenKoordinaten > 9 || zahlenKoordinaten < 4) {
+									return false;
+								}
+					}
 				}
 			}
 		}
 		//Pruefen ob der Zug an sich valide ist
 		if(geparsterZug[0].length == 2) { // Wenn nur eine Kugel bewegt wird
-			int zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
-			switch(geparsterZug[0][0]-geparsterZug[1][0]) { // Wert der Buchstaben Koordinate
+			zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
+			buchstabenKoordinaten = geparsterZug[0][0]-geparsterZug[1][0];
+			switch(buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
 				 //Differenz der Zahlenkoordinaten
 				case 0: return ((zahlenKoordinaten == 1) || (zahlenKoordinaten == -1));
 			
@@ -170,8 +202,8 @@ public class Spiel {
 			}
 		}else { //bei mehreren Kugeln
 			// a) pruefen ob die Kugeln so zusammen bewegt werden duerfen
-			int zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[0][3];
-			int buchstabenKoordinaten = (geparsterZug[0][0]-geparsterZug[0][2]);
+			zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[0][3];
+			buchstabenKoordinaten = (geparsterZug[0][0]-geparsterZug[0][2]);
 			if(buchstabenKoordinaten == 0) {
 				if(zahlenKoordinaten > 2 || zahlenKoordinaten < -2 || zahlenKoordinaten == 0) {
 					return false;
@@ -232,7 +264,5 @@ public class Spiel {
 			return false;
 		}
 		
-		
 	}
-
 }
