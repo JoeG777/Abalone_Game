@@ -4,17 +4,13 @@
  * ihr laufen alle anderen Klassen zusammen, somit bildet sie die Schnittstelle
  * zu weiteren Objekten wie einer UI 
  * @author Gruppe A4
- * @Version 1.0
- * @since 14.03.2019 
+ * @version 1.1
+ * @since 1.0
  */
 package abalone;
 
-import testprojekt.FarbEnum;
-import testprojekt.Spielbrett;
-import testprojekt.Spieler;
-import testprojekt.Spielzug;
-
 public class Spiel {
+	
 	
 	private Spieler spielerAmZug;
 	private Spieler[] spielerImSpiel;
@@ -27,6 +23,7 @@ public class Spiel {
 	 * werden, wirft die Methode eine IndexOutOfBounds Exception.
 	 * @param name Der für den Spieler gewaehlte Name
 	 * @param farbe Die für den Spieler gewaehlte Farbe
+	 * @since 1.0
 	 */
 	public void addSpieler(String name, String farbe) {
 		if(spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
@@ -61,13 +58,13 @@ public class Spiel {
 	 * dieses dem Spielbrett.
 	 * @param zug Ein String Array mit den Werten [0] = von wo gezogen wird,
 	 * [1] = wohin gezogen wird.
+	 * @since 1.0
 	 */
 	public void ziehe(String[] zug) {
 		Spielzug spielZug = new Spielzug(zug[0], zug[1]);
 		
 		spielBrett.ziehe(spielZug);
-		historie.spielZugHinzufuegen; 
-		
+		historie.spielZugHinzufuegen;
 		
 	}
 	
@@ -84,15 +81,16 @@ public class Spiel {
 	}
 	
 	/**
-	 * Diese Methode Parst einen Spielzug zu einem Integer Array zur weiteren 
+	 * Diese Methode Parst einen Spielzug zu einem Char Array zur weiteren 
 	 * Verarbeitung
 	 * @param zug Ein String Array mit den Werten [0] = von wo gezogen wird,
 	 * [1] = wohin gezogen wird.
-	 * @return ein zweidimensionales int Array, welches den Zug in zahlen 
+	 * @return ein zweidimensionales char Array, welches den Zug in chars 
 	 * aufteilt
+	 * @since 1.1
 	 */
-	private int[][] SpielzugParser(String[] zug) {
-		int[][] geparsterZug = new int[2][];
+	public char[][] spielzugParser(String[] zug) {
+		char[][] geparsterZug = new char[2][];
 		if(zug.length < 2) {
 			throw new IllegalArgumentException(
 					  "Ungueltige laenge: " + zug.length
@@ -105,27 +103,27 @@ public class Spiel {
 		}
 		
 		//Ausgangskoordinate(n) anlege(n)
-		int[] ausgangsPunkt = new int[zug[0].length()];
+		char[] ausgangsPunkt = new char[zug[0].length()];
 		//Erste Koordinate
 		char buchstabe1 = zug[0].charAt(0);
-		int zahl1 = Integer.parseInt(String.valueOf(zug[0].charAt(1)));
-		ausgangsPunkt[0] = this.buchstabenMapper(buchstabe1);
+		char zahl1 = zug[0].charAt(1);
+		ausgangsPunkt[0] = buchstabe1;
 		ausgangsPunkt[1] = zahl1;
 			
 		if(zug[0].length() == 4) {
 			//Zweite Koordinate
 			char buchstabe2 = zug[0].charAt(2);
-			int zahl2 = Integer.parseInt(String.valueOf(zug[0].charAt(3)));
-			ausgangsPunkt[2] = this.buchstabenMapper(buchstabe2);
+			char zahl2 = zug[0].charAt(3);
+			ausgangsPunkt[2] = buchstabe2;
 			ausgangsPunkt[3] = zahl2;
 		}
 		geparsterZug[0] = ausgangsPunkt;
 		
 		//Zielkoordinate(n) anlege(n)
-		int[] zielPunkt = new int[2];
+		char[] zielPunkt = new char[2];
 		char buchstabe = zug[1].charAt(0);
-		int zahl = Integer.parseInt(String.valueOf(zug[1].charAt(1)));
-		zielPunkt[0] = buchstabenMapper(buchstabe);
+		char zahl = (zug[1].charAt(1));
+		zielPunkt[0] = buchstabe;
 		zielPunkt[1] = zahl;
 		
 		geparsterZug[1] = zielPunkt;
@@ -133,49 +131,138 @@ public class Spiel {
 		return geparsterZug;
 		
 	}
+	
 	/**
-	 * Diese Methode Mapt Buchstaben auf Zahlen
-	 * @param ein zu Mappender Buchstabe zwischen A und I
+	 * Prueft ob die gegeben Koordinaten einem validen Zug entsprechen,
+	 * unabhaengig von der aktuellen Feldbelegegung.
+	 * @param ein zweidimensionales Char Array.
+	 * @return true oder false in Abhaengigkeit der Validitaet eines Zuges.
+	 * @since 1.1
 	 */
-	private int buchstabenMapper(char buchstabe) {
-		int zahl;
-		switch (buchstabe) {
-			case 'A' : 
-				zahl = 1;
-				break;
-			case 'B' : 
-				zahl = 2;
-				break;
-			case 'C' : 
-				zahl = 3;
-				break;
-			case 'D' : 
-				zahl = 4;
-				break;
-			case 'E' : 
-				zahl = 5;
-				break;
-			case 'F' :
-				zahl = 6;
-				break;
-			case 'G' : 
-				zahl = 7;
-				break;
-			case 'H' : 
-				zahl = 8;
-				break;
-			case 'I' : 
-				zahl = 9;
-				break;
-			default:
-				throw new IllegalArgumentException(
-						"Ungueltiger Buchstabe " + buchstabe);
-			
+	private boolean koordinatenValidieren (char[][] geparsterZug) {
+		//Pruefen ob die angegebenen Chars auch auf dem Spielbrett existieren
+		int buchstabenKoordinaten = 0;
+		int zahlenKoordinaten = 0;
+		for(char[] koordinate: geparsterZug) {
+			for(int i = 0; i < koordinate.length; i++) {
+				if(i%2 == 0) {
+					buchstabenKoordinaten = 'I' - koordinate[i];
+					if(!(buchstabenKoordinaten <= 8 && buchstabenKoordinaten >= 0)) {
+							return false;
+					}
+				}else {
+					zahlenKoordinaten = '9' - koordinate[i];
+					// Die cases Spiegeln die differenz Zwischen 'I' und dem aktuellen Buchstaben wider
+					// Buchstabe = I: case = 0, Buchstabe = A: case = 8
+					switch (buchstabenKoordinaten) {
+						case 0: if(zahlenKoordinaten > 5 || zahlenKoordinaten < 0) {
+									return false;
+								}
+						case 1: if(zahlenKoordinaten > 6 || zahlenKoordinaten < 0) {
+									return false;
+								}
+						case 2: if(zahlenKoordinaten > 7 || zahlenKoordinaten < 0) {
+									return false;
+								}
+						case 3: if(zahlenKoordinaten > 8 || zahlenKoordinaten < 0) {
+									return false;
+								}
+						case 4: if(zahlenKoordinaten > 9 || zahlenKoordinaten < 0) {
+									return false;
+								}
+						case 5: if(zahlenKoordinaten > 9 || zahlenKoordinaten < 1) {
+									return false;
+								}
+						case 6: if(zahlenKoordinaten > 9 || zahlenKoordinaten < 2) {
+									return false;
+								}
+						case 7: if(zahlenKoordinaten > 9 || zahlenKoordinaten < 3) {
+									return false;
+								}
+						case 8: if(zahlenKoordinaten > 9 || zahlenKoordinaten < 4) {
+									return false;
+								}
+					}
+				}
+			}
 		}
-		return zahl;
+		//Pruefen ob der Zug an sich valide ist
+		if(geparsterZug[0].length == 2) { // Wenn nur eine Kugel bewegt wird
+			zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
+			buchstabenKoordinaten = geparsterZug[0][0]-geparsterZug[1][0];
+			switch(buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
+				 //Differenz der Zahlenkoordinaten
+				case 0: return ((zahlenKoordinaten == 1) || (zahlenKoordinaten == -1));
+			
+				case -1: return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == -1));
+			
+				case 1: return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == 1));
+			
+				default: return false;
+			}
+		}else { //bei mehreren Kugeln
+			// a) pruefen ob die Kugeln so zusammen bewegt werden duerfen
+			zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[0][3];
+			buchstabenKoordinaten = (geparsterZug[0][0]-geparsterZug[0][2]);
+			if(buchstabenKoordinaten == 0) {
+				if(zahlenKoordinaten > 2 || zahlenKoordinaten < -2 || zahlenKoordinaten == 0) {
+					return false;
+				}
+			}else if(buchstabenKoordinaten >= -2 && buchstabenKoordinaten <= 2){
+				if(zahlenKoordinaten != buchstabenKoordinaten || zahlenKoordinaten != 0) {
+					return false;
+				}
+				
+			}
+			//b) pruefen ob die Kugeln auf das Zielfeld bewegt werden duerfen.
+			//b) I : Ist das Zielfeld im Bereich der rechten Ausgangskoordinate?
+			boolean rechts = false;
+			zahlenKoordinaten = geparsterZug[0][3] - geparsterZug[1][1];
+			buchstabenKoordinaten = geparsterZug[0][2]-geparsterZug[1][0];
+			switch(buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
+				case 0: rechts = zahlenKoordinaten == -1;
+						break;
+		
+				case -1: rechts = zahlenKoordinaten == -1;
+						 break;
+		
+				case 1: rechts = zahlenKoordinaten == 0;
+						break;
+		
+				default: return false;
+			};
+			boolean links = false;
+			//b) 2: Ist das Zielfeld im Bereich der linken Ausgangkoordinate?
+			zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
+			buchstabenKoordinaten = geparsterZug[0][0]-geparsterZug[1][0];
+			switch(buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
+				case 0: links = zahlenKoordinaten == -1;
+						break;
+		
+				case -1: links = zahlenKoordinaten == 0;
+						 break;
+		
+				case 1: links = zahlenKoordinaten == 1;
+						break;
+		
+				default: return false;
+			}
+			return rechts || links;
+		}
 	}
-	private boolean spielZugValidieren (String[] zug) {
+	
+	/**
+	 * Prueft, ob ein Spielzug in abhaengigkeit der Spielbrett belegung
+	 * valide ist. 
+	 * @param Ein Zweidimensionales String Array.
+	 * @return True oder False in abhaengigkeit von der Validitaet des Spielzuges.
+	 * @since 1.1
+	 */
+	private boolean spielzugValidieren(String[] zug) {
+		char[][] geparsterZug = this.spielzugParser(zug);
+		if(!koordinatenValidieren(geparsterZug)) {
+			return false;
+		}
 		
 	}
-
 }
