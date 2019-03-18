@@ -4,7 +4,7 @@
  * ihr laufen alle anderen Klassen zusammen, somit bildet sie die Schnittstelle
  * zu weiteren Objekten wie einer UI 
  * @author Gruppe A4
- * @version 1.1
+ * @version 1.2
  * @since 1.0
  */
 package abalone;
@@ -15,6 +15,7 @@ public class Spiel {
 	private Spieler spielerAmZug;
 	private Spieler[] spielerImSpiel;
 	private Spielbrett spielBrett;
+	private Historie historie;
 	
 	
 	/**
@@ -29,12 +30,14 @@ public class Spiel {
 		if(spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
 			throw new IndexOutOfBoundsException("Das Spieler Array ist bereits voll!");
 		}
-		if(spielerImSpiel[0] == null) {
-			FarbEnum spielerFarbe = new FarbEnum(farbe);
-			spielerImSpiel[0] =  new Spieler(name, spielerFarbe));
+		if(farbe.equals("weiss")  && spielerImSpiel[0] != null) {
+			FarbEnum spielerFarbe = FarbEnum.WEISS;
+		//	spielerImSpiel[0];
+		}else if(farbe.equals("weiss")  && spielerImSpiel[0] != null){
+			FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
+		//spielerImSpiel[1];
 		}else {
-			FarbEnum spielerFarbe = new FarbEnum(farbe);
-			spielerImSpiel[1] =  new Spieler(name, spielerFarbe));
+			throw new IllegalArgumentException("Unbekannte farbe :" + farbe);
 		}
 		
 	}
@@ -43,7 +46,7 @@ public class Spiel {
 	 * @return Name des aktuellen Spielers als String.
 	 */
 	public String getSpielerAmZug() {
-		return spielerAmZug.name;
+		return spielerAmZug.getName();
 	}
 	
 	public void starte() {
@@ -51,7 +54,7 @@ public class Spiel {
 	}
 	
 	public boolean hatGewonnen(String name) {
-		
+		return false;
 	}
 	/**
 	 * Die ziehe Methode erzeugt aus zwei Strings ein Zug Objekt und übergibt 
@@ -61,10 +64,19 @@ public class Spiel {
 	 * @since 1.0
 	 */
 	public void ziehe(String[] zug) {
-		Spielzug spielZug = new Spielzug(zug[0], zug[1]);
+		if(spielzugValidieren(zug)) {
+			Spielzug spielzug = new Spielzug(zug[0], zug[1]);
 		
-		spielBrett.ziehe(spielZug);
-		historie.spielZugHinzufuegen;
+			spielBrett.ziehe(spielzug);
+			historie.spielzugHinzufuegen(spielzug);
+			if(spielerAmZug.getFarbe() == spielerImSpiel[0].getFarbe()) {
+				spielerAmZug = spielerImSpiel[1];
+			}else {
+				spielerAmZug = spielerImSpiel[0];
+			}
+		}else {
+			throw new IllegalArgumentException("Unzulaessiger Zug");
+		}
 		
 	}
 	
@@ -118,16 +130,13 @@ public class Spiel {
 			ausgangsPunkt[3] = zahl2;
 		}
 		geparsterZug[0] = ausgangsPunkt;
-		
-		//Zielkoordinate(n) anlege(n)
+		//Zielkoordinate anlegen
 		char[] zielPunkt = new char[2];
 		char buchstabe = zug[1].charAt(0);
 		char zahl = (zug[1].charAt(1));
 		zielPunkt[0] = buchstabe;
 		zielPunkt[1] = zahl;
-		
 		geparsterZug[1] = zielPunkt;
-		
 		return geparsterZug;
 		
 	}
