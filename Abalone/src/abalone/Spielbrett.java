@@ -48,7 +48,7 @@ public class Spielbrett {
 
 	/**
 	 * Setzt das Brettattribut des Spielbretts.
-	 * @param Eine HashMap<String, Spielfeld>, die das Brett modelliert
+	 * @param brett Eine HashMap<String, Spielfeld>, die das Brett modelliert
 	 * 
 	 * @since 1.0
 	 */
@@ -117,7 +117,7 @@ public class Spielbrett {
 	 * Baut eine komplette Querzeile des Spielbretts mit passender Einrückung,
 	 * Feldern und Koordinaten und gibt diese als String zurück.
 	 * 
-	 * @param Array-Position der gewünschten Querzeilenkoordinate.
+	 * @param posKoordinateQuer Array-Position der gewünschten Querzeilenkoordinate.
 	 * 
 	 * @return komplette Querzeile als String.
 	 * 
@@ -152,7 +152,7 @@ public class Spielbrett {
 	 * Fügt alle Symbole der Felder einer Zeile mit Zwischenabständen zu einem
 	 * String zusammen. Zurückgegebner String ist immer gerade.
 	 * 
-	 * @param Array-Position der gewünschten Querzeilenkoordinate.
+	 * @param posKoordinateQuer Array-Position der gewünschten Querzeilenkoordinate.
 	 * 
 	 * @return String aus Feldsymbolen, Zwischenabständen und einem Leerzeichen
 	 * 
@@ -180,7 +180,7 @@ public class Spielbrett {
 
 	/**
 	 * Weist dem übergebenem Key ein Spielfeld zu.
-	 * @param Feldbezeichnung in Form eines Strings.
+	 * @param key Feldbezeichnung in Form eines Strings.
 	 * 
 	 * @since 1.0
 	 */
