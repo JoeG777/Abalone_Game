@@ -10,5 +10,5 @@ package abalone;
 
 public enum FarbEnum {
 	WEISS,
-	SCHWARZ
+	SCHWARZ;
 }
