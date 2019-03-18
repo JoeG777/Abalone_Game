@@ -107,4 +107,26 @@ public class Spielfeld {
 		this.id = id;
 	}
 	
+	/**
+	 * Gibt das jeweilige, aktuelle Symbol des Spielfeldes zurück.
+	 * X entspricht Weiss, O entspricht Schwarz, - entspricht einem 
+	 * Feld, auf dem sich keine Figur befindet.
+	 * 
+	 * @param Spielfeld ein beliebiges Spielfeld
+	 * @return das jeweilige, aktuelle Symbol des Feldes als String.
+	 */
+	
+	public String getFeldSymbol() {
+		if(this.figur != null) {
+			if(this.figur.getFarbe() == FarbEnum.WEISS) {
+				return "X";
+			}
+			else {
+				return "O";
+			}
+		}
+
+		return "-";
+	}
+	
 }
