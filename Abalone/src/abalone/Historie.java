@@ -3,6 +3,7 @@ package abalone;
 public class Historie {
 
 	private String zuege = "";
+	private int zaehler = 1;
 	
 	/**
 	 * Konstruktor der Klasse Historie
@@ -17,7 +18,8 @@ public class Historie {
 	 * in die Historie nach Abschluss des Spielzuges
 	 */
 	public void spielzugHinzufuegen(Spielzug spielzug) {
-		zuege = zuege + spielzug.getSpielzugVon() + " - " 
+		zuege = zuege + zaehler + ". " + spielzug.getSpielzugVon() + " - " 
 				+ spielzug.getSpielzugNach() + "\n";
+		zaehler++;
 	}
 }
