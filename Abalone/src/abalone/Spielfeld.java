@@ -1,6 +1,6 @@
 /**
  * @author Gruppe A4
- * @version 1.2
+ * @version 1.4
  * 
  * Die Klasse Spielfeld erschafft ein Spielfeld-Objekt.
  * 
@@ -157,25 +157,47 @@ public class Spielfeld {
 		this.nachbarn = nachbarn;
 	}
 	
-	
+	/**
+	 * Befüllt das Nachbarn-Attribut mit existenten Nachbarn (Spielfeld-Objekten).
+	 * Position 0 enstpricht links, Position 1 entspricht oben-links,
+	 * Position 2 entspricht unten-links, Position 3 entspricht rechts,
+	 * Position 4 entspricht oben-rechts, Position 5 enstpricht unten-rechts.
+	 * Existiert kein solches Spielfeld, steht im Array null.
+	 * @since 1.3
+	 */
 	public void setzeNachbarn() {
 		if(brett == null) {
 			throw new RuntimeException("Es muss ein Brett geben");
 		}
 		
 		String[] potentielleNachbarn = findePotentielleNachbarn(this.id);
+		Spielfeld[] echteNachbarn = new Spielfeld[6];
 		
 		for(int i = 0; i < potentielleNachbarn.length; i++) {
-			if(!(this.brett.getBrett().containsKey(id))) {
-				potentielleNachbarn[i] = null;
+			if(this.brett.getBrett().containsKey(id)) {
+				echteNachbarn[i] = brett.getBrett().get(potentielleNachbarn[i]);
+			}
+			else {
+				echteNachbarn[i] = null;
 			}
 		}
+		
+		this.nachbarn = echteNachbarn;
 		
 		
 		
 		
 	}
-	
+	/**
+	 * Findet alle IDs die theoretisch um das Feld
+	 * mit der übergebenen ID liegen müssten, ohne zu
+	 * überprüfen, ob die IDs tatsächlich existieren.
+	 * 
+	 * @param id ID des Feldes dessen Nachbarn gesucht sind
+	 * @return String-Array der Größe 6 mit IDs der Nachbarfelder
+	 * 
+	 * @since 1.3
+	 */
 	private String[] findePotentielleNachbarn(String id) {
 		String[] nachbarn = new String[6];
 		char buchstabe = id.charAt(0);
