@@ -14,6 +14,7 @@ public class Spielfeld {
 	private String id;
 	private FarbEnum farbe;
 	private Spielfigur figur;
+	private Spielfeld[] nachbarn;
 	
 	
 	
@@ -24,7 +25,7 @@ public class Spielfeld {
 	 * @param farbe Die Farbe des Feldes.
 	 * @param figur Die Figur, die sich auf dem Feld befindet.
 	 * 
-	 * @version 1.0
+	 * @since 1.0
 	 */
 	public Spielfeld(Spielbrett brett, String id, FarbEnum farbe, Spielfigur figur) {
 		if(brett == null) {
@@ -133,6 +134,63 @@ public class Spielfeld {
 	}
 	
 	/**
+	 * Gibt das Nachbarn Attribut zurück.
+	 * @return Spielfeld-Array der Länge 6.
+	 * 
+	 * @since 1.3
+	 */
+	public Spielfeld[] getNachbarn() {
+		return this.nachbarn;
+	}
+	
+	/**
+	 * Setzt das Nachbarn Attribut. 
+	 * @param nachbarn Spielfeld-Array der Länge 6.
+	 * 
+	 * @since 1.3
+	 */
+	public void setNachbarn(Spielfeld[] nachbarn) {
+		if(nachbarn.length != 6) {
+			throw new RuntimeException("Das Nachbarn-Array muss eine Länge von 6 haben.");
+		}
+		
+		this.nachbarn = nachbarn;
+	}
+	
+	
+	public void setzeNachbarn() {
+		if(brett == null) {
+			throw new RuntimeException("Es muss ein Brett geben");
+		}
+		
+		String[] potentielleNachbarn = findePotentielleNachbarn(this.id);
+		
+		for(int i = 0; i < potentielleNachbarn.length; i++) {
+			if(!(this.brett.getBrett().containsKey(id))) {
+				potentielleNachbarn[i] = null;
+			}
+		}
+		
+		
+		
+		
+	}
+	
+	private String[] findePotentielleNachbarn(String id) {
+		String[] nachbarn = new String[6];
+		char buchstabe = id.charAt(0);
+		int zahl = Character.getNumericValue(id.charAt(1));
+		
+		nachbarn[0] = buchstabe + "" + (zahl-1);
+		nachbarn[1] = (buchstabe++) + "" + zahl;
+		nachbarn[2] = (buchstabe--) + "" + (zahl-1);
+		nachbarn[3] = buchstabe + "" + (zahl+1);
+		nachbarn[4] = (buchstabe++) + "" + (zahl+1);
+		nachbarn[5] = (buchstabe--) + "" + zahl;
+		
+		return nachbarn;
+	}
+	/**
 	 * Gibt das jeweilige, aktuelle Symbol des Spielfeldes zurück.
 	 * X entspricht Weiss, O entspricht Schwarz, - entspricht einem 
 	 * Feld, auf dem sich keine Figur befindet.
@@ -155,5 +213,7 @@ public class Spielfeld {
 
 		return "-";
 	}
+	
+	
 	
 }
