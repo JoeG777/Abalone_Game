@@ -11,7 +11,7 @@ public class Spielfigur {
 		setFarbe(farbe);
 	}
 	
-	public void setFarbe(FarbEnum farbe) {
+	public void setFarbe(FarbEnum farbe) { //Test
 		this.farbe = farbe;
 	}
 	

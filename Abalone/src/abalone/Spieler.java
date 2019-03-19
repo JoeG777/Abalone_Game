@@ -88,13 +88,13 @@ public class Spieler {
 		if (farbeZweiterSpieler == null) {
 			
 			switch (farbe) {
-			case WEISS:
-				farbeZweiterSpieler = FarbEnum.SCHWARZ;
-				this.farbe = farbe;
-				break;
 			case SCHWARZ:
-				farbeZweiterSpieler = FarbEnum.WEISS;
 				this.farbe = farbe;
+				farbeZweiterSpieler = FarbEnum.WEISS;
+				break;
+			case WEISS:
+				this.farbe = farbe;
+				farbeZweiterSpieler = FarbEnum.SCHWARZ;
 				break;
 			default:
 				throw new RuntimeException("Ungültige Farbe");
@@ -121,6 +121,7 @@ public class Spieler {
 	}
 	
 	/**
+	 * @param Vergleich Das Objekt, welches man vergleichen will
 	 * @return Wahrheitswert Ob zwei verglichene Objekte gleich
 	 * in ihren Attributen sind
 	 */
