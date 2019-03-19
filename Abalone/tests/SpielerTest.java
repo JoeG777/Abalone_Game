@@ -16,15 +16,18 @@ public class SpielerTest {
 	
 	@BeforeClass
 	public static void setUp() {
-		a = new Spieler("Johannes", FarbEnum.WEISS);
+		a = new Spieler("Johannes", FarbEnum.WEISS); 
 	}
 	
 	@Test
 	public void testGetFarbe() {
-		// Warum ist die Farbe nicht WEISS?
 		assertEquals(FarbEnum.WEISS, a.getFarbe());
 	}
-
+	
+	@Test
+	public void testSetFarbe() {
+		assertFalse(a.getFarbe() == new Spieler("Jens", FarbEnum.WEISS).getFarbe());
+	}
 	@Test
 	public void testSpielerID() {
 		assertEquals(1, a.getSpielerID());
@@ -36,8 +39,14 @@ public class SpielerTest {
 		assertFalse(a.equals(new Spieler("Johannes", FarbEnum.WEISS)));
 	}
 	
-		@Test
-	public void testSetFarbe() {
-		assertFalse(a.getFarbe() == new Spieler("Jens", FarbEnum.WEISS).getFarbe());
+	@Test
+	public void testToString() {
+		String s = "Spieler 1 mit dem Namen Johannes spielt die Farbe WEISS";
+		assertEquals(s, a.toString());
+	}
+	
+	@Test
+	public void testHashCode() {
+		assertTrue(a.hashCode() == 1);
 	}
 }
