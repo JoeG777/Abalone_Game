@@ -174,7 +174,7 @@ public class Spielfeld {
 		Spielfeld[] echteNachbarn = new Spielfeld[6];
 		
 		for(int i = 0; i < potentielleNachbarn.length; i++) {
-			if(this.brett.getBrett().containsKey(id)) {
+			if(this.brett.getBrett().containsKey(potentielleNachbarn[i])) {
 				echteNachbarn[i] = brett.getBrett().get(potentielleNachbarn[i]);
 			}
 			else {
@@ -204,12 +204,13 @@ public class Spielfeld {
 		int zahl = Character.getNumericValue(id.charAt(1));
 		
 		nachbarn[0] = buchstabe + "" + (zahl-1);
-		nachbarn[1] = (buchstabe++) + "" + zahl;
-		nachbarn[2] = (buchstabe--) + "" + (zahl-1);
+		nachbarn[1] = ((char)(buchstabe+1)) + "" + zahl;
+		nachbarn[2] = ((char)(buchstabe-1)) + "" + (zahl-1);
 		nachbarn[3] = buchstabe + "" + (zahl+1);
-		nachbarn[4] = (buchstabe++) + "" + (zahl+1);
-		nachbarn[5] = (buchstabe--) + "" + zahl;
+		nachbarn[4] = ((char)(buchstabe+1)) + "" + (zahl+1);
+		nachbarn[5] = ((char)(buchstabe-1)) + "" + zahl;
 		
+
 		return nachbarn;
 	}
 	/**
