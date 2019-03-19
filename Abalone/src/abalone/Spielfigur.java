@@ -4,7 +4,10 @@ public class Spielfigur {
 
 	private FarbEnum farbe;
 	
-	public Spielfigur(FarbEnum farbe) {
+	public Spielfigur(Spielfeld brett, FarbEnum farbe) {
+		if (brett == null) {
+			throw new RuntimeException("Es existiert kein Brett");
+		}
 		setFarbe(farbe);
 	}
 	
