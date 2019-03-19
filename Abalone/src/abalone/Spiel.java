@@ -37,7 +37,7 @@ public class Spiel {
 			FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
 		//spielerImSpiel[1];
 		}else {
-			throw new IllegalArgumentException("Unbekannte farbe :" + farbe);
+			throw new IllegalArgumentException("Farbe nicht waehlbar" + farbe);
 		}
 		
 	}
@@ -272,6 +272,6 @@ public class Spiel {
 		if(!koordinatenValidieren(geparsterZug)) {
 			return false;
 		}
-		
+		return true;
 	}
 }
