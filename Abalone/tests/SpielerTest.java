@@ -10,7 +10,7 @@ import abalone.Spieler;
 public class SpielerTest {
 
 	Spieler a;
-	Spieler b;
+	Spieler b; //KommentarTest
 	
 	@Before
 	public void setUp() {
