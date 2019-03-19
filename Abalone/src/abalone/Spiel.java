@@ -148,7 +148,43 @@ public class Spiel {
 	 * @return true oder false in Abhaengigkeit der Validitaet eines Zuges.
 	 * @since 1.1
 	 */
-	public boolean koordinatenValidieren (char[][] geparsterZug) {
+	
+	public boolean koordinatenValidieren(String[] zug) {
+		String[] vonArray;
+		String[] bisArray;
+		Spielfeld[] vonSpielfeldern;
+		Spielfeld[] zuSpielfeld;
+		if(zug[0].length() == 1){
+			vonArray = new String[1];
+			vonArray[0] = zug[0];
+			vonSpielfeldern = new Spielfeld[1];
+		}else if(zug[0].length() ==4) {
+			vonArray = new String[2];
+			vonArray[0] = zug[0].substring(0,1);
+			vonArray[1] = zug[1].substring(2,3);
+			vonSpielfeldern = new Spielfeld[2];
+		}else {
+			return false;
+		}
+		if(zug[1].length() != 2) {
+			return false;
+		}else {
+			bisArray = new String[1];
+			bisArray[0] = zug[1];
+			zuSpielfeld = new Spielfeld[1];
+		}
+		for(int i = 0; i < vonArray.length; i++ ){
+			vonSpielfeldern[i] = spielBrett.getSpielFeld(vonArray[i]);
+		}
+		for(int i = 0; i < bisArray.length; i++ ){
+			zuSpielfeld[i] = spielBrett.getSpielFeld(bisArray[i]);
+		}
+		
+		
+		
+	}
+	
+	public boolean koordinatenValidierenOld (char[][] geparsterZug) {
 		//Pruefen ob die angegebenen Chars auch auf dem Spielbrett existieren
 		int buchstabenKoordinaten = 0;
 		int zahlenKoordinaten = 0;

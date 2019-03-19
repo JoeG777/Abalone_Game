@@ -1,7 +1,6 @@
 /**
  * @author Gruppe A4
- * @version 1.2
- * 
+ * @version 1.3 * 
  * Die Klasse Spielbrett erschafft ein Abalone Spielbrett 
  * auf Basis einer Hash Map.
  * Sie bietet Methoden, um auf verschiedene Spielfelder zuzugreifen oder
@@ -246,6 +245,96 @@ public class Spielbrett {
 			weiss.setFigur(new Spielfigur(weiss, FarbEnum.WEISS));
 			Spielfeld schwarz = brett.get(idSchwarz);
 			schwarz.setFigur(new Spielfigur(schwarz, FarbEnum.SCHWARZ));
+		}
+	}
+	
+	/**
+	 * Diese Methode Parst einen Spielzug zu einem Char Array zur weiteren 
+	 * Verarbeitung
+	 * @param zug Ein String von wo gezogen wird und ein String wohin gezogen wird.
+	 * @return ein zweidimensionales char Array, welches den Zug in chars 
+	 * aufteilt
+	 * @since 1.3
+	 */
+	 public char[][] spielzugParser(String zugVon, String zugNach) {
+		char[][] geparsterZug = new char[2][];
+		if(zugNach.length() < 2) {
+			throw new IllegalArgumentException(
+					  "Ungueltige laenge: " + zugNach.length()
+					  );
+		}
+		if(zugVon.length() != 4 || zugVon.length() != 2) {
+			throw new IllegalArgumentException( 
+					"Ungueltige zuglaenge: " + zugVon.length()
+					);
+		}
+		
+		//Ausgangskoordinaten anlegen)
+		char[] ausgangsPunkt = new char[zugVon.length()];
+		//Erste Koordinate
+		char buchstabe1 = zugVon.charAt(0);
+		char zahl1 = zugVon.charAt(1);
+		ausgangsPunkt[0] = buchstabe1;
+		ausgangsPunkt[1] = zahl1;
+			
+		if(zugVon.length() == 4) {
+			//Zweite Koordinate
+			char buchstabe2 = zugVon.charAt(2);
+			char zahl2 = zugVon.charAt(3);
+			ausgangsPunkt[2] = buchstabe2;
+			ausgangsPunkt[3] = zahl2;
+		}
+		geparsterZug[0] = ausgangsPunkt;
+		//Zielkoordinate anlegen
+		char[] zielPunkt = new char[2];
+		char buchstabe = zugNach.charAt(0);
+		char zahl = (zugNach.charAt(1));
+		zielPunkt[0] = buchstabe;
+		zielPunkt[1] = zahl;
+		geparsterZug[1] = zielPunkt;
+		return geparsterZug;
+		
+	}
+	 
+	 /**
+	  * Checkt, in welche Richtung ein Zug geht.
+	  * 0 = Links
+	  * 1 = Oben Links
+	  * 2 = Unten Links
+	  * 3 = rechts
+	  * 4 = Oben Rechts
+	  * 5 = Unten Rechts
+	  * @param geparsterZug den Zug als zweidimensionals Char Array
+	  * @return den Index des Objektes, in dessen Richtung gezogen wird
+	  * @since 1.3
+	  */
+	 public int bekommeRichtung(char[][] geparsterZug) {
+		int zahlenKoordinaten = geparsterZug[0][3] - geparsterZug[1][1];
+		int buchstabenKoordinaten = geparsterZug[0][2]-geparsterZug[1][0];
+		switch(buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
+			case 0: if(zahlenKoordinaten == -1)
+						return 3;
+		
+			case -1: if(zahlenKoordinaten == -1) 
+						return 4;
+		
+			case 1: if(zahlenKoordinaten == 0)
+						return 5;
+		
+			default:  
+		}
+		zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
+		buchstabenKoordinaten = geparsterZug[0][0]-geparsterZug[1][0];
+		switch(buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
+			case 0: if(zahlenKoordinaten == -1)
+					return 0;
+			case -1: if(zahlenKoordinaten == 0)
+					return 1;
+		
+			case 1: if(zahlenKoordinaten == 1);
+					return 2;
+		
+			default: throw new IllegalArgumentException("Invalid Argument");
 		}
 	}
 
