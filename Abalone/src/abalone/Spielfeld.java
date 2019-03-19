@@ -1,3 +1,12 @@
+/**
+ * @author Gruppe A4
+ * @version 1.2
+ * 
+ * Die Klasse Spielfeld erschafft ein Spielfeld-Objekt.
+ * 
+ * 
+ */
+
 package abalone;
 
 public class Spielfeld {
@@ -14,6 +23,8 @@ public class Spielfeld {
 	 * @param id Die ID des Feldes in Abalone-Notation.
 	 * @param farbe Die Farbe des Feldes.
 	 * @param figur Die Figur, die sich auf dem Feld befindet.
+	 * 
+	 * @version 1.0
 	 */
 	public Spielfeld(Spielbrett brett, String id, FarbEnum farbe, Spielfigur figur) {
 		if(brett == null) {
@@ -31,6 +42,8 @@ public class Spielfeld {
 	 * null.
 	 * @param brett Ein Spielbrett-Objekt (muss zur Erzeugung existieren).
 	 * @param id Die ID des Feldes in Abalone-Notation.
+	 * 
+	 * @since 1.0
 	 */
 	public Spielfeld(Spielbrett brett, String id) {
 		if(brett == null) {
@@ -45,6 +58,8 @@ public class Spielfeld {
 	/**
 	 * Gibt das Brett-Attribut zurück.
 	 * @return Ein Spielbrett-Objekt.
+	 * 
+	 * @since 1.0
 	 */
 	public Spielbrett getBrett() {
 		return this.brett;
@@ -53,6 +68,8 @@ public class Spielfeld {
 	/**
 	 * Setzt das Brett-Attribut.
 	 * @param brett 
+	 * 
+	 * @since 1.0
 	 */
 	public void setBrett(Spielbrett brett) {
 		this.brett = brett;
@@ -61,6 +78,8 @@ public class Spielfeld {
 	/**
 	 * Gibt die Figur des Spielfeldes zurück.
 	 * @return Ein Spielfigur-Objekt. 
+	 * 
+	 * @since 1.0
 	 */
 	public Spielfigur getFigur() {
 		return this.figur;
@@ -69,6 +88,8 @@ public class Spielfeld {
 	/**
 	 * Setzt eine Figur auf das Feld.
 	 * @param figur Ein Spielfigur-Objekt. 
+	 * 
+	 * @since 1.0
 	 */
 	public void setFigur(Spielfigur figur) {
 		this.figur = figur;
@@ -93,6 +114,8 @@ public class Spielfeld {
 	/**
 	 * Gibt die ID des Spielfeldes zurück.
 	 * @return Die ID des Spielfeldes.
+	 * 
+	 * @since 1.0
 	 */
 	public String getId() {
 		return this.id;
@@ -101,6 +124,8 @@ public class Spielfeld {
 	/**
 	 * Setzt die ID des Spielfeldes.
 	 * @param id Eine ID als String.
+	 * 
+	 * @since 1.0
 	 */
 	
 	public void setId(String id) {
@@ -114,6 +139,8 @@ public class Spielfeld {
 	 * 
 	 * @param Spielfeld ein beliebiges Spielfeld
 	 * @return das jeweilige, aktuelle Symbol des Feldes als String.
+	 * 
+	 * @since 1.2
 	 */
 	
 	public String getFeldSymbol() {
