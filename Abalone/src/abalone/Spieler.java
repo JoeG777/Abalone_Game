@@ -9,7 +9,7 @@ package abalone;
 public class Spieler {
 
 	private String name;
-	private FarbEnum farbe;
+	private FarbEnum farbe; 
 	private static FarbEnum farbeZweiterSpieler;
 	/*wird ein Spieler mit einer farbe erzeugt
 	 MUSS der andere Spieler die andere Farbe benutzen
