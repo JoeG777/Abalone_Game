@@ -139,7 +139,7 @@ public class Spiel {
 	 * @return true oder false in Abhaengigkeit der Validitaet eines Zuges.
 	 * @since 1.1
 	 */
-	private boolean koordinatenValidieren (char[][] geparsterZug) {
+	public boolean koordinatenValidieren (char[][] geparsterZug) {
 		//Pruefen ob die angegebenen Chars auch auf dem Spielbrett existieren
 		int buchstabenKoordinaten = 0;
 		int zahlenKoordinaten = 0;

@@ -11,9 +11,11 @@ public class SpielTest {
 	public void setUp() {
 		spiel = new Spiel();
 	}
-	@Test
-	public void test1() {
 	
+	@Test
+	public void testKoordinatenValidieren() {
+		char[][] geparsterZug = {{'G', '5'}, {'G', '6'}};
+		assertEquals(true, spiel.koordinatenValidieren(geparsterZug));
 	}
 
 }
