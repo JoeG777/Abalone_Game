@@ -10,12 +10,12 @@ import abalone.Spieler;
 public class SpielerTest {
 
 	
-	static Spieler a;
+	Spieler a;
 	FarbEnum farbe;
 	String name;
 	
 	@BeforeClass
-	public static void setUp() {
+	public void setUp() {
 		a = new Spieler("Johannes", FarbEnum.WEISS);
 	}
 	

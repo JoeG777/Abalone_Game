@@ -64,10 +64,8 @@ public class Spiel {
 	 * @since 1.0
 	 */
 	public void ziehe(String[] zug) {
-		if(spielzugValidieren(zug)) {
-			Spielzug spielzug = new Spielzug(zug[0], zug[1]);
-		
-			spielBrett.ziehe(spielzug);
+		Spielzug spielzug = new Spielzug(zug[0], zug[1]);
+		if(spielBrett.ziehe(spielzug)) {
 			historie.spielzugHinzufuegen(spielzug);
 			if(spielerAmZug.getFarbe() == spielerImSpiel[0].getFarbe()) {
 				spielerAmZug = spielerImSpiel[1];
@@ -114,7 +112,7 @@ public class Spiel {
 					);
 		}
 		
-		//Ausgangskoordinate(n) anlege(n)
+		//Ausgangskoordinaten anlege(n)
 		char[] ausgangsPunkt = new char[zug[0].length()];
 		//Erste Koordinate
 		char buchstabe1 = zug[0].charAt(0);
@@ -180,6 +178,9 @@ public class Spiel {
 			zuSpielfeld[i] = spielBrett.getSpielFeld(bisArray[i]);
 		}
 		
+		if(Spielfeld[0].istNachbar(zuSpielfeld[0])) {
+			
+		}
 		
 		
 	}
