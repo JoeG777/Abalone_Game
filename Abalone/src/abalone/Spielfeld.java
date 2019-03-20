@@ -17,7 +17,6 @@ public class Spielfeld {
 	private Spielfeld[] nachbarn;
 	
 	
-	
 	/**
 	 * Erzeugt ein neues Spielfeld-Objekt.
 	 * @param brett Ein Spielbrett-Objekt (muss zur Erzeugung existieren).
@@ -143,6 +142,12 @@ public class Spielfeld {
 		return this.nachbarn;
 	}
 	
+	public Spielfeld getNachbar(int richtung) {
+		if(richtung >= 0 && richtung < 6)
+			return this.nachbarn[richtung];
+		return null;
+	}
+	
 	/**
 	 * Setzt das Nachbarn Attribut. 
 	 * @param nachbarn Spielfeld-Array der Länge 6.
@@ -198,7 +203,7 @@ public class Spielfeld {
 	 * 
 	 * @since 1.3
 	 */
-	private String[] findePotentielleNachbarn(String id) {
+	public String[] findePotentielleNachbarn(String id) {
 		String[] nachbarn = new String[6];
 		char buchstabe = id.charAt(0);
 		int zahl = Character.getNumericValue(id.charAt(1));
@@ -237,6 +242,19 @@ public class Spielfeld {
 		return "-";
 	}
 	
+	public boolean hatNachbar(String feld) {
+		for(int i = 0; i < this.nachbarn.length; i++) {
+			if(nachbarn[i] != null && feld.equals(nachbarn[i].getId()))
+				return true;
+		}
+		return false;
+	}
 	
+	public int getNachbarId(Spielfeld feld) {
+		for(int i = 0; i < nachbarn.length; i++) {
+			if(feld.getId().equals(nachbarn[i].getId()))
+				return i;
+		}
+	}
 	
 }
