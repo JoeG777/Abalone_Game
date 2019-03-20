@@ -1,6 +1,6 @@
 /**
  * @author Gruppe A4
- * @version 1.3 * 
+ * @version 1.4  
  * Die Klasse Spielbrett erschafft ein Abalone Spielbrett 
  * auf Basis einer Hash Map.
  * Sie bietet Methoden, um auf verschiedene Spielfelder zuzugreifen oder
@@ -39,7 +39,7 @@ public class Spielbrett {
 	 */
 	public String[][] spielzugZerleger(String[] spielzug) {
 		String[][] geparsterZug= new String[1][2];
-		
+
 		if (spielzug[0].length() == 2 ) {
 			geparsterZug[0][0] = spielzug[0];
 		} else if (spielzug[0].length() == 4) {
@@ -60,7 +60,7 @@ public class Spielbrett {
 				}
 			}
 		}
-		
+
 		return geparsterZug;
 	}
 
@@ -219,7 +219,7 @@ public class Spielbrett {
 		Spielfeld feld = new Spielfeld(this, key);
 		brett.put(key, feld);
 	}
-	
+
 	/**
 	 * Stellt die Abalone Standard-Startposition auf.
 	 * 
@@ -230,8 +230,8 @@ public class Spielbrett {
 		stelleVordereSteineAuf();
 	}
 
-	
-	
+
+
 	/**
 	 * Stellt auf jedem Spielfeld in Querzeile A, B, H, I
 	 * eine Figur auf. 
@@ -259,9 +259,9 @@ public class Spielbrett {
 			}
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Stellt die vorderen drei Steine (der Startposition)
 	 * beider Seiten auf.
@@ -279,7 +279,8 @@ public class Spielbrett {
 			schwarz.setFigur(new Spielfigur(schwarz, FarbEnum.SCHWARZ));
 		}
 	}
-	
+
+
 	/**
 	 * Diese Methode Parst einen Spielzug zu einem Char Array zur weiteren 
 	 * Verarbeitung
@@ -288,19 +289,19 @@ public class Spielbrett {
 	 * aufteilt
 	 * @since 1.3
 	 */
-	 public char[][] spielzugParser(String zugVon, String zugNach) {
+	public char[][] spielzugParser(String zugVon, String zugNach) {
 		char[][] geparsterZug = new char[2][];
 		if(zugNach.length() < 2) {
 			throw new IllegalArgumentException(
-					  "Ungueltige laenge: " + zugNach.length()
-					  );
+					"Ungueltige laenge: " + zugNach.length()
+					);
 		}
 		if(zugVon.length() != 4 || zugVon.length() != 2) {
 			throw new IllegalArgumentException( 
 					"Ungueltige zuglaenge: " + zugVon.length()
 					);
 		}
-		
+
 		//Ausgangskoordinaten anlegen)
 		char[] ausgangsPunkt = new char[zugVon.length()];
 		//Erste Koordinate
@@ -308,7 +309,7 @@ public class Spielbrett {
 		char zahl1 = zugVon.charAt(1);
 		ausgangsPunkt[0] = buchstabe1;
 		ausgangsPunkt[1] = zahl1;
-			
+
 		if(zugVon.length() == 4) {
 			//Zweite Koordinate
 			char buchstabe2 = zugVon.charAt(2);
@@ -325,49 +326,60 @@ public class Spielbrett {
 		zielPunkt[1] = zahl;
 		geparsterZug[1] = zielPunkt;
 		return geparsterZug;
-		
+
 	}
-	 
-	 /**
-	  * Checkt, in welche Richtung ein Zug geht.
-	  * 0 = Links
-	  * 1 = Oben Links
-	  * 2 = Unten Links
-	  * 3 = rechts
-	  * 4 = Oben Rechts
-	  * 5 = Unten Rechts
-	  * @param geparsterZug den Zug als zweidimensionals Char Array
-	  * @return den Index des Objektes, in dessen Richtung gezogen wird
-	  * @since 1.3
-	  */
-	 public int bekommeRichtung(char[][] geparsterZug) {
+
+	/**
+	 * Checkt, in welche Richtung ein Zug geht.
+	 * 0 = Links
+	 * 1 = Oben Links
+	 * 2 = Unten Links
+	 * 3 = rechts
+	 * 4 = Oben Rechts
+	 * 5 = Unten Rechts
+	 * @param geparsterZug den Zug als zweidimensionals Char Array
+	 * @return den Index des Objektes, in dessen Richtung gezogen wird
+	 * @since 1.3
+	 */
+	public int bekommeRichtung(char[][] geparsterZug) {
 		int zahlenKoordinaten = geparsterZug[0][3] - geparsterZug[1][1];
 		int buchstabenKoordinaten = geparsterZug[0][2]-geparsterZug[1][0];
 		switch(buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
-			case 0: if(zahlenKoordinaten == -1)
-						return 3;
-		
-			case -1: if(zahlenKoordinaten == -1) 
-						return 4;
-		
-			case 1: if(zahlenKoordinaten == 0)
-						return 5;
-		
-			default:  
+		case 0: if(zahlenKoordinaten == -1)
+			return 3;
+
+		case -1: if(zahlenKoordinaten == -1) 
+			return 4;
+
+		case 1: if(zahlenKoordinaten == 0)
+			return 5;
+
+		default:  
 		}
 		zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
 		buchstabenKoordinaten = geparsterZug[0][0]-geparsterZug[1][0];
 		switch(buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
-			case 0: if(zahlenKoordinaten == -1)
-					return 0;
-			case -1: if(zahlenKoordinaten == 0)
-					return 1;
-		
-			case 1: if(zahlenKoordinaten == 1);
-					return 2;
-		
-			default: throw new IllegalArgumentException("Invalid Argument");
+		case 0: if(zahlenKoordinaten == -1)
+			return 0;
+		case -1: if(zahlenKoordinaten == 0)
+			return 1;
+
+		case 1: if(zahlenKoordinaten == 1);
+		return 2;
+
+		default: throw new IllegalArgumentException("Invalid Argument");
 		}
 	}
+	
+	/**
+	 * Bewegt eine Figur von einem Feld auf ein anderes, 
+	 * ohne dabei zu überprüfen, ob dies "logisch" möglich ist. 
+	 * @param von das Feld auf dem sich die Figur befindet.
+	 * @param auf das Feld auf das die Figur bewegt werden soll. 
+	 */
+	public void bewegeFigur(String von, String auf) {
 
+		brett.get(auf).setFigur(brett.get(von).getFigur());;
+		brett.get(von).setFigur(null);
+	}
 }
