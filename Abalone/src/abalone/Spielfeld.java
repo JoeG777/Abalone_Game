@@ -1,6 +1,6 @@
 /**
  * @author Gruppe A4
- * @version 1.2
+ * @version 1.4
  * 
  * Die Klasse Spielfeld erschafft ein Spielfeld-Objekt.
  * 
@@ -14,6 +14,7 @@ public class Spielfeld {
 	private String id;
 	private FarbEnum farbe;
 	private Spielfigur figur;
+	private Spielfeld[] nachbarn;
 	
 	
 	
@@ -24,7 +25,7 @@ public class Spielfeld {
 	 * @param farbe Die Farbe des Feldes.
 	 * @param figur Die Figur, die sich auf dem Feld befindet.
 	 * 
-	 * @version 1.0
+	 * @since 1.0
 	 */
 	public Spielfeld(Spielbrett brett, String id, FarbEnum farbe, Spielfigur figur) {
 		if(brett == null) {
@@ -133,6 +134,86 @@ public class Spielfeld {
 	}
 	
 	/**
+	 * Gibt das Nachbarn Attribut zurück.
+	 * @return Spielfeld-Array der Länge 6.
+	 * 
+	 * @since 1.3
+	 */
+	public Spielfeld[] getNachbarn() {
+		return this.nachbarn;
+	}
+	
+	/**
+	 * Setzt das Nachbarn Attribut. 
+	 * @param nachbarn Spielfeld-Array der Länge 6.
+	 * 
+	 * @since 1.3
+	 */
+	public void setNachbarn(Spielfeld[] nachbarn) {
+		if(nachbarn.length != 6) {
+			throw new RuntimeException("Das Nachbarn-Array muss eine Länge von 6 haben.");
+		}
+		
+		this.nachbarn = nachbarn;
+	}
+	
+	/**
+	 * Befüllt das Nachbarn-Attribut mit existenten Nachbarn (Spielfeld-Objekten).
+	 * Position 0 enstpricht links, Position 1 entspricht oben-links,
+	 * Position 2 entspricht unten-links, Position 3 entspricht rechts,
+	 * Position 4 entspricht oben-rechts, Position 5 enstpricht unten-rechts.
+	 * Existiert kein solches Spielfeld, steht im Array null.
+	 * @since 1.3
+	 */
+	public void setzeNachbarn() {
+		if(brett == null) {
+			throw new RuntimeException("Es muss ein Brett geben");
+		}
+		
+		String[] potentielleNachbarn = findePotentielleNachbarn(this.id);
+		Spielfeld[] echteNachbarn = new Spielfeld[6];
+		
+		for(int i = 0; i < potentielleNachbarn.length; i++) {
+			if(this.brett.getBrett().containsKey(potentielleNachbarn[i])) {
+				echteNachbarn[i] = brett.getBrett().get(potentielleNachbarn[i]);
+			}
+			else {
+				echteNachbarn[i] = null;
+			}
+		}
+		
+		this.nachbarn = echteNachbarn;
+		
+		
+		
+		
+	}
+	/**
+	 * Findet alle IDs die theoretisch um das Feld
+	 * mit der übergebenen ID liegen müssten, ohne zu
+	 * überprüfen, ob die IDs tatsächlich existieren.
+	 * 
+	 * @param id ID des Feldes dessen Nachbarn gesucht sind
+	 * @return String-Array der Größe 6 mit IDs der Nachbarfelder
+	 * 
+	 * @since 1.3
+	 */
+	private String[] findePotentielleNachbarn(String id) {
+		String[] nachbarn = new String[6];
+		char buchstabe = id.charAt(0);
+		int zahl = Character.getNumericValue(id.charAt(1));
+		
+		nachbarn[0] = buchstabe + "" + (zahl-1);
+		nachbarn[1] = ((char)(buchstabe+1)) + "" + zahl;
+		nachbarn[2] = ((char)(buchstabe-1)) + "" + (zahl-1);
+		nachbarn[3] = buchstabe + "" + (zahl+1);
+		nachbarn[4] = ((char)(buchstabe+1)) + "" + (zahl+1);
+		nachbarn[5] = ((char)(buchstabe-1)) + "" + zahl;
+		
+
+		return nachbarn;
+	}
+	/**
 	 * Gibt das jeweilige, aktuelle Symbol des Spielfeldes zurück.
 	 * X entspricht Weiss, O entspricht Schwarz, - entspricht einem 
 	 * Feld, auf dem sich keine Figur befindet.
@@ -155,5 +236,7 @@ public class Spielfeld {
 
 		return "-";
 	}
+	
+	
 	
 }

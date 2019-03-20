@@ -9,13 +9,8 @@ package abalone;
 public class Spieler {
 
 	private String name;
-	private FarbEnum farbe; 
+	private FarbEnum farbe;
 	private static FarbEnum farbeZweiterSpieler;
-	/*wird ein Spieler mit einer farbe erzeugt
-	 MUSS der andere Spieler die andere Farbe benutzen
-
-	 */
-	
 	private int spielerID;
 	private static int anzahlSpieler = 0;
 	
@@ -108,7 +103,7 @@ public class Spieler {
 	@Override
 	public String toString() {
 		return "Spieler " + this.getSpielerID()
-		+ "mit dem Namen " + this.getName() + "spielt die Farbe "
+		+ " mit dem Namen " + this.getName() + " spielt die Farbe "
 		+ this.getFarbe().name();
 		}
 	
