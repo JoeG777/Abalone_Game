@@ -373,6 +373,15 @@ public class Spiel {
 
 		}
 	}
+	
+	/**
+	 * Prueft, ob die Farbe der bewegten Figuren mit der Farbe des Spielers 
+	 * uebereinstimmt.
+	 * 
+	 * @param spielfelder als Spielfeld-Array.
+	 * @param spielerAmZug als Spieler Objekt.
+	 * @return true oder false in Abhaengigkeit der Farbenuebereinstimmung.
+	 */
 	public boolean sindEigeneFiguren(Spielfeld [] spielfelder, 
 			Spieler spielerAmZug) {
 
