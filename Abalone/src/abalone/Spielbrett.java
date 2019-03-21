@@ -347,11 +347,13 @@ public class Spielbrett {
 	 * @return den Index des Objektes, in dessen Richtung gezogen wird
 	 * @since 1.3
 	 */
-	 public int bekommeRichtung(String[] zug) {
-		 if(zug[0].length() == 4) {
-			 Spielfeld feld1 = brett.get(zug[0].substring(0,2));
-			 Spielfeld feld2 = brett.get(zug[0].substring(2,4));
-			 Spielfeld ziel = brett.get(zug[1]);
+	 public int bekommeRichtung(Spielzug zug) {
+		 String zugVon = zug.getSpielzugVon();
+		 String zugNach = zug.getSpielzugNach();
+		 if(zugVon.length() == 4) {
+			 Spielfeld feld1 = brett.get(zugVon.substring(0,2));
+			 Spielfeld feld2 = brett.get(zugVon.substring(2,4));
+			 Spielfeld ziel = brett.get(zugNach);
 		 	 boolean flagFeld1 = feld1.hatNachbar(ziel.getId());
 		 	 boolean flagFeld2 = feld2.hatNachbar(ziel.getId());
 		 	 if(flagFeld1 && !flagFeld2) {
@@ -361,9 +363,9 @@ public class Spielbrett {
 		 		 return feld2.getNachbarId(ziel);
 		    }
 		 }	
-		 if(zug[0].length() == 2) {
-			 Spielfeld feld1 = brett.get(zug[0].substring(0,2));
-			 Spielfeld ziel = brett.get(zug[1]);
+		 if(zugVon.length() == 2) {
+			 Spielfeld feld1 = brett.get(zugVon.substring(0,2));
+			 Spielfeld ziel = brett.get(zugNach);
 			 if(feld1.hatNachbar(ziel.getId()))
 				 return feld1.getNachbarId(ziel);
 		 }

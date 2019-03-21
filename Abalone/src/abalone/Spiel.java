@@ -341,37 +341,54 @@ public class Spiel {
 		return true;
 	}
 
-	public Spielfeld[] getFelderZuZiehen(String[] zug) {
-		Spielfeld[] spielFelder;
-		Spielfeld feld1 = spielBrett.getFeld(zug[0].substring(0, 2));
+	public Spielfeld[] getFelderZuZiehen(Spielzug zug) {
+		Spielfeld[] spielFelder = null;
+		String zugVon = zug.getSpielzugVon();
+		String zugNach = zug.getSpielzugNach();
+		Spielfeld feld1 = spielBrett.getFeld(zugVon.substring(0, 2));
 		int richtung = spielBrett.bekommeRichtung(zug);
-		if (zug[0].length() == 2) {
+		if (zugVon.length() == 2) {
 			spielFelder = new Spielfeld[1];
 			spielFelder[0] = feld1;
 			return spielFelder;
 		} else {
-			if (feld1.hatNachbar(zug[0].substring(2, 4))) {
+			if (feld1.hatNachbar(zugVon.substring(2, 4))) {
 				spielFelder = new Spielfeld[2];
 				spielFelder[0] = feld1;
-				spielFelder[0] = spielBrett.getFeld(zug[0].substring(2, 4));
+				spielFelder[0] = spielBrett.getFeld(zugVon.substring(2, 4));
 				return spielFelder;
 			}
-			Spielfeld feld3 = spielBrett.getFeld(zug[0].substring(2, 4));
-			Spielfeld[] nachbarn = feld1.getNachbarn();
-			if (nachbarn[richtung].hatNachbar(feld3.getId())) {
-				Spielfeld moeglicherNachbar = spielBrett.getFeld(nachbarn[richtung].getId());
-				if(moeglicherNachbar != null && feld1.hatNachbar(moeglicherNachbar.getId()) && feld3.hatNachbar(moeglicherNachbar.getId())) {
-					spielFelder = new Spielfeld[3];
-					spielFelder[0] = feld1;
-					spielFelder[1] = spielBrett.getFeld(moeglicherNachbar.getId());
-					spielFelder[2] = feld3;
-				    return spielFelder;
-					
+			Spielfeld feld3 = spielBrett.getFeld(zugVon.substring(2, 4));
+			if(richtung >= 3 && richtung <= 5 ) {
+				Spielfeld[] nachbarn = feld1.getNachbarn();
+				if (nachbarn[richtung].hatNachbar(feld3.getId())) {
+					Spielfeld moeglicherNachbar = spielBrett.getFeld(nachbarn[richtung].getId());
+					if(moeglicherNachbar != null && feld1.hatNachbar(moeglicherNachbar.getId()) && feld3.hatNachbar(moeglicherNachbar.getId())) {
+						spielFelder = new Spielfeld[3];
+						spielFelder[0] = feld1;
+						spielFelder[1] = spielBrett.getFeld(moeglicherNachbar.getId());
+						spielFelder[2] = feld3;
+					    return spielFelder;
+						
+					}
 				}
 			}
-			return null;
-
+			Spielfeld[] nachbarn = feld3.getNachbarn();
+			Spielfeld moeglicherNachbar = spielBrett.getFeld(nachbarn[richtung].getId());
+			if(richtung < 3 && richtung >= 0 ) {
+				if (nachbarn[richtung].hatNachbar(feld1.getId())) {
+					if(moeglicherNachbar != null && feld1.hatNachbar(moeglicherNachbar.getId()) && feld3.hatNachbar(moeglicherNachbar.getId())) {
+						spielFelder = new Spielfeld[3];
+						spielFelder[0] = feld1;
+						spielFelder[1] = spielBrett.getFeld(moeglicherNachbar.getId());
+						spielFelder[2] = feld3;
+						return spielFelder;
+					
+					}
+				}
+			}
 		}
+		return spielFelder;
 	}
 	public boolean sindEigeneFiguren(Spielfeld [] spielfelder, 
 			Spieler spielerAmZug) {
