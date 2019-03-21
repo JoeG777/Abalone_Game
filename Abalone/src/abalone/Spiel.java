@@ -19,6 +19,10 @@ public class Spiel {
 	public Spiel() {
 		spielBrett = new Spielbrett();
 	}
+	
+	public Spieler[] getSpielerImSpiel() {
+		return spielerImSpiel;
+	}
 
 	public Spielbrett getBrett() {
 		return this.spielBrett;
@@ -69,32 +73,16 @@ public class Spiel {
 	 * @return Wahrheitswert Ob der übergebene Spieler gewonnen hat
 	 */
 	public boolean hatGewonnen(String name) {
-		Spieler[] spielerArr = getSpieler();
-
-		for (int i = 0; i < spielerArr.length; i++) {
-			if (name.equals(spielerArr[i].getName())) {
-				if (spielerArr[i].getFarbe() == FarbEnum.WEISS) {
-					// Regel: Gewonen bei 6 rausgeschmissenen Kugeln
-					if (8 >= getFarbigeFelder(FarbEnum.SCHWARZ)) {
-						return true;
-					}
-				} else {
-					if (8 >= getFarbigeFelder(FarbEnum.WEISS)) {
-						return true;
-					}
+		Spieler[] spielerArr = getSpielerImSpiel();
+		
+		for(int i = 0; i<spielerArr.length; i++) {
+			if (spielerArr[i].getName().equals(name)) {
+				if (spielerArr[i].getEliminierteKugeln()>= 6) {
+					return true;
 				}
 			}
 		}
-	}
-
-	/**
-	 * Überprüft, wie viele Figuren es noch von dieser Farbe gibt
-	 * 
-	 * @param farbe
-	 * @return Anzahl der Felder von der übergebenen Farbe
-	 */
-	public int getFarbigeFelder(FarbEnum farbe) {
-		return 0;
+		return false;
 	}
 
 	/**
@@ -384,5 +372,18 @@ public class Spiel {
 			return null;
 
 		}
+	}
+	public boolean sindEigeneFiguren(Spielfeld [] spielfelder, 
+			Spieler spielerAmZug) {
+
+		for (int i = 0; i < spielfelder.length; i++) {
+
+			if (spielfelder[i] == null ||
+				spielfelder[i].getFigur().getFarbe() != spielerAmZug.getFarbe()) 
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 }

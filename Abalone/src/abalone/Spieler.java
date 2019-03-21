@@ -10,8 +10,10 @@ public class Spieler {
 
 	private String name;
 	private FarbEnum farbe;
-	private static FarbEnum farbeZweiterSpieler;
 	private int spielerID;
+	private int eliminierteKugeln = 0;
+	
+	private static FarbEnum farbeZweiterSpieler;
 	private static int anzahlSpieler = 0;
 	
 	/**
@@ -19,23 +21,24 @@ public class Spieler {
 	 * 
 	 * @param name Der gewählte Name des Spielers
 	 * @param farbe Die Farbe des Spielers. Beim zweiten Spieler festgelegt
+	 * @param eliminierteKugeln Anzahl der erfolgreich vom Spielfeld geschubsten Kugeln
 	 * 
 	 * @return Gibt die erzeugte Spieler-Instanz zurueck
 	 */
-	public Spieler(String name, FarbEnum farbe) {
+	public Spieler(String name, FarbEnum farbe, int eliminierteKugeln) {
 		anzahlSpieler++;
+		setSpielerID();
 		setName(name);
 		setFarbe(farbe);
-		setSpielerID();
 	}
-
+	
 	/**
 	 * Setzt die Spieler ID auf die momentane Anzahl an Spieler
 	 */
 	private void setSpielerID() {
 		this.spielerID = anzahlSpieler;
 	}
-
+	
 	/**
 	 * Gibt die SpielerID aus
 	 * @return SpielerID
@@ -51,7 +54,7 @@ public class Spieler {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	/**
 	 * Gibt den gewaehlten Namen zurueck
 	 * 
@@ -60,17 +63,7 @@ public class Spieler {
 	public String getName() {
 		return this.name;
 	}
-
-	/**
-	 * 
-	 * Gibt die Farbe eines Spieler zurueck
-	 * 
-	 * @return farbe 
-	 */
-	public FarbEnum getFarbe() {
-		return this.farbe;
-	}
-
+	
 	/**
 	 * Setzt die Farbe eines Spielers und stellt sicher,
 	 *  dass beide Farben vergeben sind
@@ -100,11 +93,40 @@ public class Spieler {
 		}
 	}
 	
+	/**
+	 * 
+	 * Gibt die Farbe eines Spieler zurueck
+	 * 
+	 * @return farbe 
+	 */
+	public FarbEnum getFarbe() {
+		return this.farbe;
+	}
+	
+	/**
+	 * Methode zum verändern, der im Spiel befindlichen Kugeln. z.B. beim Rauswerfen
+	 * wird meist bei Zügen des Gegeners aufgerufen
+	 * 
+	 * @param anzEigenerKugeln neuerKugelstand
+	 */
+	public void eliminiereKugel() {
+		this.eliminierteKugeln++;
+	}
+	
+	/**
+	 * Gibt die momentane Anzahl der eignene Kugeln zurück
+	 * @return Anzahl, der sich im Spiel befindlichen Kugeln
+	 */
+	public int getEliminierteKugeln() {
+		return this.eliminierteKugeln;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Spieler " + this.getSpielerID()
 		+ " mit dem Namen " + this.getName() + " spielt die Farbe "
-		+ this.getFarbe().name();
+		+ this.getFarbe().name() + " und hat schon " + getEliminierteKugeln() + " Kugeln eliminiert";
 		}
 	
 	/**
