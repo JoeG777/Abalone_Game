@@ -348,19 +348,27 @@ public class Spielbrett {
 	 * @since 1.3
 	 */
 	 public int bekommeRichtung(String[] zug) {
-		 Spielfeld feld1 = brett.get(zug[0].substring(0,2));
-		 Spielfeld feld2 = brett.get(zug[0].substring(3,5));
-		 Spielfeld ziel = brett.get(zug[1]);
-		 boolean flagFeld1 = feld1.hatNachbar(ziel.getId());
-		 boolean flagFeld2 = feld2.hatNachbar(ziel.getId());
-		 if(flagFeld1 && !flagFeld2) {
-			 return feld1.getNachbarId(ziel);
-		 }
-		 if(!flagFeld1 && flagFeld2) {
-			 return feld2.getNachbarId(ziel);
+		 if(zug[0].length() == 4) {
+			 Spielfeld feld1 = brett.get(zug[0].substring(0,2));
+			 Spielfeld feld2 = brett.get(zug[0].substring(2,4));
+			 Spielfeld ziel = brett.get(zug[1]);
+		 	 boolean flagFeld1 = feld1.hatNachbar(ziel.getId());
+		 	 boolean flagFeld2 = feld2.hatNachbar(ziel.getId());
+		 	 if(flagFeld1 && !flagFeld2) {
+		 		 return feld1.getNachbarId(ziel);
+		 	}
+		 	if(!flagFeld1 && flagFeld2) {
+		 		 return feld2.getNachbarId(ziel);
+		    }
+		 }	
+		 if(zug[0].length() == 2) {
+			 Spielfeld feld1 = brett.get(zug[0].substring(0,2));
+			 Spielfeld ziel = brett.get(zug[1]);
+			 if(feld1.hatNachbar(ziel.getId()))
+				 return feld1.getNachbarId(ziel);
 		 }
 		 return -1;
-		}
+	}
 	
 	
 	/**

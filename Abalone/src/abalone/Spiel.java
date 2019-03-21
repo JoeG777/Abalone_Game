@@ -368,19 +368,21 @@ public class Spiel {
 				spielFelder[0] = spielBrett.getFeld(zug[0].substring(2, 4));
 				return spielFelder;
 			}
-			Spielfeld feld3 = spielBrett.getFeld(zug[0].substring(0, 2));
+			Spielfeld feld3 = spielBrett.getFeld(zug[0].substring(2, 4));
 			Spielfeld[] nachbarn = feld1.getNachbarn();
-			for (int i = 0; i < nachbarn.length; i++) {
-				if (nachbarn[i].hatNachbar(feld3.getId())) {
+			if (nachbarn[richtung].hatNachbar(feld3.getId())) {
+				Spielfeld moeglicherNachbar = spielBrett.getFeld(nachbarn[richtung].getId());
+				if(moeglicherNachbar != null && feld1.hatNachbar(moeglicherNachbar.getId()) && feld3.hatNachbar(moeglicherNachbar.getId())) {
 					spielFelder = new Spielfeld[3];
 					spielFelder[0] = feld1;
-					spielFelder[1] = spielBrett.getFeld(nachbarn[i].getId());
+					spielFelder[1] = spielBrett.getFeld(moeglicherNachbar.getId());
 					spielFelder[2] = feld3;
-					return spielFelder;
+				    return spielFelder;
+					
 				}
 			}
+			return null;
 
 		}
-		return spielFelder = new Spielfeld[0];
 	}
 }
