@@ -29,7 +29,7 @@ public class Spielbrett {
 	public Spielbrett() {
 		setBrett(new HashMap<String, Spielfeld>());
 		schaffeMapping(); 
-		
+
 		for(Spielfeld feld : brett.values()) {
 			feld.setzeNachbarn();
 		}
@@ -314,30 +314,30 @@ public class Spielbrett {
 	 * @return Index des Objektes, in dessen Richtung gezogen wird
 	 * @since 1.3
 	 */
-	 public int bekommeRichtung(String[] zug) {
-		 if(zug[0].length() == 4) {
-			 Spielfeld feld1 = brett.get(zug[0].substring(0,2));
-			 Spielfeld feld2 = brett.get(zug[0].substring(2,4));
-			 Spielfeld ziel = brett.get(zug[1]);
-		 	 boolean flagFeld1 = feld1.hatNachbar(ziel.getId());
-		 	 boolean flagFeld2 = feld2.hatNachbar(ziel.getId());
-		 	 if(flagFeld1 && !flagFeld2) {
-		 		 return feld1.getNachbarId(ziel);
-		 	}
-		 	if(!flagFeld1 && flagFeld2) {
-		 		 return feld2.getNachbarId(ziel);
-		    }
-		 }	
-		 if(zug[0].length() == 2) {
-			 Spielfeld feld1 = brett.get(zug[0].substring(0,2));
-			 Spielfeld ziel = brett.get(zug[1]);
-			 if(feld1.hatNachbar(ziel.getId()))
-				 return feld1.getNachbarId(ziel);
-		 }
-		 return -1;
+	public int bekommeRichtung(String[] zug) {
+		if(zug[0].length() == 4) {
+			Spielfeld feld1 = brett.get(zug[0].substring(0,2));
+			Spielfeld feld2 = brett.get(zug[0].substring(2,4));
+			Spielfeld ziel = brett.get(zug[1]);
+			boolean flagFeld1 = feld1.hatNachbar(ziel.getId());
+			boolean flagFeld2 = feld2.hatNachbar(ziel.getId());
+			if(flagFeld1 && !flagFeld2) {
+				return feld1.getNachbarId(ziel);
+			}
+			if(!flagFeld1 && flagFeld2) {
+				return feld2.getNachbarId(ziel);
+			}
+		}	
+		if(zug[0].length() == 2) {
+			Spielfeld feld1 = brett.get(zug[0].substring(0,2));
+			Spielfeld ziel = brett.get(zug[1]);
+			if(feld1.hatNachbar(ziel.getId()))
+				return feld1.getNachbarId(ziel);
+		}
+		return -1;
 	}
-	
-	
+
+
 	/**
 	 * Bewegt eine Figur von einem Feld auf ein anderes, 
 	 * ohne dabei zu überprüfen, ob dies "logisch" möglich ist. 
@@ -348,5 +348,21 @@ public class Spielbrett {
 
 		brett.get(auf).setFigur(brett.get(von).getFigur());;
 		brett.get(von).setFigur(null);
+	}
+
+	public boolean isSchiebung(Spielfeld[] felder, int richtung) {
+		if(felder.length == 3) {
+			if(felder[1] == felder[0].getNachbar(richtung) ||
+					felder[1] == felder[2].getNachbar(richtung)) {
+				return true;
+			}
+			if(felder.length == 2) {
+				if(felder[0] == felder[1].getNachbar(richtung) ||
+						felder[1] == felder[0].getNachbar(richtung)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
