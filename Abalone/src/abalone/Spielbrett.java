@@ -61,6 +61,15 @@ public class Spielbrett {
 	public Spielfeld getFeld(String key) {
 		return brett.get(key);
 	}
+	
+	public Boolean ziehe(Spielzug zug) {
+		Spielfeld[] felderVon = this.getFelderZuZiehen(zug);
+		int richtung = this.bekommeRichtung(zug);
+		if(this.isSchiebung(felderVon, richtung)) {	
+			
+		}
+	}
+	
 
 	/**
 	 * Verknüpft alle Feldbezeichnungen
@@ -315,8 +324,8 @@ public class Spielbrett {
 	 * @since 1.3
 	 */
 	 public int bekommeRichtung(Spielzug zug) {
-		 String zugVon = zug.getSpielzugVon();
-		 String zugNach = zug.getSpielzugNach();
+		 String zugVon = zug.getVon();
+		 String zugNach = zug.getNach();
 		 if(zugVon.length() == 4) {
 			 Spielfeld feld1 = brett.get(zugVon.substring(0,2));
 			 Spielfeld feld2 = brett.get(zugVon.substring(2,4));
@@ -350,5 +359,84 @@ public class Spielbrett {
 
 		brett.get(auf).setFigur(brett.get(von).getFigur());;
 		brett.get(von).setFigur(null);
+	}
+	public Spielfeld[] getFelderZuZiehen(Spielzug zug) {
+		Spielfeld[] spielFelder = null;
+		String zugVon = zug.getVon();
+		String zugNach = zug.getNach();
+		Spielfeld feld1 = this.getFeld(zugVon.substring(0, 2));
+		int richtung = this.bekommeRichtung(zug);
+		if (zugVon.length() == 2) {
+			spielFelder = new Spielfeld[1];
+			spielFelder[0] = feld1;
+			return spielFelder;
+		} else {
+			if (feld1.hatNachbar(zugVon.substring(2, 4))) {
+				spielFelder = new Spielfeld[2];
+				spielFelder[0] = feld1;
+				spielFelder[1] = this.getFeld(zugVon.substring(2, 4));
+				return spielFelder;
+			}
+			Spielfeld feld3 = this.getFeld(zugVon.substring(2, 4));
+			if(richtung >= 3 && richtung <= 5 ) {
+				Spielfeld[] nachbarn = feld1.getNachbarn();
+				if (nachbarn[richtung].hatNachbar(feld3.getId())) {
+					Spielfeld moeglicherNachbar = this.getFeld(nachbarn[richtung].getId());
+					if(moeglicherNachbar != null && feld1.hatNachbar(moeglicherNachbar.getId()) && feld3.hatNachbar(moeglicherNachbar.getId())) {
+						spielFelder = new Spielfeld[3];
+						spielFelder[0] = feld1;
+						spielFelder[1] = this.getFeld(moeglicherNachbar.getId());
+						spielFelder[2] = feld3;
+					    return spielFelder;
+						
+					}
+				}
+			}
+			Spielfeld[] nachbarn = feld3.getNachbarn();
+			Spielfeld moeglicherNachbar = this.getFeld(nachbarn[richtung].getId());
+			if(richtung < 3 && richtung >= 0 ) {
+				if (nachbarn[richtung].hatNachbar(feld1.getId())) {
+					if(moeglicherNachbar != null && feld1.hatNachbar(moeglicherNachbar.getId()) && feld3.hatNachbar(moeglicherNachbar.getId())) {
+						spielFelder = new Spielfeld[3];
+						spielFelder[0] = feld1;
+						spielFelder[1] = this.getFeld(moeglicherNachbar.getId());
+						spielFelder[2] = feld3;
+						return spielFelder;
+					
+					}
+				}
+			}
+		}
+		return spielFelder;
+	}
+	
+	private boolean kannSchieben(Spielfeld[] felder, int richtung) {
+		Spielfeld feld1 = felder[0];
+		Spielfeld feld2 = felder[1];
+		Spielfeld feld3 = felder[2];
+		if(richtung >=0 && richtung < 3) {
+			Spielfeld nachbar1 = feld1.getNachbar(richtung);
+			if(nachbar1 != null && nachbar1.getFigur() == null)
+				return true;
+			if(feld1.getFigur().getFarbe() == nachbar1.getFigur().getFarbe())
+				return false;
+			if(felder.length == 2) {
+				Spielfeld nachbar2 = nachbar1.getNachbar(richtung);
+				if(nachbar2 == null || nachbar2.getFigur() == null) {
+					return true;
+				}else{
+					return false;
+				}
+			}
+			if(felder.length == 3) {
+				Spielfeld nachbar2 = nachbar1.getNachbar(richtung);
+				Spielfeld nachbar3 = nachbar2.getNachbar(richtung);
+				
+				if(nachbar3 == null || nachbar3.getFigur() == null) {
+					return true;
+				}
+				
+			}
+		}
 	}
 }

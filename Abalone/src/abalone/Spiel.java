@@ -341,55 +341,6 @@ public class Spiel {
 		return true;
 	}
 
-	public Spielfeld[] getFelderZuZiehen(Spielzug zug) {
-		Spielfeld[] spielFelder = null;
-		String zugVon = zug.getSpielzugVon();
-		String zugNach = zug.getSpielzugNach();
-		Spielfeld feld1 = spielBrett.getFeld(zugVon.substring(0, 2));
-		int richtung = spielBrett.bekommeRichtung(zug);
-		if (zugVon.length() == 2) {
-			spielFelder = new Spielfeld[1];
-			spielFelder[0] = feld1;
-			return spielFelder;
-		} else {
-			if (feld1.hatNachbar(zugVon.substring(2, 4))) {
-				spielFelder = new Spielfeld[2];
-				spielFelder[0] = feld1;
-				spielFelder[0] = spielBrett.getFeld(zugVon.substring(2, 4));
-				return spielFelder;
-			}
-			Spielfeld feld3 = spielBrett.getFeld(zugVon.substring(2, 4));
-			if(richtung >= 3 && richtung <= 5 ) {
-				Spielfeld[] nachbarn = feld1.getNachbarn();
-				if (nachbarn[richtung].hatNachbar(feld3.getId())) {
-					Spielfeld moeglicherNachbar = spielBrett.getFeld(nachbarn[richtung].getId());
-					if(moeglicherNachbar != null && feld1.hatNachbar(moeglicherNachbar.getId()) && feld3.hatNachbar(moeglicherNachbar.getId())) {
-						spielFelder = new Spielfeld[3];
-						spielFelder[0] = feld1;
-						spielFelder[1] = spielBrett.getFeld(moeglicherNachbar.getId());
-						spielFelder[2] = feld3;
-					    return spielFelder;
-						
-					}
-				}
-			}
-			Spielfeld[] nachbarn = feld3.getNachbarn();
-			Spielfeld moeglicherNachbar = spielBrett.getFeld(nachbarn[richtung].getId());
-			if(richtung < 3 && richtung >= 0 ) {
-				if (nachbarn[richtung].hatNachbar(feld1.getId())) {
-					if(moeglicherNachbar != null && feld1.hatNachbar(moeglicherNachbar.getId()) && feld3.hatNachbar(moeglicherNachbar.getId())) {
-						spielFelder = new Spielfeld[3];
-						spielFelder[0] = feld1;
-						spielFelder[1] = spielBrett.getFeld(moeglicherNachbar.getId());
-						spielFelder[2] = feld3;
-						return spielFelder;
-					
-					}
-				}
-			}
-		}
-		return spielFelder;
-	}
 	
 	/**
 	 * Prueft, ob die Farbe der bewegten Figuren mit der Farbe des Spielers 
