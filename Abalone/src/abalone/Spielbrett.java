@@ -13,8 +13,10 @@ import java.util.HashMap;
 
 public class Spielbrett {
 
-	private static final String[] KOORDINATENQUER = {"A", "B", "C", "D", "E", "F", "G", "H", "I"};
-	private static final String[] KOORDINATENDIAGONAL = {"1", "2", "3", "4", "5", "6", "7", "8", "9"} ;
+	private static final String[] KOORDINATENQUER = {"A", "B", "C", "D", "E", "F", 
+													 "G", "H", "I"};
+	private static final String[] KOORDINATENDIAGONAL = {"1", "2", "3", "4", "5", 
+			 											 "6", "7", "8", "9"} ;
 	private final int MAXDIAGONALE = 9;
 	private final int MITTE = 5;
 
@@ -385,7 +387,9 @@ public class Spielbrett {
 				Spielfeld[] nachbarn = feld1.getNachbarn();
 				if (nachbarn[richtung].hatNachbar(feld3.getId())) {
 					Spielfeld moeglicherNachbar = this.getFeld(nachbarn[richtung].getId());
-					if(moeglicherNachbar != null && feld1.hatNachbar(moeglicherNachbar.getId()) && feld3.hatNachbar(moeglicherNachbar.getId())) {
+					if(moeglicherNachbar != null && 
+					   feld1.hatNachbar(moeglicherNachbar.getId()) && 
+					   feld3.hatNachbar(moeglicherNachbar.getId())) {
 						spielFelder = new Spielfeld[3];
 						spielFelder[0] = feld1;
 						spielFelder[1] = this.getFeld(moeglicherNachbar.getId());
@@ -399,7 +403,9 @@ public class Spielbrett {
 			Spielfeld moeglicherNachbar = this.getFeld(nachbarn[richtung].getId());
 			if(richtung < 3 && richtung >= 0 ) {
 				if (nachbarn[richtung].hatNachbar(feld1.getId())) {
-					if(moeglicherNachbar != null && feld1.hatNachbar(moeglicherNachbar.getId()) && feld3.hatNachbar(moeglicherNachbar.getId())) {
+					if(moeglicherNachbar != null && 
+					   feld1.hatNachbar(moeglicherNachbar.getId()) && 
+					   feld3.hatNachbar(moeglicherNachbar.getId())) {
 						spielFelder = new Spielfeld[3];
 						spielFelder[0] = feld1;
 						spielFelder[1] = this.getFeld(moeglicherNachbar.getId());
@@ -416,37 +422,108 @@ public class Spielbrett {
 	 * Prüft, ob in einem Zug andere Kugeln verschoben werden können
 	 * @param Die Felder, von denen gezogen wird 
 	 * @param Die Richtung, in die gezogen wird
-	 * @return True oder False, abhängig davon, ob eine andere Kugel verschoben werden kann
+	 * @return True oder False, abhängig davon, ob eine andere Kugel verschoben 
+	 * werden kann
 	 */
 	
 	private boolean kannSchieben(Spielfeld[] felder, int richtung) {
 		Spielfeld feld1 = felder[0];
-		Spielfeld feld2 = felder[1];
-		Spielfeld feld3 = felder[2];
+		Spielfeld feld2 = null;
+		Spielfeld feld3 = null;
+		if(felder.length == 2)
+			feld2 = felder[1];
+		if(felder.length == 3) {
+			feld2 = felder[1];
+			feld3 = felder[2];
+		}
 		if(richtung >=0 && richtung < 3) {
 			Spielfeld nachbar1 = feld1.getNachbar(richtung);
-			if(nachbar1 != null && nachbar1.getFigur() == null)
-				return true;
-			if(feld1.getFigur().getFarbe() == nachbar1.getFigur().getFarbe())
+			if(nachbar1 == null) {
 				return false;
-			if(felder.length == 2) {
-				Spielfeld nachbar2 = nachbar1.getNachbar(richtung);
-				if(nachbar2 == null || nachbar2.getFigur() == null) {
-					return true;
-				}else{
-					return false;
-				}
 			}
+			if(felder.length == 1) {
+				if(nachbar1.getFigur() == null)
+					return true;
+			}
+			if(felder.length == 2) {
+				if(nachbar1.getFigur() == null)
+					return true;
+				Spielfeld nachbar2 = nachbar1.getNachbar(richtung);
+				if(nachbar2 == null &&
+				   nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe())
+					return true;
+				if(nachbar2.getFigur() == null &&
+				   nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe())
+					return true;
+				return false;
+			}  
 			if(felder.length == 3) {
 				Spielfeld nachbar2 = nachbar1.getNachbar(richtung);
 				Spielfeld nachbar3 = nachbar2.getNachbar(richtung);
-				
-				if(nachbar3 == null || nachbar3.getFigur() == null) {
+				if(nachbar1.getFigur() == null)
 					return true;
-				}
-				
+				if(nachbar2 == null && 
+				   nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe())
+					return true;
+				if(nachbar2.getFigur() == null && 
+				   nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe())
+					return true;
+				if(nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe() && 
+				   nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe() && 
+				   nachbar3==null)
+					return true;
+				if(nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe() && 
+				   nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe() && 
+				   nachbar3.getFigur()==null)
+					return true;
+				return false;
 			}
 		}
+		if(richtung >=3 && richtung <= 5) {
+			Spielfeld feld = felder[felder.length-1];
+			Spielfeld nachbar1 = feld.getNachbar(richtung);
+			if(nachbar1 == null) {
+				return false;
+			}
+			if(felder.length == 1) {
+				if(nachbar1.getFigur() == null)
+					return true;
+			}
+			if(felder.length == 2) {
+				if(nachbar1.getFigur() == null)
+					return true;
+				Spielfeld nachbar2 = nachbar1.getNachbar(richtung);
+				if(nachbar2 == null && 
+				   nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe())
+					return true;
+				if(nachbar2.getFigur() == null && 
+				   nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe())
+					return true;
+				return false;
+			}  
+			if(felder.length == 3) {
+				Spielfeld nachbar2 = nachbar1.getNachbar(richtung);
+				Spielfeld nachbar3 = nachbar2.getNachbar(richtung);
+				if(nachbar1.getFigur() == null)
+					return true;
+				if(nachbar2 == null && 
+				   nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe())
+					return true;
+				if(nachbar2.getFigur() == null && 
+				   nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe())
+					return true;
+				if(nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe() && 
+				   nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe() && 
+				   nachbar3==null)
+					return true;
+				if(nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe() && 
+				   nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe() && 
+				   nachbar3.getFigur()==null)
+					return true;
+				return false;
+				}
+			}
+		return false;
 	}
 
 
