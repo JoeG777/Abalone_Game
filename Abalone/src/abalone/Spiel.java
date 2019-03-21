@@ -9,9 +9,6 @@
  */
 package abalone;
 
-import Livecoding.Spieler;
-import Livecoding.Spielfeld;
-
 public class Spiel {
 
 	private Spieler spielerAmZug;
