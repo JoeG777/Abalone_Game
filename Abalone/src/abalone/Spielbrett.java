@@ -36,39 +36,6 @@ public class Spielbrett {
 	}
 
 	/**
-	 * Methode, die ein String-Array in ein zweidimensionales 
-	 * Array zerlegt
-	 * @param spielzug zusammengefasster Spielzug
-	 * @return einzelner Spielzug
-	 */
-	public String[][] spielzugZerleger(String[] spielzug) {
-		String[][] geparsterZug= new String[1][2];
-
-		if (spielzug[0].length() == 2 ) {
-			geparsterZug[0][0] = spielzug[0];
-		} else if (spielzug[0].length() == 4) {
-			char[] zerlegt = spielzug[1].toCharArray();
-			if (zerlegt[0] == zerlegt[2]) {
-				if (zerlegt[1] == zerlegt[3]-1) {
-					geparsterZug[0][1] = zerlegt[0] + "" + zerlegt[1];
-				} else {
-					geparsterZug[0][1] = zerlegt[0] + "" + (zerlegt[1]-1);
-					geparsterZug[0][2] = zerlegt[0] + "" + zerlegt[1];
-				}
-			} else {
-				if (zerlegt[0] == zerlegt[2]-1) {
-					geparsterZug[1][1] = zerlegt[2] + "" + zerlegt[3];
-				} else {
-					geparsterZug[1][1] = zerlegt[2] + "" + (zerlegt[3]-1);
-					geparsterZug[1][2] = zerlegt[2] + "" + zerlegt[3];
-				}
-			}
-		}
-
-		return geparsterZug;
-	}
-
-	/**
 	 * Gibt das Brettattribut des Spielbretts zurück.
 	 * @return Brettattribut in Form von einer
 	 * HashMap<String,Spielfeld>  des Spielbretts.
@@ -83,7 +50,7 @@ public class Spielbrett {
 
 	/**
 	 * Setzt das Brettattribut des Spielbretts.
-	 * @param brett Eine HashMap<String, Spielfeld>, die das Brett modelliert
+	 * @param HashMap Eine HashMap<String, Spielfeld>, die das Brett modelliert
 	 * 
 	 * @since 1.0
 	 */
@@ -290,8 +257,8 @@ public class Spielbrett {
 	/**
 	 * Diese Methode Parst einen Spielzug zu einem Char Array zur weiteren 
 	 * Verarbeitung
-	 * @param zug Ein String von wo gezogen wird und ein String wohin gezogen wird.
-	 * @return ein zweidimensionales char Array, welches den Zug in chars 
+	 * @param Zug Ein String von wo gezogen wird und ein String wohin gezogen wird.
+	 * @return charArray ein zweidimensionales char Array, welches den Zug in chars 
 	 * aufteilt
 	 * @since 1.3
 	 */
@@ -344,7 +311,7 @@ public class Spielbrett {
 	 * 4 = Oben Rechts
 	 * 5 = Unten Rechts
 	 * @param geparsterZug den Zug als zweidimensionals Char Array
-	 * @return den Index des Objektes, in dessen Richtung gezogen wird
+	 * @return Index des Objektes, in dessen Richtung gezogen wird
 	 * @since 1.3
 	 */
 	 public int bekommeRichtung(Spielzug zug) {

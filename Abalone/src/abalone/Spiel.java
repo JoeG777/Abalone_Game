@@ -69,8 +69,8 @@ public class Spiel {
 	/**
 	 * Fragt ab, ob ein Spieler gewonnen hat
 	 * 
-	 * @param Spielername
-	 * @return Wahrheitswert Ob der übergebene Spieler gewonnen hat
+	 * @param Spielername Name eines Spielers
+	 * @return Boolean Ob der übergebene Spieler gewonnen hat
 	 */
 	public boolean hatGewonnen(String name) {
 		Spieler[] spielerArr = getSpielerImSpiel();
@@ -171,7 +171,7 @@ public class Spiel {
 	 * Prueft ob die gegeben Koordinaten einem validen Zug entsprechen, unabhaengig
 	 * von der aktuellen Feldbelegegung.
 	 * 
-	 * @param ein zweidimensionales Char Array.
+	 * @param geparsterZug ein zweidimensionales Char Array.
 	 * @return true oder false in Abhaengigkeit der Validitaet eines Zuges.
 	 * @since 1.1
 	 */
@@ -390,6 +390,15 @@ public class Spiel {
 		}
 		return spielFelder;
 	}
+	
+	/**
+	 * Prueft, ob die Farbe der bewegten Figuren mit der Farbe des Spielers 
+	 * uebereinstimmt.
+	 * 
+	 * @param spielfelder als Spielfeld-Array.
+	 * @param spielerAmZug als Spieler Objekt.
+	 * @return true oder false in Abhaengigkeit der Farbenuebereinstimmung.
+	 */
 	public boolean sindEigeneFiguren(Spielfeld [] spielfelder, 
 			Spieler spielerAmZug) {
 

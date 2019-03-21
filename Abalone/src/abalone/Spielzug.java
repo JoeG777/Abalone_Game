@@ -11,16 +11,24 @@ public class Spielzug {
 	 * @param nach Die Position der Spieler nach dem Zug
 	 */
 	public Spielzug(String von, String nach) {
-		this.von = von;
-		this.nach = nach;
+		setVon(von);
+		setNach(nach);
 	}
 	
-	public String getSpielzugVon() {
+	public String getVon() {
 		return von;
 	}
 	
-	public String getSpielzugNach() {
+	public String getNach() {
 		return nach;
+	}
+	
+	private void setVon(String von) {
+		this.von = von;
+	}
+	
+	private void setNach(String nach) {
+		this.nach = nach;
 	}
 	
 }

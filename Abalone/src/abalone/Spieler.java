@@ -21,11 +21,10 @@ public class Spieler {
 	 * 
 	 * @param name Der gewählte Name des Spielers
 	 * @param farbe Die Farbe des Spielers. Beim zweiten Spieler festgelegt
-	 * @param eliminierteKugeln Anzahl der erfolgreich vom Spielfeld geschubsten Kugeln
 	 * 
-	 * @return Gibt die erzeugte Spieler-Instanz zurueck
+	 * @return Spieler-Instanz Gibt die erzeugte Spieler-Instanz zurueck
 	 */
-	public Spieler(String name, FarbEnum farbe, int eliminierteKugeln) {
+	public Spieler(String name, FarbEnum farbe) {
 		anzahlSpieler++;
 		setSpielerID();
 		setName(name);
@@ -104,10 +103,9 @@ public class Spieler {
 	}
 	
 	/**
-	 * Methode zum verändern, der im Spiel befindlichen Kugeln. z.B. beim Rauswerfen
-	 * wird meist bei Zügen des Gegeners aufgerufen
+	 * Methode wird aufgerufen, wenn der Spieler eine gegnerische Kugel 
+	 * rauswirft. Die Anzahl wird einfach um eins erhöht.
 	 * 
-	 * @param anzEigenerKugeln neuerKugelstand
 	 */
 	public void eliminiereKugel() {
 		this.eliminierteKugeln++;
@@ -132,6 +130,7 @@ public class Spieler {
 	/**
 	 * @return SpielerID Eindeutige Spielererkennung
 	 */
+	
 	@Override
 	public int hashCode() {
 		return this.spielerID;
@@ -139,9 +138,10 @@ public class Spieler {
 	
 	/**
 	 * @param Vergleich Das Objekt, welches man vergleichen will
-	 * @return Wahrheitswert Ob zwei verglichene Objekte gleich
+	 * @return Boolean Ob zwei verglichene Objekte gleich
 	 * in ihren Attributen sind
 	 */
+	
 	@Override
 	public boolean equals(Object o) {
 		
