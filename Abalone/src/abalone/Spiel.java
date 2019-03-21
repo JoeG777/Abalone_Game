@@ -320,7 +320,11 @@ public class Spiel {
 	private boolean spielzugValidieren(String[] zug) {
 
 	}
-
+    /**Prueft, ob zu gegebenen Koordinaten Spielfelder existieren
+     * 
+     * @param zug als String-Array
+     * @return True oder False, abhaengig von der Existenz der Koordinaten
+     */
 	private boolean existierenKoordinaten(String[] zug) {
 		String von = zug[0];
 		String nach = zug[1];

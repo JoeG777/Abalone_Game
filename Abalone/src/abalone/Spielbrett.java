@@ -319,7 +319,7 @@ public class Spielbrett {
 	 * 3 = rechts
 	 * 4 = Oben Rechts
 	 * 5 = Unten Rechts
-	 * @param geparsterZug den Zug als zweidimensionals Char Array
+	 * @param Zug Objekt
 	 * @return Index des Objektes, in dessen Richtung gezogen wird
 	 * @since 1.3
 	 */
@@ -355,6 +355,7 @@ public class Spielbrett {
 	 * ohne dabei zu überprüfen, ob dies "logisch" möglich ist. 
 	 * @param von das Feld auf dem sich die Figur befindet.
 	 * @param auf das Feld auf das die Figur bewegt werden soll. 
+	 * @since 1.4
 	 */
 	public void bewegeFigur(String von, String auf) {
 
@@ -411,6 +412,12 @@ public class Spielbrett {
 		}
 		return spielFelder;
 	}
+	/**
+	 * Prüft, ob in einem Zug andere Kugeln verschoben werden können
+	 * @param Die Felder, von denen gezogen wird 
+	 * @param Die Richtung, in die gezogen wird
+	 * @return True oder False, abhängig davon, ob eine andere Kugel verschoben werden kann
+	 */
 	
 	private boolean kannSchieben(Spielfeld[] felder, int richtung) {
 		Spielfeld feld1 = felder[0];
