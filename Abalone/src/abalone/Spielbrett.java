@@ -356,13 +356,13 @@ public class Spielbrett {
 					felder[1] == felder[2].getNachbar(richtung)) {
 				return true;
 			}
+		}
 			if(felder.length == 2) {
 				if(felder[0] == felder[1].getNachbar(richtung) ||
 						felder[1] == felder[0].getNachbar(richtung)) {
 					return true;
 				}
 			}
-		}
 		return false;
 	}
 }
