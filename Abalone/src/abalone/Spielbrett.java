@@ -36,39 +36,6 @@ public class Spielbrett {
 	}
 
 	/**
-	 * Methode, die ein String-Array in ein zweidimensionales 
-	 * Array zerlegt
-	 * @param spielzug zusammengefasster Spielzug
-	 * @return einzelner Spielzug
-	 */
-	public String[][] spielzugZerleger(String[] spielzug) {
-		String[][] geparsterZug= new String[1][2];
-
-		if (spielzug[0].length() == 2 ) {
-			geparsterZug[0][0] = spielzug[0];
-		} else if (spielzug[0].length() == 4) {
-			char[] zerlegt = spielzug[1].toCharArray();
-			if (zerlegt[0] == zerlegt[2]) {
-				if (zerlegt[1] == zerlegt[3]-1) {
-					geparsterZug[0][1] = zerlegt[0] + "" + zerlegt[1];
-				} else {
-					geparsterZug[0][1] = zerlegt[0] + "" + (zerlegt[1]-1);
-					geparsterZug[0][2] = zerlegt[0] + "" + zerlegt[1];
-				}
-			} else {
-				if (zerlegt[0] == zerlegt[2]-1) {
-					geparsterZug[1][1] = zerlegt[2] + "" + zerlegt[3];
-				} else {
-					geparsterZug[1][1] = zerlegt[2] + "" + (zerlegt[3]-1);
-					geparsterZug[1][2] = zerlegt[2] + "" + zerlegt[3];
-				}
-			}
-		}
-
-		return geparsterZug;
-	}
-
-	/**
 	 * Gibt das Brettattribut des Spielbretts zurück.
 	 * @return Brettattribut in Form von einer
 	 * HashMap<String,Spielfeld>  des Spielbretts.
@@ -348,19 +315,27 @@ public class Spielbrett {
 	 * @since 1.3
 	 */
 	 public int bekommeRichtung(String[] zug) {
-		 Spielfeld feld1 = brett.get(zug[0].substring(0,2));
-		 Spielfeld feld2 = brett.get(zug[0].substring(3,5));
-		 Spielfeld ziel = brett.get(zug[1]);
-		 boolean flagFeld1 = feld1.hatNachbar(ziel.getId());
-		 boolean flagFeld2 = feld2.hatNachbar(ziel.getId());
-		 if(flagFeld1 && !flagFeld2) {
-			 return feld1.getNachbarId(ziel);
-		 }
-		 if(!flagFeld1 && flagFeld2) {
-			 return feld2.getNachbarId(ziel);
+		 if(zug[0].length() == 4) {
+			 Spielfeld feld1 = brett.get(zug[0].substring(0,2));
+			 Spielfeld feld2 = brett.get(zug[0].substring(2,4));
+			 Spielfeld ziel = brett.get(zug[1]);
+		 	 boolean flagFeld1 = feld1.hatNachbar(ziel.getId());
+		 	 boolean flagFeld2 = feld2.hatNachbar(ziel.getId());
+		 	 if(flagFeld1 && !flagFeld2) {
+		 		 return feld1.getNachbarId(ziel);
+		 	}
+		 	if(!flagFeld1 && flagFeld2) {
+		 		 return feld2.getNachbarId(ziel);
+		    }
+		 }	
+		 if(zug[0].length() == 2) {
+			 Spielfeld feld1 = brett.get(zug[0].substring(0,2));
+			 Spielfeld ziel = brett.get(zug[1]);
+			 if(feld1.hatNachbar(ziel.getId()))
+				 return feld1.getNachbarId(ziel);
 		 }
 		 return -1;
-		}
+	}
 	
 	
 	/**

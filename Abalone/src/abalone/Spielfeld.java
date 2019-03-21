@@ -255,6 +255,7 @@ public class Spielfeld {
 			if(feld.getId().equals(nachbarn[i].getId()))
 				return i;
 		}
+		return -1;
 	}
 	
 }

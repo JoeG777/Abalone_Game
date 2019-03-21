@@ -1,48 +1,44 @@
 package abalone;
 
+import java.util.Scanner;
+
 public class UI {
+	
+	public static void main (String[] args) {
+		spielStarten();
+	}
 	/**
 	 * Methode um das Spiel zu starten
 	 */
-	public void spielStarten() {
+	public static void spielStarten() {
+		Scanner sc = new Scanner(System.in);
+		Spiel s1 = new Spiel();
+		System.out.println("Fuege Spieler 1 hinzu! (Name,Farbe)");
+		String[] woerter = sc.nextLine().split(",");
 		
+		s1.addSpieler(woerter[0], woerter[1]);
 	}
 	
 	/**
 	 * Methode um das Spiel zu beenden
 	 */
-	public void spielBeenden() {
-		
-	}
-	
-	/**
-	 * Methode um den aktuellen Spielstand zu speichern
-	 */
-	public void spielSpeichern() {
+	public static void spielBeenden() {
 		
 	}
 	
 	/**
 	 * Methode um einen alten Spielstand zu laden
 	 */
-	public void spielLaden() {
+	public static void spielLaden() {
 		
 	}
 	
 	/**
 	 * Methode um (einen) Spieler hinzuzufuegen
 	 */
-	public void spielerAnmelden() {
+	public static void spielerAnmelden() {
 		
 	}
-	
-	/**
-	 * Methode um das Spielbrett anzeigen zu lassen
-	 */
-	public void spielbrettZeichnen() {
-		
-	}
-	 
 }
 
 	
