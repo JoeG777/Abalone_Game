@@ -20,8 +20,12 @@ public class Historie {
 	 * @param Spielzug Wird der Historie hinzugefügt
 	 */
 	public void spielzugHinzufuegen(Spielzug spielzug) {
-		zuege = zuege + zaehler + ". " + spielzug.getSpielzugVon() + " - " 
-				+ spielzug.getSpielzugNach() + "\n";
+		zuege = zuege + zaehler + ". " + spielzug.getVon() + " - " 
+				+ spielzug.getNach() + "\n";
 		zaehler++;
+	}
+	
+	public String getZuege() {
+		return zuege;
 	}
 }

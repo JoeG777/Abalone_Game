@@ -29,7 +29,7 @@ public class Spielbrett {
 	public Spielbrett() {
 		setBrett(new HashMap<String, Spielfeld>());
 		schaffeMapping(); 
-		
+
 		for(Spielfeld feld : brett.values()) {
 			feld.setzeNachbarn();
 		}
@@ -323,6 +323,7 @@ public class Spielbrett {
 	 * @return Index des Objektes, in dessen Richtung gezogen wird
 	 * @since 1.3
 	 */
+
 	 public int bekommeRichtung(Spielzug zug) {
 		 String zugVon = zug.getVon();
 		 String zugNach = zug.getNach();
@@ -346,9 +347,9 @@ public class Spielbrett {
 				 return feld1.getNachbarId(ziel);
 		 }
 		 return -1;
-	}
-	
-	
+	 }
+
+
 	/**
 	 * Bewegt eine Figur von einem Feld auf ein anderes, 
 	 * ohne dabei zu überprüfen, ob dies "logisch" möglich ist. 
@@ -360,6 +361,7 @@ public class Spielbrett {
 		brett.get(auf).setFigur(brett.get(von).getFigur());;
 		brett.get(von).setFigur(null);
 	}
+
 	public Spielfeld[] getFelderZuZiehen(Spielzug zug) {
 		Spielfeld[] spielFelder = null;
 		String zugVon = zug.getVon();
@@ -438,5 +440,22 @@ public class Spielbrett {
 				
 			}
 		}
+	}
+
+
+	public boolean isSchiebung(Spielfeld[] felder, int richtung) {
+		if(felder.length == 3) {
+			if(felder[1] == felder[0].getNachbar(richtung) ||
+					felder[1] == felder[2].getNachbar(richtung)) {
+				return true;
+			}
+		}
+			if(felder.length == 2) {
+				if(felder[0] == felder[1].getNachbar(richtung) ||
+						felder[1] == felder[0].getNachbar(richtung)) {
+					return true;
+				}
+			}
+		return false;
 	}
 }
