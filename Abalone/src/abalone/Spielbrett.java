@@ -91,7 +91,9 @@ public class Spielbrett {
 		this.brett = brett;
 	}
 
-
+	public Spielfeld getFeld(String key) {
+		return brett.get(key);
+	}
 
 	/**
 	 * Verknüpft alle Feldbezeichnungen
@@ -345,35 +347,21 @@ public class Spielbrett {
 	 * @return den Index des Objektes, in dessen Richtung gezogen wird
 	 * @since 1.3
 	 */
-	public int bekommeRichtung(char[][] geparsterZug) {
-		int zahlenKoordinaten = geparsterZug[0][3] - geparsterZug[1][1];
-		int buchstabenKoordinaten = geparsterZug[0][2]-geparsterZug[1][0];
-		switch(buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
-		case 0: if(zahlenKoordinaten == -1)
-			return 3;
-
-		case -1: if(zahlenKoordinaten == -1) 
-			return 4;
-
-		case 1: if(zahlenKoordinaten == 0)
-			return 5;
-
-		default:  
+	 public int bekommeRichtung(String[] zug) {
+		 Spielfeld feld1 = brett.get(zug[0].substring(0,2));
+		 Spielfeld feld2 = brett.get(zug[0].substring(3,5));
+		 Spielfeld ziel = brett.get(zug[1]);
+		 boolean flagFeld1 = feld1.hatNachbar(ziel.getId());
+		 boolean flagFeld2 = feld2.hatNachbar(ziel.getId());
+		 if(flagFeld1 && !flagFeld2) {
+			 return feld1.getNachbarId(ziel);
+		 }
+		 if(!flagFeld1 && flagFeld2) {
+			 return feld2.getNachbarId(ziel);
+		 }
+		 return -1;
 		}
-		zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
-		buchstabenKoordinaten = geparsterZug[0][0]-geparsterZug[1][0];
-		switch(buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
-		case 0: if(zahlenKoordinaten == -1)
-			return 0;
-		case -1: if(zahlenKoordinaten == 0)
-			return 1;
-
-		case 1: if(zahlenKoordinaten == 1);
-		return 2;
-
-		default: throw new IllegalArgumentException("Invalid Argument");
-		}
-	}
+	
 	
 	/**
 	 * Bewegt eine Figur von einem Feld auf ein anderes, 
