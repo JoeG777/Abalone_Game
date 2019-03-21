@@ -67,7 +67,7 @@ public class Spielfeld {
 	
 	/**
 	 * Setzt das Brett-Attribut.
-	 * @param brett 
+	 * @param brett Das bespielte Brett
 	 * 
 	 * @since 1.0
 	 */

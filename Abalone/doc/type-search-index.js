@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"abalone","l":"FarbEnum"},{"p":"abalone","l":"Historie"},{"p":"abalone","l":"Spiel"},{"p":"abalone","l":"Spielbrett"},{"p":"abalone","l":"Spieler"},{"p":"abalone","l":"Spielfeld"},{"p":"abalone","l":"Spielfigur"},{"p":"abalone","l":"Spielzug"},{"p":"abalone","l":"UI"}]
