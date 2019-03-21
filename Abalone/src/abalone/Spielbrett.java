@@ -427,17 +427,9 @@ public class Spielbrett {
 	 */
 	
 	private boolean kannSchieben(Spielfeld[] felder, int richtung) {
-		Spielfeld feld1 = felder[0];
-		Spielfeld feld2 = null;
-		Spielfeld feld3 = null;
-		if(felder.length == 2)
-			feld2 = felder[1];
-		if(felder.length == 3) {
-			feld2 = felder[1];
-			feld3 = felder[2];
-		}
+		Spielfeld feld = felder[0];
 		if(richtung >=0 && richtung < 3) {
-			Spielfeld nachbar1 = feld1.getNachbar(richtung);
+			Spielfeld nachbar1 = feld.getNachbar(richtung);
 			if(nachbar1 == null) {
 				return false;
 			}
@@ -450,10 +442,10 @@ public class Spielbrett {
 					return true;
 				Spielfeld nachbar2 = nachbar1.getNachbar(richtung);
 				if(nachbar2 == null &&
-				   nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe())
+				   nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe())
 					return true;
 				if(nachbar2.getFigur() == null &&
-				   nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe())
+				   nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe())
 					return true;
 				return false;
 			}  
@@ -463,24 +455,24 @@ public class Spielbrett {
 				if(nachbar1.getFigur() == null)
 					return true;
 				if(nachbar2 == null && 
-				   nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe())
+				   nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe())
 					return true;
 				if(nachbar2.getFigur() == null && 
-				   nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe())
+				   nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe())
 					return true;
-				if(nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe() && 
-				   nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe() && 
+				if(nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe() && 
+				   nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe() && 
 				   nachbar3==null)
 					return true;
-				if(nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe() && 
-				   nachbar1.getFigur().getFarbe() == feld1.getFigur().getFarbe() && 
+				if(nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe() && 
+				   nachbar1.getFigur().getFarbe() == feld.getFigur().getFarbe() && 
 				   nachbar3.getFigur()==null)
 					return true;
 				return false;
 			}
 		}
 		if(richtung >=3 && richtung <= 5) {
-			Spielfeld feld = felder[felder.length-1];
+			feld = felder[felder.length-1];
 			Spielfeld nachbar1 = feld.getNachbar(richtung);
 			if(nachbar1 == null) {
 				return false;
