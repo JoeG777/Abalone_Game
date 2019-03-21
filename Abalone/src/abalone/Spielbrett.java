@@ -36,39 +36,6 @@ public class Spielbrett {
 	}
 
 	/**
-	 * Methode, die ein String-Array in ein zweidimensionales 
-	 * Array zerlegt
-	 * @param spielzug zusammengefasster Spielzug
-	 * @return einzelner Spielzug
-	 */
-	public String[][] spielzugZerleger(String[] spielzug) {
-		String[][] geparsterZug= new String[1][2];
-
-		if (spielzug[0].length() == 2 ) {
-			geparsterZug[0][0] = spielzug[0];
-		} else if (spielzug[0].length() == 4) {
-			char[] zerlegt = spielzug[1].toCharArray();
-			if (zerlegt[0] == zerlegt[2]) {
-				if (zerlegt[1] == zerlegt[3]-1) {
-					geparsterZug[0][1] = zerlegt[0] + "" + zerlegt[1];
-				} else {
-					geparsterZug[0][1] = zerlegt[0] + "" + (zerlegt[1]-1);
-					geparsterZug[0][2] = zerlegt[0] + "" + zerlegt[1];
-				}
-			} else {
-				if (zerlegt[0] == zerlegt[2]-1) {
-					geparsterZug[1][1] = zerlegt[2] + "" + zerlegt[3];
-				} else {
-					geparsterZug[1][1] = zerlegt[2] + "" + (zerlegt[3]-1);
-					geparsterZug[1][2] = zerlegt[2] + "" + zerlegt[3];
-				}
-			}
-		}
-
-		return geparsterZug;
-	}
-
-	/**
 	 * Gibt das Brettattribut des Spielbretts zurück.
 	 * @return Brettattribut in Form von einer
 	 * HashMap<String,Spielfeld>  des Spielbretts.
