@@ -9,6 +9,9 @@
  */
 package abalone;
 
+import Livecoding.Spieler;
+import Livecoding.Spielfeld;
+
 public class Spiel {
 
 	private Spieler spielerAmZug;
@@ -370,5 +373,18 @@ public class Spiel {
 
 		}
 		return spielFelder = new Spielfeld[0];
+	}
+	public boolean sindEigeneFiguren(Spielfeld [] spielfelder, 
+			Spieler spielerAmZug) {
+
+		for (int i = 0; i < spielfelder.length; i++) {
+
+			if (spielfelder[i] == null ||
+				spielfelder[i].getFigur().getFarbe() != spielerAmZug.getFarbe()) 
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 }
