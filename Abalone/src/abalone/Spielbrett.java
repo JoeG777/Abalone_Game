@@ -448,7 +448,16 @@ public class Spielbrett {
 			}
 		}
 	}
-
+	
+	/**
+	 * Prueft, ob es sich bei einem regulären Zug um einen Zug handelt, 
+	 * bei dem eigene Steine in einer Linie geschoben werden. 
+	 * @param felder Die Ausgangsfelder eines Spielzuges
+	 * @param richtung Die Richtung der Bewegung (Position im Array).
+	 * @return true, wenn es sich um Zug handelt, bei dem eigene Steine
+	 * geschoben werden. false, wenn es sich nicht, um einen solchen Zug 
+	 * handelt.
+	 */
 
 	public boolean isSchiebung(Spielfeld[] felder, int richtung) {
 		if(felder.length == 3) {
