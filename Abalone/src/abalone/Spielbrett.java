@@ -50,7 +50,7 @@ public class Spielbrett {
 
 	/**
 	 * Setzt das Brettattribut des Spielbretts.
-	 * @param brett Eine HashMap<String, Spielfeld>, die das Brett modelliert
+	 * @param HashMap Eine HashMap<String, Spielfeld>, die das Brett modelliert
 	 * 
 	 * @since 1.0
 	 */
@@ -257,8 +257,8 @@ public class Spielbrett {
 	/**
 	 * Diese Methode Parst einen Spielzug zu einem Char Array zur weiteren 
 	 * Verarbeitung
-	 * @param zug Ein String von wo gezogen wird und ein String wohin gezogen wird.
-	 * @return ein zweidimensionales char Array, welches den Zug in chars 
+	 * @param Zug Ein String von wo gezogen wird und ein String wohin gezogen wird.
+	 * @return charArray ein zweidimensionales char Array, welches den Zug in chars 
 	 * aufteilt
 	 * @since 1.3
 	 */
@@ -311,7 +311,7 @@ public class Spielbrett {
 	 * 4 = Oben Rechts
 	 * 5 = Unten Rechts
 	 * @param geparsterZug den Zug als zweidimensionals Char Array
-	 * @return den Index des Objektes, in dessen Richtung gezogen wird
+	 * @return Index des Objektes, in dessen Richtung gezogen wird
 	 * @since 1.3
 	 */
 	 public int bekommeRichtung(String[] zug) {
