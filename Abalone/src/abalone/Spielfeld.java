@@ -232,10 +232,10 @@ public class Spielfeld {
 	public String getFeldSymbol() {
 		if(this.figur != null) {
 			if(this.figur.getFarbe() == FarbEnum.WEISS) {
-				return "X";
+				return "O";
 			}
 			else {
-				return "O";
+				return "X";
 			}
 		}
 
