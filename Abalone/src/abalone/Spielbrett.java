@@ -528,7 +528,7 @@ public class Spielbrett {
 	 * handelt.
 	 */
 
-	public boolean isSchiebung(Spielfeld[] felder, int richtung) {
+	private boolean isSchiebung(Spielfeld[] felder, int richtung) {
 		if(felder.length == 3) {
 			if(felder[1] == felder[0].getNachbar(richtung) ||
 					felder[1] == felder[2].getNachbar(richtung)) {
@@ -542,5 +542,36 @@ public class Spielbrett {
 				}
 			}
 		return false;
+	}
+	
+	/**
+	 * Gibt für einen Zug aus 2 oder 3 Steinen, bei dem eigene Steine geschoben 
+	 * werden, die Position des vordersten Steines in Richtung des Zuge zurück.
+	 * @param felder Felder auf denen sich die zu ziehenden Steine befinden.
+	 * @param richtung Die Richtung des Zuges.
+	 * @return Spielfeld-Objekt auf dem sich der vorderste Stein befindet
+	 */
+	public Spielfeld getVorderstenStein(Spielfeld[] felder, int richtung) {
+		Spielfeld posVordersterStein = null;
+		
+		if(felder.length == 3) {
+			if(felder[0].getNachbar(richtung) != felder[1]) {
+				posVordersterStein = felder[0];
+			}
+			else {
+				posVordersterStein = felder[2];
+			}
+		}
+		else if(felder.length == 2) {
+			if(felder[0].getNachbar(richtung) != felder[1]) {
+				posVordersterStein = felder[0];
+			}
+			else {
+				posVordersterStein = felder[1];
+			}
+		}
+		
+		return posVordersterStein;
+		
 	}
 }
