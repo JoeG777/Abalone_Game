@@ -9,6 +9,7 @@
 
 package abalone;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Spielbrett {
@@ -574,4 +575,66 @@ public class Spielbrett {
 		return posVordersterStein;
 		
 	}
+	
+	public ArrayList<Spielfeld> getFelderMitFarbe(FarbEnum farbe) {
+		ArrayList<Spielfeld> felder = new ArrayList<Spielfeld>();
+		for(Spielfeld feld : brett.values()) {
+			if(feld.getFigur().getFarbe().equals(farbe)) {
+				felder.add(feld);
+			}
+		}
+		return felder;
+	}
+	
+	private ArrayList<Spielfeld> checkNachbarn(ArrayList<Spielfeld> felder){
+		ArrayList<Spielfeld> gefilterteFelder = new ArrayList<Spielfeld>();
+		for(Spielfeld feld : felder) {
+			boolean flag = false;
+			Spielfeld[] nachbarn = feld.getNachbarn();
+			for(Spielfeld nachbar : nachbarn) {
+				if(nachbar != null && 
+				   (nachbar.getFigur() == null ||
+				    nachbar.getFigur().getFarbe() != feld.getFigur().getFarbe()
+				  )) 
+				{
+					flag = true;
+				}
+			}
+			if(flag) {
+			   gefilterteFelder.add(feld);
+			}
+			
+		}
+		return gefilterteFelder;
+	}
+	
+	private ArrayList<Spielzug> getMoeglicheZuege(ArrayList<Spielfeld> felder) {
+		ArrayList<Spielzug> zuege = new ArrayList<Spielzug>();
+		for(Spielfeld feld : felder) {
+			//Fall 1: nur eine Kugel zieht:
+			Spielfeld[] nachbarn = feld.getNachbarn();
+			for(int i = 0; i < nachbarn.length; i++) {
+				if(nachbarn[i] != null && nachbarn[i].getFigur() == null) {
+					zuege.add(new Spielzug(feld.getId(), nachbarn[i].getId(), i));
+				}
+			}
+			//Fall 2: mit welchen Nachbarn kann gezogen werden?
+			for(int i = 0; i < nachbarn.length; i++) {
+				if(nachbarn[i] != null && nachbarn[i].getFigur() != null && nachbarn[i].gleichBelegt(feld)) {
+					int richtung = i;
+					Spielfeld[] felderAlsArray = {feld, nachbarn[i]};
+					if(this.kannSchieben(felderAlsArray, richtung)) {
+						if(!feld.getNachbar(richtung).equals(nachbarn[i]))
+							zuege.add(new Spielzug(feld.getId()+nachbarn[i].getId(),feld.getNachbar(richtung).getId(), i));
+						else
+							zuege.add(new Spielzug(feld.getId()+nachbarn[i].getId(),nachbarn[i].getNachbar(richtung).getId(), i));
+					}
+				}
+			}
+		}
+		return zuege;
+	}
+		
+		
 }
+
