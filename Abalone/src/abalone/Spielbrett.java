@@ -870,13 +870,14 @@ public class Spielbrett {
 					}
 				}
 				bewegeFiguren(ausgangsfelder, zielfelder);
+				erfolgreich = true;
 			}
 
 
 
 		}
 
-		return false;
+		return erfolgreich;
 	}
 	
 	private ArrayList<Spielfeld> getFelderMitFarbe(FarbEnum farbe) {
