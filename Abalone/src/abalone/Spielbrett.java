@@ -558,7 +558,7 @@ public class Spielbrett {
 
 	/**
 	 * Gibt für einen Zug aus 2 oder 3 Steinen, bei dem eigene Steine geschoben 
-	 * werden, die Position des vordersten Steines in Richtung des Zuge zurück.
+	 * werden, die Position des vordersten Steines in Richtung des Zuges zurück.
 	 * @param felder Felder auf denen sich die zu ziehenden Steine befinden.
 	 * @param richtung Die Richtung des Zuges.
 	 * @return Spielfeld-Objekt auf dem sich der vorderste Stein befindet
@@ -587,6 +587,12 @@ public class Spielbrett {
 
 	}
 	
+	/**
+	 * Gibt alle Spielfelder eines Zuges als Spielfeld-Array zurück.
+	 * @param ausgangsfelder Die Felder, von denen gezogen wird.
+	 * @param richtung Die Richtung des Zuges.
+	 * @return Spielfeld-Array mit allen Zielfeldern des Zuges.
+	 */
 	private Spielfeld[] getZielfelder(Spielfeld[] ausgangsfelder, 
 			int richtung) {
 		Spielfeld[] zielfelder = new Spielfeld[ausgangsfelder.length];
@@ -599,6 +605,11 @@ public class Spielbrett {
 		
 	}
 	
+	/**
+	 * Gibt alle Ausgangsfelder eines Zuges zurück-
+	 * @param zug Ein Spielzug-Objekt.
+	 * @return Spielfeld-Array mit allen Ausgangsfelder des Zuges.
+	 */
 	public Spielfeld[] getAusgangsfelder(Spielzug zug) {
 		ArrayList<Spielfeld> ausgangsfelder = new ArrayList<Spielfeld>();
 		if(zug.getVon().length() == 2) {
@@ -637,6 +648,13 @@ public class Spielbrett {
 		return ausgangsfelder.toArray(new Spielfeld[0]);
 	}
 	
+	/**
+	 * Prüft, ob ein Zwei-zu-eins Sumito möglich ist.
+	 * @param vordersterStein der vorderste Stein eines Spielzuges in dem 
+	 * zwei bis drei Steine bewegt werden.
+	 * @param richtung die Richtung des Spielzuges.
+	 * @return true, wenn möglich, false, wenn nicht möglich.
+	 */
 	private boolean isZuEinsSumito(Spielfeld vordersterStein, int richtung) {
 		Spielfeld nachbarInRichtung = vordersterStein.getNachbar(richtung);
 		
@@ -656,6 +674,13 @@ public class Spielbrett {
 		return false;
 	}
 	
+	/**
+	 * Prüft, ob ein Zwei-zu-drei Sumito möglich ist.
+	 * @param vordersterStein der vorderste Stein eines Spielzuges in dem 
+	 * drei Steine bewegt werden.
+	 * @param richtung die Richtung des Spielzuges.
+	 * @return true, wenn möglich, false, wenn nicht möglich.
+	 */
 	private boolean isZuZweiSumito(Spielfeld vordersterStein, int richtung) {
 		Spielfeld erstesFeldInRichtung = vordersterStein.getNachbar(richtung);
 		Spielfeld zweitesFeldInRichtung = erstesFeldInRichtung.getNachbar(richtung);
@@ -675,6 +700,14 @@ public class Spielbrett {
 		return false;
 	}
 	
+	/** 
+	 * Prueft, ob ein gegnerischer Stein durch Ausfuehrung des Zuges
+	 * vom Spielbrett geworfen wird. Falls dies zutrifft, wird die Figur vom
+	 * Spielfeld entfernt.
+	 * @param gegnerStein das Feld, auf dem der Stein ist.
+	 * @param richtung die Richtung des Spielzuges
+	 * @return true, wenn Stein runtergeworfen wird, false, wenn nicht.
+	 */
 	private boolean steinAbgeraeumt(Spielfeld gegnerStein, int richtung) {
 		if(gegnerStein.getNachbar(richtung) == null) {
 			gegnerStein.setFigur(null);
@@ -684,6 +717,14 @@ public class Spielbrett {
 		return false;
 	}
 	
+	/**
+	 * Ordnet einen Array aus Spielfeldern so, dass der vorderste Stein in 
+	 * die Richtung des Spielzuges an erster Stelle und der letzte Stein 
+	 * an letzter Stelle steht.
+	 * @param felder ein Spielfeld-Array.
+	 * @param richtung die Richtung des Spielzuges.
+	 * @return ein geordnetes Spielfeld-Array.
+	 */
 	public Spielfeld[] ordneInRichtung(Spielfeld[] felder, int richtung) {
 		ArrayList<Spielfeld> geordneteFelder = new ArrayList<Spielfeld>();
 		
@@ -700,6 +741,13 @@ public class Spielbrett {
 		return geordneteFelder.toArray(new Spielfeld[0]);
 	}
 	
+	/**
+	 * Gibt für einen Zug aus 2 oder 3 Steinen, bei dem eigene Steine geschoben 
+	 * werden, die Position des hintersten Steines in Richtung des Zuges zurück.
+	 * @param felder ein Spielfeld-Array
+	 * @param richtung die Richtung eines Spielzuges
+	 * @return der hinterste Stein des Spielzuges.
+	 */
 	private Spielfeld getHinterstenStein(Spielfeld[] felder, int richtung) {
 			if(felder.length == 3) {
 				if(felder[0].getNachbar(richtung) == felder[1]) {
@@ -721,7 +769,11 @@ public class Spielbrett {
 			return null;
 	}
 	
-
+	/**
+	 * Nimmt syntaktisch-korrekte Spielzuege an und fuehrt diese aus. 
+	 * @param zuege ein Array aus Spielzuegen.
+	 * @return true, wenn Zug erfolgreich, false, wenn nicht.
+	 */
 	public boolean ziehe(Spielzug[] zuege) {
 		boolean erfolgreich = false;
 
@@ -834,6 +886,7 @@ public class Spielbrett {
 			}
 
 		}
+
 		//		}
 
 		return false;
