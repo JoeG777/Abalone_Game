@@ -111,8 +111,9 @@ public class Spiel {
 	}
 
 	public String[] getErlaubteZuege() {
-
+		
 	}
+	
 
 	public String getHistorie() {
 

@@ -259,6 +259,8 @@ public class Spielfeld {
 	}
 	
 	public boolean gleichBelegt(Spielfeld feld) {
+		if(feld == null || this.getFigur() == null || feld.getFigur() == null)
+			return false;
 		return this.getFigur().getFarbe() == feld.getFigur().getFarbe();
 	}
 }
