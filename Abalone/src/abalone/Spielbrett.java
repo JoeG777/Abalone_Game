@@ -769,6 +769,14 @@ public class Spielbrett {
 			return null;
 	}
 	
+	private void fuehreZugAus(Spielfeld[] ausgangsfelder, int richtung) {
+		
+		ausgangsfelder = ordneInRichtung(ausgangsfelder, richtung);
+		Spielfeld[] zielfelder = getZielfelder(ausgangsfelder, richtung);
+		bewegeFiguren(ausgangsfelder, zielfelder);
+	}
+			
+	
 	/**
 	 * Nimmt syntaktisch-korrekte Spielzuege an und fuehrt diese aus. 
 	 * @param zuege ein Array aus Spielzuegen.
@@ -779,17 +787,12 @@ public class Spielbrett {
 
 		for(Spielzug zug : zuege) {
 			Spielfeld[] ausgangsfelder = getAusgangsfelder(zug);
-			//			for(Spielfeld feld : ausgangsfelder) {
-			//				System.out.println(feld.getId());
-			//			}
 			int richtung = bekommeRichtung(zug);
 			Spielfeld[] zielfelder = getZielfelder(ausgangsfelder,richtung);
-			//			boolean kannSchieben = kannSchieben(ausgangsfelder, richtung);
 
-			//			if(kannSchieben) {
 			if(ausgangsfelder.length == 1) { // Ein Stein darf nicht schieben, also nur ueberpruefen, ob Zielfeld belegt ist
 				if(ausgangsfelder[0].getNachbar(richtung).getFigur() == null) {
-					bewegeFigur(zug.getVon(), zug.getNach());
+					bewegeFiguren(ausgangsfelder, zielfelder);
 					erfolgreich = true;
 				}
 			}
@@ -802,25 +805,19 @@ public class Spielbrett {
 					if(vordersterStein.getNachbar(richtung).getFigur() != null) { 
 						if(isZuEinsSumito(vordersterStein, richtung)) {
 							Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
-							if(steinAbgeraeumt(gegnerStein, richtung)) { //Stein wird von Methode entfernt
-								ausgangsfelder = ordneInRichtung(ausgangsfelder, richtung);
-								zielfelder = getZielfelder(ausgangsfelder, richtung);
-								bewegeFiguren(ausgangsfelder, zielfelder); // Figuren werden bewegt
+							if(steinAbgeraeumt(gegnerStein, richtung)) { 
+								fuehreZugAus(ausgangsfelder, richtung);
 								erfolgreich = true; 
 							}
 							else {
 								bewegeFigur(gegnerStein.getId(), gegnerStein.getNachbar(richtung).getId());
-								ausgangsfelder = ordneInRichtung(ausgangsfelder, richtung);
-								zielfelder = getZielfelder(ausgangsfelder, richtung);
-								bewegeFiguren(ausgangsfelder, zielfelder);
+								fuehreZugAus(ausgangsfelder, richtung);
 								erfolgreich = true; 
 							}
 						}
 					}
 					else {
-						ausgangsfelder = ordneInRichtung(ausgangsfelder, richtung);
-						zielfelder = getZielfelder(ausgangsfelder, richtung);
-						bewegeFiguren(ausgangsfelder, zielfelder);
+						fuehreZugAus(ausgangsfelder, richtung);
 						erfolgreich = true; 
 					}
 				}
@@ -831,46 +828,36 @@ public class Spielbrett {
 							Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
 
 							if(steinAbgeraeumt(gegnerStein, richtung)) {
-								ausgangsfelder = ordneInRichtung(ausgangsfelder, richtung);
-								zielfelder = getZielfelder(ausgangsfelder, richtung);
-								bewegeFiguren(ausgangsfelder, zielfelder);
+								fuehreZugAus(ausgangsfelder, richtung);
 								erfolgreich = true; 
 							}
 
 							else {
 								bewegeFigur(gegnerStein.getId(), gegnerStein.getNachbar(richtung).getId());
-								ausgangsfelder = ordneInRichtung(ausgangsfelder, richtung);
-								zielfelder = getZielfelder(ausgangsfelder, richtung);
-								bewegeFiguren(ausgangsfelder, zielfelder);
+								fuehreZugAus(ausgangsfelder, richtung);
 								erfolgreich = true; 
 							}
 						}
 						else if(isZuZweiSumito(vordersterStein, richtung)) {
 							Spielfeld vordererGegnerStein = vordersterStein.getNachbar(richtung);
 							Spielfeld hintererGegnerStein = vordererGegnerStein.getNachbar(richtung);
-							
+
 							if(steinAbgeraeumt(hintererGegnerStein, richtung)) {
 								bewegeFigur(vordererGegnerStein.getId(), vordererGegnerStein.getNachbar(richtung).getId());
-								ausgangsfelder = ordneInRichtung(ausgangsfelder, richtung);
-								zielfelder = getZielfelder(ausgangsfelder, richtung);
-								bewegeFiguren(ausgangsfelder, zielfelder);
+								fuehreZugAus(ausgangsfelder, richtung);
 								erfolgreich = true; 
 							}
-							
+
 							else {
 								bewegeFigur(hintererGegnerStein.getId(), hintererGegnerStein.getNachbar(richtung).getId());
 								bewegeFigur(vordererGegnerStein.getId(), hintererGegnerStein.getId());
-								ausgangsfelder = ordneInRichtung(ausgangsfelder, richtung);
-								zielfelder = getZielfelder(ausgangsfelder, richtung);
-								bewegeFiguren(ausgangsfelder, zielfelder);
+								fuehreZugAus(ausgangsfelder, richtung);
 								erfolgreich = true; 
 							}
 						}
 					}
 					else {
-						ausgangsfelder = ordneInRichtung(ausgangsfelder, richtung);
-						zielfelder = getZielfelder(ausgangsfelder, richtung);
-						bewegeFiguren(ausgangsfelder, zielfelder);
+						fuehreZugAus(ausgangsfelder, richtung);
 						erfolgreich = true; 
 					}
 
@@ -885,9 +872,9 @@ public class Spielbrett {
 				bewegeFiguren(ausgangsfelder, zielfelder);
 			}
 
-		}
 
-		//		}
+
+		}
 
 		return false;
 	}
