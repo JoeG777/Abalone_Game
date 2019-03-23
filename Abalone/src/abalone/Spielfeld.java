@@ -250,9 +250,17 @@ public class Spielfeld {
 		return false;
 	}
 	
+	public boolean hatNachbar(Spielfeld feld) {
+		for(int i = 0; i < this.nachbarn.length; i++) {
+			if(nachbarn[i] != null && feld.equals(nachbarn[i]))
+				return true;
+		}
+		return false;
+	}
+	
 	public int getNachbarId(Spielfeld feld) {
 		for(int i = 0; i < nachbarn.length; i++) {
-			if(feld.getId().equals(nachbarn[i].getId()))
+			if(nachbarn[i] != null && feld.getId().equals(nachbarn[i].getId()))
 				return i;
 		}
 		return -1;
