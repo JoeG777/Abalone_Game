@@ -669,11 +669,9 @@ public class Spielbrett {
 		if(nachbarInRichtung != null && nachbarInRichtung.istBesetzt() && nachbarInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe()) {
 			Spielfeld nachbarHinterNachbar = nachbarInRichtung.getNachbar(richtung);
 			if(nachbarHinterNachbar == null) {
-				System.out.println("hierhin");
 				return true;
 			}
 			if(nachbarHinterNachbar.getFigur() == null) {
-				System.out.println("dahin");
 				return true;
 			}
 		}
@@ -697,7 +695,6 @@ public class Spielbrett {
 			zweitesFeldInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe()) {
 				
 			if(drittesFeldInRichtung == null) {
-				System.out.println("Abraeumer");
 				return true;
 			}
 			if(drittesFeldInRichtung.getFigur() == null) {
@@ -736,7 +733,6 @@ public class Spielbrett {
 		ArrayList<Spielfeld> geordneteFelder = new ArrayList<Spielfeld>();
 		
 		Spielfeld hintersterStein = getHinterstenStein(felder, richtung);
-		System.out.println(hintersterStein.getId());
 		geordneteFelder.add(hintersterStein);
 		
 		for(int i = 1; i < felder.length; i++) { // Baut vom hintersten Stein bis zum vordersten Stein auf
