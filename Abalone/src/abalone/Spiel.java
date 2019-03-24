@@ -146,7 +146,7 @@ public class Spiel {
 									" hat noch " + this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln. \n";
 		
 		String feld = this.spielBrett.toString() + "\n";
-		return feld + amZug + verbleibendeSteine;
+		return feld + verbleibendeSteine + amZug;
 
 	}
 

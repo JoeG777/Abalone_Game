@@ -338,8 +338,12 @@ public class Spielbrett {
 			Spielfeld feld1 = brett.get(zugVon.substring(0,2));
 			Spielfeld feld2 = brett.get(zugVon.substring(2,4));
 			Spielfeld ziel = brett.get(zugNach);
-			boolean flagFeld1 = feld1.hatNachbar(ziel.getId());
+			boolean flagFeld1 = false;
+			if(feld1 != null && ziel != null)
+				flagFeld1 = feld1.hatNachbar(ziel.getId());
 			boolean flagFeld2 = feld2.hatNachbar(ziel.getId());
+			if(feld2 != null && ziel != null)
+				flagFeld2 = feld2.hatNachbar(ziel.getId());
 			if(flagFeld1 && !flagFeld2) {
 				return feld1.getNachbarId(ziel);
 			}
@@ -622,14 +626,14 @@ public class Spielbrett {
 			Spielfeld feldLinks = brett.get(zug.getVon().substring(0, 2));
 			Spielfeld feldRechts = brett.get(zug.getVon().substring(2, 4));
 			
-			if(feldLinks.hatNachbar(feldRechts)) {
+			if(feldLinks != null && feldLinks.hatNachbar(feldRechts)) {
 				ausgangsfelder.add(feldLinks);
 				ausgangsfelder.add(feldRechts);
 			}
 			
 			else {
 				for(int i = 0; i < 6; i++) {
-					if(feldLinks.getNachbar(i) != null) {
+					if(feldLinks != null && feldLinks.getNachbar(i) != null) {
 					Spielfeld dazwischen = feldLinks.getNachbar(i);
 					Spielfeld ziel = dazwischen.getNachbar(i);
 					
@@ -974,7 +978,7 @@ public class Spielbrett {
 			if(felder.size() > 2) {
 				feld3 = felder.get(2);
 			}
-			if(feld2 != null && feld1.istBesetzt() && feld1.gleichBelegt(feld2)) {
+			if(feld1 != null && feld2 != null && feld1.istBesetzt() && feld1.gleichBelegt(feld2)) {
 				Spielfeld[] spielFelder = {feld1, feld2};
 				zuegeZusammen.add(spielFelder);
 				if(feld3 != null && feld1.gleichBelegt(feld3)) {

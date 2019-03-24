@@ -1,24 +1,102 @@
 package abalone;
 
+import java.io.IOException;
 import java.util.Scanner;
+import jline.console.ConsoleReader;
 
 public class UI {
 	
 	public static void main (String[] args) {
-		spielStarten();
+		Spiel spiel = new Spiel();
+		welcomeScreen();
+		spielerAnlegen(spiel);
+		spielen(spiel);
 	}
 	/**
 	 * Methode um das Spiel zu starten
 	 */
-	public static void spielStarten() {
+	public static void spielerAnlegen(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
-		Spiel s1 = new Spiel();
-		System.out.println("Fuege Spieler 1 hinzu! (Name,Farbe)");
-		String[] woerter = sc.nextLine().split(",");
-		
-		s1.addSpieler(woerter[0], woerter[1]);
+		System.out.println("Gib den Namen für den Spieler mit der Farbe Weiss ein:");
+		String name = sc.nextLine();
+		try {
+			spiel.addSpieler(name, "weiss");
+		}catch(IllegalArgumentException e) {
+			System.out.println("Unzulässige eingabe, bitte benutze WEISS für Weiß und SCHWARZ für Schwarz)");
+		}
+		System.out.println("Spieler angelegt. Nun gib den Namen für den Spieler mit der Farbe Schwarz ein:");
+		name = sc.nextLine();
+		try {
+			spiel.addSpieler(name, "schwarz");
+		}catch(IllegalArgumentException e) {
+			System.out.println("Unzulässige eingabe, bitte benutze WEISS für Weiß und SCHWARZ für Schwarz)");
+		}
 	}
 	
+	public static void welcomeScreen() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("#    ___  _           _                  \r\n" + 
+						   "#   / _ \\| |         | |                 \r\n" + 
+						   "#  / /_\\ \\ |__   __ _| | ___  _ __   ___ \r\n" + 
+						   "#  |  _  | '_ \\ / _` | |/ _ \\| '_ \\ / _ \\\r\n" + 
+						   "#  | | | | |_) | (_| | | (_) | | | |  __/\r\n" + 
+						   "#  \\_| |_/_.__/ \\__,_|_|\\___/|_| |_|\\___|\r\n" + 
+						   "#                                        \r\n" + 
+						   "#                                        \n" + 
+						   "Drücke Enter zum Starten");
+		String start = sc.nextLine();
+		clearConsole();
+	}
+	
+	
+	public final static void clearConsole() {
+	//Clears Screen in java
+    try {
+        if (System.getProperty("os.name").contains("Windows"))
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        else
+            Runtime.getRuntime().exec("clear");
+    } catch (IOException | InterruptedException ex) {}
+	}
+	
+	public static void spielen(Spiel spiel) {
+		Scanner sc = new Scanner(System.in);
+		boolean imSpiel = true;
+		while(imSpiel) {
+			System.out.println(spiel.getStatus());
+			String zug = sc.nextLine();
+			if(!ziehen(zug, spiel))
+				System.out.println("Irgendwas hat da nicht gestimmt");
+			imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
+		}
+		
+	}
+
+	public static boolean ziehen(String zug, Spiel spiel) {
+		String[] zugArr = new String[2];
+		System.out.println(zug.length());
+		try {
+		if(zug.length()< 5 ) {
+			return false;
+		}
+		if(zug.length() >= 5) {
+			zugArr[0] = zug.substring(0,2);
+			zugArr[1] = zug.substring(3,5);
+		}
+		if(zug.length() >= 7) {
+			zugArr[0] = zug.substring(0,4);
+			zugArr[1] = zug.substring(5,7);
+		}
+		try {
+			spiel.ziehe(zugArr);
+		}catch(IllegalArgumentException e ) {
+			return false;
+		}
+		}catch (StringIndexOutOfBoundsException e) {
+			return false;
+		}
+		return true;
+	}
 	/**
 	 * Methode um das Spiel zu beenden
 	 */
