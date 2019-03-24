@@ -237,13 +237,13 @@ public class Spielbrett {
 				String idWeiss = buchstabeWeiss + zahl;
 				if(brett.containsKey(idWeiss)) {
 					Spielfeld feld = brett.get(idWeiss);
-					feld.setFigur(new Spielfigur(feld, FarbEnum.WEISS));
+					feld.setFigur(new Spielfigur(feld, "WEISS"));
 				}
 				String idSchwarz = buchstabeSchwarz + zahl;
 
 				if(brett.containsKey(idSchwarz)) {
 					Spielfeld feld = brett.get(idSchwarz);
-					feld.setFigur(new Spielfigur(feld, FarbEnum.SCHWARZ));
+					feld.setFigur(new Spielfigur(feld, "SCHWARZ"));
 				}
 			}
 		}
@@ -263,9 +263,9 @@ public class Spielbrett {
 			String idSchwarz = "C" + i;
 
 			Spielfeld weiss = brett.get(idWeiss);
-			weiss.setFigur(new Spielfigur(weiss, FarbEnum.WEISS));
+			weiss.setFigur(new Spielfigur(weiss, "WEISS"));
 			Spielfeld schwarz = brett.get(idSchwarz);
-			schwarz.setFigur(new Spielfigur(schwarz, FarbEnum.SCHWARZ));
+			schwarz.setFigur(new Spielfigur(schwarz, "SCHWARZ"));
 		}
 	}
 
