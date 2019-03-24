@@ -79,13 +79,19 @@ public class Spiel {
 	 * @return Boolean Ob der übergebene Spieler gewonnen hat
 	 */
 	public boolean hatGewonnen(String name) {
+		Spieler spieler = null;
 		Spieler[] spielerArr = getSpielerImSpiel();
 		
 		for(int i = 0; i<spielerArr.length; i++) {
 			if (spielerArr[i].getName().equals(name)) {
-				if (spielerArr[i].getEliminierteKugeln()>= 6) {
+				spieler = spielerArr[i];
+			}
+		}
+		for(int i = 0; i<spielerArr.length; i++) {
+			if(spieler != null && !spielerArr[i].equals(spieler)) {
+				if(14 - this.zaehleKugelnMitFarbe(spieler.getFarbe())> 6 &&
+				   14 - this.zaehleKugelnMitFarbe(spielerArr[i].getFarbe())> 6)
 					return true;
-				}
 			}
 		}
 		return false;
@@ -122,13 +128,25 @@ public class Spiel {
 		
 	}
 	
+	public int zaehleKugelnMitFarbe(FarbEnum farbe) {
+		return spielBrett.getFelderMitFarbe(farbe).size();
+	}
+	
 
 	public String getHistorie() {
-		return this.historie
+		return this.historie.getZuege();
 
 	}
 
 	public String getStatus() { // ??
+		String amZug ="Am zug ist: " + spielerAmZug.getName() + "\n";
+		String verbleibendeSteine = "Spieler " + this.spielerImSpiel[0].getName() + 
+									" hat noch " + this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())+ " Kugeln. \n"+
+									"Spieler " + this.spielerImSpiel[1].getName() + 
+									" hat noch " + this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln. \n";
+		
+		String feld = this.spielBrett.toString() + "\n";
+		return feld + amZug + verbleibendeSteine;
 
 	}
 
@@ -226,6 +244,7 @@ public class Spiel {
 						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 0) {
 							return false;
 						}
+						break;
 					case 5:
 						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 1) {
 							return false;
@@ -235,6 +254,7 @@ public class Spiel {
 						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 2) {
 							return false;
 						}
+						break;
 					case 7:
 						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 3) {
 							return false;

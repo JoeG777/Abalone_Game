@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Spielbrett {
 
@@ -791,7 +792,7 @@ public class Spielbrett {
 			Spielfeld[] ausgangsfelder = getAusgangsfelder(zug);
 			int richtung = bekommeRichtung(zug);
 			for(int i = 0; i < ausgangsfelder.length; i++) {
-				if(zug.getFarbe() != ausgangsfelder[i].getFigur().getFarbe())
+				if(ausgangsfelder[i].getFigur() == null || zug.getFarbe() != ausgangsfelder[i].getFigur().getFarbe())
 					return false;
 			}
 			Spielfeld[] zielfelder = getZielfelder(ausgangsfelder,richtung);
@@ -885,13 +886,14 @@ public class Spielbrett {
 		return erfolgreich;
 	}
 	
-	private ArrayList<Spielfeld> getFelderMitFarbe(FarbEnum farbe) {
+	public ArrayList<Spielfeld> getFelderMitFarbe(FarbEnum farbe) {
 		ArrayList<Spielfeld> felder = new ArrayList<Spielfeld>();
 		for(Spielfeld feld : brett.values()) {
 			if(feld.getFigur() != null && feld.getFigur().getFarbe() == farbe) {
 				felder.add(feld);
 			}
 		}
+		felder.removeIf(Objects::isNull);
 		return felder;
 	}
 	
