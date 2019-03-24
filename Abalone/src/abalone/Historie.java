@@ -7,10 +7,8 @@ public class Historie {
 	
 	/**
 	 * Konstruktor der Klasse Historie
-	 * @param zuege String, welcher alle vergangenen Spielzuege enthaelt
 	 */
-	public Historie(String zuege) {
-		this.zuege = zuege;
+	public Historie() {
 	}
 	
 	/**

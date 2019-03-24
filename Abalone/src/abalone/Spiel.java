@@ -18,6 +18,7 @@ public class Spiel {
 
 	public Spiel() {
 		spielBrett = new Spielbrett();
+		historie = new Historie();
 		this.spielerImSpiel = new Spieler[2];
 	}
 	
@@ -64,6 +65,9 @@ public class Spiel {
 		return spielerAmZug.getName();
 	}
 
+	public FarbEnum getFarbeAmZug() {
+		return this.spielerAmZug.getFarbe();
+	}
 	public void starte() {
 
 	}
@@ -97,11 +101,12 @@ public class Spiel {
 	 */
 	public void ziehe(String[] zug) {
 		if (spielzugValidieren(zug)) {
-			Spielzug spielzug = new Spielzug(zug[0], zug[1], 0);
+			Spielzug spielzug = new Spielzug(zug[0], zug[1], 0, spielerAmZug.getFarbe());
 			Spielzug[] spielzuege = new Spielzug[1];
 			spielzuege[0] = spielzug;
-			spielBrett.ziehe(spielzuege);
-			//historie.spielzugHinzufuegen(spielzuege[0]);
+			if(!spielBrett.ziehe(spielzuege))
+				throw new IllegalArgumentException("Unzulaessiger Zug");
+			historie.spielzugHinzufuegen(spielzuege[0]);
 			if (spielerAmZug.getFarbe() == spielerImSpiel[0].getFarbe()) {
 				spielerAmZug = spielerImSpiel[1];
 			} else {
@@ -119,6 +124,7 @@ public class Spiel {
 	
 
 	public String getHistorie() {
+		return this.historie
 
 	}
 

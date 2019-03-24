@@ -487,7 +487,7 @@ public class Spielbrett {
 		}
 		if(richtung >=3 && richtung <= 5) {
 			feld = felder[felder.length-1];
-			Spielfeld nachbar1 = feld.getNachbar(richtung);
+			Spielfeld nachbar1 = felder[1];
 			if(nachbar1 == null) {
 				return false;
 			}
@@ -508,8 +508,8 @@ public class Spielbrett {
 				return false;
 			}  
 			if(felder.length == 3) {
-				Spielfeld nachbar2 = nachbar1.getNachbar(richtung);
-				Spielfeld nachbar3 = nachbar2.getNachbar(richtung);
+				Spielfeld nachbar2 = felder[1];
+				Spielfeld nachbar3 = felder[2];
 				if(nachbar1.getFigur() == null)
 					return true;
 				if(nachbar2 == null && 
@@ -790,8 +790,11 @@ public class Spielbrett {
 		for(Spielzug zug : zuege) {
 			Spielfeld[] ausgangsfelder = getAusgangsfelder(zug);
 			int richtung = bekommeRichtung(zug);
+			for(int i = 0; i < ausgangsfelder.length; i++) {
+				if(zug.getFarbe() != ausgangsfelder[i].getFigur().getFarbe())
+					return false;
+			}
 			Spielfeld[] zielfelder = getZielfelder(ausgangsfelder,richtung);
-
 			if(ausgangsfelder.length == 1) { // Ein Stein darf nicht schieben, also nur ueberpruefen, ob Zielfeld belegt ist
 				if(ausgangsfelder[0].getNachbar(richtung).getFigur() == null) {
 					bewegeFiguren(ausgangsfelder, zielfelder);
@@ -922,7 +925,7 @@ public class Spielbrett {
 			Spielfeld[] nachbarn = feld.getNachbarn();
 			for(int i = 0; i < nachbarn.length; i++) {
 				if(nachbarn[i] != null && nachbarn[i].getFigur() == null) {
-					zuege.add(new Spielzug(feld.getId(), nachbarn[i].getId(), i));
+					zuege.add(new Spielzug(feld.getId(), nachbarn[i].getId(), i, feld.getFarbe()));
 				}
 			}
 			//Fall 2: mit welchen Nachbarn kann gezogen werden? n = 1
@@ -934,13 +937,13 @@ public class Spielbrett {
 						if(!feld.getNachbar(richtung).equals(nachbarn[i])) {
 							Spielfeld ziel = feld.getNachbar(richtung);
 							if(ziel != null && feld.gleichBelegt(ziel))
-								zuege.add(new Spielzug(nachbarn[i].getId() + feld.getId(),feld.getNachbar(richtung).getId(), i));
+								zuege.add(new Spielzug(nachbarn[i].getId() + feld.getId(),feld.getNachbar(richtung).getId(), i, feld.getFarbe()));
 						}
 						else
 						if(nachbarn[i].getNachbar(richtung) != null) {
 							Spielfeld ziel = nachbarn[i].getNachbar(richtung);
 							if(ziel != null && feld.gleichBelegt(ziel))
-								zuege.add(new Spielzug(feld.getId()+nachbarn[i].getId(),nachbarn[i].getNachbar(richtung).getId(), i));
+								zuege.add(new Spielzug(feld.getId()+nachbarn[i].getId(),nachbarn[i].getNachbar(richtung).getId(), i, feld.getFarbe()));
 						}
 					}
 				}
@@ -956,10 +959,10 @@ public class Spielbrett {
 						int richtung = i;
 						if(this.kannSchieben(felderAlsArray, richtung)) {
 							if(feld != null && feld.getNachbar(richtung) != null && !feld.getNachbar(richtung).equals(nachbar1))
-									zuege.add(new Spielzug(nachbar2.getId() + feld.getId(),feld.getNachbar(richtung).getId(), i));
+									zuege.add(new Spielzug(nachbar2.getId() + feld.getId(),feld.getNachbar(richtung).getId(), i, feld.getFarbe()));
 							else
 								if(nachbar2 != null && nachbar2.getNachbar(richtung) != null)
-									zuege.add(new Spielzug(feld.getId()+nachbar2.getId(),nachbar2.getNachbar(richtung).getId(), i));
+									zuege.add(new Spielzug(feld.getId()+nachbar2.getId(),nachbar2.getNachbar(richtung).getId(), i, feld.getFarbe()));
 						}
 					}
 				}
