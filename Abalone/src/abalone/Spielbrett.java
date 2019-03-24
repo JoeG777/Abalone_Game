@@ -371,9 +371,11 @@ public class Spielbrett {
 	
 	private void bewegeFiguren(Spielfeld[] ausgangsfelder, Spielfeld[] zielfelder) {
 		for(int i = 0; i < ausgangsfelder.length; i++) {
-			String ausgangsfeld = ausgangsfelder[i].getId();
-			String zielfeld = zielfelder[i].getId();
-			bewegeFigur(ausgangsfeld, zielfeld);
+			if(zielfelder[i] != null) {
+				String ausgangsfeld = ausgangsfelder[i].getId();
+				String zielfeld = zielfelder[i].getId();
+				bewegeFigur(ausgangsfeld, zielfeld);
+			}
 		}
 	}
 	
@@ -878,7 +880,7 @@ public class Spielbrett {
 			}
 			else if(!isSchiebung(ausgangsfelder,richtung)) {
 				for(Spielfeld feld : zielfelder) {
-					if(feld.getFigur() != null) {
+					if(feld != null && feld.getFigur() != null) {
 						return false;
 					}
 				}
@@ -962,13 +964,14 @@ public class Spielbrett {
 				if(nachbar1 != null && nachbar1.getFigur() != null && nachbar1.gleichBelegt(feld)) {
 					Spielfeld nachbar2 = nachbar1.getNachbar(i);
 					if(nachbar2 != null && nachbar2.getFigur() != null && nachbar2.gleichBelegt(feld)) {
-						Spielfeld[] felderAlsArray = {feld, nachbar2};
+						Spielfeld[] felderAlsArray = {feld,nachbar1, nachbar2};
 						int richtung = i;
 						if(this.kannSchieben(felderAlsArray, richtung)) {
-							if(!feld.getNachbar(richtung).equals(nachbar1))
-								zuege.add(new Spielzug(nachbar2.getId() + feld.getId(),feld.getNachbar(richtung).getId(), i));
+							if(feld != null && feld.getNachbar(richtung) != null && !feld.getNachbar(richtung).equals(nachbar1))
+									zuege.add(new Spielzug(nachbar2.getId() + feld.getId(),feld.getNachbar(richtung).getId(), i));
 							else
-								zuege.add(new Spielzug(feld.getId()+nachbar2.getId(),nachbar2.getNachbar(richtung).getId(), i));
+								if(nachbar2 != null && nachbar2.getNachbar(richtung) != null)
+									zuege.add(new Spielzug(feld.getId()+nachbar2.getId(),nachbar2.getNachbar(richtung).getId(), i));
 						}
 					}
 				}
@@ -990,6 +993,18 @@ public class Spielbrett {
 			zuege[i] = moeglicheZuege.get(i);
 		}
 		return zuege;
+	}
+	
+	private int umgekehrteRichtung(int richtung) {
+		switch(richtung) {
+			case 0: return 3;
+			case 1: return 5;
+			case 2: return 4;
+			case 3: return 0;
+			case 4: return 2;
+			case 5: return 1;
+			default: return 6;
+		}
 	}
 		
 		

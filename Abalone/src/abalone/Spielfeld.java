@@ -162,6 +162,15 @@ public class Spielfeld {
 		this.nachbarn = nachbarn;
 	}
 	
+	public boolean istBesetzt() {
+		if(this.figur == null) {
+			return false;
+		}
+		return true;
+	}
+	
+	
+	
 	/**
 	 * Befüllt das Nachbarn-Attribut mit existenten Nachbarn (Spielfeld-Objekten).
 	 * Position 0 enstpricht links, Position 1 entspricht oben-links,
@@ -267,8 +276,14 @@ public class Spielfeld {
 	}
 	
 	public boolean gleichBelegt(Spielfeld feld) {
-		if(feld == null || this.getFigur() == null || feld.getFigur() == null)
-			return false;
-		return this.getFigur().getFarbe() == feld.getFigur().getFarbe();
+		if(feld != null && feld.istBesetzt() && this.getFigur().getFarbe() == feld.getFigur().getFarbe())
+			return true;
+		return false;
+	}
+	
+	public boolean hatNachbar(int richtung) {
+		if(this.nachbarn[richtung] != null)
+			return true;
+		return false;
 	}
 }
