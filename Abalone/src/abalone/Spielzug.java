@@ -19,6 +19,11 @@ public class Spielzug {
 		this.setFarbe(farbe);
 	}
 	
+	public Spielzug(String von, String nach) {
+		this.setVon(von);
+		this.setNach(nach);
+	}
+	
 	public String getVon() {
 		return von;
 	}
