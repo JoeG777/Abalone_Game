@@ -18,6 +18,7 @@ public class Spiel {
 
 	public Spiel() {
 		spielBrett = new Spielbrett();
+		this.spielerImSpiel = new Spieler[2];
 	}
 	
 	public Spieler[] getSpielerImSpiel() {
@@ -41,12 +42,13 @@ public class Spiel {
 		if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
 			throw new IndexOutOfBoundsException("Das Spieler Array ist bereits voll!");
 		}
-		if (farbe.equals("weiss") && spielerImSpiel[0] != null) {
+		if (farbe.equals("weiss") && spielerImSpiel[0] == null) {
 			FarbEnum spielerFarbe = FarbEnum.WEISS;
-			// spielerImSpiel[0];
-		} else if (farbe.equals("weiss") && spielerImSpiel[0] != null) {
+			spielerImSpiel[0] = new Spieler(name, spielerFarbe);
+			this.spielerAmZug = spielerImSpiel[0];
+		} else if (farbe.equals("schwarz") && spielerImSpiel[0] != null) {
 			FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
-			// spielerImSpiel[1];
+			spielerImSpiel[1] = new Spieler(name, spielerFarbe);
 		} else {
 			throw new IllegalArgumentException("Unbekannte farbe :" + farbe);
 		}
@@ -95,10 +97,11 @@ public class Spiel {
 	 */
 	public void ziehe(String[] zug) {
 		if (spielzugValidieren(zug)) {
-			Spielzug spielzug = new Spielzug(zug[0], zug[1]);
-
-			spielBrett.ziehe(spielzug);
-			historie.spielzugHinzufuegen(spielzug);
+			Spielzug spielzug = new Spielzug(zug[0], zug[1], 0);
+			Spielzug[] spielzuege = new Spielzug[1];
+			spielzuege[0] = spielzug;
+			spielBrett.ziehe(spielzuege);
+			//historie.spielzugHinzufuegen(spielzuege[0]);
 			if (spielerAmZug.getFarbe() == spielerImSpiel[0].getFarbe()) {
 				spielerAmZug = spielerImSpiel[1];
 			} else {
@@ -184,7 +187,7 @@ public class Spiel {
 			for (int i = 0; i < koordinate.length; i++) {
 				if (i % 2 == 0) {
 					buchstabenKoordinaten = 'I' - koordinate[i];
-					if (!(buchstabenKoordinaten <= 8 && buchstabenKoordinaten >= 0)) {
+					if ((buchstabenKoordinaten < 8 && buchstabenKoordinaten < 0)) {
 						return false;
 					}
 				} else {
@@ -197,18 +200,22 @@ public class Spiel {
 						if (zahlenKoordinaten > 5 || zahlenKoordinaten < 0) {
 							return false;
 						}
+						break;
 					case 1:
 						if (zahlenKoordinaten > 6 || zahlenKoordinaten < 0) {
 							return false;
 						}
+						break;
 					case 2:
 						if (zahlenKoordinaten > 7 || zahlenKoordinaten < 0) {
 							return false;
 						}
+						break;
 					case 3:
 						if (zahlenKoordinaten > 8 || zahlenKoordinaten < 0) {
 							return false;
 						}
+						break;
 					case 4:
 						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 0) {
 							return false;
@@ -217,6 +224,7 @@ public class Spiel {
 						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 1) {
 							return false;
 						}
+						break;
 					case 6:
 						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 2) {
 							return false;
@@ -225,10 +233,12 @@ public class Spiel {
 						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 3) {
 							return false;
 						}
+						break;
 					case 8:
 						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 4) {
 							return false;
 						}
+						break;
 					}
 				}
 			}
@@ -259,7 +269,7 @@ public class Spiel {
 				if (zahlenKoordinaten > 2 || zahlenKoordinaten < -2 || zahlenKoordinaten == 0) {
 					return false;
 				}
-			} else if (buchstabenKoordinaten >= -2 && buchstabenKoordinaten <= 2) {
+			} else if (buchstabenKoordinaten > -2 && buchstabenKoordinaten < 2) {
 				if (zahlenKoordinaten != buchstabenKoordinaten || zahlenKoordinaten != 0) {
 					return false;
 				}
@@ -272,7 +282,7 @@ public class Spiel {
 			buchstabenKoordinaten = geparsterZug[0][2] - geparsterZug[1][0];
 			switch (buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
 			case 0:
-				rechts = zahlenKoordinaten == -1;
+				rechts = zahlenKoordinaten == -1 || zahlenKoordinaten == 1;
 				break;
 
 			case -1:
@@ -293,7 +303,7 @@ public class Spiel {
 			buchstabenKoordinaten = geparsterZug[0][0] - geparsterZug[1][0];
 			switch (buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
 			case 0:
-				links = zahlenKoordinaten == -1;
+				links = zahlenKoordinaten == -1 || zahlenKoordinaten == 1;
 				break;
 
 			case -1:
@@ -305,9 +315,9 @@ public class Spiel {
 				break;
 
 			default:
-				return false;
+				links = false;
 			}
-			return rechts || links;
+			return rechts ^ links;
 		}
 	}
 
@@ -319,7 +329,7 @@ public class Spiel {
 	 * @since 1.1
 	 */
 	private boolean spielzugValidieren(String[] zug) {
-
+		return this.koordinatenValidieren(this.spielzugParser(zug));
 	}
     /**Prueft, ob zu gegebenen Koordinaten Spielfelder existieren
      * 
