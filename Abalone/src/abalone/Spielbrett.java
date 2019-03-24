@@ -662,7 +662,7 @@ public class Spielbrett {
 		Spielfeld nachbarInRichtung = vordersterStein.getNachbar(richtung);
 		
 
-		if(nachbarInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe()) {
+		if(nachbarInRichtung != null && nachbarInRichtung.istBesetzt() && nachbarInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe()) {
 			Spielfeld nachbarHinterNachbar = nachbarInRichtung.getNachbar(richtung);
 			if(nachbarHinterNachbar == null) {
 				System.out.println("hierhin");
@@ -689,7 +689,7 @@ public class Spielbrett {
 		Spielfeld zweitesFeldInRichtung = erstesFeldInRichtung.getNachbar(richtung);
 		Spielfeld drittesFeldInRichtung = zweitesFeldInRichtung.getNachbar(richtung);
 		
-		if(erstesFeldInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe() &&
+		if(erstesFeldInRichtung != null && erstesFeldInRichtung.istBesetzt() && erstesFeldInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe() &&
 			zweitesFeldInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe()) {
 				
 			if(drittesFeldInRichtung == null) {
@@ -919,68 +919,119 @@ public class Spielbrett {
 		return gefilterteFelder;
 	}
 	
-	private ArrayList<Spielzug> getMoeglicheZuege(ArrayList<Spielfeld> felder) {
+	private ArrayList<Spielfeld> getNachbarnFuerZuege(Spielfeld feld) {
+		ArrayList<Spielfeld> felderFuerZug = new ArrayList<Spielfeld>();
+		for(int i = 0; i < 6; i++) {
+			Spielfeld nachbar = feld.getNachbar(i);
+			if(nachbar!= null && feld.gleichBelegt(nachbar)) {
+				felderFuerZug.add(feld);
+			    felderFuerZug.add(nachbar);
+			}
+			if(nachbar!= null) {
+			Spielfeld nachbar2 = nachbar.getNachbar(i);
+			if(nachbar!= null && feld.gleichBelegt(nachbar)) 
+			    felderFuerZug.add(nachbar2);
+			}
+			}
+		return felderFuerZug;
+	}
+	
+	private ArrayList<Spielzug> gesamtMoeglichkeiten(ArrayList<Spielfeld> felder){
+		ArrayList<Spielzug> gesamt = new ArrayList<Spielzug>();
+		ArrayList<Spielzug> zuegeAllein = this.moeglichkeitenAlleineZiehen(felder);
+		gesamt.addAll(zuegeAllein);
+		for(Spielfeld feld : felder) {
+			ArrayList<Spielzug> zuegeZusammen = this.moeglicheZuege(this.moeglichkeitenZusammenZiehen(this.getNachbarnFuerZuege(feld)));
+			gesamt.addAll(zuegeZusammen);
+		}
+		return gesamt;
+	}
+	
+	private ArrayList<Spielzug> moeglichkeitenAlleineZiehen(ArrayList<Spielfeld> felder){
 		ArrayList<Spielzug> zuege = new ArrayList<Spielzug>();
 		for(Spielfeld feld : felder) {
-			//Fall 1: nur eine Kugel zieht:
-			if(feld != null) {
-			Spielfeld[] nachbarn = feld.getNachbarn();
+			Spielfeld[]nachbarn = feld.getNachbarn();
 			for(int i = 0; i < nachbarn.length; i++) {
 				if(nachbarn[i] != null && nachbarn[i].getFigur() == null) {
-					zuege.add(new Spielzug(feld.getId(), nachbarn[i].getId(), i, feld.getFarbe()));
+					Spielzug zug = new Spielzug(feld.getId(), nachbarn[i].getId(), i, feld.getFarbe());
 				}
 			}
-			//Fall 2: mit welchen Nachbarn kann gezogen werden? n = 1
-			for(int i = 0; i < nachbarn.length; i++) {
-				if(nachbarn[i] != null && nachbarn[i].getFigur() != null && nachbarn[i].gleichBelegt(feld)) {
-					int richtung = i;
-					Spielfeld[] felderAlsArray = {feld, nachbarn[i]};
-					if(this.kannSchieben(felderAlsArray, richtung)) {
-						if(!feld.getNachbar(richtung).equals(nachbarn[i])) {
-							Spielfeld ziel = feld.getNachbar(richtung);
-							if(ziel != null && feld.gleichBelegt(ziel))
-								zuege.add(new Spielzug(nachbarn[i].getId() + feld.getId(),feld.getNachbar(richtung).getId(), i, feld.getFarbe()));
-						}
-						else
-						if(nachbarn[i].getNachbar(richtung) != null) {
-							Spielfeld ziel = nachbarn[i].getNachbar(richtung);
-							if(ziel != null && feld.gleichBelegt(ziel))
-								zuege.add(new Spielzug(feld.getId()+nachbarn[i].getId(),nachbarn[i].getNachbar(richtung).getId(), i, feld.getFarbe()));
-						}
-					}
-				}
-			}
-			
-			//Fall 3: mit welchen Nachbarn kann gezogen werden? n = 2
-			for(int i = 0; i < nachbarn.length; i++) {
-				Spielfeld nachbar1 = nachbarn[i];
-				if(nachbar1 != null && nachbar1.getFigur() != null && nachbar1.gleichBelegt(feld)) {
-					Spielfeld nachbar2 = nachbar1.getNachbar(i);
-					if(nachbar2 != null && nachbar2.getFigur() != null && nachbar2.gleichBelegt(feld)) {
-						Spielfeld[] felderAlsArray = {feld,nachbar1, nachbar2};
-						int richtung = i;
-						if(this.kannSchieben(felderAlsArray, richtung)) {
-							if(feld != null && feld.getNachbar(richtung) != null && !feld.getNachbar(richtung).equals(nachbar1))
-									zuege.add(new Spielzug(nachbar2.getId() + feld.getId(),feld.getNachbar(richtung).getId(), i, feld.getFarbe()));
-							else
-								if(nachbar2 != null && nachbar2.getNachbar(richtung) != null)
-									zuege.add(new Spielzug(feld.getId()+nachbar2.getId(),nachbar2.getNachbar(richtung).getId(), i, feld.getFarbe()));
-						}
-					}
-				}
-				
-				
-			}
-			
-		}
 		}
 		return zuege;
 	}
 	
+	
+	private ArrayList<Spielfeld[]> moeglichkeitenZusammenZiehen(ArrayList<Spielfeld> felder) {
+		
+		ArrayList<Spielfeld[]> zuegeZusammen = new ArrayList<Spielfeld[]>();
+		for(Spielfeld feld: felder) {
+			Spielfeld feld1 = feld;
+			Spielfeld feld2 = null;
+			Spielfeld feld3 = null;
+			if(felder.size() > 1) {
+				feld2 = felder.get(1);
+			}
+			if(felder.size() > 2) {
+				feld3 = felder.get(2);
+			}
+			if(feld2 != null && feld1.istBesetzt() && feld1.gleichBelegt(feld2)) {
+				Spielfeld[] spielFelder = {feld1, feld2};
+				zuegeZusammen.add(spielFelder);
+				if(feld3 != null && feld1.gleichBelegt(feld3)) {
+					spielFelder[0] = feld1;
+					spielFelder[1] = feld3;
+					zuegeZusammen.add(spielFelder);
+				}
+			}
+		}
+		return zuegeZusammen;
+		
+		
+	}
+	
+	private ArrayList<Spielzug> moeglicheZuege(ArrayList<Spielfeld[]> felderListe){
+		ArrayList<Spielzug> zuege = new ArrayList<Spielzug>();
+		for(Spielfeld[] feldArr: felderListe) {
+			Spielfeld feld1 = feldArr[0];
+			Spielfeld feld2 = feldArr[1];
+			int richtung;
+			int anzahlFelder;
+			if(!feld1.hatNachbar(feld2)) {
+				richtung = feld1.sucheInNachbar(feld2);
+				anzahlFelder = 3;
+			}else { 
+				richtung = feld1.getNachbarId(feld2);
+				anzahlFelder = 2;
+			}
+			if(richtung != -1) {
+				Spielfeld zielFeld = feld2.getNachbar(richtung);
+				boolean kannZiehenFlag = false;
+				if(zielFeld != null && zielFeld.getFigur() == null) {
+					kannZiehenFlag = true;
+				}
+				if(zielFeld != null) {
+				Spielfeld zielNachbar1 = zielFeld.getNachbar(richtung);
+				if(zielFeld != null && !zielFeld.gleichBelegt(feld2) && anzahlFelder == 3) {
+					kannZiehenFlag = this.isZuEinsSumito(feld2, richtung) ||
+									 this.isZuZweiSumito(feld2, richtung);
+				}
+				if(zielFeld != null && !zielFeld.gleichBelegt(feld2) && anzahlFelder == 2) {
+					kannZiehenFlag = this.isZuEinsSumito(feld2, richtung);
+				}
+				if(kannZiehenFlag) {
+					Spielzug zug = new Spielzug(feld1.getId()+feld2.getId(), zielFeld.getId(), richtung, feld1.getFarbe());
+					zuege.add(zug);
+				}
+				}
+			}
+				
+			}
+			return zuege;
+		}
+	
 	public Spielzug[] baueArrayMitMoeglZuegen(FarbEnum farbe) {
 		ArrayList<Spielfeld> felderMitFarbe = this.getFelderMitFarbe(farbe);
-		ArrayList<Spielfeld> kannZiehen = this.checkNachbarn(felderMitFarbe);
-		ArrayList<Spielzug> moeglicheZuege = this.getMoeglicheZuege(kannZiehen);
+		ArrayList<Spielzug> moeglicheZuege = this.gesamtMoeglichkeiten(felderMitFarbe);
 		Spielzug[] zuege = new Spielzug[moeglicheZuege.size()];
 		for(int i = 0; i < zuege.length; i++) {
 			zuege[i] = moeglicheZuege.get(i);

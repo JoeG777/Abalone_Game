@@ -320,7 +320,7 @@ public class Spiel {
 				break;
 
 			default:
-				return false;
+				rechts = false;
 			}
 			;
 			boolean links = false;

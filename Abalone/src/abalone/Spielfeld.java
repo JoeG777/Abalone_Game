@@ -276,7 +276,7 @@ public class Spielfeld {
 	}
 	
 	public boolean gleichBelegt(Spielfeld feld) {
-		if(feld != null && feld.istBesetzt() && this.getFigur().getFarbe() == feld.getFigur().getFarbe())
+		if(feld != null && feld.istBesetzt() && this.istBesetzt() && this.getFigur().getFarbe() == feld.getFigur().getFarbe())
 			return true;
 		return false;
 	}
@@ -285,5 +285,14 @@ public class Spielfeld {
 		if(this.nachbarn[richtung] != null)
 			return true;
 		return false;
+	}
+	
+	public int sucheInNachbar(Spielfeld feld) {
+		for(int i = 0; i < this.nachbarn.length; i++) {
+			if(nachbarn[i] != null && nachbarn[i].getNachbarId(feld) != -1) {
+				return i;
+			}
+		}
+		return -1;
 	}
 }
