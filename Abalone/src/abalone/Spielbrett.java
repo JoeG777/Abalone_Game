@@ -361,28 +361,7 @@ public class Spielbrett {
 	}
 
 
-	/**
-	 * Bewegt eine Figur von einem Feld auf ein anderes, 
-	 * ohne dabei zu überprüfen, ob dies "logisch" möglich ist. 
-	 * @param von das Feld auf dem sich die Figur befindet.
-	 * @param auf das Feld auf das die Figur bewegt werden soll. 
-	 * @since 1.4
-	 */
-	private void bewegeFigur(String von, String auf) {
 
-		brett.get(auf).setFigur(brett.get(von).getFigur());;
-		brett.get(von).setFigur(null);
-	}
-	
-	private void bewegeFiguren(Spielfeld[] ausgangsfelder, Spielfeld[] zielfelder) {
-		for(int i = 0; i < ausgangsfelder.length; i++) {
-			if(zielfelder[i] != null) {
-				String ausgangsfeld = ausgangsfelder[i].getId();
-				String zielfeld = zielfelder[i].getId();
-				bewegeFigur(ausgangsfeld, zielfeld);
-			}
-		}
-	}
 	
 	public Spielfeld[] getFelderZuZiehen(Spielzug zug) {
 		Spielfeld[] spielFelder = null;
@@ -536,6 +515,115 @@ public class Spielbrett {
 		}
 		return false;
 	}
+
+			
+	
+	/**
+	 * Nimmt syntaktisch-korrekte Spielzuege an und fuehrt diese aus. 
+	 * @param zuege ein Array aus Spielzuegen.
+	 * @return true, wenn Zug erfolgreich, false, wenn nicht.
+	 */
+	public boolean ziehe(Spielzug[] zuege) {
+		boolean erfolgreich = false;
+
+		for(Spielzug zug : zuege) {
+			Spielfeld[] ausgangsfelder = getAusgangsfelder(zug);
+			int richtung = bekommeRichtung(zug);
+			for(int i = 0; i < ausgangsfelder.length; i++) {
+				if(ausgangsfelder[i].getFigur() == null || zug.getFarbe() != ausgangsfelder[i].getFigur().getFarbe())
+					return false;
+			}
+			Spielfeld[] zielfelder = getZielfelder(ausgangsfelder,richtung);
+			if(ausgangsfelder.length == 1) { // Ein Stein darf nicht schieben, also nur ueberpruefen, ob Zielfeld belegt ist
+				if(ausgangsfelder[0].getNachbar(richtung).getFigur() == null) {
+					bewegeFiguren(ausgangsfelder, zielfelder);
+					erfolgreich = true;
+				}
+			}
+
+			else if(isSchiebung(ausgangsfelder, richtung)) { //Schiebende Zuege sind anders zu behandeln als diagonale
+
+				if(ausgangsfelder.length == 2) {
+					Spielfeld vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
+
+					if(vordersterStein.getNachbar(richtung).getFigur() != null) { 
+						if(isZuEinsSumito(vordersterStein, richtung)) {
+							Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
+							if(steinAbgeraeumt(gegnerStein, richtung)) { 
+								fuehreZugAus(ausgangsfelder, richtung);
+								erfolgreich = true; 
+							}
+							else {
+								bewegeFigur(gegnerStein.getId(), gegnerStein.getNachbar(richtung).getId());
+								fuehreZugAus(ausgangsfelder, richtung);
+								erfolgreich = true; 
+							}
+						}
+					}
+					else {
+						fuehreZugAus(ausgangsfelder, richtung);
+						erfolgreich = true; 
+					}
+				}
+				else if(ausgangsfelder.length == 3) {
+					Spielfeld vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
+					if(vordersterStein.getNachbar(richtung).getFigur() != null) {
+						if(isZuEinsSumito(vordersterStein, richtung)) {
+							Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
+
+							if(steinAbgeraeumt(gegnerStein, richtung)) {
+								fuehreZugAus(ausgangsfelder, richtung);
+								erfolgreich = true; 
+							}
+
+							else {
+								bewegeFigur(gegnerStein.getId(), gegnerStein.getNachbar(richtung).getId());
+								fuehreZugAus(ausgangsfelder, richtung);
+								erfolgreich = true; 
+							}
+						}
+						else if(isZuZweiSumito(vordersterStein, richtung)) {
+							Spielfeld vordererGegnerStein = vordersterStein.getNachbar(richtung);
+							Spielfeld hintererGegnerStein = vordererGegnerStein.getNachbar(richtung);
+
+							if(steinAbgeraeumt(hintererGegnerStein, richtung)) {
+								bewegeFigur(vordererGegnerStein.getId(), vordererGegnerStein.getNachbar(richtung).getId());
+								fuehreZugAus(ausgangsfelder, richtung);
+								erfolgreich = true; 
+							}
+
+							else {
+								bewegeFigur(hintererGegnerStein.getId(), hintererGegnerStein.getNachbar(richtung).getId());
+								bewegeFigur(vordererGegnerStein.getId(), hintererGegnerStein.getId());
+								fuehreZugAus(ausgangsfelder, richtung);
+								erfolgreich = true; 
+							}
+						}
+					}
+					else {
+						fuehreZugAus(ausgangsfelder, richtung);
+						erfolgreich = true; 
+					}
+
+				}
+			}
+			else if(!isSchiebung(ausgangsfelder,richtung)) {
+				for(Spielfeld feld : zielfelder) {
+					if(feld != null && feld.getFigur() != null) {
+						return false;
+					}
+				}
+				bewegeFiguren(ausgangsfelder, zielfelder);
+				erfolgreich = true;
+			}
+
+
+
+		}
+
+		return erfolgreich;
+	}
+	
 
 	/**
 	 * Prueft, ob es sich bei einem regulären Zug um einen Zug handelt, 
@@ -778,112 +866,28 @@ public class Spielbrett {
 		Spielfeld[] zielfelder = getZielfelder(ausgangsfelder, richtung);
 		bewegeFiguren(ausgangsfelder, zielfelder);
 	}
-			
 	
 	/**
-	 * Nimmt syntaktisch-korrekte Spielzuege an und fuehrt diese aus. 
-	 * @param zuege ein Array aus Spielzuegen.
-	 * @return true, wenn Zug erfolgreich, false, wenn nicht.
+	 * Bewegt eine Figur von einem Feld auf ein anderes, 
+	 * ohne dabei zu überprüfen, ob dies "logisch" möglich ist. 
+	 * @param von das Feld auf dem sich die Figur befindet.
+	 * @param auf das Feld auf das die Figur bewegt werden soll. 
+	 * @since 1.4
 	 */
-	public boolean ziehe(Spielzug[] zuege) {
-		boolean erfolgreich = false;
+	private void bewegeFigur(String von, String auf) {
 
-		for(Spielzug zug : zuege) {
-			Spielfeld[] ausgangsfelder = getAusgangsfelder(zug);
-			int richtung = bekommeRichtung(zug);
-			for(int i = 0; i < ausgangsfelder.length; i++) {
-				if(ausgangsfelder[i].getFigur() == null || zug.getFarbe() != ausgangsfelder[i].getFigur().getFarbe())
-					return false;
+		brett.get(auf).setFigur(brett.get(von).getFigur());;
+		brett.get(von).setFigur(null);
+	}
+	
+	private void bewegeFiguren(Spielfeld[] ausgangsfelder, Spielfeld[] zielfelder) {
+		for(int i = 0; i < ausgangsfelder.length; i++) {
+			if(zielfelder[i] != null) {
+				String ausgangsfeld = ausgangsfelder[i].getId();
+				String zielfeld = zielfelder[i].getId();
+				bewegeFigur(ausgangsfeld, zielfeld);
 			}
-			Spielfeld[] zielfelder = getZielfelder(ausgangsfelder,richtung);
-			if(ausgangsfelder.length == 1) { // Ein Stein darf nicht schieben, also nur ueberpruefen, ob Zielfeld belegt ist
-				if(ausgangsfelder[0].getNachbar(richtung).getFigur() == null) {
-					bewegeFiguren(ausgangsfelder, zielfelder);
-					erfolgreich = true;
-				}
-			}
-
-			else if(isSchiebung(ausgangsfelder, richtung)) { //Schiebende Zuege sind anders zu behandeln als diagonale
-
-				if(ausgangsfelder.length == 2) {
-					Spielfeld vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
-
-					if(vordersterStein.getNachbar(richtung).getFigur() != null) { 
-						if(isZuEinsSumito(vordersterStein, richtung)) {
-							Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
-							if(steinAbgeraeumt(gegnerStein, richtung)) { 
-								fuehreZugAus(ausgangsfelder, richtung);
-								erfolgreich = true; 
-							}
-							else {
-								bewegeFigur(gegnerStein.getId(), gegnerStein.getNachbar(richtung).getId());
-								fuehreZugAus(ausgangsfelder, richtung);
-								erfolgreich = true; 
-							}
-						}
-					}
-					else {
-						fuehreZugAus(ausgangsfelder, richtung);
-						erfolgreich = true; 
-					}
-				}
-				else if(ausgangsfelder.length == 3) {
-					Spielfeld vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
-					if(vordersterStein.getNachbar(richtung).getFigur() != null) {
-						if(isZuEinsSumito(vordersterStein, richtung)) {
-							Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
-
-							if(steinAbgeraeumt(gegnerStein, richtung)) {
-								fuehreZugAus(ausgangsfelder, richtung);
-								erfolgreich = true; 
-							}
-
-							else {
-								bewegeFigur(gegnerStein.getId(), gegnerStein.getNachbar(richtung).getId());
-								fuehreZugAus(ausgangsfelder, richtung);
-								erfolgreich = true; 
-							}
-						}
-						else if(isZuZweiSumito(vordersterStein, richtung)) {
-							Spielfeld vordererGegnerStein = vordersterStein.getNachbar(richtung);
-							Spielfeld hintererGegnerStein = vordererGegnerStein.getNachbar(richtung);
-
-							if(steinAbgeraeumt(hintererGegnerStein, richtung)) {
-								bewegeFigur(vordererGegnerStein.getId(), vordererGegnerStein.getNachbar(richtung).getId());
-								fuehreZugAus(ausgangsfelder, richtung);
-								erfolgreich = true; 
-							}
-
-							else {
-								bewegeFigur(hintererGegnerStein.getId(), hintererGegnerStein.getNachbar(richtung).getId());
-								bewegeFigur(vordererGegnerStein.getId(), hintererGegnerStein.getId());
-								fuehreZugAus(ausgangsfelder, richtung);
-								erfolgreich = true; 
-							}
-						}
-					}
-					else {
-						fuehreZugAus(ausgangsfelder, richtung);
-						erfolgreich = true; 
-					}
-
-				}
-			}
-			else if(!isSchiebung(ausgangsfelder,richtung)) {
-				for(Spielfeld feld : zielfelder) {
-					if(feld != null && feld.getFigur() != null) {
-						return false;
-					}
-				}
-				bewegeFiguren(ausgangsfelder, zielfelder);
-				erfolgreich = true;
-			}
-
-
-
 		}
-
-		return erfolgreich;
 	}
 	
 	public ArrayList<Spielfeld> getFelderMitFarbe(FarbEnum farbe) {
