@@ -281,26 +281,26 @@ public class Spielbrett {
 	 */
 	public Spielzug ordneAusgangsnotation(Spielzug zug) {
 		String feld1 = zug.getVon().substring(0,2);
-		String feld2 = zug.getNach().substring(2,4);
-
+		String feld2 = zug.getVon().substring(2,4);
+		String von = "";
 		
+		int richtung = getFeld(feld1).getNachbarId(getFeld(zug.getNach()));
 		if(feld1.charAt(1) > feld2.charAt(1)) {
 			if(feld1.charAt(0) < feld2.charAt(0)) {
-				String feldHalter = feld1;
-				feld1 = feld2;
-				feld2 = feldHalter;
+				von = feld2 + "" + feld1;
 			}
 			else {
-				String feldHalter = feld1;
-				feld1 = feld2;
-				feld2 = feldHalter;
+				von = feld2 + "" + feld1;
 			}
-			
+
 		}
 		
+		String nach = getFeld(feld1).getNachbar(richtung).getId();
 		
-		
-		return new Spielzug(feld1, feld2);
+
+
+
+		return new Spielzug(von, nach);
 	}
 	
 	/**
