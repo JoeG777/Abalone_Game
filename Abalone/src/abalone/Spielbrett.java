@@ -269,6 +269,33 @@ public class Spielbrett {
 		}
 	}
 
+	
+	public boolean isEindeutig(String[] zug) {
+		Spielfeld feld1 = brett.get(zug[0].substring(0,2));
+		Spielfeld feld2 = brett.get(zug[0].substring(2,4));
+		Spielfeld ziel = brett.get(zug[1]);
+
+		if(feld1.hatNachbar(ziel) && feld2.hatNachbar(ziel)) {
+			return false;
+		}
+		return true;
+	}
+	
+	public String[] setzeZielRechts(String[] zug) {
+		int richtung = 0; 
+		Spielfeld feld1 = brett.get(zug[0].substring(0,2));
+		Spielfeld feld2 = brett.get(zug[0].substring(2,4));
+		Spielfeld ziel = brett.get(zug[1]);
+		
+		if(feld1.hatNachbar(ziel)) {
+			richtung = feld1.getNachbarId(ziel);
+		}
+		
+		zug[1] = feld2.getNachbar(richtung).getId();
+		
+		return zug;
+	}
+
 
 	/**
 	 * Diese Methode Parst einen Spielzug zu einem Char Array zur weiteren 
