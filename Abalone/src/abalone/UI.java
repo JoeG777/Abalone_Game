@@ -77,7 +77,7 @@ public class UI {
 		if(zugArr[0].length() != 2 && zugArr[0].length() != 4) {
 			return false;
 		}
-		if(zugArr[1].length() != 2) {
+		if(zugArr.length <= 1 || zugArr[1].length() != 2) {
 			return false;
 		}
 		
