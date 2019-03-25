@@ -125,7 +125,7 @@ public class Spiel {
 	}
 
 	public String[] getErlaubteZuege() {
-		
+		return null;
 	}
 	
 	public int zaehleKugelnMitFarbe(FarbEnum farbe) {
@@ -269,6 +269,9 @@ public class Spiel {
 				}
 			}
 		}
+		return true;
+	}
+		/*
 		// Pruefen ob der Zug an sich valide ist
 		if (geparsterZug[0].length == 2) { // Wenn nur eine Kugel bewegt wird
 			zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
@@ -295,11 +298,10 @@ public class Spiel {
 				if (zahlenKoordinaten > 2 || zahlenKoordinaten < -2 || zahlenKoordinaten == 0) {
 					return false;
 				}
-			} else if (buchstabenKoordinaten > -2 && buchstabenKoordinaten < 2) {
-				if (zahlenKoordinaten != buchstabenKoordinaten || zahlenKoordinaten != 0) {
-					return false;
+			} else if (buchstabenKoordinaten == -2 || buchstabenKoordinaten == 2) {
+				   if (zahlenKoordinaten != buchstabenKoordinaten || zahlenKoordinaten != 0) {
+					   return false;
 				}
-
 			}
 			// b) pruefen ob die Kugeln auf das Zielfeld bewegt werden duerfen.
 			// b) I : Ist das Zielfeld im Bereich der rechten Ausgangskoordinate?
@@ -312,11 +314,11 @@ public class Spiel {
 				break;
 
 			case -1:
-				rechts = zahlenKoordinaten == -1;
+				rechts = zahlenKoordinaten == -1 || zahlenKoordinaten == 0;
 				break;
 
 			case 1:
-				rechts = zahlenKoordinaten == 0;
+				rechts = zahlenKoordinaten == 0 ||zahlenKoordinaten == 1; //merken;
 				break;
 
 			default:
@@ -339,13 +341,13 @@ public class Spiel {
 			case 1:
 				links = zahlenKoordinaten == 1;
 				break;
-
+			
 			default:
 				links = false;
 			}
 			return rechts ^ links;
-		}
-	}
+		}*/
+
 
 	/**
 	 * Prueft, ob ein Spielzug in abhaengigkeit der Spielbrett belegung valide ist.
@@ -365,15 +367,15 @@ public class Spiel {
 	private boolean existierenKoordinaten(String[] zug) {
 		String von = zug[0];
 		String nach = zug[1];
-		if (zug[0].length() != 2 || zug[0].length() != 4)
+		if (von.length() != 2 || von.length() != 4)
 			return false;
-		if (zug[1].length() != 2)
+		if (nach.length() != 2)
 			return false;
-		Spielfeld feld1 = spielBrett.getFeld(zug[0].substring(0, 1));
-		Spielfeld ziel = spielBrett.getFeld(zug[1]);
+		Spielfeld feld1 = spielBrett.getFeld(von.substring(0, 1));
+		Spielfeld ziel = spielBrett.getFeld(nach);
 		Spielfeld feld2;
-		if (zug[0].length() == 4) {
-			feld2 = spielBrett.getFeld(zug[0].substring(2, 3));
+		if (von.length() == 4) {
+			feld2 = spielBrett.getFeld(von.substring(2, 3));
 			if (ziel == null || feld1 == null || feld2 == null)
 				return false;
 		} else if (ziel == null || feld1 == null)
