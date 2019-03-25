@@ -404,4 +404,34 @@ public class Spiel {
 		}
 		return true;
 	}
+	
+	
+	/**
+	 * Ordnet einen String, der die Ausgangsfelder benennt, so an, 
+	 * dass as linke Feld links und das rechte Feld rechts steht.
+	 * @param zug ein String-Array mit [0] = Ausgangsfelder, [1] Zielfeld
+	 * @return Array, welches an [0] geordnet wurde
+	 */
+	public String[] ordneNutzereingabe(String[] zug) {
+		String feld1 = zug[0].substring(0,2);
+		String feld2 = zug[0].substring(2,4);
+		
+		if(feld1.charAt(1) > feld2.charAt(1)) {
+			if(feld1.charAt(0) < feld2.charAt(0)) {
+				String feldHalter = feld1;
+				feld1 = feld2;
+				feld2 = feldHalter;
+			}
+			else {
+				String feldHalter = feld1;
+				feld1 = feld2;
+				feld2 = feldHalter;
+			}
+			
+		}
+		
+		zug[0] = feld1 + "" + feld2;
+		
+		return zug;
+	}
 }
