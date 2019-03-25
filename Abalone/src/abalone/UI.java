@@ -71,32 +71,52 @@ public class UI {
 		}
 		
 	}
-
+	
 	public static boolean ziehen(String zug, Spiel spiel) {
-		String[] zugArr = new String[2];
-		System.out.println(zug.length());
-		try {
-		if(zug.length()< 5 ) {
+		String[] zugArr = zug.split("-");
+		if(zugArr[0].length() != 2 && zugArr[0].length() != 4) {
 			return false;
 		}
-		if(zug.length() >= 5) {
-			zugArr[0] = zug.substring(0,2);
-			zugArr[1] = zug.substring(3,5);
+		if(zugArr[1].length() != 2) {
+			return false;
 		}
-		if(zug.length() >= 7) {
-			zugArr[0] = zug.substring(0,4);
-			zugArr[1] = zug.substring(5,7);
-		}
+		
 		try {
 			spiel.ziehe(zugArr);
 		}catch(IllegalArgumentException e ) {
 			return false;
 		}
-		}catch (StringIndexOutOfBoundsException e) {
+		catch (StringIndexOutOfBoundsException e) {
 			return false;
 		}
 		return true;
 	}
+	
+//	public static boolean ziehen1(String zug, Spiel spiel) {
+//		String[] zugArr = new String[2];
+//		System.out.println(zug.length());
+//		try {
+//		if(zug.length()< 5 ) {
+//			return false;
+//		}
+//		if(zug.length() >= 5) {
+//			zugArr[0] = zug.substring(0,2);
+//			zugArr[1] = zug.substring(3,5);
+//		}
+//		if(zug.length() >= 7) {
+//			zugArr[0] = zug.substring(0,4);
+//			zugArr[1] = zug.substring(5,7);
+//		}
+//		try {
+//			spiel.ziehe(zugArr);
+//		}catch(IllegalArgumentException e ) {
+//			return false;
+//		}
+//		}catch (StringIndexOutOfBoundsException e) {
+//			return false;
+//		}
+//		return true;
+//	}
 	/**
 	 * Methode um das Spiel zu beenden
 	 */
