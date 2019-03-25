@@ -354,7 +354,7 @@ public class Spielbrett {
 		if(zugVon.length() == 2) {
 			Spielfeld feld1 = brett.get(zugVon.substring(0,2));
 			Spielfeld ziel = brett.get(zugNach);
-			if(feld1.hatNachbar(ziel.getId()))
+			if(ziel != null && feld1.hatNachbar(ziel.getId()))
 				return feld1.getNachbarId(ziel);
 		}
 		return -1;

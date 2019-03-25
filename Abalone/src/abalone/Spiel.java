@@ -295,11 +295,10 @@ public class Spiel {
 				if (zahlenKoordinaten > 2 || zahlenKoordinaten < -2 || zahlenKoordinaten == 0) {
 					return false;
 				}
-			} else if (buchstabenKoordinaten > -2 && buchstabenKoordinaten < 2) {
-				if (zahlenKoordinaten != buchstabenKoordinaten || zahlenKoordinaten != 0) {
-					return false;
+			} else if (buchstabenKoordinaten == -2 || buchstabenKoordinaten == 2) {
+				   if (zahlenKoordinaten != buchstabenKoordinaten || zahlenKoordinaten != 0) {
+					   return false;
 				}
-
 			}
 			// b) pruefen ob die Kugeln auf das Zielfeld bewegt werden duerfen.
 			// b) I : Ist das Zielfeld im Bereich der rechten Ausgangskoordinate?
@@ -312,11 +311,11 @@ public class Spiel {
 				break;
 
 			case -1:
-				rechts = zahlenKoordinaten == -1;
+				rechts = zahlenKoordinaten == -1 || zahlenKoordinaten == 0;
 				break;
 
 			case 1:
-				rechts = zahlenKoordinaten == 0;
+				rechts = zahlenKoordinaten == 0 ||zahlenKoordinaten == 1; //merken;
 				break;
 
 			default:
@@ -339,7 +338,7 @@ public class Spiel {
 			case 1:
 				links = zahlenKoordinaten == 1;
 				break;
-
+			
 			default:
 				links = false;
 			}
