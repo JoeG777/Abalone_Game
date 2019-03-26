@@ -10,6 +10,7 @@
 package abalone;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Spiel {
 
@@ -114,7 +115,9 @@ public class Spiel {
 	 */
 	public void ziehe(String[] zug) {
 		if (koordinatenValidieren(spielzugParser(zug))) {
-			Spielzug spielzug = new Spielzug(zug[0], zug[1], 0, spielerAmZug.getFarbe());
+			Spielzug spielzug = new Spielzug(zug[0], zug[1]);
+			spielzug.setRichtung(this.bekommeRichtung(spielzug));
+			spielzug.setFarbe(spielerAmZug.getFarbe());
 			Spielzug[] spielzuege = new Spielzug[1];
 			spielzuege[0] = spielzug;
 			if(zugValidieren(spielzuege)){
@@ -347,12 +350,12 @@ public class Spiel {
 	}
 	
 	public boolean zugValidieren(Spielzug[] zuege) {
-	boolean erfolgreich = false;
+		boolean erfolgreich = false;
 
-	for(Spielzug zug : zuege) {
-		Spielfeld[] ausgangsfelder = spielBrett.getAusgangsfelder(zug);
-		int richtung = bekommeRichtung(zug);
-		for(int i = 0; i < ausgangsfelder.length; i++) {
+		for(Spielzug zug : zuege) {
+			Spielfeld[] ausgangsfelder = spielBrett.getAusgangsfelder(zug);
+			int richtung = bekommeRichtung(zug);
+			for(int i = 0; i < ausgangsfelder.length; i++) {
 			if(ausgangsfelder[i].getFigur() == null || zug.getFarbe() != ausgangsfelder[i].getFigur().getFarbe())
 				return false;
 		}
@@ -634,13 +637,16 @@ public class Spiel {
 	 */
 	private Spielzug[] spielzugSplitter(Spielzug zug) {
 		Spielfeld[] felder = spielBrett.getAusgangsfelder(zug);
+		felder = ordneInRichtung(felder, zug.getRichtung());
 		ArrayList<Spielzug> zuege = new ArrayList<Spielzug>();
 		int richtung = zug.getRichtung();
 		Spielfeld zielfeld = spielBrett.getFeld(zug.getNach());
 		for(int i = 0; i < felder.length; i++) {
-			Spielfeld zielFeld = felder[i].getNachbar(zug.getRichtung());
-			Spielzug teilZug = new Spielzug(felder[i].getId(), zielFeld.getId(), zug.getRichtung(), zug.getFarbe());
-			zuege.add(teilZug);
+			if(felder[i].getNachbar(zug.getRichtung()) != null) {
+				Spielfeld zielFeld = felder[i].getNachbar(zug.getRichtung());
+				Spielzug teilZug = new Spielzug(felder[i].getId(), zielFeld.getId(), zug.getRichtung(), zug.getFarbe());
+				zuege.add(teilZug);
+			}
 		}
 		if(zielfeld.istBesetzt()) {
 			Spielfeld zielNachbar = zielfeld.getNachbar(richtung);
@@ -662,11 +668,42 @@ public class Spiel {
 				}
 			}
 		}
-		Spielzug[] zugArray = new Spielzug[zuege.size()];
-		for(int i = 0; i < zuege.size(); i++) {
-			zugArray[i] = zuege.get(i);
+		return zuege.toArray(new Spielzug[0]);
+	}
+	
+	private Spielfeld getHinterstenStein(Spielfeld[] felder, int richtung) {
+		if(felder.length == 3) {
+			if(felder[0].getNachbar(richtung) == felder[1]) {
+				return felder[0];
+			}
+			else if(felder[2].getNachbar(richtung) == felder[1]) {
+				return felder[2];
+			}
 		}
-		return zugArray;
+		
+		if(felder.length == 2) {
+			if(felder[0].getNachbar(richtung) == felder[1]) {
+				return felder[0];
+			}
+			else if(felder[1].getNachbar(richtung) == felder[0]) {
+				return felder[1];
+			}
+		}
+		return null;
+	}
+	public Spielfeld[] ordneInRichtung(Spielfeld[] felder, int richtung) {
+		ArrayList<Spielfeld> geordneteFelder = new ArrayList<Spielfeld>();
+		
+		Spielfeld hintersterStein = getHinterstenStein(felder, richtung);
+		geordneteFelder.add(hintersterStein);
+		
+		for(int i = 1; i < felder.length; i++) { // Baut vom hintersten Stein bis zum vordersten Stein auf
+			geordneteFelder.add(geordneteFelder.get(i-1).getNachbar(richtung)); 	
+		}
+		
+		
+		Collections.reverse(geordneteFelder); // Dreht um, sodass erster Stein vorne steht
+		return geordneteFelder.toArray(new Spielfeld[0]);
 	}
 
 }
