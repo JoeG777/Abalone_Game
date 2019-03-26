@@ -45,19 +45,28 @@ public class UI {
 						   "#                                        \n" + 
 						   "Drücke Enter zum Starten");
 		String start = sc.nextLine();
-		clearConsole();
+		try {
+			clearConsole();
+		}catch(IOException e) {
+			
+		}
 	}
 	
 	
-	public final static void clearConsole() {
-	//Clears Screen in java
-    try {
-        if (System.getProperty("os.name").contains("Windows"))
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        else
-            Runtime.getRuntime().exec("clear");
-    } catch (IOException | InterruptedException ex) {}
+	public final static void clearConsole() throws IOException {
+		String penguinClearConsole = "clear";
+		String windowsClearConsole = "cls";
+		 
+		String os = System.getProperty("os.name");
+
+		if(os.startsWith("Windows")){
+			Runtime.getRuntime().exec(penguinClearConsole);
+		}
+		else if(os.startsWith("Linux")){
+			Runtime.getRuntime().exec(windowsClearConsole);
+		}
 	}
+
 	
 	public static void spielen(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);

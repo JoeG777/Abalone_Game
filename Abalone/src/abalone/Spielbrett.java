@@ -684,19 +684,20 @@ public class Spielbrett {
 		return false;
 	}
 	
-	private Spielzug formatieren(Spielzug zug) {
+	public Spielzug formatieren(Spielzug zug) {
 		String von = zug.getVon();
 		String nach = zug.getNach();
 		if(von.length() == 4) {
 			Spielfeld feld1 = this.getFeld(von.substring(0,2));
 			Spielfeld feld2 = this.getFeld(von.substring(2,4));
 			Spielfeld ziel = this.getFeld(nach);
-			if(feld2.hatNachbar(ziel))
-				return zug;
+			//if(feld2.hatNachbar(ziel))
+			//	return zug;
 			if(feld1.hatNachbar(ziel)) {
-				von = feld1.getId() + feld2.getId();
-				Spielzug neuerZug = new Spielzug(von, nach, feld1.getNachbarId(ziel), zug.getFarbe());
-				return neuerZug;
+				int richtung = feld1.getNachbarId(ziel);
+				Spielfeld zielNachFormatierung = feld2.getNachbar(richtung);
+				Spielzug formatierterZug = new Spielzug(feld1.getId()+ feld2.getId(), zielNachFormatierung.getId(), richtung, feld1.getFarbe());
+				return formatierterZug;
 			}
 		}
 		return zug;
