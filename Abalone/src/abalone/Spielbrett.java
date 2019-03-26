@@ -657,6 +657,107 @@ public class Spielbrett {
 		return erfolgreich;
 	}
 	
+	
+	private boolean wirdAbgeraeumt(Spielfeld gegnerStein, int richtung) {
+		if(gegnerStein.getNachbar(richtung) == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	private void ziehe333(Spielzug[] zuege) {
+		
+	}
+	private String getArtDesZuges(Spielzug zug) {
+		String art = ""; 
+		
+		Spielfeld[] ausgangsfelder = getAusgangsfelder(zug);
+		int richtung = bekommeRichtung(zug);
+		Spielfeld[] zielfelder = getZielfelder(ausgangsfelder,richtung);
+		
+		for(int i = 0; i < ausgangsfelder.length; i++) {
+			if(ausgangsfelder[i].getFigur() == null)
+				return "F-AUSGANGSFELD NICHT BELEGT"; // Fehler, keine Figur auf Ausgangsfeld
+			
+			if(zug.getFarbe() != ausgangsfelder[i].getFigur().getFarbe()) {
+				return "F-AUSGANGSFELD HAT ANDERE FARBE"; // Fehler, Ausgangsfeld hat andere Farbe
+			}
+		}
+		
+		if(ausgangsfelder.length == 1) { // Ein Stein darf nicht schieben, also nur ueberpruefen, ob Zielfeld belegt ist
+			if(ausgangsfelder[0].getNachbar(richtung).getFigur() == null) {
+				return "R-EIN STEIN"; // Ein Stein schieben
+			}
+		}
+		
+		else if(isSchiebung(ausgangsfelder, richtung)) { //Schiebende Zuege sind anders zu behandeln als diagonale
+			if(ausgangsfelder.length == 2) {
+				Spielfeld vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
+
+				if(vordersterStein.getNachbar(richtung).getFigur() != null) { 
+					if(isZuEinsSumito(vordersterStein, richtung)) {
+						Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
+						if(wirdAbgeraeumt(gegnerStein, richtung)) { 
+							return "R-2Z1ABR"; // 2 zu 1 Abräumer
+							 
+						}
+						else {
+							return "R-2Z1";  // 2 zu 1 Standard
+						}
+					}
+				}
+				else {
+					return "R-2Schiebung"; // 2 Steine schieben
+				}
+			}
+			else if(ausgangsfelder.length == 3) {
+				Spielfeld vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
+				if(vordersterStein.getNachbar(richtung).getFigur() != null) {
+					if(isZuEinsSumito(vordersterStein, richtung)) {
+						Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
+						if(wirdAbgeraeumt(gegnerStein, richtung)) {
+							return "R-3Z1ABR"; // 3 zu 1 Abräumer
+						}
+
+						else {
+							return "R-3Z1"; // 3 Zu 1 Standard
+						}
+					}
+					else if(isZuZweiSumito(vordersterStein, richtung)) {
+						Spielfeld vordererGegnerStein = vordersterStein.getNachbar(richtung);
+						Spielfeld hintererGegnerStein = vordererGegnerStein.getNachbar(richtung);
+
+						if(steinAbgeraeumt(hintererGegnerStein, richtung)) {
+							return "R-3Z1ABR";
+						}
+
+						else {
+							return "R-3Z1";
+							 
+						}
+					}
+				}
+				else {
+					return "R-3Schiebung";
+				}
+
+			}
+		}
+		else if(!isSchiebung(ausgangsfelder,richtung)) {
+			for(Spielfeld feld : zielfelder) {
+				if(feld == null) {
+					return "F-KUGEL AUF NICHT EXISTENTES FELD";
+				}
+				if(feld.getFigur() != null) {
+					return "F-ZIELFELD BELEGT UND KEINE SCHIEBUNG";
+				}
+			}
+			bewegeFiguren(ausgangsfelder, zielfelder);
+			return "R-KEINE SCHIEBUNG";
+		}
+		
+		return "F-UNBEKANNT";	
+	}
 
 	/**
 	 * Prueft, ob es sich bei einem regulären Zug um einen Zug handelt, 
