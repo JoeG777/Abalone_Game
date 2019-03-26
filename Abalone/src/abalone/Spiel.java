@@ -9,6 +9,8 @@
  */
 package abalone;
 
+import java.util.ArrayList;
+
 public class Spiel {
 
 	private Spieler spielerAmZug;
@@ -631,9 +633,45 @@ public class Spiel {
 			if(drittesFeldInRichtung.getFigur() == null) {
 				return true;
 			}
-			}
+		}
 		return false;
 	}
 	
+	public Spielzug[] spielzugSplitter(Spielzug zug) {
+		Spielfeld[] felder = spielBrett.getAusgangsfelder(zug);
+		ArrayList<Spielzug> zuege = new ArrayList<Spielzug>();
+		int richtung = zug.getRichtung();
+		Spielfeld zielfeld = spielBrett.getFeld(zug.getNach());
+		for(int i = 0; i < felder.length; i++) {
+			Spielfeld zielFeld = felder[i].getNachbar(zug.getRichtung());
+			Spielzug teilZug = new Spielzug(felder[i].getId(), zielFeld.getId(), zug.getRichtung(), zug.getFarbe());
+			zuege.add(teilZug);
+		}
+		if(zielfeld.istBesetzt()) {
+			Spielfeld zielNachbar = zielfeld.getNachbar(richtung);
+			if(zielNachbar == null) {
+				Spielzug zielFeldZug = new Spielzug(zielfeld.getId(), null);
+				zuege.add(zielFeldZug);
+			}else {
+				Spielzug zielFeldZug = new Spielzug(zielfeld.getId(), zielNachbar.getId());
+				zuege.add(zielFeldZug);
+			}
+			if(zielNachbar.istBesetzt()) {
+				Spielfeld zielNachbar2 = zielNachbar.getNachbar(richtung);
+				if(zielNachbar2 == null) {
+					Spielzug zielNachbarzug = new Spielzug(zielNachbar.getId(), null);
+					zuege.add(zielNachbarzug);
+				}else {
+					Spielzug zielNachbarzug = new Spielzug(zielNachbar.getId(), zielNachbar2.getId());
+					zuege.add(zielNachbarzug);
+				}
+			}
+		}
+		Spielzug[] zugArray = new Spielzug[zuege.size()];
+		for(int i = 0; i < zuege.size(); i++) {
+			zugArray[i] = zuege.get(i);
+		}
+		return zugArray;
+	}
 
 }
