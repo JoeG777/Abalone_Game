@@ -22,7 +22,10 @@ public class Historie {
 				+ spielzug.getNach() + "\n";
 		zaehler++;
 	}
-	
+	/**
+	 * Gibt einen String mit allen vergangenen Spielzuegen zurueck
+	 * @return String mit allen vergangenen Spielzuegen
+	 */
 	public String getZuege() {
 		return zuege;
 	}
