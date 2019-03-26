@@ -1,7 +1,7 @@
 1.keine Koordinaten eingegeben ("iuhiuehiue", "12342")
 2.falsche Sytanx eines Zugs (F3F5G6)
 3.Koordinaten existieren nicht (X3 - C4)
-4.Zielfeld darf kein Ausgangsfeld sein
+4.Zielfeld darf kein Ausgangsfeld se!!!in
 5.Zielfeld muss Nachbar einer ausgewählten Kugel sien
 6.Zielfeld darf nicht durch eignen nicht ausgewählte Kugeln belegt sein
 7.horizontale Bewegung -> kein Zielfeld darf besetzt sein
