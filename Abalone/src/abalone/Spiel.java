@@ -16,18 +16,21 @@ public class Spiel {
 	private Spielbrett spielBrett;
 	private Historie historie;
 
+	/**
+	 * Konstruktor, instanziiert alle Anfangs benoetigten Objekte
+	 */
 	public Spiel() {
 		spielBrett = new Spielbrett();
 		historie = new Historie();
 		this.spielerImSpiel = new Spieler[2];
 	}
 	
+	/**
+	 * Gibt alle Spieler Objekte im Spiel als Array zurueck
+	 * @return ein Array des Typs Spieler
+	 */
 	public Spieler[] getSpielerImSpiel() {
 		return spielerImSpiel;
-	}
-
-	public Spielbrett getBrett() {
-		return this.spielBrett;
 	}
 
 	/**
@@ -64,13 +67,15 @@ public class Spiel {
 	public String getSpielerAmZug() {
 		return spielerAmZug.getName();
 	}
-
-	public FarbEnum getFarbeAmZug() {
+	
+	/**
+	 * Git die Farbe des Spielers zurueck, der aktuell am Zug ist
+	 * @return ein Objekt der Klasse FarbEnum
+	 */
+	private FarbEnum getFarbeAmZug() {
 		return this.spielerAmZug.getFarbe();
 	}
-	public void starte() {
 
-	}
 
 	/**
 	 * Fragt ab, ob ein Spieler gewonnen hat
@@ -123,21 +128,38 @@ public class Spiel {
 		}
 
 	}
-
+	/**
+	 * Gibt erlaubte Zuege zurueck
+	 * @return ein String Array mit den erlaubten Zuegen
+	 */
 	public String[] getErlaubteZuege() {
 		return null;
 	}
 	
-	public int zaehleKugelnMitFarbe(FarbEnum farbe) {
+	/**
+	 * Zaehlt die Kugeln auf dem Feld mit einer gegebenen Farbe.
+	 * @param zu zeaehlende Farbe
+	 * @return Anzahl der Kugeln mit dieser Farbe
+	 */
+	private int zaehleKugelnMitFarbe(FarbEnum farbe) {
 		return spielBrett.getFelderMitFarbe(farbe).size();
 	}
 	
-
+	/**
+	 * Gibt die Historie zurueck
+	 * @return Historie als String
+	 */
 	public String getHistorie() {
 		return this.historie.getZuege();
 
 	}
-
+	/**
+	 * Gibt den Status des Spiels zurueck. Dieser umfasst:
+	 * Das Spielbrett
+	 * Welcher Spieler am Zug ist
+	 * Welche Spieler noch wie viele Steine im Spiel haben
+	 * @return der Status als String
+	 */
 	public String getStatus() { // ??
 		String amZug ="Am zug ist: " + spielerAmZug.getName() + "\n";
 		String verbleibendeSteine = "Spieler " + this.spielerImSpiel[0].getName() + 
@@ -159,7 +181,7 @@ public class Spiel {
 	 * @return ein zweidimensionales char Array, welches den Zug in chars aufteilt
 	 * @since 1.1
 	 */
-	public char[][] spielzugParser(String[] zug) {
+	private char[][] spielzugParser(String[] zug) {
 		char[][] geparsterZug = new char[2][];
 		if (zug.length < 2) {
 			throw new IllegalArgumentException("Ungueltige laenge: " + zug.length);
@@ -203,7 +225,7 @@ public class Spiel {
 	 * @return true oder false in Abhaengigkeit der Validitaet eines Zuges.
 	 * @since 1.1
 	 */
-	public boolean koordinatenValidieren(char[][] geparsterZug) {
+	private boolean koordinatenValidieren(char[][] geparsterZug) {
 		// Pruefen ob die angegebenen Chars auch auf dem Spielbrett existieren
 		int buchstabenKoordinaten = 0;
 		int zahlenKoordinaten = 0;
@@ -271,83 +293,7 @@ public class Spiel {
 		}
 		return true;
 	}
-		/*
-		// Pruefen ob der Zug an sich valide ist
-		if (geparsterZug[0].length == 2) { // Wenn nur eine Kugel bewegt wird
-			zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
-			buchstabenKoordinaten = geparsterZug[0][0] - geparsterZug[1][0];
-			switch (buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
-			// Differenz der Zahlenkoordinaten
-			case 0:
-				return ((zahlenKoordinaten == 1) || (zahlenKoordinaten == -1));
-
-			case -1:
-				return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == -1));
-
-			case 1:
-				return ((zahlenKoordinaten == 0) || (zahlenKoordinaten == 1));
-
-			default:
-				return false;
-			}
-		} else { // bei mehreren Kugeln
-			// a) pruefen ob die Kugeln so zusammen bewegt werden duerfen
-			zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[0][3];
-			buchstabenKoordinaten = (geparsterZug[0][0] - geparsterZug[0][2]);
-			if (buchstabenKoordinaten == 0) {
-				if (zahlenKoordinaten > 2 || zahlenKoordinaten < -2 || zahlenKoordinaten == 0) {
-					return false;
-				}
-			} else if (buchstabenKoordinaten == -2 || buchstabenKoordinaten == 2) {
-				   if (zahlenKoordinaten != buchstabenKoordinaten || zahlenKoordinaten != 0) {
-					   return false;
-				}
-			}
-			// b) pruefen ob die Kugeln auf das Zielfeld bewegt werden duerfen.
-			// b) I : Ist das Zielfeld im Bereich der rechten Ausgangskoordinate?
-			boolean rechts = false;
-			zahlenKoordinaten = geparsterZug[0][3] - geparsterZug[1][1];
-			buchstabenKoordinaten = geparsterZug[0][2] - geparsterZug[1][0];
-			switch (buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
-			case 0:
-				rechts = zahlenKoordinaten == -1 || zahlenKoordinaten == 1;
-				break;
-
-			case -1:
-				rechts = zahlenKoordinaten == -1 || zahlenKoordinaten == 0;
-				break;
-
-			case 1:
-				rechts = zahlenKoordinaten == 0 ||zahlenKoordinaten == 1; //merken;
-				break;
-
-			default:
-				rechts = false;
-			}
-			;
-			boolean links = false;
-			// b) 2: Ist das Zielfeld im Bereich der linken Ausgangkoordinate?
-			zahlenKoordinaten = geparsterZug[0][1] - geparsterZug[1][1];
-			buchstabenKoordinaten = geparsterZug[0][0] - geparsterZug[1][0];
-			switch (buchstabenKoordinaten) { // Wert der Buchstaben Koordinate
-			case 0:
-				links = zahlenKoordinaten == -1 || zahlenKoordinaten == 1;
-				break;
-
-			case -1:
-				links = zahlenKoordinaten == 0;
-				break;
-
-			case 1:
-				links = zahlenKoordinaten == 1;
-				break;
-			
-			default:
-				links = false;
-			}
-			return rechts ^ links;
-		}*/
-
+		
 
 	/**
 	 * Prueft, ob ein Spielzug in abhaengigkeit der Spielbrett belegung valide ist.
@@ -393,7 +339,7 @@ public class Spiel {
 	 * @param spielerAmZug als Spieler Objekt.
 	 * @return true oder false in Abhaengigkeit der Farbenuebereinstimmung.
 	 */
-	public boolean sindEigeneFiguren(Spielfeld [] spielfelder, 
+	private boolean sindEigeneFiguren(Spielfeld [] spielfelder, 
 			Spieler spielerAmZug) {
 
 		for (int i = 0; i < spielfelder.length; i++) {
