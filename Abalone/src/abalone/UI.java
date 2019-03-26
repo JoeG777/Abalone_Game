@@ -17,7 +17,7 @@ public class UI {
 	 */
 	public static void spielerAnlegen(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Gib den Namen f�r den Spieler mit der Farbe Weiss ein:");
+		System.out.println("Gibt den Namen f�r den Spieler mit der Farbe Weiss ein:");
 		String name = sc.nextLine();
 		try {
 			spiel.addSpieler(name, "weiss");
