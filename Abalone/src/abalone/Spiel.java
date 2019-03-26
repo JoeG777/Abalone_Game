@@ -353,6 +353,287 @@ public class Spiel {
 		return true;
 	}
 	
-	
+	public boolean ziehe(Spielzug[] zuege) {
+	boolean erfolgreich = false;
+
+	for(Spielzug zug : zuege) {
+		Spielfeld[] ausgangsfelder = spielBrett.getAusgangsfelder(zug);
+		int richtung = bekommeRichtung(zug);
+		for(int i = 0; i < ausgangsfelder.length; i++) {
+			if(ausgangsfelder[i].getFigur() == null || zug.getFarbe() != ausgangsfelder[i].getFigur().getFarbe())
+				return false;
+		}
+		Spielfeld[] zielfelder = getZielfelder(ausgangsfelder,richtung);
+		if(ausgangsfelder.length == 1) { // Ein Stein darf nicht schieben, also nur ueberpruefen, ob Zielfeld belegt ist
+			if(ausgangsfelder[0].getNachbar(richtung).getFigur() == null) {
+				//bewegeFiguren(ausgangsfelder, zielfelder);
+				erfolgreich = true;
+			}
+		}
+
+		else if(isSchiebung(ausgangsfelder, richtung)) { //Schiebende Zuege sind anders zu behandeln als diagonale
+
+			if(ausgangsfelder.length == 2) {
+				Spielfeld vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
+
+				if(vordersterStein.getNachbar(richtung).getFigur() != null) { 
+					if(isZuEinsSumito(vordersterStein, richtung)) {
+						Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
+						if(steinAbgeraeumt(gegnerStein, richtung)) { 
+							//fuehreZugAus(ausgangsfelder, richtung);
+							erfolgreich = true; 
+						}
+						else {
+							//bewegeFigur(gegnerStein.getId(), gegnerStein.getNachbar(richtung).getId());
+							//fuehreZugAus(ausgangsfelder, richtung);
+							erfolgreich = true; 
+						}
+					}
+				}
+				else {
+					//fuehreZugAus(ausgangsfelder, richtung);
+					erfolgreich = true; 
+				}
+			}
+			else if(ausgangsfelder.length == 3) {
+				Spielfeld vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
+				if(vordersterStein.getNachbar(richtung).getFigur() != null) {
+					if(isZuEinsSumito(vordersterStein, richtung)) {
+						Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
+
+						if(steinAbgeraeumt(gegnerStein, richtung)) {
+							//fuehreZugAus(ausgangsfelder, richtung);
+							erfolgreich = true; 
+						}
+
+						else {
+							//bewegeFigur(gegnerStein.getId(), gegnerStein.getNachbar(richtung).getId());
+							//fuehreZugAus(ausgangsfelder, richtung);
+							erfolgreich = true; 
+						}
+					}
+					else if(isZuZweiSumito(vordersterStein, richtung)) {
+						Spielfeld vordererGegnerStein = vordersterStein.getNachbar(richtung);
+						Spielfeld hintererGegnerStein = vordererGegnerStein.getNachbar(richtung);
+
+						if(steinAbgeraeumt(hintererGegnerStein, richtung)) {
+							//bewegeFigur(vordererGegnerStein.getId(), vordererGegnerStein.getNachbar(richtung).getId());
+							//fuehreZugAus(ausgangsfelder, richtung);
+							erfolgreich = true; 
+						}
+
+						else {
+							//bewegeFigur(hintererGegnerStein.getId(), hintererGegnerStein.getNachbar(richtung).getId());
+							//bewegeFigur(vordererGegnerStein.getId(), hintererGegnerStein.getId());
+							//fuehreZugAus(ausgangsfelder, richtung);
+							erfolgreich = true; 
+						}
+					}
+				}
+				else {
+					//fuehreZugAus(ausgangsfelder, richtung);
+					erfolgreich = true; 
+				}
+
+			}
+		}
+		else if(!isSchiebung(ausgangsfelder,richtung)) {
+			for(Spielfeld feld : zielfelder) {
+				if(feld != null && feld.getFigur() != null) {
+					return false;
+				}
+			}
+			//bewegeFiguren(ausgangsfelder, zielfelder);
+			erfolgreich = true;
+		}
+
+
 
 	}
+
+	return erfolgreich;
+	}
+	
+
+	/**
+	 * Checkt, in welche Richtung ein Zug geht.
+	 * 0 = Links
+	 * 1 = Oben Links
+	 * 2 = Unten Links
+	 * 3 = rechts
+	 * 4 = Oben Rechts
+	 * 5 = Unten Rechts
+	 * @param Zug Objekt
+	 * @return Index des Objektes, in dessen Richtung gezogen wird
+	 * @since 1.3
+	 */
+	public int bekommeRichtung(Spielzug zug) {
+		String zugVon = zug.getVon();
+		String zugNach = zug.getNach();
+		if(zugVon.length() == 4) {
+			Spielfeld feld1 = spielBrett.getFeld(zugVon.substring(0,2));
+			Spielfeld feld2 = spielBrett.getFeld(zugVon.substring(2,4));
+			Spielfeld ziel = spielBrett.getFeld(zugNach);
+			boolean flagFeld1 = false;
+			if(feld1 != null && ziel != null)
+				flagFeld1 = feld1.hatNachbar(ziel.getId());
+			boolean flagFeld2 = feld2.hatNachbar(ziel.getId());
+			if(feld2 != null && ziel != null)
+				flagFeld2 = feld2.hatNachbar(ziel.getId());
+			if(flagFeld1 && !flagFeld2) {
+				return feld1.getNachbarId(ziel);
+			}
+			if(!flagFeld1 && flagFeld2) {
+				return feld2.getNachbarId(ziel);
+			}
+		}	
+		if(zugVon.length() == 2) {
+			Spielfeld feld1 = spielBrett.getFeld(zugVon.substring(0,2));
+			Spielfeld ziel = spielBrett.getFeld(zugNach);
+			if(ziel != null && feld1.hatNachbar(ziel.getId()))
+				return feld1.getNachbarId(ziel);
+		}
+		return -1;
+	}
+	
+	/**
+	 * Gibt alle Spielfelder eines Zuges als Spielfeld-Array zurück.
+	 * @param ausgangsfelder Die Felder, von denen gezogen wird.
+	 * @param richtung Die Richtung des Zuges.
+	 * @return Spielfeld-Array mit allen Zielfeldern des Zuges.
+	 */
+	private Spielfeld[] getZielfelder(Spielfeld[] ausgangsfelder, 
+			int richtung) {
+		Spielfeld[] zielfelder = new Spielfeld[ausgangsfelder.length];
+		
+		for(int i = 0; i < ausgangsfelder.length; i++) {
+			zielfelder[i] = ausgangsfelder[i].getNachbar(richtung);
+		}
+		
+		return zielfelder;
+		
+	}
+	
+	/**
+	 * Prueft, ob es sich bei einem regulären Zug um einen Zug handelt, 
+	 * bei dem eigene Steine in einer Linie geschoben werden. 
+	 * @param felder Die Ausgangsfelder eines Spielzuges
+	 * @param richtung Die Richtung der Bewegung (Position im Array).
+	 * @return true, wenn es sich um Zug handelt, bei dem eigene Steine
+	 * geschoben werden. false, wenn es sich nicht, um einen solchen Zug 
+	 * handelt.
+	 */
+
+	private boolean isSchiebung(Spielfeld[] felder, int richtung) {
+		if(felder.length == 3) {
+			if(felder[1] == felder[0].getNachbar(richtung) ||
+					felder[1] == felder[2].getNachbar(richtung)) {
+				return true;
+			}
+		}
+		if(felder.length == 2) {
+			if(felder[0] == felder[1].getNachbar(richtung) ||
+					felder[1] == felder[0].getNachbar(richtung)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Prüft, ob ein Zwei-zu-eins Sumito möglich ist.
+	 * @param vordersterStein der vorderste Stein eines Spielzuges in dem 
+	 * zwei bis drei Steine bewegt werden.
+	 * @param richtung die Richtung des Spielzuges.
+	 * @return true, wenn möglich, false, wenn nicht möglich.
+	 */
+	private boolean isZuEinsSumito(Spielfeld vordersterStein, int richtung) {
+		Spielfeld nachbarInRichtung = vordersterStein.getNachbar(richtung);
+		if(nachbarInRichtung != null && nachbarInRichtung.istBesetzt() && nachbarInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe()) {
+			Spielfeld nachbarHinterNachbar = nachbarInRichtung.getNachbar(richtung);
+			if(nachbarHinterNachbar == null) {
+				return true;
+			}
+			if(nachbarHinterNachbar.getFigur() == null) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Gibt für einen Zug aus 2 oder 3 Steinen, bei dem eigene Steine geschoben 
+	 * werden, die Position des vordersten Steines in Richtung des Zuges zurück.
+	 * @param felder Felder auf denen sich die zu ziehenden Steine befinden.
+	 * @param richtung Die Richtung des Zuges.
+	 * @return Spielfeld-Objekt auf dem sich der vorderste Stein befindet
+	 */
+	public Spielfeld getVorderstenStein(Spielfeld[] felder, int richtung) {
+		Spielfeld posVordersterStein = null;
+
+		if(felder.length == 3) {
+			if(felder[0].getNachbar(richtung) != felder[1]) {
+				posVordersterStein = felder[0];
+			}
+			else {
+				posVordersterStein = felder[2];
+			}
+		}
+		else if(felder.length == 2) {
+			if(felder[0].getNachbar(richtung) != felder[1]) {
+				posVordersterStein = felder[0];
+			}
+			else {
+				posVordersterStein = felder[1];
+			}
+		}
+
+		return posVordersterStein;
+
+	}
+	
+	/** 
+	 * Prueft, ob ein gegnerischer Stein durch Ausfuehrung des Zuges
+	 * vom Spielbrett geworfen wird. Falls dies zutrifft, wird die Figur vom
+	 * Spielfeld entfernt.
+	 * @param gegnerStein das Feld, auf dem der Stein ist.
+	 * @param richtung die Richtung des Spielzuges
+	 * @return true, wenn Stein runtergeworfen wird, false, wenn nicht.
+	 */
+	private boolean steinAbgeraeumt(Spielfeld gegnerStein, int richtung) {
+		if(gegnerStein.getNachbar(richtung) == null) {
+			gegnerStein.setFigur(null);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Prüft, ob ein Zwei-zu-drei Sumito möglich ist.
+	 * @param vordersterStein der vorderste Stein eines Spielzuges in dem 
+	 * drei Steine bewegt werden.
+	 * @param richtung die Richtung des Spielzuges.
+	 * @return true, wenn möglich, false, wenn nicht möglich.
+	 */
+	private boolean isZuZweiSumito(Spielfeld vordersterStein, int richtung) {
+		Spielfeld erstesFeldInRichtung = vordersterStein.getNachbar(richtung);
+		Spielfeld zweitesFeldInRichtung = erstesFeldInRichtung.getNachbar(richtung);
+		Spielfeld drittesFeldInRichtung = zweitesFeldInRichtung.getNachbar(richtung);
+		
+		if(erstesFeldInRichtung != null && erstesFeldInRichtung.istBesetzt() && erstesFeldInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe() &&
+			zweitesFeldInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe()) {
+				
+			if(drittesFeldInRichtung == null) {
+				return true;
+			}
+			if(drittesFeldInRichtung.getFigur() == null) {
+				return true;
+			}
+			}
+		return false;
+	}
+	
+
+}
