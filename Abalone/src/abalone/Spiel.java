@@ -113,22 +113,23 @@ public class Spiel {
 	 * @since 1.0
 	 */
 	public void ziehe(String[] zug) {
-		if (spielzugValidieren(zug)) {
+		if (koordinatenValidieren(spielzugParser(zug))) {
 			Spielzug spielzug = new Spielzug(zug[0], zug[1], 0, spielerAmZug.getFarbe());
 			Spielzug[] spielzuege = new Spielzug[1];
 			spielzuege[0] = spielzug;
-			if(!spielBrett.ziehe(spielzuege))
-				throw new IllegalArgumentException("Unzulaessiger Zug");
-			historie.spielzugHinzufuegen(spielzuege[0]);
-			if (spielerAmZug.getFarbe() == spielerImSpiel[0].getFarbe()) {
-				spielerAmZug = spielerImSpiel[1];
+			if(zugValidieren(spielzuege)){
+				spielzuege = spielzugSplitter(spielzug);
+				spielBrett.ziehe333(spielzuege);
+				historie.spielzugHinzufuegen(spielzuege[0]);
+				if (spielerAmZug.getFarbe() == spielerImSpiel[0].getFarbe()) {
+					spielerAmZug = spielerImSpiel[1];
+				} else {
+					spielerAmZug = spielerImSpiel[0];
+				}
 			} else {
-				spielerAmZug = spielerImSpiel[0];
+				throw new IllegalArgumentException("Unzulaessiger Zug");
 			}
-		} else {
-			throw new IllegalArgumentException("Unzulaessiger Zug");
 		}
-
 	}
 	/**
 	 * Gibt erlaubte Zuege zurueck
@@ -297,16 +298,6 @@ public class Spiel {
 	}
 		
 
-	/**
-	 * Prueft, ob ein Spielzug in abhaengigkeit der Spielbrett belegung valide ist.
-	 * 
-	 * @param Ein Zweidimensionales String Array.
-	 * @return True oder False in abhaengigkeit von der Validitaet des Spielzuges.
-	 * @since 1.1
-	 */
-	private boolean spielzugValidieren(String[] zug) {
-		return this.koordinatenValidieren(this.spielzugParser(zug));
-	}
     /**Prueft, ob zu gegebenen Koordinaten Spielfelder existieren
      * 
      * @param zug als String-Array
@@ -355,7 +346,7 @@ public class Spiel {
 		return true;
 	}
 	
-	public boolean ziehe(Spielzug[] zuege) {
+	public boolean zugValidieren(Spielzug[] zuege) {
 	boolean erfolgreich = false;
 
 	for(Spielzug zug : zuege) {
@@ -636,8 +627,12 @@ public class Spiel {
 		}
 		return false;
 	}
-	
-	public Spielzug[] spielzugSplitter(Spielzug zug) {
+	/**
+	 * Ermittelt aus einem Spielzug wie welche Steine einzeln gezogen werden muessen
+	 * @param zug
+	 * @return ein Array des Typs Spielzug mit allen einzeln auszufuehrenden Zuegn
+	 */
+	private Spielzug[] spielzugSplitter(Spielzug zug) {
 		Spielfeld[] felder = spielBrett.getAusgangsfelder(zug);
 		ArrayList<Spielzug> zuege = new ArrayList<Spielzug>();
 		int richtung = zug.getRichtung();
