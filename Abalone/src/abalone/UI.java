@@ -5,7 +5,7 @@ import java.util.Scanner;
 import jline.console.ConsoleReader;
 
 public class UI {
-	
+
 	public static void main (String[] args) {
 		Spiel spiel = new Spiel();
 		welcomeScreen();
@@ -32,33 +32,33 @@ public class UI {
 			System.out.println("Unzulässige eingabe, bitte benutze WEISS für Weiß und SCHWARZ für Schwarz)");
 		}
 	}
-	
+
 	public static void welcomeScreen() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("#    ___  _           _                  \r\n" + 
-						   "#   / _ \\| |         | |                 \r\n" + 
-						   "#  / /_\\ \\ |__   __ _| | ___  _ __   ___ \r\n" + 
-						   "#  |  _  | '_ \\ / _` | |/ _ \\| '_ \\ / _ \\\r\n" + 
-						   "#  | | | | |_) | (_| | | (_) | | | |  __/\r\n" + 
-						   "#  \\_| |_/_.__/ \\__,_|_|\\___/|_| |_|\\___|\r\n" + 
-						   "#                                        \r\n" + 
-						   "#                                        \n" + 
-						   "Drücke Enter zum Starten");
+				"#   / _ \\| |         | |                 \r\n" + 
+				"#  / /_\\ \\ |__   __ _| | ___  _ __   ___ \r\n" + 
+				"#  |  _  | '_ \\ / _` | |/ _ \\| '_ \\ / _ \\\r\n" + 
+				"#  | | | | |_) | (_| | | (_) | | | |  __/\r\n" + 
+				"#  \\_| |_/_.__/ \\__,_|_|\\___/|_| |_|\\___|\r\n" + 
+				"#                                        \r\n" + 
+				"#                                        \n" + 
+				"Drücke Enter zum Starten");
 		String start = sc.nextLine();
 		clearConsole();
 	}
-	
-	
+
+
 	public final static void clearConsole() {
-	//Clears Screen in java
-    try {
-        if (System.getProperty("os.name").contains("Windows"))
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        else
-            Runtime.getRuntime().exec("clear");
-    } catch (IOException | InterruptedException ex) {}
+		//Clears Screen in java
+		try {
+			if (System.getProperty("os.name").contains("Windows"))
+				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+			else
+				Runtime.getRuntime().exec("clear");
+		} catch (IOException | InterruptedException ex) {}
 	}
-	
+
 	public static void spielen(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
 		boolean imSpiel = true;
@@ -69,29 +69,29 @@ public class UI {
 				System.out.println("Irgendwas hat da nicht gestimmt");
 			imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
 		}
-		
+
 	}
 
 	public static boolean ziehen(String zug, Spiel spiel) {
 		String[] zugArr = new String[2];
 		System.out.println(zug.length());
 		try {
-		if(zug.length()< 5 ) {
-			return false;
-		}
-		if(zug.length() >= 5) {
-			zugArr[0] = zug.substring(0,2);
-			zugArr[1] = zug.substring(3,5);
-		}
-		if(zug.length() >= 7) {
-			zugArr[0] = zug.substring(0,4);
-			zugArr[1] = zug.substring(5,7);
-		}
-		try {
-			spiel.ziehe(zugArr);
-		}catch(IllegalArgumentException e ) {
-			return false;
-		}
+			if(zug.length()< 5 ) {
+				return false;
+			}
+			if(zug.length() >= 5) {
+				zugArr[0] = zug.substring(0,2);
+				zugArr[1] = zug.substring(3,5);
+			}
+			if(zug.length() >= 7) {
+				zugArr[0] = zug.substring(0,4);
+				zugArr[1] = zug.substring(5,7);
+			}
+			try {
+				spiel.ziehe(zugArr);
+			}catch(IllegalArgumentException e ) {
+				return false;
+			}
 		}catch (StringIndexOutOfBoundsException e) {
 			return false;
 		}
@@ -101,22 +101,22 @@ public class UI {
 	 * Methode um das Spiel zu beenden
 	 */
 	public static void spielBeenden() {
-		
+
 	}
-	
+
 	/**
 	 * Methode um einen alten Spielstand zu laden
 	 */
 	public static void spielLaden() {
-		
+
 	}
-	
+
 	/**
 	 * Methode um (einen) Spieler hinzuzufuegen
 	 */
 	public static void spielerAnmelden() {
-		
+
 	}
 }
 
-	
+
