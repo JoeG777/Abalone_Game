@@ -17,22 +17,24 @@ public class UI {
 	 */
 	public static void spielerAnlegen(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
+
 		System.out.println("Gibe den Namen für den Spieler mit der Farbe Weiss ein:");
+
 		String name = sc.nextLine();
 		try {
 			spiel.addSpieler(name, "weiss");
 		}catch(IllegalArgumentException e) {
-			System.out.println("Unzulässige eingabe, bitte benutze WEISS für Weiß und SCHWARZ für Schwarz)");
+			System.out.println("Unzulï¿½ssige eingabe, bitte benutze WEISS fï¿½r Weiï¿½ und SCHWARZ fï¿½r Schwarz)");
 		}
-		System.out.println("Spieler angelegt. Nun gib den Namen für den Spieler mit der Farbe Schwarz ein:");
+		System.out.println("Spieler angelegt. Nun gib den Namen fï¿½r den Spieler mit der Farbe Schwarz ein:");
 		name = sc.nextLine();
 		try {
 			spiel.addSpieler(name, "schwarz");
 		}catch(IllegalArgumentException e) {
-			System.out.println("Unzulässige eingabe, bitte benutze WEISS für Weiß und SCHWARZ für Schwarz)");
+			System.out.println("Unzulï¿½ssige eingabe, bitte benutze WEISS fï¿½r Weiï¿½ und SCHWARZ fï¿½r Schwarz)");
 		}
 	}
-
+//Eine Aenderung als Beweis.
 	public static void welcomeScreen() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("#    ___  _           _                  \r\n" + 
@@ -43,22 +45,28 @@ public class UI {
 				"#  \\_| |_/_.__/ \\__,_|_|\\___/|_| |_|\\___|\r\n" + 
 				"#                                        \r\n" + 
 				"#                                        \n" + 
-				"Drücke Enter zum Starten");
+				"Drï¿½cke Enter zum Starten");
 		String start = sc.nextLine();
-		clearConsole();
-	}
-
-
-	public final static void clearConsole() {
-		//Clears Screen in java
 		try {
-			if (System.getProperty("os.name").contains("Windows"))
-				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-			else
-				Runtime.getRuntime().exec("clear");
-		} catch (IOException | InterruptedException ex) {}
+			clearConsole();
+		}catch(IOException e) {
+			
+		}
 	}
+	
+	public final static void clearConsole() throws IOException {
+		String penguinClearConsole = "clear";
+		String windowsClearConsole = "cls";
+		 
+		String os = System.getProperty("os.name");
 
+		if(os.startsWith("Windows")){
+			Runtime.getRuntime().exec(penguinClearConsole);
+		}
+		else if(os.startsWith("Linux")){
+			Runtime.getRuntime().exec(windowsClearConsole);
+		}
+	}
 	public static void spielen(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
 		boolean imSpiel = true;
