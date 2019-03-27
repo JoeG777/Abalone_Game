@@ -84,7 +84,7 @@ public class Spielzug {
 	 * Setzt die Richtung, in die der Spielzug geht
 	 * @param von Die Richtung, in die der Spielzug geht
 	 */
-	private void setRichtung(int richtung) {
+	public void setRichtung(int richtung) {
 		this.richtung = richtung;
 	}
 	
@@ -92,7 +92,7 @@ public class Spielzug {
 	 * Setzt die Farbe der Figuren
 	 * @param von Die Farbe der Figuren
 	 */
-	private void setFarbe(FarbEnum farbe) {
+	public void setFarbe(FarbEnum farbe) {
 		this.farbe = farbe;
 	}
 	
