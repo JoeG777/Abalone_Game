@@ -56,7 +56,7 @@ public class Spielfeld {
 	}
 	
 	/**
-	 * Gibt das Brett-Attribut zurück.
+	 * Gibt das Brett-Attribut zurÃ¼ck.
 	 * @return Ein Spielbrett-Objekt.
 	 * 
 	 * @since 1.0
@@ -76,7 +76,7 @@ public class Spielfeld {
 	}
 	
 	/**
-	 * Gibt die Figur des Spielfeldes zurück.
+	 * Gibt die Figur des Spielfeldes zurÃ¼ck.
 	 * @return Ein Spielfigur-Objekt. 
 	 * 
 	 * @since 1.0
@@ -96,7 +96,7 @@ public class Spielfeld {
 	}
 	
 	/**
-	 * Gibt die Farbe des Spielfeldes zurück.
+	 * Gibt die Farbe des Spielfeldes zurÃ¼ck.
 	 * @return Die Farbe des Spielfeldes als Enum.
 	 */
 	public FarbEnum getFarbe() {
@@ -112,7 +112,7 @@ public class Spielfeld {
 	}
 	
 	/**
-	 * Gibt die ID des Spielfeldes zurück.
+	 * Gibt die ID des Spielfeldes zurÃ¼ck.
 	 * @return Die ID des Spielfeldes.
 	 * 
 	 * @since 1.0
@@ -133,8 +133,8 @@ public class Spielfeld {
 	}
 	
 	/**
-	 * Gibt das Nachbarn Attribut zurück.
-	 * @return Spielfeld-Array der Länge 6.
+	 * Gibt das Nachbarn Attribut zurÃ¼ck.
+	 * @return Spielfeld-Array der LÃ¤nge 6.
 	 * 
 	 * @since 1.3
 	 */
@@ -150,13 +150,13 @@ public class Spielfeld {
 	
 	/**
 	 * Setzt das Nachbarn Attribut. 
-	 * @param nachbarn Spielfeld-Array der Länge 6.
+	 * @param nachbarn Spielfeld-Array der LÃ¤nge 6.
 	 * 
 	 * @since 1.3
 	 */
 	public void setNachbarn(Spielfeld[] nachbarn) {
 		if(nachbarn.length != 6) {
-			throw new RuntimeException("Das Nachbarn-Array muss eine Länge von 6 haben.");
+			throw new RuntimeException("Das Nachbarn-Array muss eine LÃ¤nge von 6 haben.");
 		}
 		
 		this.nachbarn = nachbarn;
@@ -172,7 +172,7 @@ public class Spielfeld {
 	
 	
 	/**
-	 * Befüllt das Nachbarn-Attribut mit existenten Nachbarn (Spielfeld-Objekten).
+	 * BefÃ¼llt das Nachbarn-Attribut mit existenten Nachbarn (Spielfeld-Objekten).
 	 * Position 0 enstpricht links, Position 1 entspricht oben-links,
 	 * Position 2 entspricht unten-links, Position 3 entspricht rechts,
 	 * Position 4 entspricht oben-rechts, Position 5 enstpricht unten-rechts.
@@ -204,11 +204,11 @@ public class Spielfeld {
 	}
 	/**
 	 * Findet alle IDs die theoretisch um das Feld
-	 * mit der übergebenen ID liegen müssten, ohne zu
-	 * überprüfen, ob die IDs tatsächlich existieren.
+	 * mit der Ã¼bergebenen ID liegen mÃ¼ssten, ohne zu
+	 * Ã¼berprÃ¼fen, ob die IDs tatsÃ¤chlich existieren.
 	 * 
 	 * @param id ID des Feldes dessen Nachbarn gesucht sind
-	 * @return String-Array der Größe 6 mit IDs der Nachbarfelder
+	 * @return String-Array der GrÃ¶ÃŸe 6 mit IDs der Nachbarfelder
 	 * 
 	 * @since 1.3
 	 */
@@ -228,7 +228,7 @@ public class Spielfeld {
 		return nachbarn;
 	}
 	/**
-	 * Gibt das jeweilige, aktuelle Symbol des Spielfeldes zurück.
+	 * Gibt das jeweilige, aktuelle Symbol des Spielfeldes zurÃ¼ck.
 	 * X entspricht Weiss, O entspricht Schwarz, - entspricht einem 
 	 * Feld, auf dem sich keine Figur befindet.
 	 * 

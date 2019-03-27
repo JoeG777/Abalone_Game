@@ -18,20 +18,20 @@ public class UI {
 	public static void spielerAnlegen(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
 
-		System.out.println("Gibt den Namen fï¿½r den Spieler mit der Farbe Weiss ein:");
+		System.out.println("Gibt den Namen für den Spieler mit der Farbe Weiss ein:");
 
 		String name = sc.nextLine();
 		try {
 			spiel.addSpieler(name, "weiss");
 		}catch(IllegalArgumentException e) {
-			System.out.println("Unzulï¿½ssige eingabe, bitte benutze WEISS fï¿½r Weiï¿½ und SCHWARZ fï¿½r Schwarz)");
+			System.out.println("Unzulüssige eingabe, bitte benutze WEISS für Weiss und SCHWARZ für Schwarz)");
 		}
-		System.out.println("Spieler angelegt. Nun gib den Namen fï¿½r den Spieler mit der Farbe Schwarz ein:");
+		System.out.println("Spieler angelegt. Nun gib den Namen für den Spieler mit der Farbe Schwarz ein:");
 		name = sc.nextLine();
 		try {
 			spiel.addSpieler(name, "schwarz");
 		}catch(IllegalArgumentException e) {
-			System.out.println("Unzulï¿½ssige eingabe, bitte benutze WEISS fï¿½r Weiï¿½ und SCHWARZ fï¿½r Schwarz)");
+			System.out.println("Unzulässige eingabe, bitte benutze WEISS für Weiss und SCHWARZ für Schwarz)");
 		}
 	}
 //Eine Aenderung als Beweis.
@@ -45,7 +45,7 @@ public class UI {
 				"#  \\_| |_/_.__/ \\__,_|_|\\___/|_| |_|\\___|\r\n" + 
 				"#                                        \r\n" + 
 				"#                                        \n" + 
-				"Drï¿½cke Enter zum Starten");
+				"Drücke Enter zum Starten");
 		String start = sc.nextLine();
 		try {
 			clearConsole();
