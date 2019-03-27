@@ -637,7 +637,8 @@ public class Spiel {
 	 */
 	private Spielzug[] spielzugSplitter(Spielzug zug) {
 		Spielfeld[] felder = spielBrett.getAusgangsfelder(zug);
-		felder = ordneInRichtung(felder, zug.getRichtung());
+		if(isSchiebung(felder, zug.getRichtung()))
+			felder = ordneInRichtung(felder, zug.getRichtung());
 		if(felder.length <= 1) {
 			Spielzug[] zuege = {zug};
 			return zuege;
@@ -645,13 +646,6 @@ public class Spiel {
 		ArrayList<Spielzug> zuege = new ArrayList<Spielzug>();
 		int richtung = zug.getRichtung();
 		Spielfeld zielfeld = spielBrett.getFeld(zug.getNach());
-		for(int i = 0; i < felder.length; i++) {
-			if(felder[i] != null && felder[i].getNachbar(zug.getRichtung()) != null) {
-				Spielfeld zielFeld = felder[i].getNachbar(zug.getRichtung());
-				Spielzug teilZug = new Spielzug(felder[i].getId(), zielFeld.getId(), zug.getRichtung(), zug.getFarbe());
-				zuege.add(teilZug);
-			}
-		}
 		if(zielfeld.istBesetzt()) {
 			Spielfeld zielNachbar = zielfeld.getNachbar(richtung);
 			if(zielNachbar == null) {
@@ -672,6 +666,14 @@ public class Spiel {
 				}
 			}
 		}
+		for(int i = 0; i < felder.length; i++) {
+			if(felder[i] != null && felder[i].getNachbar(zug.getRichtung()) != null) {
+				Spielfeld zielFeld = felder[i].getNachbar(zug.getRichtung());
+				Spielzug teilZug = new Spielzug(felder[i].getId(), zielFeld.getId(), zug.getRichtung(), zug.getFarbe());
+				zuege.add(teilZug);
+			}
+		}
+		
 		return zuege.toArray(new Spielzug[0]);
 	}
 	
