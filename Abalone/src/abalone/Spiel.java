@@ -646,25 +646,32 @@ public class Spiel {
 		ArrayList<Spielzug> zuege = new ArrayList<Spielzug>();
 		int richtung = zug.getRichtung();
 		Spielfeld zielfeld = spielBrett.getFeld(zug.getNach());
+		Spielzug zielFeldZug = null;
+		Spielzug zielNachbarzug = null;
+		
 		if(zielfeld.istBesetzt()) {
 			Spielfeld zielNachbar = zielfeld.getNachbar(richtung);
 			if(zielNachbar == null) {
-				Spielzug zielFeldZug = new Spielzug(zielfeld.getId(), null);
-				zuege.add(zielFeldZug);
+				zielFeldZug = new Spielzug(zielfeld.getId(), null);
+				
 			}else {
-				Spielzug zielFeldZug = new Spielzug(zielfeld.getId(), zielNachbar.getId());
-				zuege.add(zielFeldZug);
+				zielFeldZug = new Spielzug(zielfeld.getId(), zielNachbar.getId());
 			}
 			if(zielNachbar.istBesetzt()) {
 				Spielfeld zielNachbar2 = zielNachbar.getNachbar(richtung);
 				if(zielNachbar2 == null) {
-					Spielzug zielNachbarzug = new Spielzug(zielNachbar.getId(), null);
-					zuege.add(zielNachbarzug);
+					zielNachbarzug = new Spielzug(zielNachbar.getId(), null);
+					
 				}else {
-					Spielzug zielNachbarzug = new Spielzug(zielNachbar.getId(), zielNachbar2.getId());
-					zuege.add(zielNachbarzug);
+					zielNachbarzug = new Spielzug(zielNachbar.getId(), zielNachbar2.getId());
 				}
 			}
+		}
+		if(zielNachbarzug != null) {
+			zuege.add(zielNachbarzug);
+		}
+		if(zielFeldZug != null) {
+			zuege.add(zielFeldZug);
 		}
 		for(int i = 0; i < felder.length; i++) {
 			if(felder[i] != null && felder[i].getNachbar(zug.getRichtung()) != null) {
