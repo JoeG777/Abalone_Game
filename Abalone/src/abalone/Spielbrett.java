@@ -28,7 +28,7 @@ public class Spielbrett {
 
 
 	/**
-	 * Konstruktor fï¿½r Abalone Spielbrett
+	 * Konstruktor für Abalone Spielbrett
 	 * 
 	 * @since 1.0
 	 */
@@ -43,7 +43,7 @@ public class Spielbrett {
 	}
 
 	/**
-	 * Gibt das Brettattribut des Spielbretts zurï¿½ck.
+	 * Gibt das Brettattribut des Spielbretts zurück.
 	 * @return Brettattribut in Form von einer
 	 * HashMap<String,Spielfeld>  des Spielbretts.
 	 * 
@@ -79,24 +79,24 @@ public class Spielbrett {
 
 
 	/**
-	 * Verknï¿½pft alle Feldbezeichnungen
+	 * Verknüpft alle Feldbezeichnungen
 	 * eines Abalone-Bretts mit Spielfeld-Objekten.
 	 * 
 	 * @since 1.0
 	 */
 	private void schaffeMapping() {
 		for(int i = 0; i < KOORDINATENQUER.length; i++) {
-			// Untere Felder schaffen und verknï¿½pfen
+			// Untere Felder schaffen und verknüpfen
 			if(i < MITTE) {
-				//verknï¿½pft von links nach rechts
+				//verknüpft von links nach rechts
 				for(int j = 0; j < MITTE + i; j++) {
 					String key = KOORDINATENQUER[i] + KOORDINATENDIAGONAL[j];
 					weiseKeyFeldZu(key);
 				}
 			}
-			// Obere Felder schaffen und verknï¿½pfen 
+			// Obere Felder schaffen und verknüpfen 
 			else {
-				//verknï¿½pft von rechts nach links
+				//verknüpft von rechts nach links
 				for(int j = KOORDINATENQUER.length-1; j > i-MITTE; j--) {
 					String key = KOORDINATENQUER[i] + KOORDINATENDIAGONAL[j];
 					weiseKeyFeldZu(key);
@@ -110,7 +110,7 @@ public class Spielbrett {
 
 	/** 
 	 * Ordnet die HashMap in Form eines Abalone Spielbretts mit Koordinaten an
-	 * und gibt dieses als String zurï¿½ck.
+	 * und gibt dieses als String zurück.
 	 *  
 	 * @return Einen String in Form eines Abalone-Spielbretts.
 	 * 
@@ -125,7 +125,7 @@ public class Spielbrett {
 			gesamtesFeld.append(einzelneQuerlinie + "\n");
 		}
 
-		// Untere Koordinaten anfï¿½gen
+		// Untere Koordinaten anfügen
 		gesamtesFeld.append("       " + "1 2 3 4 5");
 		return gesamtesFeld.toString();
 	}
@@ -134,10 +134,10 @@ public class Spielbrett {
 
 	/**
 	 * Hilfsmethode von toString.
-	 * Baut eine komplette Querzeile des Spielbretts mit passender Einrï¿½ckung,
-	 * Feldern und Koordinaten und gibt diese als String zurï¿½ck.
+	 * Baut eine komplette Querzeile des Spielbretts mit passender Einrückung,
+	 * Feldern und Koordinaten und gibt diese als String zurück.
 	 * 
-	 * @param posKoordinateQuer Array-Position der gewï¿½nschten Querzeilenkoordinate.
+	 * @param posKoordinateQuer Array-Position der gewünschten Querzeilenkoordinate.
 	 * 
 	 * @return komplette Querzeile als String.
 	 * 
@@ -157,7 +157,7 @@ public class Spielbrett {
 		einzelneQuerlinie.append(einrueckung);
 		einzelneQuerlinie.append(felder);
 
-		//Koordinaten an rechter, unterer Seite anfï¿½gen
+		//Koordinaten an rechter, unterer Seite anfügen
 		if(posKoordinateQuer < 4) {
 			int arrPos = MAXDIAGONALE - 4 + posKoordinateQuer;
 			einzelneQuerlinie.append(KOORDINATENDIAGONAL[arrPos]);
@@ -169,12 +169,12 @@ public class Spielbrett {
 
 	/**
 	 * Hilfsmethode von toString.
-	 * Fï¿½gt alle Symbole der Felder einer Zeile mit Zwischenabstï¿½nden zu einem
-	 * String zusammen. Zurï¿½ckgegebner String ist immer gerade.
+	 * Fügt alle Symbole der Felder einer Zeile mit Zwischenabständen zu einem
+	 * String zusammen. Zurückgegebner String ist immer gerade.
 	 * 
-	 * @param posKoordinateQuer Array-Position der gewï¿½nschten Querzeilenkoordinate.
+	 * @param posKoordinateQuer Array-Position der gewünschten Querzeilenkoordinate.
 	 * 
-	 * @return String aus Feldsymbolen, Zwischenabstï¿½nden und einem Leerzeichen
+	 * @return String aus Feldsymbolen, Zwischenabständen und einem Leerzeichen
 	 * 
 	 * @since 1.1
 	 */
@@ -182,7 +182,7 @@ public class Spielbrett {
 
 		StringBuilder felder = new StringBuilder();
 
-		// Fï¿½gt Felder von RECHTS nach links zusammen
+		// Fügt Felder von RECHTS nach links zusammen
 		for(int j = KOORDINATENDIAGONAL.length - 1; j >= 0; j--) {
 			String key = KOORDINATENQUER[posKoordinateQuer] + 
 					KOORDINATENDIAGONAL[j];
@@ -199,7 +199,7 @@ public class Spielbrett {
 
 
 	/**
-	 * Weist dem ï¿½bergebenem Key ein Spielfeld zu.
+	 * Weist dem übergebenem Key ein Spielfeld zu.
 	 * @param key Feldbezeichnung in Form eines Strings.
 	 * 
 	 * @since 1.0
@@ -450,10 +450,10 @@ public class Spielbrett {
 		return spielFelder;
 	}
 	/**
-	 * Prï¿½ft, ob in einem Zug andere Kugeln verschoben werden kï¿½nnen
+	 * Prüft, ob in einem Zug andere Kugeln verschoben werden künnen
 	 * @param Die Felder, von denen gezogen wird 
 	 * @param Die Richtung, in die gezogen wird
-	 * @return True oder False, abhï¿½ngig davon, ob eine andere Kugel verschoben 
+	 * @return True oder False, abhüngig davon, ob eine andere Kugel verschoben 
 	 * werden kann
 	 */
 
@@ -710,7 +710,7 @@ public class Spielbrett {
 //					if(isZuEinsSumito(vordersterStein, richtung)) {
 //						Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
 //						if(wirdAbgeraeumt(gegnerStein, richtung)) { 
-//							return "R-2Z1ABR"; // 2 zu 1 Abrï¿½umer
+//							return "R-2Z1ABR"; // 2 zu 1 Abrüumer
 //							 
 //						}
 //						else {
@@ -728,7 +728,7 @@ public class Spielbrett {
 //					if(isZuEinsSumito(vordersterStein, richtung)) {
 //						Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
 //						if(wirdAbgeraeumt(gegnerStein, richtung)) {
-//							return "R-3Z1ABR"; // 3 zu 1 Abrï¿½umer
+//							return "R-3Z1ABR"; // 3 zu 1 Abrüumer
 //						}
 //
 //						else {
@@ -772,7 +772,7 @@ public class Spielbrett {
 //	}
 
 	/**
-	 * Prueft, ob es sich bei einem regulï¿½ren Zug um einen Zug handelt, 
+	 * Prueft, ob es sich bei einem regulüren Zug um einen Zug handelt, 
 	 * bei dem eigene Steine in einer Linie geschoben werden. 
 	 * @param felder Die Ausgangsfelder eines Spielzuges
 	 * @param richtung Die Richtung der Bewegung (Position im Array).
@@ -817,8 +817,8 @@ public class Spielbrett {
 	}
 
 	/**
-	 * Gibt fï¿½r einen Zug aus 2 oder 3 Steinen, bei dem eigene Steine geschoben 
-	 * werden, die Position des vordersten Steines in Richtung des Zuges zurï¿½ck.
+	 * Gibt für einen Zug aus 2 oder 3 Steinen, bei dem eigene Steine geschoben 
+	 * werden, die Position des vordersten Steines in Richtung des Zuges zurück.
 	 * @param felder Felder auf denen sich die zu ziehenden Steine befinden.
 	 * @param richtung Die Richtung des Zuges.
 	 * @return Spielfeld-Objekt auf dem sich der vorderste Stein befindet
@@ -848,7 +848,7 @@ public class Spielbrett {
 	}
 	
 	/**
-	 * Gibt alle Spielfelder eines Zuges als Spielfeld-Array zurï¿½ck.
+	 * Gibt alle Spielfelder eines Zuges als Spielfeld-Array zurück.
 	 * @param ausgangsfelder Die Felder, von denen gezogen wird.
 	 * @param richtung Die Richtung des Zuges.
 	 * @return Spielfeld-Array mit allen Zielfeldern des Zuges.
@@ -866,7 +866,7 @@ public class Spielbrett {
 	}
 	
 	/**
-	 * Gibt alle Ausgangsfelder eines Zuges zurï¿½ck-
+	 * Gibt alle Ausgangsfelder eines Zuges zurück-
 	 * @param zug Ein Spielzug-Objekt.
 	 * @return Spielfeld-Array mit allen Ausgangsfelder des Zuges.
 	 */
@@ -909,11 +909,11 @@ public class Spielbrett {
 	}
 	
 	/**
-	 * Prï¿½ft, ob ein Zwei-zu-eins Sumito mï¿½glich ist.
+	 * Prüft, ob ein Zwei-zu-eins Sumito möglich ist.
 	 * @param vordersterStein der vorderste Stein eines Spielzuges in dem 
 	 * zwei bis drei Steine bewegt werden.
 	 * @param richtung die Richtung des Spielzuges.
-	 * @return true, wenn mï¿½glich, false, wenn nicht mï¿½glich.
+	 * @return true, wenn möglich, false, wenn nicht möglich.
 	 */
 	private boolean isZuEinsSumito(Spielfeld vordersterStein, int richtung) {
 		Spielfeld nachbarInRichtung = vordersterStein.getNachbar(richtung);
@@ -933,11 +933,11 @@ public class Spielbrett {
 	}
 	
 	/**
-	 * Prï¿½ft, ob ein Zwei-zu-drei Sumito mï¿½glich ist.
+	 * Prüft, ob ein Zwei-zu-drei Sumito möglich ist.
 	 * @param vordersterStein der vorderste Stein eines Spielzuges in dem 
 	 * drei Steine bewegt werden.
 	 * @param richtung die Richtung des Spielzuges.
-	 * @return true, wenn mï¿½glich, false, wenn nicht mï¿½glich.
+	 * @return true, wenn möglich, false, wenn nicht möglich.
 	 */
 	private boolean isZuZweiSumito(Spielfeld vordersterStein, int richtung) {
 		Spielfeld erstesFeldInRichtung = vordersterStein.getNachbar(richtung);
@@ -998,8 +998,8 @@ public class Spielbrett {
 	}
 	
 	/**
-	 * Gibt fï¿½r einen Zug aus 2 oder 3 Steinen, bei dem eigene Steine geschoben 
-	 * werden, die Position des hintersten Steines in Richtung des Zuges zurï¿½ck.
+	 * Gibt für einen Zug aus 2 oder 3 Steinen, bei dem eigene Steine geschoben 
+	 * werden, die Position des hintersten Steines in Richtung des Zuges zurück.
 	 * @param felder ein Spielfeld-Array
 	 * @param richtung die Richtung eines Spielzuges
 	 * @return der hinterste Stein des Spielzuges.
@@ -1034,7 +1034,7 @@ public class Spielbrett {
 	
 	/**
 	 * Bewegt eine Figur von einem Feld auf ein anderes, 
-	 * ohne dabei zu ï¿½berprï¿½fen, ob dies "logisch" mï¿½glich ist. 
+	 * ohne dabei zu überprüfen, ob dies "logisch" möglich ist. 
 	 * @param von das Feld auf dem sich die Figur befindet.
 	 * @param auf das Feld auf das die Figur bewegt werden soll. 
 	 * @since 1.4
