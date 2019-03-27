@@ -638,11 +638,15 @@ public class Spiel {
 	private Spielzug[] spielzugSplitter(Spielzug zug) {
 		Spielfeld[] felder = spielBrett.getAusgangsfelder(zug);
 		felder = ordneInRichtung(felder, zug.getRichtung());
+		if(felder.length <= 1) {
+			Spielzug[] zuege = {zug};
+			return zuege;
+		}
 		ArrayList<Spielzug> zuege = new ArrayList<Spielzug>();
 		int richtung = zug.getRichtung();
 		Spielfeld zielfeld = spielBrett.getFeld(zug.getNach());
 		for(int i = 0; i < felder.length; i++) {
-			if(felder[i].getNachbar(zug.getRichtung()) != null) {
+			if(felder[i] != null && felder[i].getNachbar(zug.getRichtung()) != null) {
 				Spielfeld zielFeld = felder[i].getNachbar(zug.getRichtung());
 				Spielzug teilZug = new Spielzug(felder[i].getId(), zielFeld.getId(), zug.getRichtung(), zug.getFarbe());
 				zuege.add(teilZug);
