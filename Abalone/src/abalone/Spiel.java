@@ -97,8 +97,7 @@ public class Spiel {
 		}
 		for(int i = 0; i<spielerArr.length; i++) {
 			if(spieler != null && !spielerArr[i].equals(spieler)) {
-				if(14 - this.zaehleKugelnMitFarbe(spieler.getFarbe())> 6 &&
-				   14 - this.zaehleKugelnMitFarbe(spielerArr[i].getFarbe())> 6)
+				if(14 - this.zaehleKugelnMitFarbe(spieler.getFarbe())<= 6)
 					return true;
 			}
 		}
@@ -362,7 +361,7 @@ public class Spiel {
 		Spielfeld[] zielfelder = getZielfelder(ausgangsfelder,richtung);
 		if(ausgangsfelder.length == 1) { // Ein Stein darf nicht schieben, also nur ueberpruefen, ob Zielfeld belegt ist
 			if(ausgangsfelder[0].getNachbar(richtung) != null && ausgangsfelder[0].getNachbar(richtung).getFigur() == null) {
-				//bewegeFiguren(ausgangsfelder, zielfelder);
+				//bewegeFiguren(ausgangsfelder, zielfelder);F
 				erfolgreich = true;
 			}
 		}
