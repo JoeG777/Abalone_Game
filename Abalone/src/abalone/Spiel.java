@@ -116,6 +116,9 @@ public class Spiel {
 		if (koordinatenValidieren(spielzugParser(zug))) {
 			Spielzug halter = new Spielzug(zug[0], zug[1]);
 			Spielzug spielzug = formatieren(halter);
+			if(spielzug.getNach() == null) {
+				throw new IllegalArgumentException("Unzulaessiger Zug");
+			}
 			spielzug.setRichtung(this.bekommeRichtung(spielzug));
 			spielzug.setFarbe(spielerAmZug.getFarbe());
 			Spielzug[] spielzuege = new Spielzug[1];
@@ -749,12 +752,13 @@ public class Spiel {
 			vonFeld1 = vonFeld2;
 			vonFeld2 = halter;  
 		}
-		
+		if(spielBrett.getFeld(vonFeld2).getNachbar(richtung) != null) {
 		nachFeld = spielBrett.getFeld(vonFeld2).getNachbar(richtung).getId();
 		}
-		System.out.println(vonFeld1);
-		System.out.println(vonFeld2);
-		System.out.println(nachFeld);
+		else {
+			nachFeld = null;
+		}
+		}
 		
 		return new Spielzug(vonFeld1 +"" +vonFeld2, nachFeld);
 		
