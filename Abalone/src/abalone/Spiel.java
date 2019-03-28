@@ -97,7 +97,7 @@ public class Spiel {
 		}
 		for(int i = 0; i<spielerArr.length; i++) {
 			if(spieler != null && !spielerArr[i].equals(spieler)) {
-				if(14 - this.zaehleKugelnMitFarbe(spieler.getFarbe())<= 6)
+				if(14 - this.zaehleKugelnMitFarbe(spieler.getFarbe())>= 6)
 					return true;
 			}
 		}
@@ -119,10 +119,11 @@ public class Spiel {
 			spielzug.setFarbe(spielerAmZug.getFarbe());
 			Spielzug[] spielzuege = new Spielzug[1];
 			spielzuege[0] = spielzug;
+			Spielzug halter = new Spielzug(spielzuege[0].getVon(), spielzuege[0].getNach());
 			if(zugValidieren(spielzuege)){
 				spielzuege = spielzugSplitter(spielzug);
 				spielBrett.ziehe333(spielzuege);
-				historie.spielzugHinzufuegen(spielzuege[0]);
+				historie.spielzugHinzufuegen(halter);
 				if (spielerAmZug.getFarbe() == spielerImSpiel[0].getFarbe()) {
 					spielerAmZug = spielerImSpiel[1];
 				} else {

@@ -73,8 +73,9 @@ public class UI {
 		while(imSpiel) {
 			System.out.println(spiel.getStatus());
 			String zug = sc.nextLine();
-			if(!ziehen(zug, spiel))
+			if(!ziehen(zug, spiel)) {
 				System.out.println("Irgendwas hat da nicht gestimmt");
+			}
 			imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
 		}
 
