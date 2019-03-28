@@ -15,10 +15,10 @@ public class Spielzug {
 	 * @param farbe Die Farbe der Figuren
 	 */
 	public Spielzug(String von, String nach, int richtung, FarbEnum farbe) {
-		this.setVon(von);
-		this.setNach(nach);
-		this.setRichtung(richtung);
-		this.setFarbe(farbe);
+		setVon(von);
+		setNach(nach);
+		setRichtung(richtung);
+		setFarbe(farbe);
 	}
 	
 	/**
@@ -28,8 +28,8 @@ public class Spielzug {
 	 * @param nach Die Position der Figuren nach dem Zug
 	 */
 	public Spielzug(String von, String nach) {
-		this.setVon(von);
-		this.setNach(nach);
+		setVon(von);
+		setNach(nach);
 	}
 	
 	/**
@@ -94,6 +94,42 @@ public class Spielzug {
 	 */
 	public void setFarbe(FarbEnum farbe) {
 		this.farbe = farbe;
+	}
+	
+	/**
+	 * Die equals Methode, die alle enthaltenen Daten eines Spielzug auf
+	 * Gleichheit überprüft
+	 * @param Objekt
+	 * @return Wahrheitswert Ob das übergebene Objekt und der referenzierte
+	 * Spielzug tatsächlich gleich sind
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
+		if (o.getClass() != Spielzug.class) {
+			return false;
+		}
+		if (o== this) {
+			return true;
+		}
+		
+		Spielzug z = (Spielzug) o;
+		
+		return (this.getVon() == z.getVon() &&
+				this.getNach() == z.getNach() &&
+				this.getRichtung() == z.getRichtung() &&
+				this.getFarbe() == z.getFarbe());
+	}
+	
+	/**
+	 * Erzeugt eine flache Kopie eines Spielzugs
+	 *@return Spielzugkopie
+	 */
+	@Override
+	public Spielzug clone() {
+		return new Spielzug (getVon(), getNach(), getRichtung(), getFarbe());
 	}
 	
 }
