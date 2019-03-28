@@ -114,12 +114,12 @@ public class Spiel {
 	 */
 	public void ziehe(String[] zug) {
 		if (koordinatenValidieren(spielzugParser(zug))) {
-			Spielzug spielzug = new Spielzug(zug[0], zug[1]);
+			Spielzug halter = new Spielzug(zug[0], zug[1]);
+			Spielzug spielzug = formatieren(halter);
 			spielzug.setRichtung(this.bekommeRichtung(spielzug));
 			spielzug.setFarbe(spielerAmZug.getFarbe());
 			Spielzug[] spielzuege = new Spielzug[1];
 			spielzuege[0] = spielzug;
-			Spielzug halter = new Spielzug(spielzuege[0].getVon(), spielzuege[0].getNach());
 			if(zugValidieren(spielzuege)){
 				spielzuege = spielzugSplitter(spielzug);
 				spielBrett.ziehe333(spielzuege);
@@ -360,6 +360,11 @@ public class Spiel {
 				return false;
 		}
 		Spielfeld[] zielfelder = getZielfelder(ausgangsfelder,richtung);
+		for(Spielfeld feld : zielfelder) {
+			if(feld == null) {
+				return false;
+			}
+		}
 		if(ausgangsfelder.length == 1) { // Ein Stein darf nicht schieben, also nur ueberpruefen, ob Zielfeld belegt ist
 			if(ausgangsfelder[0].getNachbar(richtung) != null && ausgangsfelder[0].getNachbar(richtung).getFigur() == null) {
 				//bewegeFiguren(ausgangsfelder, zielfelder);F
@@ -717,6 +722,34 @@ public class Spiel {
 		
 		Collections.reverse(geordneteFelder); // Dreht um, sodass erster Stein vorne steht
 		return geordneteFelder.toArray(new Spielfeld[0]);
+	}
+	
+	public Spielzug formatieren(Spielzug zug) {
+		if(zug.getVon().length() == 2) {
+			return zug;
+		}
+		
+		String vonFeld1 = zug.getVon().substring(0,2);
+		String vonFeld2 = zug.getVon().substring(2, 4);
+		String nachFeld = zug.getNach();
+		
+		int richtung = spielBrett.getFeld(vonFeld1).getNachbarId(spielBrett.getFeld(nachFeld));
+		
+		if(vonFeld1.charAt(1) > vonFeld2.charAt(1) || vonFeld1.charAt(0) > vonFeld2.charAt(0)) {
+			String halter = vonFeld1;
+			vonFeld1 = vonFeld2;
+			vonFeld2 = halter;
+		}
+		
+		nachFeld = spielBrett.getFeld(vonFeld2).getNachbar(richtung).getId();
+		
+		System.out.println(vonFeld1);
+		System.out.println(vonFeld2);
+		System.out.println(nachFeld);
+		
+		return new Spielzug(vonFeld1 +"" +vonFeld2, nachFeld);
+		
+	
 	}
 
 }
