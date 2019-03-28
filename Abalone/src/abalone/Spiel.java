@@ -732,7 +732,7 @@ public class Spiel {
 		String vonFeld1 = zug.getVon().substring(0,2);
 		String vonFeld2 = zug.getVon().substring(2, 4);
 		String nachFeld = zug.getNach();
-		
+		if(!(spielBrett.getFeld(vonFeld2).hatNachbar(spielBrett.getFeld(nachFeld)))) {
 		int richtung = spielBrett.getFeld(vonFeld1).getNachbarId(spielBrett.getFeld(nachFeld));
 		
 		if(vonFeld1.charAt(1) > vonFeld2.charAt(1) || vonFeld1.charAt(0) > vonFeld2.charAt(0)) {
@@ -742,7 +742,7 @@ public class Spiel {
 		}
 		
 		nachFeld = spielBrett.getFeld(vonFeld2).getNachbar(richtung).getId();
-		
+		}
 		System.out.println(vonFeld1);
 		System.out.println(vonFeld2);
 		System.out.println(nachFeld);
