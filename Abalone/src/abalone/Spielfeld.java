@@ -107,7 +107,7 @@ public class Spielfeld {
 	 * Setzt die Farbe des Spielfeldes.
 	 * @param farbe Eine Farbe des FarbEnum.
 	 */
-	public void setFarbe(FarbEnum farbe) {
+	private void setFarbe(FarbEnum farbe) {
 		this.farbe = farbe;
 	}
 	
@@ -128,7 +128,7 @@ public class Spielfeld {
 	 * @since 1.0
 	 */
 	
-	public void setId(String id) {
+	private void setId(String id) {
 		this.id = id;
 	}
 	
@@ -162,14 +162,16 @@ public class Spielfeld {
 		this.nachbarn = nachbarn;
 	}
 	
+	/**
+	 * Ermittelt, ob ein Spielfeld von einer Figur besetzt ist
+	 * @return Wahrheitswert Ob besetzt oder nicht
+	 */
 	public boolean istBesetzt() {
 		if(this.figur == null) {
 			return false;
 		}
 		return true;
 	}
-	
-	
 	
 	/**
 	 * Befüllt das Nachbarn-Attribut mit existenten Nachbarn (Spielfeld-Objekten).
@@ -197,11 +199,8 @@ public class Spielfeld {
 		}
 		
 		this.nachbarn = echteNachbarn;
-		
-		
-		
-		
 	}
+	
 	/**
 	 * Findet alle IDs die theoretisch um das Feld
 	 * mit der übergebenen ID liegen müssten, ohne zu
@@ -227,6 +226,7 @@ public class Spielfeld {
 
 		return nachbarn;
 	}
+	
 	/**
 	 * Gibt das jeweilige, aktuelle Symbol des Spielfeldes zurück.
 	 * X entspricht Weiss, O entspricht Schwarz, - entspricht einem 
@@ -237,7 +237,6 @@ public class Spielfeld {
 	 * 
 	 * @since 1.2
 	 */
-	
 	public String getFeldSymbol() {
 		if(this.figur != null) {
 			if(this.figur.getFarbe() == FarbEnum.WEISS) {

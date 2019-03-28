@@ -1,25 +1,23 @@
 import static org.junit.Assert.*;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import abalone.Spielfeld;
-import abalone.Spielfigur;
 import abalone.FarbEnum;
 import abalone.Spielbrett;
 
 public class SpielfeldTest {
 	Spielbrett brett;
+	Spielfeld hauptFeld;
 
 	
 	@Before
 	public void setUp() {
 		brett = new Spielbrett();
+		hauptFeld = new Spielfeld(brett, "A1", FarbEnum.WEISS, null);
 	}
 	
-	
 	@Test
-	
 	public void testeSetzeNachbarn1() {
 		Spielfeld feld = brett.getBrett().get("A1");
 		Spielfeld[] nachbarn = feld.getNachbarn();
@@ -33,8 +31,8 @@ public class SpielfeldTest {
 		assertArrayEquals(echteNachbarn, nachbarn);
 		
 	}
-	@Test
 	
+	@Test
 	public void testeSetzeNachbarn2() {
 		Spielfeld feld = brett.getBrett().get("F5");
 		Spielfeld[] nachbarn = feld.getNachbarn();
@@ -49,9 +47,7 @@ public class SpielfeldTest {
 		Spielfeld[] echteNachbarn = {links, linksOben, linksUnten, rechts, rechtsOben, rechtsUnten};
 		
 		assertArrayEquals(nachbarn, echteNachbarn);
-		
 	}
-	
 	
 	@Test 
 	public void testeSetzeNachbarn3() {
@@ -86,21 +82,37 @@ public class SpielfeldTest {
 		boolean hatNachbar = feld.hatNachbar(nachbar);
 		
 		assertFalse(hatNachbar);
-		
 	}
 	
+	@Test
+	public void testIsBesetzt() {
+		assertEquals(false, hauptFeld.istBesetzt());
+	}
 	
 	@Test
 	public void testeGetFeldSymbol() {
-		Spielfeld feld = brett.getBrett().get("A1");
-		Spielfigur figur = new Spielfigur(feld, FarbEnum.SCHWARZ);
-		feld.setFigur(figur);
+		String symbol = hauptFeld.getFeldSymbol();
 		
-		String symbol = feld.getFeldSymbol();
-		
-		assertEquals(symbol, "X");
+		assertEquals( "-", symbol);
 	}
 	
+	@Test
+	public void testGetBrett() {
+		assertEquals(brett, hauptFeld.getBrett());
+	}
 	
+	@Test
+	public void testGetId() {
+		assertEquals("A1", hauptFeld.getId());
+	}
 	
+	@Test
+	public void testGetFarbe() {
+		assertNotEquals(FarbEnum.SCHWARZ, hauptFeld.getFarbe());
+	}
+	
+	@Test
+	public void testGetFigur() {
+		assertEquals(null, hauptFeld.getFigur());
+	}
 }
