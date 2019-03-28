@@ -361,7 +361,7 @@ public class Spiel {
 		}
 		Spielfeld[] zielfelder = getZielfelder(ausgangsfelder,richtung);
 		if(ausgangsfelder.length == 1) { // Ein Stein darf nicht schieben, also nur ueberpruefen, ob Zielfeld belegt ist
-			if(ausgangsfelder[0].getNachbar(richtung).getFigur() == null) {
+			if(ausgangsfelder[0].getNachbar(richtung) != null && ausgangsfelder[0].getNachbar(richtung).getFigur() == null) {
 				//bewegeFiguren(ausgangsfelder, zielfelder);
 				erfolgreich = true;
 			}
