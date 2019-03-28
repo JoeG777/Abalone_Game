@@ -173,6 +173,13 @@ public class Spielfeld {
 		return true;
 	}
 	
+	public boolean istDurchGegnerBesetzt(FarbEnum farbe) {
+		if(this.figur == null || this.figur.getFarbe() == farbe) {
+			return false;
+		}
+		return true;
+	}
+	
 	/**
 	 * Befüllt das Nachbarn-Attribut mit existenten Nachbarn (Spielfeld-Objekten).
 	 * Position 0 enstpricht links, Position 1 entspricht oben-links,

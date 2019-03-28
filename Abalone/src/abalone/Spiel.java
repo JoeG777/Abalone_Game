@@ -662,7 +662,7 @@ public class Spiel {
 		Spielzug zielFeldZug = null;
 		Spielzug zielNachbarzug = null;
 		
-		if(zielfeld.istBesetzt()) {
+		if(zielfeld.istDurchGegnerBesetzt(spielerAmZug.getFarbe())) {
 			Spielfeld zielNachbar = zielfeld.getNachbar(richtung);
 			if(zielNachbar == null) {
 				zielFeldZug = new Spielzug(zielfeld.getId(), null);
@@ -670,7 +670,7 @@ public class Spiel {
 			}else {
 				zielFeldZug = new Spielzug(zielfeld.getId(), zielNachbar.getId());
 			}
-			if(zielNachbar.istBesetzt()) {
+			if(zielNachbar.istDurchGegnerBesetzt(spielerAmZug.getFarbe())) {
 				Spielfeld zielNachbar2 = zielNachbar.getNachbar(richtung);
 				if(zielNachbar2 == null) {
 					zielNachbarzug = new Spielzug(zielNachbar.getId(), null);
