@@ -86,11 +86,12 @@ public class UI {
 		Scanner sc = new Scanner(System.in);
 		boolean imSpiel = true;
 		while(imSpiel) {
+			System.out.println();
 			System.out.println(spiel.getStatus());
-			System.out.println(">");
+			System.out.print(">");
 			String zug = sc.nextLine();
 			if(!ziehen(zug, spiel)) {
-				System.out.println("Irgendwas hat da nicht gestimmt");
+				System.out.println("Irgendwas hat da nicht gestimmt!");
 				System.out.println();
 			}
 			imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
