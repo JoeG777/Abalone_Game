@@ -13,7 +13,10 @@ public class UI {
 		spielen(spiel);
 	}
 	/**
-	 * Methode um das Spiel zu starten
+	 * Diese Methode fragt den Namen und die Farbe der Spieler ab, um diese Parameter
+	 * an die addSpieler Methode zu Uebergeben.
+	 * 
+	 * @param spiel Das Spielobjekt
 	 */
 	public static void spielerAnlegen(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
@@ -34,7 +37,9 @@ public class UI {
 			System.out.println("Unzulässige eingabe, bitte benutze WEISS für Weiss und SCHWARZ für Schwarz)");
 		}
 	}
-//Eine Aenderung als Beweis.
+	/**
+	 * Diese Methode zeigt den Willkommensscreen fuer Abalone.
+	 */
 	public static void welcomeScreen() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("#    ___  _           _                  \r\n" + 
@@ -53,7 +58,11 @@ public class UI {
 			
 		}
 	}
-	
+	/**
+	 * Diese Methode loescht den Inhalt der Console.
+	 * 
+	 * @throws IOException
+	 */
 	public final static void clearConsole() throws IOException {
 		String penguinClearConsole = "clear";
 		String windowsClearConsole = "cls";
@@ -67,20 +76,35 @@ public class UI {
 			Runtime.getRuntime().exec(windowsClearConsole);
 		}
 	}
+	/**
+	 * Diese Methode startet das Spiel und uebergibt der ziehen Methode immer wieder
+	 * den vom Benutzer eingegebenen Zug bis einer der Spieler das Spiel gewonnen hat. 
+	 * 
+	 * @param spiel Das Spiel Objekt
+	 */
 	public static void spielen(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
 		boolean imSpiel = true;
 		while(imSpiel) {
 			System.out.println(spiel.getStatus());
+			System.out.println(">");
 			String zug = sc.nextLine();
 			if(!ziehen(zug, spiel)) {
 				System.out.println("Irgendwas hat da nicht gestimmt");
+				System.out.println();
 			}
 			imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
 		}
 
 	}
-	
+	/**
+	 * Diese Methode prueft ob die Zug-Eingabe des Benutzers korrekt war und gibt
+	 * den Zug dann an die ziehe Methode weiter.
+	 * 
+	 * @param zug Der vom Benutzer eingegebene Zug.
+	 * @param spiel Das Spielobjekt
+	 * @return boolean Ob der Zug korrekt war
+	 */
 	public static boolean ziehen(String zug, Spiel spiel) {
 
 		String[] zugArr = new String[2];
@@ -148,12 +172,6 @@ public class UI {
 
 	}
 
-	/**
-	 * Methode um (einen) Spieler hinzuzufuegen
-	 */
-	public static void spielerAnmelden() {
-
-	}
 }
 
 
