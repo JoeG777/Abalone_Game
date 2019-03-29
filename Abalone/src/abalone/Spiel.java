@@ -743,23 +743,22 @@ public class Spiel {
 		String vonFeld1 = zug.getVon().substring(0,2);
 		String vonFeld2 = zug.getVon().substring(2, 4);
 		String nachFeld = zug.getNach();
-		if(!(spielBrett.getFeld(vonFeld2).hatNachbar(spielBrett.getFeld(nachFeld))) &&
-				!(spielBrett.getFeld(vonFeld1).hatNachbar(spielBrett.getFeld(vonFeld2)))) {
-		int richtung = spielBrett.getFeld(vonFeld1).getNachbarId(spielBrett.getFeld(nachFeld));
-		
-		if(vonFeld1.charAt(1) > vonFeld2.charAt(1) || vonFeld1.charAt(0) > vonFeld2.charAt(0)) {
-			String halter = vonFeld1;
-			vonFeld1 = vonFeld2;
-			vonFeld2 = halter;  
+		if(!(spielBrett.getFeld(vonFeld2).hatNachbar(spielBrett.getFeld(nachFeld)))) {
+			int richtung = spielBrett.getFeld(vonFeld1).getNachbarId(spielBrett.getFeld(nachFeld));
+
+			if(vonFeld1.charAt(1) > vonFeld2.charAt(1) || vonFeld1.charAt(0) > vonFeld2.charAt(0)) {
+				String halter = vonFeld1;
+				vonFeld1 = vonFeld2;
+				vonFeld2 = halter;  
+			}
+			if(spielBrett.getFeld(vonFeld2).getNachbar(richtung) != null) {
+				nachFeld = spielBrett.getFeld(vonFeld2).getNachbar(richtung).getId();
+			}
+			else {
+				nachFeld = null;
+			}
 		}
-		if(spielBrett.getFeld(vonFeld2).getNachbar(richtung) != null) {
-		nachFeld = spielBrett.getFeld(vonFeld2).getNachbar(richtung).getId();
-		}
-		else {
-			nachFeld = null;
-		}
-		}
-		
+
 		return new Spielzug(vonFeld1 +"" +vonFeld2, nachFeld);
 		
 	
