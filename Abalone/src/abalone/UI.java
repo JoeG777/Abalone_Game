@@ -85,6 +85,7 @@ public class UI {
 	 */
 	public static void spielen(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
+		String gewinner = "";
 		boolean imSpiel = true;
 		while(imSpiel) {
 			System.out.println();
@@ -96,8 +97,11 @@ public class UI {
 				System.out.println();
 			}
 			imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
+			if (!imSpiel) {
+				gewinner = spiel.getSpielerAmZug();
+			}
 		}
-
+		spielBeenden(gewinner);
 	}
 	/**
 	 * Diese Methode prueft ob die Zug-Eingabe des Benutzers korrekt war und gibt
@@ -159,6 +163,14 @@ public class UI {
 //		}
 //		return true;
 //	}
+	
+	/**
+	 * Diese Methode gibt den Gewinner aus.
+	 * @param gewinner Der Spieler der das Spiel gewonnen hat.
+	 */
+	public static void spielBeenden(String gewinner) {
+		System.out.println("Hurraa " + gewinner + " Hat das Spiel gewonnen!");
+	}
 }
 
 
