@@ -174,10 +174,10 @@ public class Spielfeld {
 	}
 	
 	public boolean istDurchGegnerBesetzt(FarbEnum farbe) {
-		if(this.figur == null || this.figur.getFarbe() == farbe) {
-			return false;
+		if(this.figur != null && this.figur.getFarbe() != farbe) {
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	/**

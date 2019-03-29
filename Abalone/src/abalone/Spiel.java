@@ -661,7 +661,7 @@ public class Spiel {
 		}
 		ArrayList<Spielzug> zuege = new ArrayList<Spielzug>();
 		int richtung = zug.getRichtung();
-		Spielfeld zielfeld = spielBrett.getFeld(zug.getNach());
+		Spielfeld zielfeld = felder[0].getNachbar(richtung);
 		Spielzug zielFeldZug = null;
 		Spielzug zielNachbarzug = null;
 		
