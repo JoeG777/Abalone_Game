@@ -22,7 +22,7 @@ public class UI {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Gibt den Namen für den Spieler mit der Farbe Weiss ein:");
-
+		System.out.print(">");
 		String name = sc.nextLine();
 		try {
 			spiel.addSpieler(name, "weiss");
@@ -30,6 +30,7 @@ public class UI {
 			System.out.println("Unzulüssige eingabe, bitte benutze WEISS für Weiss und SCHWARZ für Schwarz)");
 		}
 		System.out.println("Spieler angelegt. Nun gib den Namen für den Spieler mit der Farbe Schwarz ein:");
+		System.out.print(">");
 		name = sc.nextLine();
 		try {
 			spiel.addSpieler(name, "schwarz");
@@ -109,7 +110,6 @@ public class UI {
 	public static boolean ziehen(String zug, Spiel spiel) {
 
 		String[] zugArr = new String[2];
-		System.out.println(zug.length());
 		try {
 			if(zug.length()< 5 ) {
 				return false;
@@ -159,20 +159,6 @@ public class UI {
 //		}
 //		return true;
 //	}
-	/**
-	 * Methode um das Spiel zu beenden
-	 */
-	public static void spielBeenden() {
-
-	}
-
-	/**
-	 * Methode um einen alten Spielstand zu laden
-	 */
-	public static void spielLaden() {
-
-	}
-
 }
 
 
