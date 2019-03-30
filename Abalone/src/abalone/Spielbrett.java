@@ -296,8 +296,11 @@ public class Spielbrett {
 	 * @since 1.4
 	 */
 	private void bewegeFigur(String von, String auf) {
-		brett.get(auf).setFigur(brett.get(von).getFigur());;
-		brett.get(von).setFigur(null);
+		if(brett.get(auf) != null && brett.get(von) != null) {
+			brett.get(auf).setFigur(brett.get(von).getFigur());;
+			brett.get(von).setFigur(null);
+		}else
+			throw new IllegalArgumentException("Ungueltiger Zug");
 	}
 	
 	private void steinAbraeumen(Spielfeld feld) {
