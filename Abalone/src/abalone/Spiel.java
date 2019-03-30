@@ -125,6 +125,11 @@ public class Spiel {
 			spielzuege[0] = spielzug;
 			if(zugValidieren(spielzuege)){
 				spielzuege = spielzugSplitter(spielzug);
+				for(Spielzug teilzug : spielzuege) {
+					if(teilzug.getNach() == null) {
+						halter.setNach(halter.getNach() + "*");
+					}
+				}
 				spielBrett.ziehe(spielzuege);
 				historie.spielzugHinzufuegen(halter);
 				if (spielerAmZug.getFarbe() == spielerImSpiel[0].getFarbe()) {
@@ -271,6 +276,11 @@ public class Spiel {
 
 	}
 	
+	/**
+	 * Parst einen String zu einem zweidimensonalen Char Array
+	 * @param zug mit dem Datentyp String
+	 * @return zweidimensionales Char Array, welches den Zug als Chars enthält
+	 */
 	private char[][] felderParser(String zug) {
 		char[][] geparsterZug = new char[1][];
 		if (zug.length() % 2 != 0 || zug.length() > 4) {
@@ -343,27 +353,27 @@ public class Spiel {
 						}
 						break;
 					case 4:
-						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 0) {
+						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 0) {
 							return false;
 						}
 						break;
 					case 5:
-						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 1) {
+						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 1) {
 							return false;
 						}
 						break;
 					case 6:
-						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 2) {
+						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 2) {
 							return false;
 						}
 						break;
 					case 7:
-						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 3) {
+						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 3) {
 							return false;
 						}
 						break;
 					case 8:
-						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 4) {
+						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 4) {
 							return false;
 						}
 						break;

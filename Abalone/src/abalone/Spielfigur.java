@@ -57,6 +57,17 @@ public class Spielfigur {
 		return farbe;
 	}
 	
+	/**
+	 * Prueft, ob die gegebene Farbe der Farbe der Figur entspricht
+	 * @param Die Farbe, die zu pruefen ist 
+	 * @return True oder False
+	 */
+	public boolean gleicheFarbe(FarbEnum farbe) {
+		if(farbe != null && this.getFarbe() == farbe)
+			return true;
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return "Eine Figur der Farbe " + this.getFarbe();
