@@ -185,10 +185,10 @@ public class UI {
 			}
 			imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
 			if (!imSpiel) {
-				gewinner = spiel.getSpielerAmZug();
+				verlierer = spiel.getSpielerAmZug();
 				for(Spieler s1 : spiel.getSpielerImSpiel()) {
-					if (!s1.getName().equals(gewinner)) {
-						verlierer = s1.getName();
+					if (!s1.getName().equals(verlierer)) {
+						gewinner = s1.getName();
 					}
 				}
 			}
