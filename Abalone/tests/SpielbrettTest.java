@@ -118,9 +118,6 @@ public class SpielbrettTest {
 		String echtesBrettString = echtesBrett.toString();
 		
 		assertEquals(echtesBrettString, testBrettString);
-		
-		
-		
 	}
 	
 	@Test
@@ -140,7 +137,72 @@ public class SpielbrettTest {
 		assertEquals(echtesBrettString, testBrettString);
 	}
 	
-	public void testZiehe2() {
+	@Test
+	public void testWerfen() {
+		Spielbrett testBrett = new Spielbrett();
+		Spielzug zug3 = new Spielzug("A3", "A2");
+		Spielzug zug2 = new Spielzug("A2", "A1");
+		Spielzug zug1 = new Spielzug("A1", null);
+		Spielzug[] zuege = {zug1, zug2, zug3};
 		
+		Spielbrett echtesBrett = new Spielbrett();
+		
+		testBrett.getFeld("A3").setFigur(echtesBrett.getFeld("A3").getFigur());
+		testBrett.getFeld("A2").setFigur(echtesBrett.getFeld("A2").getFigur());
+		testBrett.getFeld("A1").setFigur(echtesBrett.getFeld("I9").getFigur());
+		
+		echtesBrett.getFeld("A3").setFigur(null);
+		echtesBrett.getFeld("A2").setFigur(echtesBrett.getFeld("C5").getFigur());
+		echtesBrett.getFeld("A1").setFigur(echtesBrett.getFeld("C5").getFigur());
+		
+		testBrett.ziehe(zuege);
+		
+		String testBrettString = testBrett.toString();
+		String echtesBrettString = echtesBrett.toString();
+		
+		assertEquals(echtesBrettString, testBrettString);
+		
+	}
+	
+	@Test
+	public void falscheEingabe() {
+		Spielbrett testBrett = new Spielbrett();
+		Spielzug[] zuege = {null};
+		testBrett.ziehe(zuege);
+		try {
+			testBrett.ziehe(zuege);
+		}catch(IllegalArgumentException e) {
+			String erwarteteMeldungString = "Ungueltiger Zug";
+			assertEquals(erwarteteMeldungString, e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testeToString() {
+		String erwartet = "I     O O O O O \r\n" + 
+						  "H    O O O O O O \r\n" + 
+						  "G   - - O O O - - \r\n" + 
+						  "F  - - - - - - - - \r\n" + 
+						  "E - - - - - - - - - \r\n" + 
+						  "D  - - - - - - - - 9\r\n" + 
+						  "C   - - X X X - - 8\r\n" + 
+						  "B    X X X X X X 7\r\n" + 
+						  "A     X X X X X 6\r\n" + 
+						  "       1 2 3 4 5";
+						 
+						/* "I     O O O O O \r\n" + 
+						   "H    O O O O O O \r\n" + 
+						   "G   - - O O O - - \r\n" + 
+						   "F  - - - - - - - - \r\n" + 
+						   "E - - - - - - - - - \r\n" + 
+						   "D  - - - - - - - - 9\r\n" + 
+						   "C   - - X X X - - 8\r\n" + 
+						   "B    X X X X X X 7\r\n" + 
+						   "A     X X X X X 6\r\n" + 
+						   "       1 2 3 4 5\r\n" + 
+						   ""; */
+		Spielbrett testBrett = new Spielbrett();
+		System.out.println(testBrett.toString());
+		assertEquals(erwartet, testBrett.toString());
 	}
 }

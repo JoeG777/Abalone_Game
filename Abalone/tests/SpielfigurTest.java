@@ -13,12 +13,16 @@ public class SpielfigurTest {
 	static Spielbrett spielbrett;
 	static Spielfeld feld;
 	static Spielfigur testFigur;
+	static Spielfeld feld2;
+	static Spielfigur testFigur2;
 
 	@BeforeClass
 	public static void setUp() {
 		spielbrett = new Spielbrett();
 		feld = spielbrett.getFeld("C4");
 		testFigur = feld.getFigur();
+		feld2 = spielbrett.getFeld("G5");
+		testFigur2 = feld2.getFigur();
 	}
 	
 	@Test
@@ -63,6 +67,30 @@ public class SpielfigurTest {
 		assertEquals(expected, actual);
 	}
 	
-
+	@Test
+	public void testToString2() {
+		String actual = testFigur2.toString();
+		String expected = "Eine Figur der Farbe " + FarbEnum.WEISS;
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testGleicheFarbe() {
+		FarbEnum weiss = FarbEnum.WEISS;
+		assertEquals(true, testFigur2.gleicheFarbe(weiss));
+	}
+	
+	@Test
+	public void testGleicheFarbe2() {
+		FarbEnum schwarz = FarbEnum.SCHWARZ;
+		assertEquals(true, testFigur.gleicheFarbe(schwarz));
+	}
+	
+	@Test
+	public void testGleicheFarbeMitNullWert() {
+		FarbEnum weiss = null;
+		assertEquals(false, testFigur.gleicheFarbe(weiss));
+	}
 
 }
