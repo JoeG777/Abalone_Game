@@ -3,7 +3,6 @@ package abalone;
 import java.io.IOException;
 import java.util.Scanner;
 
-
 public class UI {
 
 	public static void main (String[] args) {
@@ -75,7 +74,7 @@ public class UI {
 	/**
 	 * Diese Methode ist ein Hilfsmenue fuer das Regelwerk und die Bedienung von Abalone.
 	 */
-	public static void hilfsMenu() {
+	public static void hilfsMenu(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
 		boolean inSchleifeBleiben = true;
 		System.out.println("###############################################\r\n" +
@@ -138,6 +137,7 @@ public class UI {
 			eingabe=sc.nextLine();
 			if(eingabe.equalsIgnoreCase("back") || eingabe.equalsIgnoreCase("zuruck") || eingabe.equalsIgnoreCase("zurueck")) {
 				inSchleifeBleiben = false;
+				hauptMenue(spiel);
 			}
 		}
 		
@@ -173,18 +173,15 @@ public class UI {
 		boolean imSpiel = true;
 		while(imSpiel) {
 			System.out.println();
+			System.out.println("Geben Sie 'Menu' ein falls Sie ins Hauptmenu wollen");
+			System.out.println();
 			System.out.println(spiel.getStatus());
-			System.out.println("Bitte waehlen Sie:\n(1) Historie ausgeben\n" + 
-					"(2) Figuren bewegen\n(3) Hilfsmenue auszugeben.\n");
-			String auswahl = sc.nextLine();
-
-			if(auswahl.equals("1")) {
-				System.out.println(spiel.getHistorie());
-			}
-			else if(auswahl.equals("2")) {
 				System.out.print(">");
-				String zug = sc.nextLine();
-				if(!ziehen(zug, spiel)) {
+				String eingabe = sc.nextLine();
+				if (eingabe.equalsIgnoreCase("menu")) {
+					hauptMenue(spiel);
+				}
+				if(!ziehen(eingabe, spiel)) {
 					System.out.println("Irgendwas hat da nicht gestimmt!");
 					System.out.println();
 				}
@@ -197,18 +194,37 @@ public class UI {
 						}
 					}
 				}
-			}
-			else if (auswahl.equals("3")) {
-				hilfsMenu();
-			}
-
-			else {
-				System.out.println("Die Tasten befinden sich oben links auf ihrer Tastatur. + \n"
-						+ "Falls Sie sich zusätzlich eine Tastatur mit NumPad\n"+
-						"geleistet haben finden Sie die Tasten auch rechts.");
-			}
 		}
 		spielBeenden(gewinner, verlierer);
+	}
+	
+	public static void hauptMenue(Spiel spiel) {
+		Scanner sc = new Scanner(System.in);
+		boolean inSchleifeBleiben = true;
+		
+		while(inSchleifeBleiben) {
+			System.out.println("Bitte waehlen Sie:\n(1) Historie ausgeben\n" + 
+					"(2) Hilfsmenue ausgeben\n(3) weiter spielen.\n");
+			String auswahl = sc.nextLine();
+
+		if(auswahl.equals("1")) {
+			System.out.println(spiel.getHistorie());
+		}
+		
+		else if (auswahl.equals("2")) {
+			hilfsMenu(spiel);
+		}
+
+		else if (auswahl.equals("3")) {
+			spielen(spiel);
+		}
+		else {
+			System.out.println("Die Tasten befinden sich oben links auf ihrer Tastatur. + \n"
+					+ "Falls Sie sich zusätzlich eine Tastatur mit NumPad\n"+
+					"geleistet haben finden Sie die Tasten auch rechts.");
+			System.out.println();
+			}
+		}
 	}
 	/**
 	 * Diese Methode prueft ob die Zug-Eingabe des Benutzers korrekt war und gibt
@@ -295,6 +311,17 @@ public class UI {
 	public static void spielBeenden(String gewinner, String verlierer) {
 		System.out.println("Hurraa " + gewinner + " Hat das Spiel gewonnen!");
 		System.out.println("Verlierer der heutigen Runde ist: " + verlierer + "!");
+		System.out.println("###############################################\r\n" + 
+				   "#    ___  _           _                       #\r\n" + 
+				   "#   / _ \\| |         | |                      #\r\n" + 
+				   "#  / /_\\ \\ |__   __ _| | ___  _ __   ___      #\r\n" + 
+				   "#  |  _  | '_ \\ / _` | |/ _ \\| '_ \\ / _ \\     #\r\n" + 
+				   "#  | | | | |_) | (_| | | (_) | | | |  __/     #\r\n" + 
+				   "#  \\_| |_/_.__/ \\__,_|_|\\___/|_| |_|\\___|     #\r\n" + 
+				   "#                                             #\r\n" + 
+				   "###############################################\n" + 
+				   "########### Drücke Enter zum Starten ##########\n" +
+				   "###############################################" );
 	}
 }
 
