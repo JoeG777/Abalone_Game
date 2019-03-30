@@ -276,6 +276,11 @@ public class Spiel {
 
 	}
 	
+	/**
+	 * Parst einen String zu einem zweidimensonalen Char Array
+	 * @param zug mit dem Datentyp String
+	 * @return zweidimensionales Char Array, welches den Zug als Chars enthält
+	 */
 	private char[][] felderParser(String zug) {
 		char[][] geparsterZug = new char[1][];
 		if (zug.length() % 2 != 0 || zug.length() > 4) {
