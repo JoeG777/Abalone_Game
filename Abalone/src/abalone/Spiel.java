@@ -174,11 +174,11 @@ public class Spiel {
 		String amZug ="Am zug ist: " + spielerAmZug.getName() + "\n";
 		String verbleibendeSteine = "\r\n"+
 									"Spieler " + this.spielerImSpiel[0].getName() + 
-									"(Kreise) hat noch " + this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())+ " Kugeln. \n"+
+									"(O) hat noch " + this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())+ " Kugeln. \n"+
 									"Geschlagene Kugeln:"+ geschlageneKugeln[14-this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())] +"\n"+
 									"\n"+
 									"Spieler " + this.spielerImSpiel[1].getName() + 
-									"(Kreuze) hat noch " + this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln. \r\n"+
+									"(X) hat noch " + this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln. \r\n"+
 									"Geschlagene Kugeln:"+ geschlageneKugeln[14-this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())] +"\n";
 		
 		String feld = this.spielBrett.toString() + "\n";
