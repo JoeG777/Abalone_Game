@@ -141,8 +141,46 @@ public class Spiel {
 	 * Gibt erlaubte Zuege zurueck
 	 * @return ein String Array mit den erlaubten Zuegen
 	 */
-	public String[] getErlaubteZuege() {
-		return null;
+	public String[] getErlaubteZuege(String[] ausgangsFelder) {
+		ArrayList<String> erlaubteZuege = new ArrayList<String>();
+		if(koordinatenValidieren(felderParser(ausgangsFelder[0]))) {
+			for(String felder : ausgangsFelder) {
+				//Fall 1: Nur ein Feld
+				if(felder.length() == 2) {
+					Spielfeld ausgang = spielBrett.getFeld(felder);
+					Spielfeld[] nachbarn = ausgang.getNachbarn();
+					for(Spielfeld nachbar : nachbarn) {
+						if(nachbar != null) {
+							Spielzug zug = new Spielzug(ausgang.getId(), nachbar.getId());
+							zug.setRichtung(bekommeRichtung(zug));
+							zug.setFarbe(FarbEnum.SCHWARZ);
+							Spielzug[] zuege = {zug};
+							if(zugValidieren(zuege)) {
+								erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
+							}
+						}
+					}
+				}
+				//Fall 2: Zwei Felder
+				if(felder.length() == 4) {
+					Spielfeld ausgang1 = spielBrett.getFeld(felder.substring(0,2));
+					Spielfeld ausgang2 = spielBrett.getFeld(felder.substring(2,4));
+					Spielfeld[] nachbarn1 = ausgang2.getNachbarn();
+					for(Spielfeld nachbar : nachbarn1) {
+						if(nachbar != null) {
+							Spielzug zug = new Spielzug(ausgang1.getId() + ausgang2.getId(), nachbar.getId());
+							zug.setRichtung(bekommeRichtung(zug));
+							zug.setFarbe(FarbEnum.SCHWARZ);
+							Spielzug[] zuege = {zug};
+							if(zugValidieren(zuege)) {
+								erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
+							}
+						}
+					}
+				}
+			}
+		}
+		return erlaubteZuege.toArray(new String[0]);
 	}
 	
 	/**
@@ -227,6 +265,32 @@ public class Spiel {
 		zielPunkt[0] = buchstabe;
 		zielPunkt[1] = zahl;
 		geparsterZug[1] = zielPunkt;
+		return geparsterZug;
+
+	}
+	
+	private char[][] felderParser(String zug) {
+		char[][] geparsterZug = new char[1][];
+		if (zug.length() % 2 != 0 || zug.length() > 4) {
+			throw new IllegalArgumentException("Ungueltige zuglaenge: " + zug.length());
+		}
+
+		// Ausgangskoordinate(n) anlege(n)
+		char[] ausgangsPunkt = new char[zug.length()];
+		// Erste Koordinate
+		char buchstabe1 = zug.charAt(0);
+		char zahl1 = zug.charAt(1);
+		ausgangsPunkt[0] = buchstabe1;
+		ausgangsPunkt[1] = zahl1;
+
+		if (zug.length() == 4) {
+			// Zweite Koordinate
+			char buchstabe2 = zug.charAt(2);
+			char zahl2 = zug.charAt(3);
+			ausgangsPunkt[2] = buchstabe2;
+			ausgangsPunkt[3] = zahl2;
+		}
+		geparsterZug[0] = ausgangsPunkt;
 		return geparsterZug;
 
 	}
