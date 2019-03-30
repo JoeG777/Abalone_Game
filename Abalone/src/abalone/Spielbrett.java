@@ -276,13 +276,13 @@ public class Spielbrett {
 	 * Methoden zum Bewegen von Steinen
 	 */
 	
-	public void ziehe333(Spielzug[] zuege) {
+	public void ziehe(Spielzug[] zuege) {
 		for(Spielzug zug : zuege) {
 			if(zug.getNach() != null) {
 				bewegeFigur(zug.getVon(), zug.getNach());
 			}
 			else {
-				steinAbraeumen333(getFeld(zug.getVon()));
+				steinAbraeumen(getFeld(zug.getVon()));
 			}
 
 		}
@@ -300,7 +300,7 @@ public class Spielbrett {
 		brett.get(von).setFigur(null);
 	}
 	
-	private void steinAbraeumen333(Spielfeld feld) {
+	private void steinAbraeumen(Spielfeld feld) {
 		feld.setFigur(null);
 	}
 
@@ -329,8 +329,8 @@ public class Spielbrett {
 					if(feldLinks != null && feldLinks.getNachbar(i) != null) {
 						Spielfeld dazwischen = feldLinks.getNachbar(i);
 						Spielfeld ziel = dazwischen.getNachbar(i);
-
-
+						
+						
 						if(ziel == feldRechts) {
 							ausgangsfelder.add(feldLinks);
 							ausgangsfelder.add(dazwischen);
@@ -340,7 +340,6 @@ public class Spielbrett {
 				}
 			}
 		}
-
 		else {
 			return null;
 		}
