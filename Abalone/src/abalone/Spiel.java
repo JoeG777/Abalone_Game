@@ -120,7 +120,7 @@ public class Spiel {
 				throw new IllegalArgumentException("Unzulaessiger Zug");
 			}
 			spielzug.setRichtung(this.bekommeRichtung(spielzug));
-			spielzug.setFarbe(spielerAmZug.getFarbe());
+			spielzug.setFarbe(getFarbeAmZug());
 			Spielzug[] spielzuege = new Spielzug[1];
 			spielzuege[0] = spielzug;
 			if(zugValidieren(spielzuege)){
@@ -132,7 +132,7 @@ public class Spiel {
 				}
 				spielBrett.ziehe(spielzuege);
 				historie.spielzugHinzufuegen(halter);
-				if (spielerAmZug.getFarbe() == spielerImSpiel[0].getFarbe()) {
+				if (getFarbeAmZug() == spielerImSpiel[0].getFarbe()) {
 					spielerAmZug = spielerImSpiel[1];
 				} else {
 					spielerAmZug = spielerImSpiel[0];
@@ -159,7 +159,7 @@ public class Spiel {
 							if(nachbar != null) {
 								Spielzug zug = new Spielzug(ausgang.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
-								zug.setFarbe(spielerAmZug.getFarbe());
+								zug.setFarbe(getFarbeAmZug());
 								Spielzug[] zuege = {zug};
 								if(zugValidieren(zuege)) {
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
@@ -176,7 +176,7 @@ public class Spiel {
 							if(nachbar != null) {
 								Spielzug zug = new Spielzug(ausgang1.getId() + ausgang2.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
-								zug.setFarbe(spielerAmZug.getFarbe());
+								zug.setFarbe(getFarbeAmZug());
 								Spielzug[] zuege = {zug};
 								if(zugValidieren(zuege)) {
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
@@ -380,55 +380,6 @@ public class Spiel {
 					default: return false;
 					}
 				}
-			}
-		}
-		return true;
-	}
-		
-
-    /**Prueft, ob zu gegebenen Koordinaten Spielfelder existieren
-     * 
-     * @param zug als String-Array
-     * @return True oder False, abhaengig von der Existenz der Koordinaten
-     */
-	private boolean existierenKoordinaten(String[] zug) {
-		String von = zug[0];
-		String nach = zug[1];
-		if (von.length() != 2 || von.length() != 4)
-			return false;
-		if (nach.length() != 2)
-			return false;
-		Spielfeld feld1 = spielBrett.getFeld(von.substring(0, 1));
-		Spielfeld ziel = spielBrett.getFeld(nach);
-		Spielfeld feld2;
-		if (von.length() == 4) {
-			feld2 = spielBrett.getFeld(von.substring(2, 3));
-			if (ziel == null || feld1 == null || feld2 == null)
-				return false;
-		} else if (ziel == null || feld1 == null)
-			return false;
-
-		return true;
-	}
-
-	
-	/**
-	 * Prueft, ob die Farbe der bewegten Figuren mit der Farbe des Spielers 
-	 * uebereinstimmt.
-	 * 
-	 * @param spielfelder als Spielfeld-Array.
-	 * @param spielerAmZug als Spieler Objekt.
-	 * @return true oder false in Abhaengigkeit der Farbenuebereinstimmung.
-	 */
-	private boolean sindEigeneFiguren(Spielfeld [] spielfelder, 
-			Spieler spielerAmZug) {
-
-		for (int i = 0; i < spielfelder.length; i++) {
-
-			if (spielfelder[i] == null ||
-				spielfelder[i].getFigur().getFarbe() != spielerAmZug.getFarbe()) 
-			{
-				return false;
 			}
 		}
 		return true;
@@ -747,7 +698,7 @@ public class Spiel {
 		Spielzug zielFeldZug = null;
 		Spielzug zielNachbarzug = null;
 		
-		if(zielfeld.istDurchGegnerBesetzt(spielerAmZug.getFarbe())) {
+		if(zielfeld.istDurchGegnerBesetzt(getFarbeAmZug())) {
 			Spielfeld zielNachbar = zielfeld.getNachbar(richtung);
 			if(zielNachbar == null) {
 				zielFeldZug = new Spielzug(zielfeld.getId(), null);
@@ -755,7 +706,7 @@ public class Spiel {
 			}else {
 				zielFeldZug = new Spielzug(zielfeld.getId(), zielNachbar.getId());
 			}
-			if(zielNachbar.istDurchGegnerBesetzt(spielerAmZug.getFarbe())) {
+			if(zielNachbar.istDurchGegnerBesetzt(getFarbeAmZug())) {
 				Spielfeld zielNachbar2 = zielNachbar.getNachbar(richtung);
 				if(zielNachbar2 == null) {
 					zielNachbarzug = new Spielzug(zielNachbar.getId(), null);
