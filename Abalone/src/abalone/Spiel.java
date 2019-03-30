@@ -170,14 +170,19 @@ public class Spiel {
 	 * @return der Status als String
 	 */
 	public String getStatus() { // ??
+		String[] geschlageneKugeln = {""," *"," * *"," * * *"," * * * *"," * * * * *"};
 		String amZug ="Am zug ist: " + spielerAmZug.getName() + "\n";
-		String verbleibendeSteine = "Spieler " + this.spielerImSpiel[0].getName() + 
+		String verbleibendeSteine = "\r\n"+
+									"Spieler " + this.spielerImSpiel[0].getName() + 
 									" hat noch " + this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())+ " Kugeln. \n"+
+									"Geschlagene Kugeln:"+ geschlageneKugeln[14-this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())] +"\n"+
+									"\n"+
 									"Spieler " + this.spielerImSpiel[1].getName() + 
-									" hat noch " + this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln. \n";
+									" hat noch " + this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln. \r\n"+
+									"Geschlagene Kugeln:"+ geschlageneKugeln[14-this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())] +"\n";
 		
 		String feld = this.spielBrett.toString() + "\n";
-		return feld + verbleibendeSteine + amZug;
+		return feld + verbleibendeSteine +"\n"+ amZug;
 
 	}
 
