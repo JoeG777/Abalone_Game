@@ -159,7 +159,7 @@ public class Spiel {
 	 * @return Historie als String
 	 */
 	public String getHistorie() {
-		return this.historie.getZuege();
+		return this.historie.toString();
 
 	}
 	/**
