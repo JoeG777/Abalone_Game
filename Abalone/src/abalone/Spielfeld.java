@@ -220,7 +220,7 @@ public class Spielfeld {
 	 * eigene Figur ist oder keine Figur auf dem Feld ist. 
 	 */
 	public boolean istDurchGegnerBesetzt(FarbEnum farbe) {
-		if(this.figur != null && this.figur.getFarbe() != farbe) {
+		if(this.figur != null && this.figur.gleicheFarbe(farbe)) {
 			return true;
 		}
 		return false;
@@ -298,44 +298,4 @@ public class Spielfeld {
 
 		return "-";
 	}
-	
-
-	
-
-
-//	/**
-//	 * 
-//	 * @param feld
-//	 * @return
-//	 */
-//	public int sucheInNachbar(Spielfeld feld) {
-//		for(int i = 0; i < this.nachbarn.length; i++) {
-//			if(nachbarn[i] != null && nachbarn[i].getNachbarId(feld) != -1) {
-//				return i;
-//			}
-//		}
-//		return -1;
-//	}
-//	
-//	/**
-//	 * 
-//	 * @param feld
-//	 * @return
-//	 */
-//	public boolean gleichBelegt(Spielfeld feld) {
-//		if(feld != null && feld.istBesetzt() && this.istBesetzt() && this.getFigur().getFarbe() == feld.getFigur().getFarbe())
-//			return true;
-//		return false;
-//	}
-	
-//	/**
-//	 * Prueft, ob in die mitgegebene Richtung ein Nachbar liegt.
-//	 * @param richtung
-//	 * @return
-//	 */
-//	public boolean hatNachbar(int richtung) {
-//		if(this.nachbarn[richtung] != null)
-//			return true;
-//		return false;
-//	}
 }

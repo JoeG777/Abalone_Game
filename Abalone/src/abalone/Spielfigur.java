@@ -57,6 +57,12 @@ public class Spielfigur {
 		return farbe;
 	}
 	
+	public boolean gleicheFarbe(FarbEnum farbe) {
+		if(farbe != null && this.getFarbe() == farbe)
+			return true;
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return "Eine Figur der Farbe " + this.getFarbe();
