@@ -257,22 +257,22 @@ public class Spiel {
 					// Buchstabe = I: case = 0, Buchstabe = A: case = 8
 					switch (buchstabenKoordinaten) {
 					case 0:
-						if (zahlenKoordinaten > 5 || zahlenKoordinaten < 0) {
+						if (zahlenKoordinaten >= 5 || zahlenKoordinaten <= 0) {
 							return false;
 						}
 						break;
 					case 1:
-						if (zahlenKoordinaten > 6 || zahlenKoordinaten < 0) {
+						if (zahlenKoordinaten >= 6 || zahlenKoordinaten <= 0) {
 							return false;
 						}
 						break;
 					case 2:
-						if (zahlenKoordinaten > 7 || zahlenKoordinaten < 0) {
+						if (zahlenKoordinaten >= 7 || zahlenKoordinaten <= 0) {
 							return false;
 						}
 						break;
 					case 3:
-						if (zahlenKoordinaten > 8 || zahlenKoordinaten < 0) {
+						if (zahlenKoordinaten >= 8 || zahlenKoordinaten <= 0) {
 							return false;
 						}
 						break;
@@ -301,6 +301,7 @@ public class Spiel {
 							return false;
 						}
 						break;
+					default: return false;
 					}
 				}
 			}
