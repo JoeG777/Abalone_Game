@@ -76,7 +76,7 @@ public class Spielzug {
 	 * Setzt die Position der Figuren nach dem Zug
 	 * @param von Die Position der Figuren nach dem Zug
 	 */
-	private void setNach(String nach) {
+	public void setNach(String nach) {
 		this.nach = nach;
 	}
 	

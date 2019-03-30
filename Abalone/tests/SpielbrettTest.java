@@ -43,6 +43,27 @@ public class SpielbrettTest {
 	}
 	
 	@Test
+	public void testGetFelderMitFarbe1() {
+		Spielzug zug = new Spielzug("C3", "D4");
+		Spielzug zug1 = new Spielzug("A1", "G9");
+		Spielzug zug2 = new Spielzug("B3", null);
+		
+		Spielzug[] zuege =  {zug, zug1, zug2};
+		spielbrett.ziehe(zuege);
+		
+		ArrayList<Spielfeld> felderMitFarbe = spielbrett.getFelderMitFarbe((FarbEnum.SCHWARZ));
+		ArrayList<Spielfeld> gemeinteFelder = new ArrayList<Spielfeld>();
+		
+		String[] idSpielfelder = {"A2", "A3", "A4", "A5", "B1", "B2", "B4", "B5", "B6", "C4", "C5", "G9", "D4"};
+
+		for(String id : idSpielfelder) {
+			gemeinteFelder.add(spielbrett.getFeld(id));
+		}
+		assertEquals(felderMitFarbe, gemeinteFelder);
+
+
+	}
+	@Test
 	public void testGetFeld() {
 		Spielfeld i9 = spielbrett.getBrett().get("I9");
 		assertEquals(i9, spielbrett.getFeld("I9"));

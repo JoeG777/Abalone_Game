@@ -125,6 +125,11 @@ public class Spiel {
 			spielzuege[0] = spielzug;
 			if(zugValidieren(spielzuege)){
 				spielzuege = spielzugSplitter(spielzug);
+				for(Spielzug teilzug : spielzuege) {
+					if(teilzug.getVon() == null) {
+						halter.setNach(halter.getNach() + "*");
+					}
+				}
 				spielBrett.ziehe(spielzuege);
 				historie.spielzugHinzufuegen(halter);
 				if (spielerAmZug.getFarbe() == spielerImSpiel[0].getFarbe()) {
