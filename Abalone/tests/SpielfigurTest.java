@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import abalone.FarbEnum;
@@ -9,28 +10,59 @@ import abalone.Spielfeld;
 import abalone.Spielfigur;
 
 public class SpielfigurTest {
+	static Spielbrett spielbrett;
+	static Spielfeld feld;
+	static Spielfigur testFigur;
 
-	Spielfeld feld;
-	Spielfigur figur;
-	Spielbrett spielbrett;
-	private String id = "A1";
-	FarbEnum farbe = FarbEnum.WEISS;
-	RuntimeException e = new RuntimeException("Es existiert kein Brett");
-
-	@Before
-	public void setSpielfigur() {
-		figur = new Spielfigur(new Spielfeld(new Spielbrett(), id), farbe);
-
+	@BeforeClass
+	public static void setUp() {
+		spielbrett = new Spielbrett();
+		feld = spielbrett.getFeld("C4");
+		testFigur = feld.getFigur();
 	}
+	
 	@Test
 	public void testGetfarbe() {
-		assertEquals(FarbEnum.WEISS, figur.getFarbe());
+		assertEquals(FarbEnum.SCHWARZ, testFigur.getFarbe());
 	}
-
+	
+	@Test
+	public void testSpielfigur() {
+		Spielfigur figur = new Spielfigur(feld, "SCHWARZ");
+		FarbEnum farbe = FarbEnum.SCHWARZ;
+		
+		assertEquals(farbe, figur.getFarbe());
+	}
+	
+	@Test
+	public void testSpielfigur1() {
+		Spielfigur figur = new Spielfigur(feld, FarbEnum.SCHWARZ);
+		FarbEnum farbe = FarbEnum.SCHWARZ;
+		
+		assertEquals(farbe, figur.getFarbe());
+		
+	}
+	
+	@Test (expected = RuntimeException.class)
+	public void testSpielfigurEx() {
+		Spielfigur figur = new Spielfigur(null, FarbEnum.WEISS);
+	}
+	
+	
 	@Test
 	public void testSetFarbe() {
-		figur.setFarbe(FarbEnum.SCHWARZ);
-		assertTrue(FarbEnum.SCHWARZ == figur.getFarbe());
+		testFigur.setFarbe(FarbEnum.WEISS);
+		assertTrue(FarbEnum.WEISS.equals(testFigur.getFarbe()));
 	}
+	
+	@Test
+	public void testToString() {
+		String actual = testFigur.toString();
+		String expected = "Eine Figur der Farbe " + FarbEnum.SCHWARZ;
+		
+		assertEquals(expected, actual);
+	}
+	
+
 
 }
