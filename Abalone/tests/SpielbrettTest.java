@@ -139,4 +139,24 @@ public class SpielbrettTest {
 		boolean erfolg = spielbrett.ziehe(zuege);
 		assertFalse(erfolg);
 	}
+	
+	@Test
+	public void testGetFelderMitFarbe() {
+		assertEquals();
+	}
+	
+	@Test
+	public void testGetFeld() {
+		assertEquals();
+	}
+	
+	@Test
+	public void testGetBrett() {
+		assertEquals();
+	}
+	
+	@Test
+	public void testWeiseKeyFeldZu() {
+		assertEquals();
+	}
 }
