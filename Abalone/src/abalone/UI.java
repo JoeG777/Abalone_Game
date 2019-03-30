@@ -176,12 +176,12 @@ public class UI {
 			System.out.println(spiel.getStatus());
 			System.out.println("Bitte waehlen Sie:\n(1) Historie ausgeben\n" + 
 					"(2) Figuren bewegen\n(3) Hilfsmenue auszugeben.\n");
-			int auswahl = Integer.parseInt(sc.nextLine());
+			String auswahl = sc.nextLine();
 
-			if(auswahl == 1) {
+			if(auswahl.equals("1")) {
 				spiel.getHistorie();
 			}
-			else if(auswahl == 2) {
+			else if(auswahl.equals("2")) {
 				System.out.print(">");
 				String zug = sc.nextLine();
 				if(!ziehen(zug, spiel)) {
@@ -198,7 +198,7 @@ public class UI {
 					}
 				}
 			}
-			else if (auswahl == 3) {
+			else if (auswahl.equals("3")) {
 				hilfsMenu();
 			}
 
