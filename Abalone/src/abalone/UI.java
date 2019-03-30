@@ -24,6 +24,11 @@ public class UI {
 		System.out.println("Gibt den Namen für den Spieler mit der Farbe Weiss ein:");
 		System.out.print(">");
 		String name = sc.nextLine();
+		if (name.length() > 20) {
+			System.out.println("Bitte geben Sie einen Namen mit weniger als 20 Zeichen an!");
+			System.out.print(">");
+			name = sc.nextLine();
+		}
 		try {
 			spiel.addSpieler(name, "weiss");
 		}catch(IllegalArgumentException e) {
