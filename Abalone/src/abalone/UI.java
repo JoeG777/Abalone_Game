@@ -174,23 +174,38 @@ public class UI {
 		while(imSpiel) {
 			System.out.println();
 			System.out.println(spiel.getStatus());
-			System.out.print(">");
-			String zug = sc.nextLine();
-			if(zug.equalsIgnoreCase("hilfe")) {
-				hilfsMenu();
+			System.out.println("Bitte waehlen Sie:\n(1) Historie ausgeben\n" + 
+					"(2) Figuren bewegen\n(3) Hilfsmenue auszugeben.\n");
+			int auswahl = Integer.parseInt(sc.nextLine());
+
+			if(auswahl == 1) {
+				spiel.getHistorie();
 			}
-			if(!ziehen(zug, spiel)) {
-				System.out.println("Irgendwas hat da nicht gestimmt!");
-				System.out.println();
-			}
-			imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
-			if (!imSpiel) {
-				verlierer = spiel.getSpielerAmZug();
-				for(Spieler s1 : spiel.getSpielerImSpiel()) {
-					if (!s1.getName().equals(verlierer)) {
-						gewinner = s1.getName();
+			else if(auswahl == 2) {
+				System.out.print(">");
+				String zug = sc.nextLine();
+				if(!ziehen(zug, spiel)) {
+					System.out.println("Irgendwas hat da nicht gestimmt!");
+					System.out.println();
+				}
+				imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
+				if (!imSpiel) {
+					verlierer = spiel.getSpielerAmZug();
+					for(Spieler s1 : spiel.getSpielerImSpiel()) {
+						if (!s1.getName().equals(verlierer)) {
+							gewinner = s1.getName();
+						}
 					}
 				}
+			}
+			else if (auswahl == 3) {
+				hilfsMenu();
+			}
+
+			else {
+				System.out.println("Die Tasten befinden sich oben links auf ihrer Tastatur. + \n"
+						+ "Falls Sie sich zusätzlich eine Tastatur mit NumPad\n"+
+						"geleistet haben finden Sie die Tasten auch rechts.");
 			}
 		}
 		spielBeenden(gewinner, verlierer);
