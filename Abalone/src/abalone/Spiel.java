@@ -145,35 +145,37 @@ public class Spiel {
 		ArrayList<String> erlaubteZuege = new ArrayList<String>();
 		if(koordinatenValidieren(felderParser(ausgangsFelder[0]))) {
 			for(String felder : ausgangsFelder) {
-				//Fall 1: Nur ein Feld
-				if(felder.length() == 2) {
-					Spielfeld ausgang = spielBrett.getFeld(felder);
-					Spielfeld[] nachbarn = ausgang.getNachbarn();
-					for(Spielfeld nachbar : nachbarn) {
-						if(nachbar != null) {
-							Spielzug zug = new Spielzug(ausgang.getId(), nachbar.getId());
-							zug.setRichtung(bekommeRichtung(zug));
-							zug.setFarbe(FarbEnum.SCHWARZ);
-							Spielzug[] zuege = {zug};
-							if(zugValidieren(zuege)) {
-								erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
+				if(felder != null) {
+					//Fall 1: Nur ein Feld
+					if(felder.length() == 2) {
+						Spielfeld ausgang = spielBrett.getFeld(felder);
+						Spielfeld[] nachbarn = ausgang.getNachbarn();
+						for(Spielfeld nachbar : nachbarn) {
+							if(nachbar != null) {
+								Spielzug zug = new Spielzug(ausgang.getId(), nachbar.getId());
+								zug.setRichtung(bekommeRichtung(zug));
+								zug.setFarbe(spielerAmZug.getFarbe());
+								Spielzug[] zuege = {zug};
+								if(zugValidieren(zuege)) {
+									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
+								}
 							}
 						}
 					}
-				}
-				//Fall 2: Zwei Felder
-				if(felder.length() == 4) {
-					Spielfeld ausgang1 = spielBrett.getFeld(felder.substring(0,2));
-					Spielfeld ausgang2 = spielBrett.getFeld(felder.substring(2,4));
-					Spielfeld[] nachbarn1 = ausgang2.getNachbarn();
-					for(Spielfeld nachbar : nachbarn1) {
-						if(nachbar != null) {
-							Spielzug zug = new Spielzug(ausgang1.getId() + ausgang2.getId(), nachbar.getId());
-							zug.setRichtung(bekommeRichtung(zug));
-							zug.setFarbe(FarbEnum.SCHWARZ);
-							Spielzug[] zuege = {zug};
-							if(zugValidieren(zuege)) {
-								erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
+					//Fall 2: Zwei Felder
+					if(felder.length() == 4) {
+						Spielfeld ausgang1 = spielBrett.getFeld(felder.substring(0,2));
+						Spielfeld ausgang2 = spielBrett.getFeld(felder.substring(2,4));
+						Spielfeld[] nachbarn1 = ausgang2.getNachbarn();
+						for(Spielfeld nachbar : nachbarn1) {
+							if(nachbar != null) {
+								Spielzug zug = new Spielzug(ausgang1.getId() + ausgang2.getId(), nachbar.getId());
+								zug.setRichtung(bekommeRichtung(zug));
+								zug.setFarbe(spielerAmZug.getFarbe());
+								Spielzug[] zuege = {zug};
+								if(zugValidieren(zuege)) {
+									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
+								}
 							}
 						}
 					}

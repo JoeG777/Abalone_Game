@@ -179,7 +179,7 @@ public class UI {
 			String auswahl = sc.nextLine();
 
 			if(auswahl.equals("1")) {
-				spiel.getHistorie();
+				System.out.println(spiel.getHistorie());
 			}
 			else if(auswahl.equals("2")) {
 				System.out.print(">");
@@ -222,9 +222,18 @@ public class UI {
 
 		String[] zugArr = new String[2];
 		try {
+			
+			if(zug.length() == 4 || zug.length() ==2 ) {
+				zugArr[0] = zug;
+				zugArr[1] = null;
+				printErlaubteZuege(zugArr, spiel);
+				return true;
+			}
+			
 			if(zug.length()< 5 ) {
 				return false;
 			}
+			
 			if(zug.length() >= 5) {
 				zugArr[0] = zug.substring(0,2);
 				zugArr[1] = zug.substring(3,5);
@@ -243,6 +252,14 @@ public class UI {
 			return false;
 		}
 		return true;
+	}
+	
+	public static void printErlaubteZuege(String[] zug, Spiel spiel) {
+		String[] erlaubteZuege = spiel.getErlaubteZuege(zug);
+		System.out.println ("Folgende Zuege sind momentan moeglich:");
+		for(String zugString : erlaubteZuege) {
+			System.out.println (zugString);
+		}
 	}
 	
 //	public static boolean ziehen1(String zug, Spiel spiel) {
