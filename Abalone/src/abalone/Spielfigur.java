@@ -56,4 +56,9 @@ public class Spielfigur {
 	public FarbEnum getFarbe() {
 		return farbe;
 	}
+	
+	@Override
+	public String toString() {
+		return "Eine Figur der Farbe " + this.getFarbe();
+	}
 }
