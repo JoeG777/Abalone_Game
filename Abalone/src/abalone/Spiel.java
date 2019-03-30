@@ -696,6 +696,7 @@ public class Spiel {
 			zuege.add(zielFeldZug);
 		}
 		for(int i = 0; i < felder.length; i++) {
+			
 			if(felder[i] != null && felder[i].getNachbar(zug.getRichtung()) != null) {
 				Spielfeld zielFeld = felder[i].getNachbar(zug.getRichtung());
 				Spielzug teilZug = new Spielzug(felder[i].getId(), zielFeld.getId(), zug.getRichtung(), zug.getFarbe());
