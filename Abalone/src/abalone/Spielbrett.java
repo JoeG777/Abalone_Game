@@ -277,13 +277,14 @@ public class Spielbrett {
 	
 	public void ziehe(Spielzug[] zuege) {
 		for(Spielzug zug : zuege) {
-			if(zug.getNach() != null) {
-				bewegeFigur(zug.getVon(), zug.getNach());
+			if(zug != null ) {
+				if(zug.getNach() != null) {
+					bewegeFigur(zug.getVon(), zug.getNach());
+				}
+				else {
+					steinAbraeumen(getFeld(zug.getVon()));
+				}
 			}
-			else {
-				steinAbraeumen(getFeld(zug.getVon()));
-			}
-
 		}
 	}
 	
