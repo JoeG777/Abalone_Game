@@ -343,27 +343,27 @@ public class Spiel {
 						}
 						break;
 					case 4:
-						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 0) {
+						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 0) {
 							return false;
 						}
 						break;
 					case 5:
-						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 1) {
+						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 1) {
 							return false;
 						}
 						break;
 					case 6:
-						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 2) {
+						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 2) {
 							return false;
 						}
 						break;
 					case 7:
-						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 3) {
+						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 3) {
 							return false;
 						}
 						break;
 					case 8:
-						if (zahlenKoordinaten > 9 || zahlenKoordinaten < 4) {
+						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 4) {
 							return false;
 						}
 						break;
