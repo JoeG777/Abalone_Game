@@ -126,7 +126,7 @@ public class Spiel {
 			if(zugValidieren(spielzuege)){
 				spielzuege = spielzugSplitter(spielzug);
 				for(Spielzug teilzug : spielzuege) {
-					if(teilzug.getVon() == null) {
+					if(teilzug.getNach() == null) {
 						halter.setNach(halter.getNach() + "*");
 					}
 				}
