@@ -125,7 +125,7 @@ public class Spiel {
 			spielzuege[0] = spielzug;
 			if(zugValidieren(spielzuege)){
 				spielzuege = spielzugSplitter(spielzug);
-				spielBrett.ziehe333(spielzuege);
+				spielBrett.ziehe(spielzuege);
 				historie.spielzugHinzufuegen(halter);
 				if (spielerAmZug.getFarbe() == spielerImSpiel[0].getFarbe()) {
 					spielerAmZug = spielerImSpiel[1];

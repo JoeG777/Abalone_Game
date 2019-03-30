@@ -71,7 +71,7 @@ public class Spielfeld {
 	 * 
 	 * @since 1.0
 	 */
-	public void setBrett(Spielbrett brett) {
+	private void setBrett(Spielbrett brett) {
 		this.brett = brett;
 	}
 	
@@ -79,7 +79,6 @@ public class Spielfeld {
 	 * Gibt die Figur des Spielfeldes zurück.
 	 * @return Ein Spielfigur-Objekt. 
 	 * 
-	 * @since 1.0
 	 */
 	public Spielfigur getFigur() {
 		return this.figur;
@@ -89,7 +88,6 @@ public class Spielfeld {
 	 * Setzt eine Figur auf das Feld.
 	 * @param figur Ein Spielfigur-Objekt. 
 	 * 
-	 * @since 1.0
 	 */
 	public void setFigur(Spielfigur figur) {
 		this.figur = figur;
@@ -115,7 +113,6 @@ public class Spielfeld {
 	 * Gibt die ID des Spielfeldes zurück.
 	 * @return Die ID des Spielfeldes.
 	 * 
-	 * @since 1.0
 	 */
 	public String getId() {
 		return this.id;
@@ -125,7 +122,6 @@ public class Spielfeld {
 	 * Setzt die ID des Spielfeldes.
 	 * @param id Eine ID als String.
 	 * 
-	 * @since 1.0
 	 */
 	
 	private void setId(String id) {
@@ -133,15 +129,34 @@ public class Spielfeld {
 	}
 	
 	/**
-	 * Gibt das Nachbarn Attribut zurück.
-	 * @return Spielfeld-Array der Länge 6.
+	 * Gibt das Nachbarn Attribut zur�ck.
+	 * @return Spielfeld-Array der L�nge 6.
 	 * 
-	 * @since 1.3
 	 */
 	public Spielfeld[] getNachbarn() {
 		return this.nachbarn;
 	}
 	
+	/**
+	 * Setzt das Nachbarn Attribut. 
+	 * @param nachbarn Spielfeld-Array der Laenge 6.
+	 * 
+	 */
+	private void setNachbarn(Spielfeld[] nachbarn) {
+		if(nachbarn.length != 6) {
+			throw new RuntimeException("Das Nachbarn-Array muss eine Länge von 6 haben.");
+		}
+		
+		this.nachbarn = nachbarn;
+	}
+	
+	/**
+	 * Gibt den Nachbar in die mitgegebene Richtung zur�ck, falls
+	 * einer existiert.
+	 * @param richtung Die Richtung in welcher der Nachbar liegt.
+	 * @return Spielfeld-Objekt des Nachbarn oder null, wenn kein Nachbar
+	 * in die Richtung existiert.
+	 */
 	public Spielfeld getNachbar(int richtung) {
 		if(richtung >= 0 && richtung < 6)
 			return this.nachbarn[richtung];
@@ -149,17 +164,42 @@ public class Spielfeld {
 	}
 	
 	/**
-	 * Setzt das Nachbarn Attribut. 
-	 * @param nachbarn Spielfeld-Array der Länge 6.
-	 * 
-	 * @since 1.3
+	 * Prueft, ob ein Feld den mitgegebenen Nachbar hat.
+	 * @param feld ID des Nachbarn
+	 * @return true, wenn Feld Nachbar hat, false wenn nicht.
 	 */
-	public void setNachbarn(Spielfeld[] nachbarn) {
-		if(nachbarn.length != 6) {
-			throw new RuntimeException("Das Nachbarn-Array muss eine Länge von 6 haben.");
+	public boolean hatNachbar(String feld) {
+		for(int i = 0; i < this.nachbarn.length; i++) {
+			if(nachbarn[i] != null && feld.equals(nachbarn[i].getId()))
+				return true;
 		}
-		
-		this.nachbarn = nachbarn;
+		return false;
+	}
+	
+	/**
+	 * Prueft, ob ein Feld den mitgegebenen Nachbar hat.
+	 * @param Spielfeld-Objekt des Nachbarn.
+	 * @return true, wenn Feld Nachbar hat, false wenn nicht.
+	 */
+	public boolean hatNachbar(Spielfeld feld) {
+		for(int i = 0; i < this.nachbarn.length; i++) {
+			if(nachbarn[i] != null && feld.equals(nachbarn[i]))
+				return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Gibt den Index des Nachbarn im Array zur�ck.
+	 * @param feld Spielfeld-Objekt des Nachbarn.
+	 * @return Index des Nachbarn im Nachbarn-Array.
+	 */
+	public int getNachbarId(Spielfeld feld) {
+		for(int i = 0; i < nachbarn.length; i++) {
+			if(nachbarn[i] != null && feld.getId().equals(nachbarn[i].getId()))
+				return i;
+		}
+		return -1;
 	}
 	
 	/**
@@ -173,6 +213,12 @@ public class Spielfeld {
 		return true;
 	}
 	
+	/**
+	 * Prueft, ob ein Feld durch einen gegnerischen Stein besetzt ist.
+	 * @param farbe Die eigene Farbe.
+	 * @return true, wenn ein Gegner auf dem Feld ist, false wenn es eine 
+	 * eigene Figur ist oder keine Figur auf dem Feld ist. 
+	 */
 	public boolean istDurchGegnerBesetzt(FarbEnum farbe) {
 		if(this.figur != null && this.figur.getFarbe() != farbe) {
 			return true;
@@ -186,7 +232,6 @@ public class Spielfeld {
 	 * Position 2 entspricht unten-links, Position 3 entspricht rechts,
 	 * Position 4 entspricht oben-rechts, Position 5 enstpricht unten-rechts.
 	 * Existiert kein solches Spielfeld, steht im Array null.
-	 * @since 1.3
 	 */
 	public void setzeNachbarn() {
 		if(brett == null) {
@@ -205,7 +250,7 @@ public class Spielfeld {
 			}
 		}
 		
-		this.nachbarn = echteNachbarn;
+		setNachbarn(echteNachbarn);
 	}
 	
 	/**
@@ -215,10 +260,8 @@ public class Spielfeld {
 	 * 
 	 * @param id ID des Feldes dessen Nachbarn gesucht sind
 	 * @return String-Array der Größe 6 mit IDs der Nachbarfelder
-	 * 
-	 * @since 1.3
 	 */
-	public String[] findePotentielleNachbarn(String id) {
+	private String[] findePotentielleNachbarn(String id) {
 		String[] nachbarn = new String[6];
 		char buchstabe = id.charAt(0);
 		int zahl = Character.getNumericValue(id.charAt(1));
@@ -242,7 +285,6 @@ public class Spielfeld {
 	 * @param Spielfeld ein beliebiges Spielfeld
 	 * @return das jeweilige, aktuelle Symbol des Feldes als String.
 	 * 
-	 * @since 1.2
 	 */
 	public String getFeldSymbol() {
 		if(this.figur != null) {
@@ -257,48 +299,43 @@ public class Spielfeld {
 		return "-";
 	}
 	
-	public boolean hatNachbar(String feld) {
-		for(int i = 0; i < this.nachbarn.length; i++) {
-			if(nachbarn[i] != null && feld.equals(nachbarn[i].getId()))
-				return true;
-		}
-		return false;
-	}
+
 	
-	public boolean hatNachbar(Spielfeld feld) {
-		for(int i = 0; i < this.nachbarn.length; i++) {
-			if(nachbarn[i] != null && feld.equals(nachbarn[i]))
-				return true;
-		}
-		return false;
-	}
+
+
+//	/**
+//	 * 
+//	 * @param feld
+//	 * @return
+//	 */
+//	public int sucheInNachbar(Spielfeld feld) {
+//		for(int i = 0; i < this.nachbarn.length; i++) {
+//			if(nachbarn[i] != null && nachbarn[i].getNachbarId(feld) != -1) {
+//				return i;
+//			}
+//		}
+//		return -1;
+//	}
+//	
+//	/**
+//	 * 
+//	 * @param feld
+//	 * @return
+//	 */
+//	public boolean gleichBelegt(Spielfeld feld) {
+//		if(feld != null && feld.istBesetzt() && this.istBesetzt() && this.getFigur().getFarbe() == feld.getFigur().getFarbe())
+//			return true;
+//		return false;
+//	}
 	
-	public int getNachbarId(Spielfeld feld) {
-		for(int i = 0; i < nachbarn.length; i++) {
-			if(nachbarn[i] != null && feld.getId().equals(nachbarn[i].getId()))
-				return i;
-		}
-		return -1;
-	}
-	
-	public boolean gleichBelegt(Spielfeld feld) {
-		if(feld != null && feld.istBesetzt() && this.istBesetzt() && this.getFigur().getFarbe() == feld.getFigur().getFarbe())
-			return true;
-		return false;
-	}
-	
-	public boolean hatNachbar(int richtung) {
-		if(this.nachbarn[richtung] != null)
-			return true;
-		return false;
-	}
-	
-	public int sucheInNachbar(Spielfeld feld) {
-		for(int i = 0; i < this.nachbarn.length; i++) {
-			if(nachbarn[i] != null && nachbarn[i].getNachbarId(feld) != -1) {
-				return i;
-			}
-		}
-		return -1;
-	}
+//	/**
+//	 * Prueft, ob in die mitgegebene Richtung ein Nachbar liegt.
+//	 * @param richtung
+//	 * @return
+//	 */
+//	public boolean hatNachbar(int richtung) {
+//		if(this.nachbarn[richtung] != null)
+//			return true;
+//		return false;
+//	}
 }
