@@ -2,7 +2,7 @@ package abalone;
 
 import java.io.IOException;
 import java.util.Scanner;
-import jline.console.ConsoleReader;
+
 
 public class UI {
 
@@ -43,21 +43,94 @@ public class UI {
 	 */
 	public static void welcomeScreen() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("#    ___  _           _                  \r\n" + 
-				"#   / _ \\| |         | |                 \r\n" + 
-				"#  / /_\\ \\ |__   __ _| | ___  _ __   ___ \r\n" + 
-				"#  |  _  | '_ \\ / _` | |/ _ \\| '_ \\ / _ \\\r\n" + 
-				"#  | | | | |_) | (_| | | (_) | | | |  __/\r\n" + 
-				"#  \\_| |_/_.__/ \\__,_|_|\\___/|_| |_|\\___|\r\n" + 
-				"#                                        \r\n" + 
-				"#                                        \n" + 
-				"Drücke Enter zum Starten");
+		System.out.println("###############################################\r\n" + 
+						   "#    ___  _           _                       #\r\n" + 
+						   "#   / _ \\| |         | |                      #\r\n" + 
+						   "#  / /_\\ \\ |__   __ _| | ___  _ __   ___      #\r\n" + 
+						   "#  |  _  | '_ \\ / _` | |/ _ \\| '_ \\ / _ \\     #\r\n" + 
+						   "#  | | | | |_) | (_| | | (_) | | | |  __/     #\r\n" + 
+						   "#  \\_| |_/_.__/ \\__,_|_|\\___/|_| |_|\\___|     #\r\n" + 
+						   "#                                             #\r\n" + 
+						   "###############################################\n" + 
+						   "########### Drücke Enter zum Starten ##########\n" +
+						   "###############################################" );
 		String start = sc.nextLine();
 		try {
 			clearConsole();
 		}catch(IOException e) {
 			
 		}
+	}
+	
+	/**
+	 * Diese Methode ist ein Hilfsmenue fuer das Regelwerk und die Bedienung von Abalone.
+	 */
+	public static void hilfsMenu() {
+		Scanner sc = new Scanner(System.in);
+		boolean inSchleifeBleiben = true;
+		System.out.println("###############################################\r\n" +
+						   "################# HilfsMenue ##################\r\n" +
+						   "###############################################\r\n" +
+						   "#### 1. Regeln ########### 2. Spielablauf #####\r\n" +
+						   "###############################################\r\n" +
+						   "### Geben Sie die Nummer oder den Namen des ###\r\n" +
+						   "##### Artikels ein den Sie lesen möchten. #####\r\n" +
+						   "###############################################\r\n" );
+		String eingabe = sc.nextLine();
+		while(inSchleifeBleiben) {
+			
+			if(eingabe.equalsIgnoreCase("regeln") || eingabe.equals("1") || eingabe.contentEquals("1.")) {
+				System.out.println("");
+				System.out.println("\r\n" +
+							   "Abalone wird auf einem sechseckingen Spielfeld mit 61 Feldern gespielt.\r\n" +
+							   "Jeder Spieler hat 14 Kugeln und muss versuchen durch taktisch kluges verschieben\r\n"+
+							   "von einer, zwei oder drei eigenen Kugeln die gegnerischen Kugeln vom Spielfeld zu schieben.\r\n"+
+							   "Der Spieler, der zuerst sechs gegnerische Kugeln verdraengt hat, hat gewonnen.\r\n"+
+							   "\r\n"+
+							   "Man kann die Kugeln in alle sechs angrenzenden Luecken verschieben.\r\n"+
+							   "Es ist moeglich eine, zwei, oder drei Kugeln zu bewegen, solange die Kugeln\r\n"+
+							   "in eine Richtung (auch diagonal) bewegt werden und alle angrenzenden Luecken frei sind\r\n"+
+							   "Kugeln koennen nur eine Luecke pro Zug verschoben werden.\r\n"+
+							   "\r\n"+
+							   "Ist das Feld durch eine gegnerische Kugel besetzt, kann diese nur durch mehrere\r\n"+
+							   "eigene Kugeln in einer Linie von dort verdraengt werden, wenn sich dahinter ein\r\n"+
+							   "freies Feld befindet oder die gegnerische Kugel vom Spielbrett geschoben wird\r\n"+
+							   "\r\n"+
+							   "Das herunterschieben einer gegnerischen Kugel wird Sumito genannt. Es gibt drei\r\n"+
+							   "verschiedene Sumitos:"+
+							   "2-1 Sumito: zwei eigene Kugeln schieben eine gegnerische\r\n"+
+							   "3-1 Sumito: drei eigene Kugeln schieben eine gegnerische\r\n"+
+							   "3-2 Sumito: drei eigene Kugeln schieben zwei gegnerische\r\n"+
+							   "\r\n"+
+							   "Hat der Gegner drei oder mehr Kugeln in einer Reihe stehen, so koennen diese"+
+							   "nicht verschoben werden.");
+		}
+			
+			else if(eingabe.equalsIgnoreCase("spielablauf") || eingabe.equals("2") || eingabe.contentEquals("2.")) {
+				System.out.println("");
+				System.out.println("\r\n" +
+							   "Wie beim Schach hat Abalone ein Notationssystem für Zuege. Hierbei werden die Querlinien mit Buchstaben von A bis I\r\n"+
+							   "(die unterste Grundlinie ist A) bezeichnet und die Diagonalen von 1 bis 9 (die linke schwarze Diagonale ist 1)\r\n"+
+							   "\r\n"+
+							   "Ein Zug wird jeweils mit dem Anfangs-und Endpunkt des letzten schiebenden Steines bezeichnet.\r\n"+
+							   "Ein diagonaler Zug wird mit den Anfangspositionen der beiden aeußersten Steine bezeichnet und \r\n"+
+							   "mit der Endposition eines dieser beiden aeußersten Steine.\r\n"+
+							   "Beispiele dafür waeren: >C3C5-D3< oder >G6I8-F5<\r\n");
+		}
+			else {
+				System.out.println("");
+				System.out.println("Bitte halten Sie sich an die schreibweise und geben Sie entweder die Nummer oder den Namen des Artikels ein den Sie lesen moechten. ");
+			}
+			
+			System.out.println("");
+			System.out.println("Wenn Sie einen anderen Artikel lesen moechten, so geben Sie bitte seine Nummer oder seinen Namen ein.\r\n"+
+							   "Wenn Sie zurueck zum Spiel mochten, so geben sie bitte Back oder Zurueck ein.\r\n");
+			eingabe=sc.nextLine();
+			if(eingabe.equalsIgnoreCase("back") || eingabe.equalsIgnoreCase("zuruck") || eingabe.equalsIgnoreCase("zurueck")) {
+				inSchleifeBleiben = false;
+			}
+		}
+		
 	}
 	/**
 	 * Diese Methode loescht den Inhalt der Console.
@@ -92,6 +165,9 @@ public class UI {
 			System.out.println(spiel.getStatus());
 			System.out.print(">");
 			String zug = sc.nextLine();
+			if(zug.equalsIgnoreCase("hilfe")) {
+				hilfsMenu();
+			}
 			if(!ziehen(zug, spiel)) {
 				System.out.println("Irgendwas hat da nicht gestimmt!");
 				System.out.println();
