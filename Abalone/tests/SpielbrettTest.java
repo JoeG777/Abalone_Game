@@ -2,12 +2,9 @@
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 //import org.junit.Test;
 import org.junit.Test;
@@ -165,7 +162,7 @@ public class SpielbrettTest {
 	}
 	
 	@Test
-	public void falscheEingabe() {
+	public void zieheFalscheEingabe() {
 		Spielbrett testBrett = new Spielbrett();
 		Spielzug[] zuege = {null};
 		testBrett.ziehe(zuege);
@@ -179,29 +176,18 @@ public class SpielbrettTest {
 	
 	@Test
 	public void testeToString() {
-		String erwartet = "I     O O O O O \r\n" + 
-						  "H    O O O O O O \r\n" + 
-						  "G   - - O O O - - \r\n" + 
-						  "F  - - - - - - - - \r\n" + 
-						  "E - - - - - - - - - \r\n" + 
-						  "D  - - - - - - - - 9\r\n" + 
-						  "C   - - X X X - - 8\r\n" + 
-						  "B    X X X X X X 7\r\n" + 
-						  "A     X X X X X 6\r\n" + 
-						  "       1 2 3 4 5";
-						 
-						/* "I     O O O O O \r\n" + 
-						   "H    O O O O O O \r\n" + 
-						   "G   - - O O O - - \r\n" + 
-						   "F  - - - - - - - - \r\n" + 
-						   "E - - - - - - - - - \r\n" + 
-						   "D  - - - - - - - - 9\r\n" + 
-						   "C   - - X X X - - 8\r\n" + 
-						   "B    X X X X X X 7\r\n" + 
-						   "A     X X X X X 6\r\n" + 
-						   "       1 2 3 4 5\r\n" + 
-						   ""; */
 		Spielbrett testBrett = new Spielbrett();
+		String erwartet =  "I     O O O O O \n" + 
+						   "H    O O O O O O \n" + 
+						   "G   - - O O O - - \n" + 
+						   "F  - - - - - - - - \n" + 
+						   "E - - - - - - - - - \n" +	 
+						   "D  - - - - - - - - 9\n" + 
+						   "C   - - X X X - - 8\n" + 
+						   "B    X X X X X X 7\n" + 
+						   "A     X X X X X 6\n" + 
+						   "       1 2 3 4 5";
+				
 		System.out.println(testBrett.toString());
 		assertEquals(erwartet, testBrett.toString());
 	}
