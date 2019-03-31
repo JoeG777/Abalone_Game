@@ -63,7 +63,7 @@ public class Spielfigur {
 	 * @return True oder False
 	 */
 	public boolean gleicheFarbe(FarbEnum farbe) {
-		if(farbe != null && this.getFarbe() == farbe)
+		if(farbe != null && !(this.getFarbe() == farbe))
 			return true;
 		return false;
 	}
