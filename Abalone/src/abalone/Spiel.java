@@ -170,8 +170,20 @@ public class Spiel {
 					if(felder.length() == 4) {
 						Spielfeld ausgang1 = spielBrett.getFeld(felder.substring(0,2));
 						Spielfeld ausgang2 = spielBrett.getFeld(felder.substring(2,4));
-						Spielfeld[] nachbarn1 = ausgang2.getNachbarn();
+						Spielfeld[] nachbarn1 = ausgang1.getNachbarn();
+						Spielfeld[] nachbarn2 = ausgang2.getNachbarn();
 						for(Spielfeld nachbar : nachbarn1) {
+							if(nachbar != null) {
+								Spielzug zug = new Spielzug(ausgang2.getId() + ausgang1.getId(), nachbar.getId());
+								zug.setRichtung(bekommeRichtung(zug));
+								zug.setFarbe(getFarbeAmZug());
+								Spielzug[] zuege = {zug};
+								if(zugValidieren(zuege)) {
+									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
+								}
+							}
+						}
+						for(Spielfeld nachbar : nachbarn2) {
 							if(nachbar != null) {
 								Spielzug zug = new Spielzug(ausgang1.getId() + ausgang2.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
