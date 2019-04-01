@@ -703,7 +703,7 @@ public class Spiel {
 			} else {
 				zielFeldZug = new Spielzug(zielfeld.getId(), zielNachbar.getId());
 			}
-			if (zielNachbar.istDurchGegnerBesetzt(getFarbeAmZug())) {
+			if (zielNachbar != null && zielNachbar.istDurchGegnerBesetzt(getFarbeAmZug())) {
 				Spielfeld zielNachbar2 = zielNachbar.getNachbar(richtung);
 				if (zielNachbar2 == null) {
 					zielNachbarzug = new Spielzug(zielNachbar.getId(), null);
@@ -815,5 +815,4 @@ public class Spiel {
 		return new Spielzug(vonFeld1 + "" + vonFeld2, nachFeld);
 
 	}
-
 }
