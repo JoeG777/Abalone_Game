@@ -125,11 +125,10 @@ public class Spiel {
 			spielzuege[0] = spielzug;
 			if(zugValidieren(spielzuege)){
 				spielzuege = spielzugSplitter(spielzug);
-				for(Spielzug teilzug : spielzuege) {
-					if(teilzug.getNach() == null) {
-						halter.setNach(halter.getNach() + "*");
-					}
+				if(spielzuege[0].getNach() == null) {
+					halter.setNach(halter.getNach() + "*");
 				}
+				
 				spielBrett.ziehe(spielzuege);
 				historie.spielzugHinzufuegen(halter);
 				if (getFarbeAmZug() == spielerImSpiel[0].getFarbe()) {
@@ -648,7 +647,6 @@ public class Spiel {
 	 */
 	private boolean steinAbgeraeumt(Spielfeld gegnerStein, int richtung) {
 		if(gegnerStein.getNachbar(richtung) == null) {
-			gegnerStein.setFigur(null);
 			return true;
 		}
 		
