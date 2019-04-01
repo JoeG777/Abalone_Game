@@ -8,6 +8,8 @@ public class Spielfigur {
 	 * Erzeugt ein neues Spielfigur Objekt mit Farbe als FarbEnum.
 	 * @param feld Ein Spielfeld Objekt (Muss zur Erzeugung existieren).
 	 * @param farbe Die Farbe der Spielfigur
+	 * @exception RuntimeException Wird geworfen, wenn kein Spielfeld-Objekt
+	 * existiert.
 	 */
 	public Spielfigur(Spielfeld feld, FarbEnum farbe) {
 		if (feld == null) {
@@ -67,7 +69,9 @@ public class Spielfigur {
 			return true;
 		return false;
 	}
-	
+	/**
+	 * Gibt einen String mit der Farbe der jeweiligen Figur zurueck.
+	 */
 	@Override
 	public String toString() {
 		return "Eine Figur der Farbe " + this.getFarbe();

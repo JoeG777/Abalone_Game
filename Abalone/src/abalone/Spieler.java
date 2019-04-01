@@ -132,11 +132,15 @@ public class Spieler {
 	 */
 	
 	@Override
+	/**
+	 * Gibt einen hashCode für den Spieler zurueck.
+	 */
 	public int hashCode() {
 		return this.spielerID;
 	}
 	
 	/**
+	 * Vergleicht den Spieler mit dem uebergebenen Objekt.
 	 * @param Vergleich Das Objekt, welches man vergleichen will
 	 * @return Boolean Ob zwei verglichene Objekte gleich
 	 * in ihren Attributen sind

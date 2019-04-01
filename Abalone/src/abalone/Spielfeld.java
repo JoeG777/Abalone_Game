@@ -23,6 +23,8 @@ public class Spielfeld {
 	 * @param id Die ID des Feldes in Abalone-Notation.
 	 * @param farbe Die Farbe des Feldes.
 	 * @param figur Die Figur, die sich auf dem Feld befindet.
+	 * @exception RuntimeException Wird geworfen, wenn kein Spielbrett 
+	 * existiert.
 	 * 
 	 */
 	public Spielfeld(Spielbrett brett, String id, FarbEnum farbe, Spielfigur figur) {
