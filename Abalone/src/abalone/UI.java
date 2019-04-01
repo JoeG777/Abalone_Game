@@ -248,7 +248,11 @@ public class UI {
 		}
 		return true;
 	}
-	
+	/**
+	 * Gibt die erlaubten Zuege auf der Konsole aus.
+	 * @param zug Ein Spielzug-Objekt mit Nach-Attribut auf null.
+	 * @param spiel ein Spiel-Objekt.
+	 */
 	public static void printErlaubteZuege(String[] zug, Spiel spiel) {
 		String[] erlaubteZuege = spiel.getErlaubteZuege(zug);
 		System.out.println ("Folgende Zuege sind momentan moeglich:");
