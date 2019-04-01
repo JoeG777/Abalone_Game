@@ -214,7 +214,7 @@ public class Spiel {
 	 * @return der Status als String
 	 */
 	public String getStatus() { // ??
-		String[] geschlageneKugeln = {""," *"," * *"," * * *"," * * * *"," * * * * *"};
+		String[] geschlageneKugeln = {""," *"," * *"," * * *"," * * * *"," * * * * *"," * * * * * *"};
 		String amZug ="Am zug ist: " + spielerAmZug.getName() + "\n";
 		String verbleibendeSteine = "\r\n"+
 									"Spieler " + this.spielerImSpiel[0].getName() + 
