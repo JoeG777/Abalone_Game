@@ -8,6 +8,8 @@ public class Spielfigur {
 	 * Erzeugt ein neues Spielfigur Objekt mit Farbe als FarbEnum.
 	 * @param feld Ein Spielfeld Objekt (Muss zur Erzeugung existieren).
 	 * @param farbe Die Farbe der Spielfigur
+	 * @exception RuntimeException Wird geworfen, wenn kein Spielfeld-Objekt
+	 * existiert.
 	 */
 	public Spielfigur(Spielfeld feld, FarbEnum farbe) {
 		if (feld == null) {
