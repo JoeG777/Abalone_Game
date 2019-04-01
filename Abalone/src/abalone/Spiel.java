@@ -179,6 +179,8 @@ public class Spiel {
 								zug.setFarbe(getFarbeAmZug());
 								Spielzug[] zuege = {zug};
 								if(zugValidieren(zuege)) {
+									nachbar = ausgang2.getNachbar(zug.getRichtung());
+									zug.setNach(nachbar.getId());
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
 								}
 							}
@@ -190,6 +192,8 @@ public class Spiel {
 								zug.setFarbe(getFarbeAmZug());
 								Spielzug[] zuege = {zug};
 								if(zugValidieren(zuege)) {
+									nachbar = ausgang1.getNachbar(zug.getRichtung());
+									zug.setNach(nachbar.getId());
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
 								}
 							}
