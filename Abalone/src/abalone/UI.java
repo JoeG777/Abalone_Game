@@ -64,11 +64,7 @@ public class UI {
 						   "########### Drücke Enter zum Starten ##########\n" +
 						   "###############################################" );
 		String start = sc.nextLine();
-		try {
-			clearConsole();
-		}catch(IOException e) {
-			
-		}
+
 	}
 	
 	/**
@@ -141,24 +137,6 @@ public class UI {
 			}
 		}
 		
-	}
-	/**
-	 * Diese Methode loescht den Inhalt der Console.
-	 * 
-	 * @throws IOException
-	 */
-	public final static void clearConsole() throws IOException {
-		String penguinClearConsole = "clear";
-		String windowsClearConsole = "cls";
-		 
-		String os = System.getProperty("os.name");
-
-		if(os.startsWith("Windows")){
-			Runtime.getRuntime().exec(penguinClearConsole);
-		}
-		else if(os.startsWith("Linux")){
-			Runtime.getRuntime().exec(windowsClearConsole);
-		}
 	}
 	/**
 	 * Diese Methode startet das Spiel und uebergibt der ziehen Methode immer wieder
@@ -247,15 +225,15 @@ public class UI {
 				return true;
 			}
 			
-			if(zug.length()< 5 ) {
+			if(zug.length()< 5 || zug.length() > 7) {
 				return false;
 			}
 			
-			if(zug.length() >= 5) {
+			if(zug.length() == 5) {
 				zugArr[0] = zug.substring(0,2);
 				zugArr[1] = zug.substring(3,5);
 			}
-			if(zug.length() >= 7) {
+			if(zug.length() == 7) {
 				zugArr[0] = zug.substring(0,4);
 				zugArr[1] = zug.substring(5,7);
 			}
