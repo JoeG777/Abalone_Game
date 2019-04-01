@@ -71,6 +71,9 @@ public class Historie {
 		return this.zuege.get(nummer-1);
 	}
 	
+	/**
+	 * Gibt die Historie als String zurück.
+	 */
 	@Override
 	public String toString()  {
 		StringBuilder sb = new StringBuilder();
