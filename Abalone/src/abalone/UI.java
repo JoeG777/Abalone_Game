@@ -176,6 +176,13 @@ public class UI {
 		spielBeenden(gewinner, verlierer);
 	}
 	
+	/**
+	 * Gibt das Hauptmenue aus, wartet auf eine Eingabe:
+	 * 1 fuer getHistorie()
+	 * 2 fuer hilsMenue
+	 * 3 fuer weiter spielen
+	 * @param spiel
+	 */
 	public static void hauptMenue(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
 		boolean inSchleifeBleiben = true;

@@ -44,6 +44,9 @@ public class Spiel {
 	 * 
 	 * @param name  Der für den Spieler gewaehlte Name
 	 * @param farbe Die für den Spieler gewaehlte Farbe
+	 * @exception IllegalArgumentException Wird geworfen, wenn der String Farbe nicht "schwarz" oder "weiss" entspricht,
+	 * @exception IndexOutOfBoundsException wird geworfen wenn ein Spieler hinzugefuegt wird, obwohl bereits zwei Spieler im
+	 * Spiel sind.
 	 * @since 1.0
 	 */
 	public void addSpieler(String name, String farbe) {
@@ -111,6 +114,7 @@ public class Spiel {
 	 * 
 	 * @param zug Ein String Array mit den Werten [0] = von wo gezogen wird, [1] =
 	 *            wohin gezogen wird.
+	 * @exception Wirft eine IllegalArgumentException wenn zugValidieren false zurueck gibt oder ein Array Eintrag NULL ist
 	 * @since 1.0
 	 */
 	public void ziehe(String[] zug) {
