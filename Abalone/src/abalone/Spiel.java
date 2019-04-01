@@ -114,7 +114,8 @@ public class Spiel {
 	 */
 	public void ziehe(String[] zug) {
 		if (koordinatenValidieren(spielzugParser(zug))) {
-			Spielzug spielzug = formatieren(new Spielzug(zug[0], zug[1]));
+			Spielzug halter = new Spielzug(zug[0], zug[1]);
+			Spielzug spielzug = formatieren(halter);
 			if(spielzug.getNach() == null) {
 				throw new IllegalArgumentException("Unzulaessiger Zug");
 			}
@@ -125,11 +126,11 @@ public class Spiel {
 			if(zugValidieren(spielzuege)){
 				spielzuege = spielzugSplitter(spielzug);
 				if(spielzuege[0].getNach() == null) {
-					spielzug.setNach(spielzug.getNach() + "*");
+					halter.setNach(halter.getNach() + "*");
 				}
 				
 				spielBrett.ziehe(spielzuege);
-				historie.spielzugHinzufuegen(spielzug);
+				historie.spielzugHinzufuegen(halter);
 				if (getFarbeAmZug() == spielerImSpiel[0].getFarbe()) {
 					spielerAmZug = spielerImSpiel[1];
 				} else {
