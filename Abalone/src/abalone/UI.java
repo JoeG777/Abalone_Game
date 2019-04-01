@@ -216,6 +216,7 @@ public class UI {
 		}
 
 		else if (auswahl.equals("3")) {
+			inSchleifeBleiben = false;
 			spielen(spiel);
 		}
 		else {
@@ -311,6 +312,8 @@ public class UI {
 	public static void spielBeenden(String gewinner, String verlierer) {
 		System.out.println("Hurraa " + gewinner + " Hat das Spiel gewonnen!");
 		System.out.println("Verlierer der heutigen Runde ist: " + verlierer + "!");
+		System.out.println();
+		System.out.println();
 		System.out.println("###############################################\r\n" + 
 				   "#    ___  _           _                       #\r\n" + 
 				   "#   / _ \\| |         | |                      #\r\n" + 
@@ -320,7 +323,7 @@ public class UI {
 				   "#  \\_| |_/_.__/ \\__,_|_|\\___/|_| |_|\\___|     #\r\n" + 
 				   "#                                             #\r\n" + 
 				   "###############################################\n" + 
-				   "########### Drücke Enter zum Starten ##########\n" +
+				   "##################### ENDE ####################\n" +
 				   "###############################################" );
 	}
 }
