@@ -48,7 +48,6 @@ public class Spielbrett {
 	 * Verknüpft alle Feldbezeichnungen
 	 * eines Abalone-Bretts mit Spielfeld-Objekten.
 	 * 
-	 * @since 1.0
 	 */
 	private void schaffeMapping() {
 		for(int i = 0; i < KOORDINATENQUER.length; i++) {
@@ -76,7 +75,6 @@ public class Spielbrett {
 	 * Weist dem übergebenem Key ein Spielfeld zu.
 	 * @param key Feldbezeichnung in Form eines Strings.
 	 * 
-	 * @since 1.0
 	 */
 	private void weiseKeyFeldZu(String key) {
 		Spielfeld feld = new Spielfeld(this, key);
@@ -87,7 +85,6 @@ public class Spielbrett {
 	/**
 	 * Stellt die Abalone Standard-Startposition auf.
 	 * 
-	 * @since 1.2;
 	 */
 	private void stelleStartpositionAuf() {
 		stelleGrundlinienAuf();
@@ -100,7 +97,6 @@ public class Spielbrett {
 	 * Stellt auf jedem Spielfeld in Querzeile A, B, H, I
 	 * eine Figur auf. 
 	 * 
-	 * @since 1.2;
 	 */
 	private void stelleGrundlinienAuf() {
 
@@ -130,7 +126,6 @@ public class Spielbrett {
 	 * Stellt die vorderen drei Steine (der Startposition)
 	 * beider Seiten auf.
 	 * 
-	 * @since 1.2;
 	 */
 	private void stelleVordereSteineAuf() {
 		for(int i = 3; i < 6; i++) {
@@ -143,17 +138,13 @@ public class Spielbrett {
 			schwarz.setFigur(new Spielfigur(schwarz, "SCHWARZ"));
 		}
 	}
-	
-	/*
-	 * Getter und Setter
-	 */
-	
+
+
 	/**
 	 * Gibt das Brettattribut des Spielbretts zurück.
 	 * @return Brettattribut in Form von einer
 	 * HashMap<String,Spielfeld>  des Spielbretts.
 	 * 
-	 * @since 1.0
 	 */
 	public HashMap<String, Spielfeld> getBrett() {
 		return this.brett;
@@ -163,9 +154,8 @@ public class Spielbrett {
 
 	/**
 	 * Setzt das Brettattribut des Spielbretts.
-	 * @param HashMap Eine HashMap<String, Spielfeld>, die das Brett modelliert
+	 * @param brett Eine HashMap<String, Spielfeld>, die das Brett modelliert
 	 * 
-	 * @since 1.0
 	 */
 	private void setBrett(HashMap<String, Spielfeld> brett) {
 		this.brett = brett;
@@ -177,10 +167,6 @@ public class Spielbrett {
 
 
 
-	/*
-	 * Überschriebene Methoden von Object und Hilfsmethoden
-	 */
-
 
 	/** 
 	 * Ordnet die HashMap in Form eines Abalone Spielbretts mit Koordinaten an
@@ -188,7 +174,6 @@ public class Spielbrett {
 	 *  
 	 * @return Einen String in Form eines Abalone-Spielbretts.
 	 * 
-	 * @since 1.1
 	 */
 	@Override
 	public String toString() {
@@ -216,7 +201,6 @@ public class Spielbrett {
 	 * 
 	 * @return komplette Querzeile als String.
 	 * 
-	 * @since 1.1
 	 */
 	private String baueEinzelneQuerlinie(int posKoordinateQuer) {
 		StringBuilder einzelneQuerlinie = new StringBuilder();
@@ -251,7 +235,6 @@ public class Spielbrett {
 	 * 
 	 * @return String aus Feldsymbolen, Zwischenabständen und einem Leerzeichen
 	 * 
-	 * @since 1.1
 	 */
 	private String fuegeFelderZusammen(int posKoordinateQuer) {
 
@@ -270,11 +253,11 @@ public class Spielbrett {
 
 		return felder.toString(); 
 	}
-	
+
 	/*
 	 * Methoden zum Bewegen von Steinen
 	 */
-	
+
 	public void ziehe(Spielzug[] zuege) {
 		for(Spielzug zug : zuege) {
 			if(zug != null ) {
@@ -287,13 +270,12 @@ public class Spielbrett {
 			}
 		}
 	}
-	
+
 	/**
 	 * Bewegt eine Figur von einem Feld auf ein anderes, 
 	 * ohne dabei zu überprüfen, ob dies "logisch" möglich ist. 
 	 * @param von das Feld auf dem sich die Figur befindet.
 	 * @param auf das Feld auf das die Figur bewegt werden soll. 
-	 * @since 1.4
 	 */
 	private void bewegeFigur(String von, String auf) {
 		if(brett.get(auf) != null && brett.get(von) != null) {
@@ -302,7 +284,7 @@ public class Spielbrett {
 		}else
 			throw new IllegalArgumentException("Ungueltiger Zug");
 	}
-	
+
 	private void steinAbraeumen(Spielfeld feld) {
 		feld.setFigur(null);
 	}
@@ -332,8 +314,8 @@ public class Spielbrett {
 					if(feldLinks != null && feldLinks.getNachbar(i) != null) {
 						Spielfeld dazwischen = feldLinks.getNachbar(i);
 						Spielfeld ziel = dazwischen.getNachbar(i);
-						
-						
+
+
 						if(ziel == feldRechts) {
 							ausgangsfelder.add(feldLinks);
 							ausgangsfelder.add(dazwischen);
@@ -350,15 +332,22 @@ public class Spielbrett {
 		return ausgangsfelder.toArray(new Spielfeld[0]);
 	}
 
+	/**
+	 * Gibt alle Felder zurueck, die mit einer Figur belegt sind, 
+	 * deren Farbe gleich der uebergebenen Farbe ist.
+	 * @param farbe Die Farbe der gesuchten Figuren.
+	 * @return ArrayList aus Spielfeldern, auf denen Figuren der uebergebenen 
+	 * Farbe sind
+	 */
 	public ArrayList<Spielfeld> getFelderMitFarbe(FarbEnum farbe) {
-	ArrayList<Spielfeld> felder = new ArrayList<Spielfeld>();
-	for(Spielfeld feld : brett.values()) {
-		if(feld.getFigur() != null && feld.getFigur().getFarbe() == farbe) {
-			felder.add(feld);
+		ArrayList<Spielfeld> felder = new ArrayList<Spielfeld>();
+		for(Spielfeld feld : brett.values()) {
+			if(feld.getFigur() != null && feld.getFigur().getFarbe() == farbe) {
+				felder.add(feld);
+			}
 		}
-	}
-	felder.removeIf(Objects::isNull);
-	return felder;
+		felder.removeIf(Objects::isNull);
+		return felder;
 	}
 }
 
