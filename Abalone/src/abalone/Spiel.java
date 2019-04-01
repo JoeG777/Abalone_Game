@@ -213,7 +213,7 @@ public class Spiel {
 	 * Welche Spieler noch wie viele Steine im Spiel haben
 	 * @return der Status als String
 	 */
-	public String getStatus() { // ??
+	public String getStatus() { 
 		String[] geschlageneKugeln = {""," *"," * *"," * * *"," * * * *"," * * * * *"," * * * * * *"};
 		String amZug ="Am zug ist: " + spielerAmZug.getName() + "\n";
 		String verbleibendeSteine = "\r\n"+
@@ -384,7 +384,13 @@ public class Spiel {
 		return true;
 	}
 	
-	public boolean zugValidieren(Spielzug[] zuege) {
+	
+	/**
+	 * Prueft ob eine serie Zueg abhaengig von der Spielfeldbelegung ausfuehrbar sind. 
+	 * @param Array des Typs Spielzug
+	 * @return True oder False, in abhaengigkeit von der Validitaet der Zuege
+	 */
+	private boolean zugValidieren(Spielzug[] zuege) {
 		boolean erfolgreich = false;
 
 		for(Spielzug zug : zuege) {
@@ -503,7 +509,7 @@ public class Spiel {
 	 * @return Index des Objektes, in dessen Richtung gezogen wird
 	 * @since 1.3
 	 */
-	public int bekommeRichtung(Spielzug zug) {
+	private int bekommeRichtung(Spielzug zug) {
 		String zugVon = zug.getVon();
 		String zugNach = zug.getNach();
 		String feldVon = zugVon.substring(0,2);
@@ -512,32 +518,6 @@ public class Spiel {
 		}
 		
 		return spielBrett.getFeld(feldVon).getNachbarId(spielBrett.getFeld(zugNach));
-		
-		
-//		if(zugVon.length() == 4) {
-//			Spielfeld feld1 = spielBrett.getFeld(zugVon.substring(0,2));
-//			Spielfeld feld2 = spielBrett.getFeld(zugVon.substring(2,4));
-//			Spielfeld ziel = spielBrett.getFeld(zugNach);
-//			boolean flagFeld1 = false;
-//			if(feld1 != null && ziel != null)
-//				flagFeld1 = feld1.hatNachbar(ziel.getId());
-//			boolean flagFeld2 = feld2.hatNachbar(ziel.getId());
-//			if(feld2 != null && ziel != null)
-//				flagFeld2 = feld2.hatNachbar(ziel.getId());
-//			if(flagFeld1 && !flagFeld2) {
-//				return feld1.getNachbarId(ziel);
-//			}
-//			if(!flagFeld1 && flagFeld2) {
-//				return feld2.getNachbarId(ziel);
-//			}
-//		}	
-//		if(zugVon.length() == 2) {
-//			Spielfeld feld1 = spielBrett.getFeld(zugVon.substring(0,2));
-//			Spielfeld ziel = spielBrett.getFeld(zugNach);
-//			if(ziel != null && feld1.hatNachbar(ziel.getId()))
-//				return feld1.getNachbarId(ziel);
-//		}
-//		return -1;
 	}
 	
 	/**
@@ -613,7 +593,7 @@ public class Spiel {
 	 * @param richtung Die Richtung des Zuges.
 	 * @return Spielfeld-Objekt auf dem sich der vorderste Stein befindet
 	 */
-	public Spielfeld getVorderstenStein(Spielfeld[] felder, int richtung) {
+	private Spielfeld getVorderstenStein(Spielfeld[] felder, int richtung) {
 		Spielfeld posVordersterStein = null;
 
 		if(felder.length == 3) {
@@ -732,6 +712,14 @@ public class Spiel {
 		return zuege.toArray(new Spielzug[0]);
 	}
 	
+	
+	/**
+	 * Gibt das hinterste Feld eines Spielzuges zurueck.
+	 * 
+	 * @param Ein Array des Typs Felder
+	 * @param Die Richtung, in die gezogen wird
+	 * @return Das hinterste Spielfeld als Spielfeld Objekt
+	 */
 	private Spielfeld getHinterstenStein(Spielfeld[] felder, int richtung) {
 		if(felder.length == 3) {
 			if(felder[0].getNachbar(richtung) == felder[1]) {
@@ -752,7 +740,14 @@ public class Spiel {
 		}
 		return null;
 	}
-	public Spielfeld[] ordneInRichtung(Spielfeld[] felder, int richtung) {
+	
+	/**
+	 * Ordnet ein Spielfeld Array nach einer gegebenen Richtung
+	 * @param Ein Array mit zu ordnenden Spielfeldern
+	 * @param Die Richtung, nach der geordnet werden soll
+	 * @return Das sotrierte Array
+	 */
+	private Spielfeld[] ordneInRichtung(Spielfeld[] felder, int richtung) {
 		ArrayList<Spielfeld> geordneteFelder = new ArrayList<Spielfeld>();
 		
 		Spielfeld hintersterStein = getHinterstenStein(felder, richtung);
@@ -767,7 +762,12 @@ public class Spiel {
 		return geordneteFelder.toArray(new Spielfeld[0]);
 	}
 	
-	public Spielzug formatieren(Spielzug zug) {
+	/**
+	 * Formatiert einen Spielzug in die intern benutzte Notation
+	 * @param Spielzug
+	 * @return Formatierter Spielzug
+	 */
+	private Spielzug formatieren(Spielzug zug) {
 		if(zug.getVon().length() == 2) {
 			return zug;
 		}
