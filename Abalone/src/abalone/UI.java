@@ -271,6 +271,7 @@ public class UI {
 	/**
 	 * Diese Methode gibt den Gewinner aus.
 	 * @param gewinner Der Spieler der das Spiel gewonnen hat.
+	 * @param verlierer Der Spieler, der das Spiel verloren hat.
 	 */
 	public static void spielBeenden(String gewinner, String verlierer) {
 		System.out.println("Hurraa " + gewinner + " Hat das Spiel gewonnen!");
