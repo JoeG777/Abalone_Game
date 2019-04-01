@@ -25,14 +25,9 @@ public class Spielbrett {
 
 	private HashMap<String, Spielfeld> brett;
 
-	/*
-	 * Konstruktor und dessen Hilfsmethoden
-	 */
 
 	/**
 	 * Konstruktor für Abalone Spielbrett
-	 * 
-	 * @since 1.0
 	 */
 	public Spielbrett() {
 		setBrett(new HashMap<String, Spielfeld>());
@@ -160,7 +155,12 @@ public class Spielbrett {
 	private void setBrett(HashMap<String, Spielfeld> brett) {
 		this.brett = brett;
 	}
-
+	
+	/**
+	 * Gibt das zum übergebenen Key passende Feld zurueck.
+	 * @param key ein String, der zu einem Feld gehoert.
+	 * @return zum Key passendes Spielfeld-Objekt.
+	 */
 	public Spielfeld getFeld(String key) {
 		return brett.get(key);
 	}
@@ -254,8 +254,14 @@ public class Spielbrett {
 		return felder.toString(); 
 	}
 
-	/*
-	 * Methoden zum Bewegen von Steinen
+	
+	/**
+	 * Nimmt Spielzuege an und bewegt Steine vom von-Attribut des Spielzug-
+	 * Objektes auf dessen nach-Attribut. Ist das nach-Attribut gleich 'null'
+	 * wird der Stein vom Spielfeld entfernt (Figur Attribut von Spielfeld
+	 * wird auf null gesetzt).
+	 * @param zuege ein Spielzug-Array das einzelne Zuege aus einem Stein 
+	 * enthaehlt.
 	 */
 
 	public void ziehe(Spielzug[] zuege) {
