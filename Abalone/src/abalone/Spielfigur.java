@@ -67,7 +67,9 @@ public class Spielfigur {
 			return true;
 		return false;
 	}
-	
+	/**
+	 * Gibt einen String mit der Farbe der jeweiligen Figur zurueck.
+	 */
 	@Override
 	public String toString() {
 		return "Eine Figur der Farbe " + this.getFarbe();
