@@ -114,8 +114,7 @@ public class Spiel {
 	 */
 	public void ziehe(String[] zug) {
 		if (koordinatenValidieren(spielzugParser(zug))) {
-//			Spielzug halter = new Spielzug(zug[0], zug[1]);
-			Spielzug spielzug = formatieren(new Spielzug(zug[0],zug[1]));
+			Spielzug spielzug = formatieren(new Spielzug(zug[0], zug[1]));
 			if(spielzug.getNach() == null) {
 				throw new IllegalArgumentException("Unzulaessiger Zug");
 			}
@@ -214,7 +213,7 @@ public class Spiel {
 	 * @return der Status als String
 	 */
 	public String getStatus() { // ??
-		String[] geschlageneKugeln = {""," *"," * *"," * * *"," * * * *"," * * * * *"};
+		String[] geschlageneKugeln = {""," *"," * *"," * * *"," * * * *"," * * * * *"," * * * * * *"};
 		String amZug ="Am zug ist: " + spielerAmZug.getName() + "\n";
 		String verbleibendeSteine = "\r\n"+
 									"Spieler " + this.spielerImSpiel[0].getName() + 
