@@ -145,7 +145,8 @@ public class Spiel {
 
 	/**
 	 * Gibt erlaubte Zuege zurueck
-	 * 
+	 * @param ausgangsFelder Felder, deren moegliche Zugmoeglichkeiten
+	 * gesammelt werden sollen.
 	 * @return ein String Array mit den erlaubten Zuegen
 	 */
 	public String[] getErlaubteZuege(String[] ausgangsFelder) {
@@ -256,7 +257,8 @@ public class Spiel {
 	 * @param zug Ein String Array mit den Werten [0] = von wo gezogen wird, [1] =
 	 *            wohin gezogen wird.
 	 * @return ein zweidimensionales char Array, welches den Zug in chars aufteilt
-	 * @since 1.1
+	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge 
+	 * ungueltig ist.
 	 */
 	private char[][] spielzugParser(String[] zug) {
 		char[][] geparsterZug = new char[2][];
@@ -299,6 +301,8 @@ public class Spiel {
 	 * 
 	 * @param zug mit dem Datentyp String
 	 * @return zweidimensionales Char Array, welches den Zug als Chars enthält
+	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge 
+	 * ungueltig ist.
 	 */
 	private char[][] felderParser(String zug) {
 		char[][] geparsterZug = new char[1][];
