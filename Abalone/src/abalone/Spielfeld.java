@@ -24,7 +24,6 @@ public class Spielfeld {
 	 * @param farbe Die Farbe des Feldes.
 	 * @param figur Die Figur, die sich auf dem Feld befindet.
 	 * 
-	 * @since 1.0
 	 */
 	public Spielfeld(Spielbrett brett, String id, FarbEnum farbe, Spielfigur figur) {
 		if(brett == null) {
@@ -43,7 +42,6 @@ public class Spielfeld {
 	 * @param brett Ein Spielbrett-Objekt (muss zur Erzeugung existieren).
 	 * @param id Die ID des Feldes in Abalone-Notation.
 	 * 
-	 * @since 1.0
 	 */
 	public Spielfeld(Spielbrett brett, String id) {
 		if(brett == null) {
@@ -59,7 +57,6 @@ public class Spielfeld {
 	 * Gibt das Brett-Attribut zurück.
 	 * @return Ein Spielbrett-Objekt.
 	 * 
-	 * @since 1.0
 	 */
 	public Spielbrett getBrett() {
 		return this.brett;
@@ -69,7 +66,6 @@ public class Spielfeld {
 	 * Setzt das Brett-Attribut.
 	 * @param brett Das bespielte Brett
 	 * 
-	 * @since 1.0
 	 */
 	private void setBrett(Spielbrett brett) {
 		this.brett = brett;
@@ -123,7 +119,6 @@ public class Spielfeld {
 	 * @param id Eine ID als String.
 	 * 
 	 */
-	
 	private void setId(String id) {
 		this.id = id;
 	}
@@ -227,7 +222,7 @@ public class Spielfeld {
 	}
 	
 	/**
-	 * Befüllt das Nachbarn-Attribut mit existenten Nachbarn (Spielfeld-Objekten).
+	 * Befuellt das Nachbarn-Attribut mit existenten Nachbarn (Spielfeld-Objekten).
 	 * Position 0 enstpricht links, Position 1 entspricht oben-links,
 	 * Position 2 entspricht unten-links, Position 3 entspricht rechts,
 	 * Position 4 entspricht oben-rechts, Position 5 enstpricht unten-rechts.
@@ -255,11 +250,11 @@ public class Spielfeld {
 	
 	/**
 	 * Findet alle IDs die theoretisch um das Feld
-	 * mit der übergebenen ID liegen müssten, ohne zu
-	 * überprüfen, ob die IDs tatsächlich existieren.
+	 * mit der uebergebenen ID liegen müssten, ohne zu
+	 * ueberpruefen, ob die IDs tatsächlich existieren.
 	 * 
 	 * @param id ID des Feldes dessen Nachbarn gesucht sind
-	 * @return String-Array der Größe 6 mit IDs der Nachbarfelder
+	 * @return String-Array der Groesse 6 mit IDs der Nachbarfelder
 	 */
 	private String[] findePotentielleNachbarn(String id) {
 		String[] nachbarn = new String[6];
@@ -282,7 +277,6 @@ public class Spielfeld {
 	 * X entspricht Weiss, O entspricht Schwarz, - entspricht einem 
 	 * Feld, auf dem sich keine Figur befindet.
 	 * 
-	 * @param Spielfeld ein beliebiges Spielfeld
 	 * @return das jeweilige, aktuelle Symbol des Feldes als String.
 	 * 
 	 */
