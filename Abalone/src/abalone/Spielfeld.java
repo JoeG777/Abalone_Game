@@ -220,7 +220,7 @@ public class Spielfeld {
 	 * eigene Figur ist oder keine Figur auf dem Feld ist. 
 	 */
 	public boolean istDurchGegnerBesetzt(FarbEnum farbe) {
-		if(this.figur != null && this.figur.gleicheFarbe(farbe)) {
+		if(this.figur != null && !(this.figur.gleicheFarbe(farbe))) {
 			return true;
 		}
 		return false;
