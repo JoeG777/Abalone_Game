@@ -178,17 +178,17 @@ public class SpielbrettTest {
 	public void testeToString() {
 		Spielbrett testBrett = new Spielbrett();
 		String erwartet = "                    \n" +
-				 "I     O O O O O \n" + 
-				"H    O O O O O O \n" + 
-				"G   - - O O O - - \n" + 
-				"F  - - - - - - - - \n" + 
-				"E - - - - - - - - - \n" + 
-				"D  - - - - - - - - \n" + 
-				"C   - - X X X - -   9\n" + 
-				"B    X X X X X X   8\n" + 
-				"A     X X X X X   7\n" + 
-				"                 6\n" + 
-				"        1 2 3 4 5 ";
+				 "I      O O O O O \n" + 
+				"H     O O O O O O \n" + 
+				"G    - - O O O - - \n" + 
+				"F   - - - - - - - - \n" + 
+				"E  - - - - - - - - - \n" + 
+				"D   - - - - - - - - \n" + 
+				"C    - - X X X - -   9\n" + 
+				"B     X X X X X X   8\n" + 
+				"A      X X X X X   7\n" + 
+				"                  6\n" + 
+				"         1 2 3 4 5 ";
 		assertEquals(erwartet, testBrett.toString());
 	}
 }

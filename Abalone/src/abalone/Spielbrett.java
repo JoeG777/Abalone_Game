@@ -186,8 +186,8 @@ public class Spielbrett {
 		}
 
 		// Untere Koordinaten anfügen
-		gesamtesFeld.append("                 6\n");
-		gesamtesFeld.append("        " + "1 2 3 4 5 ");
+		gesamtesFeld.append("                  6\n");
+		gesamtesFeld.append("         " + "1 2 3 4 5 ");
 		return gesamtesFeld.toString();
 	}
 
@@ -206,7 +206,7 @@ public class Spielbrett {
 	private String baueEinzelneQuerlinie(int posKoordinateQuer) {
 		StringBuilder einzelneQuerlinie = new StringBuilder();
 
-		einzelneQuerlinie.append(KOORDINATENQUER[posKoordinateQuer] + " ");
+		einzelneQuerlinie.append(KOORDINATENQUER[posKoordinateQuer] + "  ");
 
 		String felder = fuegeFelderZusammen(posKoordinateQuer);
 
