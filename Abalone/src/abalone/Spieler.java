@@ -22,7 +22,6 @@ public class Spieler {
 	 * @param name Der gewählte Name des Spielers
 	 * @param farbe Die Farbe des Spielers. Beim zweiten Spieler festgelegt
 	 * 
-	 * @return SpielerInstanz Gibt die erzeugte SpielerInstanz zurueck
 	 */
 	public Spieler(String name, FarbEnum farbe) {
 		anzahlSpieler++;
