@@ -116,12 +116,8 @@ public class Spiel {
 	 * 
 	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1] =
 	 *            wohin gezogen wird.
-<<<<<<< HEAD
-	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException wenn zugValidieren false zurueck gibt oder ein Array Eintrag NULL ist
-=======
 	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException 
 	 * wenn zugValidieren false zurueck gibt oder ein Array Eintrag NULL ist.
->>>>>>> 993a08af94709a7ffd792128a45919838295256c
 	 * @since 1.0
 	 */
 	public void ziehe(String[] zug) {

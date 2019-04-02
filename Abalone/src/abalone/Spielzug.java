@@ -99,7 +99,7 @@ public class Spielzug {
 	/**
 	 * Die equals Methode, die alle enthaltenen Daten eines Spielzug auf
 	 * Gleichheit überprüft
-	 * @param o
+	 * @param o Vergleichsobjekt
 	 * @return Wahrheitswert Ob das übergebene Objekt und der referenzierte
 	 * Spielzug tatsächlich gleich sind
 	 */
