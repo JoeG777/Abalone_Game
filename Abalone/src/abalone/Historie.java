@@ -90,7 +90,7 @@ public class Historie {
 	 * Diese Methode dient zum Hinzufuegen eines Spielzugs
 	 * in die Historie nach Abschluss des Spielzuges
 	 * 
-	 * @param Spielzug Wird der Historie hinzugefügt
+	 * @param spielzug Wird der Historie hinzugefügt
 	 */
 	public void spielzugHinzufuegen(Spielzug spielzug) {
 		if(spielzug == null) {

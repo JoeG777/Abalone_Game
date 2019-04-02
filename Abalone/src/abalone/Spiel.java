@@ -87,7 +87,7 @@ public class Spiel {
 	/**
 	 * Fragt ab, ob ein Spieler gewonnen hat
 	 * 
-	 * @param Spielername Name eines Spielers
+	 * @param name Name eines Spielers
 	 * @return Boolean Ob der übergebene Spieler gewonnen hat
 	 */
 	public boolean hatGewonnen(String name) {
@@ -114,7 +114,7 @@ public class Spiel {
 	 * 
 	 * @param zug Ein String Array mit den Werten [0] = von wo gezogen wird, [1] =
 	 *            wohin gezogen wird.
-	 * @exception Wirft eine IllegalArgumentException wenn zugValidieren false zurueck gibt oder ein Array Eintrag NULL ist
+	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException wenn zugValidieren false zurueck gibt oder ein Array Eintrag NULL ist
 	 * @since 1.0
 	 */
 	public void ziehe(String[] zug) {

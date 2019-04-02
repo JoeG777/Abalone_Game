@@ -61,7 +61,7 @@ public class Spielfigur {
 	
 	/**
 	 * Prueft, ob die gegebene Farbe der Farbe der Figur entspricht
-	 * @param Die Farbe, die zu pruefen ist 
+	 * @param farbe Farbe, die zu pruefen ist 
 	 * @return True oder False
 	 */
 	public boolean gleicheFarbe(FarbEnum farbe) {

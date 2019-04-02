@@ -22,7 +22,7 @@ public class Spieler {
 	 * @param name Der gewählte Name des Spielers
 	 * @param farbe Die Farbe des Spielers. Beim zweiten Spieler festgelegt
 	 * 
-	 * @return Spieler-Instanz Gibt die erzeugte Spieler-Instanz zurueck
+	 * @return SpielerInstanz Gibt die erzeugte Spieler-Instanz zurueck
 	 */
 	public Spieler(String name, FarbEnum farbe) {
 		anzahlSpieler++;
@@ -141,7 +141,7 @@ public class Spieler {
 	
 	/**
 	 * Vergleicht den Spieler mit dem uebergebenen Objekt.
-	 * @param Vergleich Das Objekt, welches man vergleichen will
+	 * @param o Das Objekt, welches man vergleichen will
 	 * @return Boolean Ob zwei verglichene Objekte gleich
 	 * in ihren Attributen sind
 	 */

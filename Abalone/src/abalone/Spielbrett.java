@@ -138,7 +138,7 @@ public class Spielbrett {
 	/**
 	 * Gibt das Brettattribut des Spielbretts zurück.
 	 * @return Brettattribut in Form von einer
-	 * HashMap<String,Spielfeld>  des Spielbretts.
+	 * HashMap(String,Spielfeld)  des Spielbretts.
 	 * 
 	 */
 	public HashMap<String, Spielfeld> getBrett() {
