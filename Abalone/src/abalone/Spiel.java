@@ -134,9 +134,10 @@ public class Spiel {
 			if (zugValidieren(spielzuege)) {
 				spielzuege = spielzugSplitter(spielzug);
 				if (spielzuege[0].getNach() == null) {
+					letzterZug = spielzuege[0];
+					herausgedraengt = true;
 					halter.setNach(halter.getNach() + "*");
 				}
-
 				spielBrett.ziehe(spielzuege);
 				historie.spielzugHinzufuegen(halter);
 				if (getFarbeAmZug() == spielerImSpiel[0].getFarbe()) {
@@ -822,4 +823,64 @@ public class Spiel {
 		return new Spielzug(vonFeld1 + "" + vonFeld2, nachFeld);
 
 	}
+	
+	private String addSternchen(String brettAlsString, Spielzug zug) {
+		String[] brettAlsArray = brettAlsString.split("\n");
+		char[] spielZugVon = zug.getVon().toCharArray();
+		int richtung = zug.getRichtung();
+		spielZugVon[0] = zug.getVon().charAt(0);
+		spielZugVon[1] = zug.getVon().charAt(1);
+		int zeilenIndex = 0;
+		char[] alsArray = null;
+		for(int i = 0; i < brettAlsArray.length; i++) {
+			if(richtung == 1 || richtung == 4) {
+				if(brettAlsArray[i].charAt(0) == spielZugVon[0]) {
+					zeilenIndex = i-1;
+				}
+			}
+			if(richtung == 0 || richtung == 3) {
+				if(brettAlsArray[i].charAt(0) == spielZugVon[0]) {
+					zeilenIndex = i;
+				}
+			}
+			if(richtung == 2 || richtung == 5) {
+				if(brettAlsArray[i].charAt(0) == spielZugVon[0] - 1) {
+					zeilenIndex = i+1;
+				}
+			}
+		}
+		boolean isFirst = false;
+		alsArray = brettAlsArray[zeilenIndex].toCharArray();
+		for(int i = 0; i < brettAlsArray[zeilenIndex].length(); i++) {
+			char aktuellerChar = alsArray[i];
+			if(richtung >= 0 && richtung < 3) {
+				aktuellerChar = alsArray[i];
+				if((aktuellerChar == 'O' || aktuellerChar == 'X'|| aktuellerChar == '-') && !isFirst) {
+					alsArray[i-1] = '*';
+					isFirst = true;
+				}
+			}
+			if(richtung >= 3 && richtung < 6) {
+				aktuellerChar = alsArray[i];
+				if((aktuellerChar == 'O' || aktuellerChar == 'X'|| aktuellerChar == '-') && !isFirst) {
+					if(alsArray[i+2] == ' ') {
+						alsArray[i+1] = '*';
+						isFirst = true;
+					}
+				}
+			}
+		}
+		isFirst = false;
+		String zeile = "";
+		for(int i = 0; i < alsArray.length; i++) {
+			zeile += alsArray[i];
+		}
+		brettAlsArray[zeilenIndex] = zeile;
+		String neuesBrett = "";
+		for(int i = 0; i < brettAlsArray.length; i++) {
+			neuesBrett += brettAlsArray[i] + "\n";
+		}
+		return neuesBrett;
+		
+	} 
 }
