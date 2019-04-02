@@ -246,16 +246,20 @@ public class Spiel {
 	 * @return der Status als String
 	 */
 	public String getStatus() {
-		String[] verloreneKugeln = { "", " *", " * *", " * * *", " * * * *", " * * * * *", " * * * * * *" };
+		String[] geschlageneKugeln = { "", " *", " * *", " * * *", " * * * *", " * * * * *", " * * * * * *" };
 		String amZug = "Am zug ist: " + spielerAmZug.getName() + "\n";
 		String verbleibendeSteine = "\r\n" + "Spieler " + this.spielerImSpiel[0].getName() + "(O) hat noch "
-				+ this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe()) + " Kugeln. \n" + "Verlorene Kugeln:"
-				+ verloreneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())] + "\n" + "\n"
+				+ this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe()) + " Kugeln. \n" + "Geschlagene Kugeln:"
+				+ geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())] + "\n" + "\n"
 				+ "Spieler " + this.spielerImSpiel[1].getName() + "(X) hat noch "
-				+ this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln. \r\n" + "Verlorene Kugeln:"
-				+ verloreneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())] + "\n";
+				+ this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln. \r\n" + "Geschlagene Kugeln:"
+				+ geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())] + "\n";
 
 		String feld = this.spielBrett.toString() + "\n";
+		if(herausgedraengt) {
+			feld = this.addSternchen(feld, letzterZug);
+			herausgedraengt = false;
+		}
 		return feld + verbleibendeSteine + "\n" + amZug;
 
 	}
