@@ -177,16 +177,18 @@ public class SpielbrettTest {
 	@Test
 	public void testeToString() {
 		Spielbrett testBrett = new Spielbrett();
-		String erwartet =  "I     O O O O O \n" + 
-						   "H    O O O O O O \n" + 
-						   "G   - - O O O - - \n" + 
-						   "F  - - - - - - - - \n" + 
-						   "E - - - - - - - - - \n" +	 
-						   "D  - - - - - - - - 9\n" + 
-						   "C   - - X X X - - 8\n" + 
-						   "B    X X X X X X 7\n" + 
-						   "A     X X X X X 6\n" + 
-						   "       1 2 3 4 5";
+		String erwartet = "                    \n" +
+				 "I     O O O O O \n" + 
+				"H    O O O O O O \n" + 
+				"G   - - O O O - - \n" + 
+				"F  - - - - - - - - \n" + 
+				"E - - - - - - - - - \n" + 
+				"D  - - - - - - - - \n" + 
+				"C   - - X X X - -   9\n" + 
+				"B    X X X X X X   8\n" + 
+				"A     X X X X X   7\n" + 
+				"                 6\n" + 
+				"        1 2 3 4 5 ";
 		assertEquals(erwartet, testBrett.toString());
 	}
 }

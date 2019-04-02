@@ -178,7 +178,7 @@ public class Spielbrett {
 	@Override
 	public String toString() {
 		StringBuilder gesamtesFeld = new StringBuilder();
-
+		gesamtesFeld.append("                    \n");
 		// Start am Ende des Arrays, da I oben steht
 		for(int i = KOORDINATENQUER.length - 1; i >= 0; i--) {
 			String einzelneQuerlinie = baueEinzelneQuerlinie(i);
@@ -186,7 +186,8 @@ public class Spielbrett {
 		}
 
 		// Untere Koordinaten anfügen
-		gesamtesFeld.append("       " + "1 2 3 4 5");
+		gesamtesFeld.append("                 6\n");
+		gesamtesFeld.append("        " + "1 2 3 4 5 ");
 		return gesamtesFeld.toString();
 	}
 
@@ -217,9 +218,9 @@ public class Spielbrett {
 		einzelneQuerlinie.append(felder);
 
 		//Koordinaten an rechter, unterer Seite anfügen
-		if(posKoordinateQuer < 4) {
-			int arrPos = MAXDIAGONALE - 4 + posKoordinateQuer;
-			einzelneQuerlinie.append(KOORDINATENDIAGONAL[arrPos]);
+		if(posKoordinateQuer < 3) {
+			int arrPos = MAXDIAGONALE - 3 + posKoordinateQuer ;
+			einzelneQuerlinie.append("  " + KOORDINATENDIAGONAL[arrPos]);
 		}
 		return einzelneQuerlinie.toString(); 
 	}
