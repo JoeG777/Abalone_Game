@@ -18,6 +18,8 @@ public class Spiel {
 	private Spieler[] spielerImSpiel;
 	private Spielbrett spielBrett;
 	private Historie historie;
+	private boolean  herausgedraengt = false;
+	Spielzug letzterZug;
 
 	/**
 	 * Konstruktor, instanziiert alle anfangs benoetigten Objekte.
