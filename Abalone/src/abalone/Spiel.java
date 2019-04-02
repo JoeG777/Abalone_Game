@@ -712,7 +712,7 @@ public class Spiel {
 		if (zielfeld.istDurchGegnerBesetzt(getFarbeAmZug())) {
 			Spielfeld zielNachbar = zielfeld.getNachbar(richtung);
 			if (zielNachbar == null) {
-				zielFeldZug = new Spielzug(zielfeld.getId(), null);
+				zielFeldZug = new Spielzug(zielfeld.getId(), null, zug.getRichtung(), zug.getFarbe());
 
 			} else {
 				zielFeldZug = new Spielzug(zielfeld.getId(), zielNachbar.getId());
@@ -720,10 +720,10 @@ public class Spiel {
 			if (zielNachbar != null && zielNachbar.istDurchGegnerBesetzt(getFarbeAmZug())) {
 				Spielfeld zielNachbar2 = zielNachbar.getNachbar(richtung);
 				if (zielNachbar2 == null) {
-					zielNachbarzug = new Spielzug(zielNachbar.getId(), null);
+					zielNachbarzug = new Spielzug(zielNachbar.getId(), null, zug.getRichtung(), zug.getFarbe());
 
 				} else {
-					zielNachbarzug = new Spielzug(zielNachbar.getId(), zielNachbar2.getId());
+					zielNachbarzug = new Spielzug(zielNachbar.getId(), zielNachbar2.getId(), zug.getRichtung(), zug.getFarbe());
 				}
 			}
 		}
@@ -837,46 +837,142 @@ public class Spiel {
 		spielZugVon[0] = zug.getVon().charAt(0);
 		spielZugVon[1] = zug.getVon().charAt(1);
 		int zeilenIndex = 0;
+		boolean gefunden = false;
 		char[] alsArray = null;
-		for(int i = 0; i < brettAlsArray.length; i++) {
-			if(richtung == 1 || richtung == 4) {
-				if(brettAlsArray[i].charAt(0) == spielZugVon[0]) {
-					zeilenIndex = i-1;
+		//if(!(spielZugVon[0] == 'I' && richtung == 1 || spielZugVon[0] == 'I' && richtung == 4) || !(spielZugVon[0] == 'A' && richtung ==2 || spielZugVon[0] == 'A' && richtung == 5)) {
+		if(!(spielZugVon[0] == 'A' && richtung ==2 || spielZugVon[0] == 'A' && richtung == 5)) {
+			for(int i = 0; i < brettAlsArray.length; i++) {
+				if(richtung == 1 || richtung == 4) {
+					if(brettAlsArray[i].charAt(0) == spielZugVon[0] && !gefunden) {
+						zeilenIndex = i-1;
+						gefunden = true;
+					}
+				}
+				if(richtung == 0 || richtung == 3) {
+					if(brettAlsArray[i].charAt(0) == spielZugVon[0] && !gefunden) {
+						zeilenIndex = i;
+						gefunden = true;
+					}
+				}
+				if(richtung == 2 || richtung == 5) {
+					if(brettAlsArray[i].charAt(0) == spielZugVon[0] && !gefunden) {
+						zeilenIndex = i+1;
+						gefunden = true;
+					}
 				}
 			}
-			if(richtung == 0 || richtung == 3) {
-				if(brettAlsArray[i].charAt(0) == spielZugVon[0]) {
-					zeilenIndex = i;
+			gefunden = false;
+			alsArray = brettAlsArray[zeilenIndex].toCharArray();
+			for(int i = 0; i < brettAlsArray[zeilenIndex].length(); i++) {
+				char aktuellerChar = alsArray[i];
+				if(richtung >= 0 && richtung < 3) {
+					aktuellerChar = alsArray[i];
+					if((aktuellerChar == 'O' || aktuellerChar == 'X'|| aktuellerChar == '-') && !gefunden) {
+						if(richtung != 0) 
+							alsArray[i-2] = '*';
+						else
+							alsArray[i-2] = '*';
+						gefunden = true;
+					}
 				}
-			}
-			if(richtung == 2 || richtung == 5) {
-				if(brettAlsArray[i].charAt(0) == spielZugVon[0] - 1) {
-					zeilenIndex = i+1;
-				}
-			}
-		}
-		boolean isFirst = false;
-		alsArray = brettAlsArray[zeilenIndex].toCharArray();
-		for(int i = 0; i < brettAlsArray[zeilenIndex].length(); i++) {
-			char aktuellerChar = alsArray[i];
-			if(richtung >= 0 && richtung < 3) {
-				aktuellerChar = alsArray[i];
-				if((aktuellerChar == 'O' || aktuellerChar == 'X'|| aktuellerChar == '-') && !isFirst) {
-					alsArray[i-1] = '*';
-					isFirst = true;
-				}
-			}
-			if(richtung >= 3 && richtung < 6) {
-				aktuellerChar = alsArray[i];
-				if((aktuellerChar == 'O' || aktuellerChar == 'X'|| aktuellerChar == '-') && !isFirst) {
-					if(alsArray[i+2] == ' ') {
-						alsArray[i+1] = '*';
-						isFirst = true;
+				if(richtung >= 3 && richtung < 6) {
+					aktuellerChar = alsArray[i];
+					if((aktuellerChar == 'O' || aktuellerChar == 'X'|| aktuellerChar == '-') && !gefunden) {
+						if(alsArray[i+2] == ' ') {
+							alsArray[i+2] = '*';
+							gefunden = true;
+						}
 					}
 				}
 			}
 		}
-		isFirst = false;
+		if(spielZugVon[0] == 'I') {
+			alsArray = brettAlsArray[0].toCharArray();
+			zeilenIndex = 0;
+			switch (spielZugVon[1]) {
+				case '5' : if(richtung == 1) {
+								alsArray[5] = '*';
+							}
+						   if( richtung == 4) {
+							   alsArray[7] = '*';
+							}
+						   break;
+				case '6' : if(richtung == 1) {
+								alsArray[7] = '*';
+							}
+						   if( richtung == 4) {
+							   alsArray[9] = '*';
+						    }
+						   break;
+				case '7' : if(richtung == 1) {
+							   alsArray[9] = '*';
+							}
+						   if( richtung == 4) {
+							   alsArray[11] = '*';
+						   }
+						   break;
+				case '8' : if(richtung == 1) {
+								alsArray[11] = '*';
+						   }
+						   if( richtung == 4) {
+							   alsArray[13] = '*';
+						   }
+						   break;
+				case '9' : if(richtung == 1) {
+							   alsArray[13] = '*';
+						   }
+						   if( richtung == 4) {
+							   alsArray[15] = '*';
+						   }
+						   break;
+				
+			}
+			
+		}
+		if(spielZugVon[0] == 'A') {
+			alsArray = brettAlsArray[10].toCharArray();
+			zeilenIndex = 10;
+			switch (spielZugVon[1]) {
+				case '1' : if(richtung == 2) {
+								alsArray[5] = '*';
+							}
+						   if( richtung == 5) {
+							   alsArray[7] = '*';
+							}
+						   break;
+				case '2' : if(richtung == 2) {
+								alsArray[7] = '*';
+							}
+						   if( richtung == 5) {
+							   alsArray[9] = '*';
+						    }
+						   break;
+				case '3' : if(richtung == 2) {
+							   alsArray[9] = '*';
+							}
+						   if( richtung == 5) {
+							   alsArray[11] = '*';
+						   }
+						   break;
+				case '4' : if(richtung == 2) {
+								alsArray[11] = '*';
+						   }
+						   if( richtung == 5) {
+							   alsArray[13] = '*';
+						   }
+						   break;
+				case '5' : if(richtung == 2) {
+							   alsArray[13] = '*';
+						   }
+						   if( richtung ==5) {
+							   alsArray[15] = '*';
+						   }
+						   break;
+				
+			}
+			
+		}
+		gefunden = false;
 		String zeile = "";
 		for(int i = 0; i < alsArray.length; i++) {
 			zeile += alsArray[i];
