@@ -73,6 +73,7 @@ public class UI {
 	
 	/**
 	 * Diese Methode ist ein Hilfsmenue fuer das Regelwerk und die Bedienung von Abalone.
+	 * @param spiel Das erstelle Spiel Objekt.
 	 */
 	public static void hilfsMenu(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
@@ -183,9 +184,9 @@ public class UI {
 	/**
 	 * Gibt das Hauptmenue aus, wartet auf eine Eingabe:
 	 * 1 fuer getHistorie()
-	 * 2 fuer hilsMenue
+	 * 2 fuer hilfsMenue
 	 * 3 fuer weiter spielen
-	 * @param spiel
+	 * @param spiel Das erstellte Spiel Objekt.
 	 */
 	public static void hauptMenue(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
