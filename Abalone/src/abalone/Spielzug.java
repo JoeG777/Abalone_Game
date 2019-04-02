@@ -74,7 +74,7 @@ public class Spielzug {
 	
 	/**
 	 * Setzt die Position der Figuren nach dem Zug
-	 * @param von Die Position der Figuren nach dem Zug
+	 * @param nach Die Position der Figuren nach dem Zug
 	 */
 	public void setNach(String nach) {
 		this.nach = nach;
@@ -82,7 +82,7 @@ public class Spielzug {
 	
 	/**
 	 * Setzt die Richtung, in die der Spielzug geht
-	 * @param von Die Richtung, in die der Spielzug geht
+	 * @param richtung Die Richtung, in die der Spielzug geht
 	 */
 	public void setRichtung(int richtung) {
 		this.richtung = richtung;
@@ -90,7 +90,7 @@ public class Spielzug {
 	
 	/**
 	 * Setzt die Farbe der Figuren
-	 * @param von Die Farbe der Figuren
+	 * @param farbe Die Farbe der Figuren
 	 */
 	public void setFarbe(FarbEnum farbe) {
 		this.farbe = farbe;
@@ -99,7 +99,7 @@ public class Spielzug {
 	/**
 	 * Die equals Methode, die alle enthaltenen Daten eines Spielzug auf
 	 * Gleichheit überprüft
-	 * @param Objekt
+	 * @param o
 	 * @return Wahrheitswert Ob das übergebene Objekt und der referenzierte
 	 * Spielzug tatsächlich gleich sind
 	 */

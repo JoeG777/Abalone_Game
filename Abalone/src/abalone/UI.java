@@ -35,14 +35,18 @@ public class UI {
 		}
 		System.out.println("Spieler angelegt. Nun gib den Namen für den Spieler mit der Farbe Schwarz ein:");
 		System.out.print(">");
-		name = sc.nextLine();
+		String name2 = sc.nextLine();
+		while(name2.equalsIgnoreCase(name)) {
+			System.out.println("Bitte geben Sie unterschiedliche Namen für die Spieler ein!");
+			name2 = sc.nextLine();
+		}
 		while(name.length() > 20) {
 			System.out.println("Bitte geben Sie einen Namen mit weniger als 20 Zeichen an!");
 			System.out.print(">");
-			name = sc.nextLine();
+			name2 = sc.nextLine();
 		}
 		try {
-			spiel.addSpieler(name, "schwarz");
+			spiel.addSpieler(name2, "schwarz");
 		}catch(IllegalArgumentException e) {
 			System.out.println("Unzulässige eingabe, bitte benutze WEISS für Weiss und SCHWARZ für Schwarz)");
 		}
@@ -69,6 +73,7 @@ public class UI {
 	
 	/**
 	 * Diese Methode ist ein Hilfsmenue fuer das Regelwerk und die Bedienung von Abalone.
+	 * @param spiel Das erstelle Spiel Objekt.
 	 */
 	public static void hilfsMenu(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);
@@ -179,9 +184,9 @@ public class UI {
 	/**
 	 * Gibt das Hauptmenue aus, wartet auf eine Eingabe:
 	 * 1 fuer getHistorie()
-	 * 2 fuer hilsMenue
+	 * 2 fuer hilfsMenue
 	 * 3 fuer weiter spielen
-	 * @param spiel
+	 * @param spiel Das erstellte Spiel Objekt.
 	 */
 	public static void hauptMenue(Spiel spiel) {
 		Scanner sc = new Scanner(System.in);

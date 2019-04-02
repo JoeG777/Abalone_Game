@@ -175,7 +175,7 @@ public class Spielfeld {
 	
 	/**
 	 * Prueft, ob ein Feld den mitgegebenen Nachbar hat.
-	 * @param Spielfeld-Objekt des Nachbarn.
+	 * @param feld Spielfeld-Objekt des Nachbarn.
 	 * @return true, wenn Feld Nachbar hat, false wenn nicht.
 	 */
 	public boolean hatNachbar(Spielfeld feld) {
