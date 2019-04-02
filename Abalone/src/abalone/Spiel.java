@@ -20,7 +20,7 @@ public class Spiel {
 	private Historie historie;
 
 	/**
-	 * Konstruktor, instanziiert alle Anfangs benoetigten Objekte
+	 * Konstruktor, instanziiert alle anfangs benoetigten Objekte.
 	 */
 	public Spiel() {
 		spielBrett = new Spielbrett();
@@ -29,23 +29,25 @@ public class Spiel {
 	}
 
 	/**
-	 * Gibt alle Spieler Objekte im Spiel als Array zurueck
+	 * Gibt alle Spieler Objekte im Spiel als Array zurueck.
 	 * 
-	 * @return ein Array des Typs Spieler
+	 * @return spielerImSpiel Ein Array des Typs Spieler.
 	 */
 	public Spieler[] getSpielerImSpiel() {
 		return spielerImSpiel;
 	}
 
 	/**
-	 * Diese Methode wird Benutzt, um Spieler einem Spiel hinzuzufuegen. Sie fuegt
-	 * maximal 2 Spieler hinzu. Sollte ein dritter Spieler hinzugefügt werden, wirft
+	 * Diese Methode wird benutzt um Spieler einem Spiel hinzuzufuegen. Sie fuegt
+	 * maximal 2 Spieler hinzu. Sollte ein dritter Spieler hinzugefuegt werden, wirft
 	 * die Methode eine IndexOutOfBounds Exception.
 	 * 
-	 * @param name  Der für den Spieler gewaehlte Name
-	 * @param farbe Die für den Spieler gewaehlte Farbe
-	 * @exception IllegalArgumentException Wird geworfen, wenn der String Farbe nicht "schwarz" oder "weiss" entspricht,
-	 * @exception IndexOutOfBoundsException wird geworfen wenn ein Spieler hinzugefuegt wird, obwohl bereits zwei Spieler im
+	 * @param name  Der für den Spieler gewaehlte Name.
+	 * @param farbe Die für den Spieler gewaehlte Farbe.
+	 * @exception IllegalArgumentException Wird geworfen, wenn der String farbe
+	 *  nicht "schwarz" oder "weiss" entspricht.
+	 * @exception IndexOutOfBoundsException wird geworfen wenn ein Spieler
+	 *  hinzugefuegt wird, obwohl bereits zwei Spieler im
 	 * Spiel sind.
 	 * @since 1.0
 	 */
@@ -69,26 +71,26 @@ public class Spiel {
 	/**
 	 * Diese Methode gibt den Namen des aktuellen Spielers zurueck.
 	 * 
-	 * @return Name des aktuellen Spielers als String.
+	 * @return spielerName Name des Spielers, welcher am Zug ist, als String.
 	 */
 	public String getSpielerAmZug() {
 		return spielerAmZug.getName();
 	}
 
 	/**
-	 * Git die Farbe des Spielers zurueck, der aktuell am Zug ist
+	 * Gibt die Farbe des Spielers zurueck, der aktuell am Zug ist.
 	 * 
-	 * @return ein Objekt der Klasse FarbEnum
+	 * @return spielerFarbe Ein Objekt der Klasse FarbEnum.
 	 */
 	private FarbEnum getFarbeAmZug() {
 		return this.spielerAmZug.getFarbe();
 	}
 
 	/**
-	 * Fragt ab, ob ein Spieler gewonnen hat
+	 * Fragt ab, ob ein Spieler gewonnen hat.
 	 * 
-	 * @param name Name eines Spielers
-	 * @return Boolean Ob der übergebene Spieler gewonnen hat
+	 * @param name Name eines Spielers.
+	 * @return boolean Ob der uebergebene Spieler gewonnen hat.
 	 */
 	public boolean hatGewonnen(String name) {
 		Spieler spieler = null;
@@ -109,12 +111,17 @@ public class Spiel {
 	}
 
 	/**
-	 * Die ziehe Methode erzeugt aus zwei Strings ein Zug Objekt und übergibt dieses
+	 * Die ziehe Methode erzeugt aus zwei Strings ein Zug Objekt und uebergibt dieses
 	 * dem Spielbrett.
 	 * 
-	 * @param zug Ein String Array mit den Werten [0] = von wo gezogen wird, [1] =
+	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1] =
 	 *            wohin gezogen wird.
+<<<<<<< HEAD
 	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException wenn zugValidieren false zurueck gibt oder ein Array Eintrag NULL ist
+=======
+	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException 
+	 * wenn zugValidieren false zurueck gibt oder ein Array Eintrag NULL ist.
+>>>>>>> 993a08af94709a7ffd792128a45919838295256c
 	 * @since 1.0
 	 */
 	public void ziehe(String[] zug) {
@@ -148,10 +155,10 @@ public class Spiel {
 	}
 
 	/**
-	 * Gibt erlaubte Zuege zurueck
-	 * @param ausgangsFelder Felder, deren moegliche Zugmoeglichkeiten
+	 * Gibt die erlaubten Zuege zurueck.
+	 * @param ausgangsFelder Die Ausgangsfelder, von denen gezogen wird.
 	 * gesammelt werden sollen.
-	 * @return ein String Array mit den erlaubten Zuegen
+	 * @return ErlaubteZuege Ein String Array mit den erlaubten Zuegen.
 	 */
 	public String[] getErlaubteZuege(String[] ausgangsFelder) {
 		ArrayList<String> erlaubteZuege = new ArrayList<String>();
@@ -216,17 +223,17 @@ public class Spiel {
 	/**
 	 * Zaehlt die Kugeln auf dem Feld mit einer gegebenen Farbe.
 	 * 
-	 * @param zu zeaehlende Farbe
-	 * @return Anzahl der Kugeln mit dieser Farbe
+	 * @param farbe zu zeaehlende Farbe als FarnEnum.
+	 * @return AnzahlKugeln Anzahl der Kugeln mit dieser Farbe
 	 */
 	private int zaehleKugelnMitFarbe(FarbEnum farbe) {
 		return spielBrett.getFelderMitFarbe(farbe).size();
 	}
 
 	/**
-	 * Gibt die Historie zurueck
+	 * Gibt die Historie zurueck.
 	 * 
-	 * @return Historie als String
+	 * @return HistorienString Historie als String.
 	 */
 	public String getHistorie() {
 		return this.historie.toString();
@@ -234,20 +241,20 @@ public class Spiel {
 	}
 
 	/**
-	 * Gibt den Status des Spiels zurueck. Dieser umfasst: Das Spielbrett Welcher
-	 * Spieler am Zug ist Welche Spieler noch wie viele Steine im Spiel haben
+	 * Gibt den Status des Spiels zurueck. Dieser umfasst: Das Spielbrett; Welcher
+	 * Spieler am Zug ist; Welche Spieler noch wie viele Steine im Spiel haben
 	 * 
 	 * @return der Status als String
 	 */
 	public String getStatus() {
-		String[] geschlageneKugeln = { "", " *", " * *", " * * *", " * * * *", " * * * * *", " * * * * * *" };
+		String[] verloreneKugeln = { "", " *", " * *", " * * *", " * * * *", " * * * * *", " * * * * * *" };
 		String amZug = "Am zug ist: " + spielerAmZug.getName() + "\n";
 		String verbleibendeSteine = "\r\n" + "Spieler " + this.spielerImSpiel[0].getName() + "(O) hat noch "
-				+ this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe()) + " Kugeln. \n" + "Geschlagene Kugeln:"
-				+ geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())] + "\n" + "\n"
+				+ this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe()) + " Kugeln. \n" + "Verlorene Kugeln:"
+				+ verloreneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())] + "\n" + "\n"
 				+ "Spieler " + this.spielerImSpiel[1].getName() + "(X) hat noch "
-				+ this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln. \r\n" + "Geschlagene Kugeln:"
-				+ geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())] + "\n";
+				+ this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln. \r\n" + "Verlorene Kugeln:"
+				+ verloreneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())] + "\n";
 
 		String feld = this.spielBrett.toString() + "\n";
 		return feld + verbleibendeSteine + "\n" + amZug;
@@ -338,8 +345,8 @@ public class Spiel {
 	 * Prueft ob die gegeben Koordinaten einem validen Zug entsprechen, unabhaengig
 	 * von der aktuellen Feldbelegegung.
 	 * 
-	 * @param geparsterZug ein zweidimensionales Char Array.
-	 * @return true oder false in Abhaengigkeit der Validitaet eines Zuges.
+	 * @param geparsterZug Ein zweidimensionales Char Array.
+	 * @return boolean true oder false in Abhaengigkeit der Validitaet eines Zuges.
 	 * @since 1.1
 	 */
 	private boolean koordinatenValidieren(char[][] geparsterZug) {
@@ -414,11 +421,11 @@ public class Spiel {
 	}
 
 	/**
-	 * Prueft ob eine serie Zueg abhaengig von der Spielfeldbelegung ausfuehrbar
+	 * Prueft ob mehrere Zuege abhaengig von der Spielfeldbelegung ausfuehrbar
 	 * sind.
 	 * 
-	 * @param Array des Typs Spielzug
-	 * @return True oder False, in abhaengigkeit von der Validitaet der Zuege
+	 * @param zuege Array des Typs Spielzug.
+	 * @return boolean True oder False, in Abhaengigkeit der Validitaet der Zuege.
 	 */
 	private boolean zugValidieren(Spielzug[] zuege) {
 		boolean erfolgreich = false;
@@ -524,10 +531,10 @@ public class Spiel {
 
 	/**
 	 * Checkt, in welche Richtung ein Zug geht. 0 = Links 1 = Oben Links 2 = Unten
-	 * Links 3 = rechts 4 = Oben Rechts 5 = Unten Rechts
+	 * Links 3 = Rechts 4 = Oben Rechts 5 = Unten Rechts.
 	 * 
-	 * @param Zug Objekt
-	 * @return Index des Objektes, in dessen Richtung gezogen wird
+	 * @param Zug Objekt des Typs Zug.
+	 * @return SpielzugRichtung Index des Objektes, in dessen Richtung gezogen wird.
 	 * @since 1.3
 	 */
 	private int bekommeRichtung(Spielzug zug) {
@@ -546,7 +553,7 @@ public class Spiel {
 	 * 
 	 * @param ausgangsfelder Die Felder, von denen gezogen wird.
 	 * @param richtung       Die Richtung des Zuges.
-	 * @return Spielfeld-Array mit allen Zielfeldern des Zuges.
+	 * @return Spielfeld-Array  Ein Array mit allen Zielfeldern des Zuges.
 	 */
 	private Spielfeld[] getZielfelder(Spielfeld[] ausgangsfelder, int richtung) {
 		Spielfeld[] zielfelder = new Spielfeld[ausgangsfelder.length];
@@ -560,13 +567,13 @@ public class Spiel {
 	}
 
 	/**
-	 * Prueft, ob es sich bei einem regulären Zug um einen Zug handelt, bei dem
+	 * Prueft, ob es sich bei einem regulaeren Zug um einen Zug handelt, bei dem
 	 * eigene Steine in einer Linie geschoben werden.
 	 * 
-	 * @param felder   Die Ausgangsfelder eines Spielzuges
+	 * @param felder   Die Ausgangsfelder eines Spielzuges.
 	 * @param richtung Die Richtung der Bewegung (Position im Array).
-	 * @return true, wenn es sich um Zug handelt, bei dem eigene Steine geschoben
-	 *         werden. false, wenn es sich nicht, um einen solchen Zug handelt.
+	 * @return boolean true, wenn es sich um einen Zug handelt, bei dem eigene Steine geschoben
+	 *         werden. false, wenn es sich nicht um einen solchen Zug handelt.
 	 */
 
 	private boolean isSchiebung(Spielfeld[] felder, int richtung) {
@@ -584,12 +591,12 @@ public class Spiel {
 	}
 
 	/**
-	 * Prüft, ob ein Zwei-zu-eins Sumito möglich ist.
+	 * Prueft, ob ein Zwei-zu-eins Sumito moeglich ist.
 	 * 
 	 * @param vordersterStein der vorderste Stein eines Spielzuges in dem zwei bis
 	 *                        drei Steine bewegt werden.
 	 * @param richtung        die Richtung des Spielzuges.
-	 * @return true, wenn möglich, false, wenn nicht möglich.
+	 * @return boolean true, wenn möglich, false, wenn nicht möglich.
 	 */
 	private boolean isZuEinsSumito(Spielfeld vordersterStein, int richtung) {
 		Spielfeld nachbarInRichtung = vordersterStein.getNachbar(richtung);
@@ -613,7 +620,7 @@ public class Spiel {
 	 * 
 	 * @param felder   Felder auf denen sich die zu ziehenden Steine befinden.
 	 * @param richtung Die Richtung des Zuges.
-	 * @return Spielfeld-Objekt auf dem sich der vorderste Stein befindet
+	 * @return Spielfeld-Objekt Spielfeld auf dem sich der vorderste Stein befindet.
 	 */
 	private Spielfeld getVorderstenStein(Spielfeld[] felder, int richtung) {
 		Spielfeld posVordersterStein = null;
@@ -640,9 +647,9 @@ public class Spiel {
 	 * Prueft, ob ein gegnerischer Stein durch Ausfuehrung des Zuges vom Spielbrett
 	 * geworfen wird. Falls dies zutrifft, wird die Figur vom Spielfeld entfernt.
 	 * 
-	 * @param gegnerStein das Feld, auf dem der Stein ist.
-	 * @param richtung    die Richtung des Spielzuges
-	 * @return true, wenn Stein runtergeworfen wird, false, wenn nicht.
+	 * @param gegnerischerStein Das Feld, auf dem der Stein ist.
+	 * @param richtung    Richtung des Spielzuges.
+	 * @return boolean true, wenn der Stein runtergeworfen wird, false, wenn nicht.
 	 */
 	private boolean steinAbgeraeumt(Spielfeld gegnerStein, int richtung) {
 		if (gegnerStein.getNachbar(richtung) == null) {
@@ -653,12 +660,12 @@ public class Spiel {
 	}
 
 	/**
-	 * Prüft, ob ein Zwei-zu-drei Sumito möglich ist.
+	 * Prueft, ob ein Zwei-zu-drei Sumito möglich ist.
 	 * 
 	 * @param vordersterStein der vorderste Stein eines Spielzuges in dem drei
 	 *                        Steine bewegt werden.
 	 * @param richtung        die Richtung des Spielzuges.
-	 * @return true, wenn möglich, false, wenn nicht möglich.
+	 * @return boolean true, wenn möglich, false, wenn nicht möglich.
 	 */
 	private boolean isZuZweiSumito(Spielfeld vordersterStein, int richtung) {
 		Spielfeld erstesFeldInRichtung = vordersterStein.getNachbar(richtung);
@@ -680,10 +687,10 @@ public class Spiel {
 	}
 
 	/**
-	 * Ermittelt aus einem Spielzug wie welche Steine einzeln gezogen werden muessen
+	 * Ermittelt aus einem Spielzug wie welche Steine einzeln gezogen werden muessen.
 	 * 
-	 * @param zug
-	 * @return ein Array des Typs Spielzug mit allen einzeln auszufuehrenden Zuegn
+	 * @param zug Der geplante Spielzug.
+	 * @return SpielzugArray Ein Array des Typs Spielzug mit allen einzeln auszufuehrenden Zuegen.
 	 */
 	private Spielzug[] spielzugSplitter(Spielzug zug) {
 		Spielfeld[] felder = spielBrett.getAusgangsfelder(zug);
@@ -738,9 +745,9 @@ public class Spiel {
 	/**
 	 * Gibt das hinterste Feld eines Spielzuges zurueck.
 	 * 
-	 * @param Ein Array des Typs Felder
-	 * @param Die Richtung, in die gezogen wird
-	 * @return Das hinterste Spielfeld als Spielfeld Objekt
+	 * @param felder Ein Array des Typs Felder.
+	 * @param richtung Die Richtung, in die gezogen wird.
+	 * @return spielfeld Das hinterste Spielfeld als Spielfeld Objekt.
 	 */
 	private Spielfeld getHinterstenStein(Spielfeld[] felder, int richtung) {
 		if (felder.length == 3) {
@@ -762,11 +769,11 @@ public class Spiel {
 	}
 
 	/**
-	 * Ordnet ein Spielfeld Array nach einer gegebenen Richtung
+	 * Ordnet ein Spielfeld Array nach einer gegebenen Richtung.
 	 * 
-	 * @param Ein Array mit zu ordnenden Spielfeldern
-	 * @param Die Richtung, nach der geordnet werden soll
-	 * @return Das sotrierte Array
+	 * @param felder Ein Array mit zu ordnenden Spielfeldern.
+	 * @param richtung Die Richtung, nach der geordnet werden soll.
+	 * @return sortiertesArray Das sortierte Array aus Spielfeldern.
 	 */
 	private Spielfeld[] ordneInRichtung(Spielfeld[] felder, int richtung) {
 		ArrayList<Spielfeld> geordneteFelder = new ArrayList<Spielfeld>();
@@ -783,10 +790,10 @@ public class Spiel {
 	}
 
 	/**
-	 * Formatiert einen Spielzug in die intern benutzte Notation
+	 * Formatiert einen Spielzug in die intern benutzte Notation.
 	 * 
-	 * @param Spielzug
-	 * @return Formatierter Spielzug
+	 * @param zug Der geplante Spielzug.
+	 * @return formatiertenZug Formatierter Spielzug.
 	 */
 	private Spielzug formatieren(Spielzug zug) {
 		if (zug.getVon().length() == 2) {
