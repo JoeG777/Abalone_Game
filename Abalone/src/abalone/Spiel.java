@@ -276,8 +276,11 @@ public class Spiel {
 	 */
 	private char[][] spielzugParser(String[] zug) {
 		char[][] geparsterZug = new char[2][];
-		if (zug.length < 2) {
+		if (zug.length < 2 ) {
 			throw new IllegalArgumentException("Ungueltige laenge: " + zug.length);
+		}
+		if(zug[0] == null || zug[1] == null) {
+			throw new IllegalArgumentException("Ungueltiger Zug");
 		}
 		if (zug[0].length() % 2 != 0 || zug[0].length() > 4) {
 			throw new IllegalArgumentException("Ungueltige zuglaenge: " + zug[0].length());
