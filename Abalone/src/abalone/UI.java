@@ -285,8 +285,10 @@ public class UI {
 	 * @param verlierer Der Verlierer des Spiels.
 	 */
 	public static void spielBeenden(String gewinner, String verlierer) {
+		if (gewinner != null && verlierer != null) {
 		System.out.println("Hurraa " + gewinner + " Hat das Spiel gewonnen!");
 		System.out.println("Verlierer der heutigen Runde ist: " + verlierer + "!");
+		}
 		System.out.println();
 		System.out.println();
 		System.out.println("###############################################\r\n" + 
