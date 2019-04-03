@@ -154,7 +154,8 @@ public class UI {
 		boolean imSpiel = true;
 		while(imSpiel) {
 			System.out.println();
-			System.out.println("Geben Sie 'Menu' ein falls Sie ins Hauptmenu wollen");
+			System.out.println("Geben Sie 'Menu' ein falls Sie ins Hauptmenu wollen"
+					+ " und 'exit' falls sie das Spiel abbrechen moechten.");
 			System.out.println();
 			System.out.println(spiel.getStatus());
 				System.out.print(">");
@@ -163,7 +164,7 @@ public class UI {
 					hauptMenue(spiel);
 				}
 				if (eingabe.equalsIgnoreCase("exit")) {
-					System.out.println("Wollen Sie wirklich das Spiel verlassen?");
+					System.out.println("Wollen Sie wirklich das Spiel verlassen? (Ja/Nein)");
 					eingabe = sc.nextLine();
 					if (eingabe.equalsIgnoreCase("Ja")) {
 						gewinner = null;
