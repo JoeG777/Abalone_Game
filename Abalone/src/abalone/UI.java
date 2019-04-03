@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class UI {
+	
+	static Scanner sc = new Scanner(System.in);
 
 	public static void main (String[] args) {
 		Spiel spiel = new Spiel();
@@ -18,13 +20,12 @@ public class UI {
 	 * @param spiel Das Spielobjekt
 	 */
 	public static void spielerAnlegen(Spiel spiel) {
-		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Gibt den Namen für den Spieler mit der Farbe Weiss ein:");
 		System.out.print(">");
 		String name = sc.nextLine();
-		while(name.length() > 20) {
-			System.out.println("Bitte geben Sie einen Namen mit weniger als 20 Zeichen an!");
+		while(name.length() > 20 || name.length() < 2) {
+			System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
 			System.out.print(">");
 			name = sc.nextLine();
 		}
@@ -40,8 +41,8 @@ public class UI {
 			System.out.println("Bitte geben Sie unterschiedliche Namen für die Spieler ein!");
 			name2 = sc.nextLine();
 		}
-		while(name.length() > 20) {
-			System.out.println("Bitte geben Sie einen Namen mit weniger als 20 Zeichen an!");
+		while(name2.length() > 20 || name2.length() < 2) {
+			System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
 			System.out.print(">");
 			name2 = sc.nextLine();
 		}
@@ -55,7 +56,6 @@ public class UI {
 	 * Diese Methode zeigt den Willkommensscreen fuer Abalone.
 	 */
 	public static void welcomeScreen() {
-		Scanner sc = new Scanner(System.in);
 		System.out.println("###############################################\r\n" + 
 						   "#    ___  _           _                       #\r\n" + 
 						   "#   / _ \\| |         | |                      #\r\n" + 
@@ -76,7 +76,6 @@ public class UI {
 	 * @param spiel Das erstelle Spiel Objekt.
 	 */
 	public static void hilfsMenu(Spiel spiel) {
-		Scanner sc = new Scanner(System.in);
 		boolean inSchleifeBleiben = true;
 		System.out.println("###############################################\r\n" +
 						   "################# HilfsMenue ##################\r\n" +
@@ -150,7 +149,6 @@ public class UI {
 	 * @param spiel Das Spiel Objekt
 	 */
 	public static void spielen(Spiel spiel) {
-		Scanner sc = new Scanner(System.in);
 		String gewinner = "";
 		String verlierer = "";
 		boolean imSpiel = true;
@@ -163,6 +161,15 @@ public class UI {
 				String eingabe = sc.nextLine();
 				if (eingabe.equalsIgnoreCase("menu")) {
 					hauptMenue(spiel);
+				}
+				if (eingabe.equalsIgnoreCase("exit")) {
+					System.out.println("Wollen Sie wirklich das Spiel verlassen?");
+					eingabe = sc.nextLine();
+					if (eingabe.equalsIgnoreCase("Ja")) {
+						gewinner = null;
+						verlierer = null;
+						break;
+					}
 				}
 				if(!ziehen(eingabe, spiel)) {
 					System.out.println("Irgendwas hat da nicht gestimmt!");
@@ -189,7 +196,6 @@ public class UI {
 	 * @param spiel Das erstellte Spiel Objekt.
 	 */
 	public static void hauptMenue(Spiel spiel) {
-		Scanner sc = new Scanner(System.in);
 		boolean inSchleifeBleiben = true;
 		
 		while(inSchleifeBleiben) {
@@ -222,8 +228,8 @@ public class UI {
 	 * den Zug dann an die ziehe Methode weiter.
 	 * 
 	 * @param zug Der vom Benutzer eingegebene Zug.
-	 * @param spiel Das Spielobjekt
-	 * @return boolean Ob der Zug korrekt war
+	 * @param spiel Das Spielobjekt.
+	 * @return boolean Ob der Zug korrekt war.
 	 */
 	public static boolean ziehen(String zug, Spiel spiel) {
 
@@ -275,8 +281,8 @@ public class UI {
 	
 	/**
 	 * Diese Methode gibt den Gewinner aus.
-	 * @param gewinner Der Spieler der das Spiel gewonnen hat.
-	 * @param verlierer Der Spieler, der das Spiel verloren hat.
+	 * @param gewinner Der Gewinner des Spiels.
+	 * @param verlierer Der Verlierer des Spiels.
 	 */
 	public static void spielBeenden(String gewinner, String verlierer) {
 		System.out.println("Hurraa " + gewinner + " Hat das Spiel gewonnen!");
@@ -292,8 +298,9 @@ public class UI {
 				   "#  \\_| |_/_.__/ \\__,_|_|\\___/|_| |_|\\___|     #\r\n" + 
 				   "#                                             #\r\n" + 
 				   "###############################################\n" + 
-				   "##################### ENDE ####################\n" +
+				   "#################### ENDE #####################\n" +
 				   "###############################################" );
+	sc.close();
 	}
 }
 
