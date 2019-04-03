@@ -174,7 +174,13 @@ public class Spiel {
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
 								Spielzug[] zuege = spielzugSplitter(zug);
-								if (zugValidieren(zuege)) {
+								Spielfeld[] felderVon = spielBrett.getAusgangsfelder(zug);
+								boolean flag = true;
+								for(Spielfeld feld : felderVon) {
+									if(feld == null || feld.getFigur() == null || feld.getFigur().getFarbe() != spielerAmZug.getFarbe())
+										flag = false;
+								}
+								if (flag && zugValidieren(zuege)) {
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
 								}
 							}
@@ -191,8 +197,14 @@ public class Spiel {
 								Spielzug zug = new Spielzug(ausgang2.getId() + ausgang1.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
+								Spielfeld[] felderVon = spielBrett.getAusgangsfelder(zug);
+								boolean flag = true;
+								for(Spielfeld feld : felderVon) {
+									if(feld == null || feld.getFigur() == null || feld.getFigur().getFarbe() != spielerAmZug.getFarbe())
+										flag = false;
+								}
 								Spielzug[] zuege = spielzugSplitter(zug);
-								if (zugValidieren(zuege)) {
+								if (flag && zugValidieren(zuege)) {
 									nachbar = ausgang2.getNachbar(zug.getRichtung());
 									if(nachbar != null)
 										zug.setNach(nachbar.getId());
@@ -208,7 +220,13 @@ public class Spiel {
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
 								Spielzug[] zuege = spielzugSplitter(zug);
-								if (zugValidieren(zuege)) {
+								Spielfeld[] felderVon = spielBrett.getAusgangsfelder(zug);
+								boolean flag = true;
+								for(Spielfeld feld : felderVon) {
+									if(feld == null || feld.getFigur() == null || feld.getFigur().getFarbe() != spielerAmZug.getFarbe())
+										flag = false;
+								}
+								if (flag && zugValidieren(zuege)) {
 									nachbar = ausgang1.getNachbar(zug.getRichtung());
 									zug.setNach(nachbar.getId());
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
