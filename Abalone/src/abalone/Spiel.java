@@ -173,7 +173,7 @@ public class Spiel {
 								Spielzug zug = new Spielzug(ausgang.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
-								Spielzug[] zuege = { zug };
+								Spielzug[] zuege = spielzugSplitter(zug);
 								if (zugValidieren(zuege)) {
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
 								}
@@ -191,10 +191,13 @@ public class Spiel {
 								Spielzug zug = new Spielzug(ausgang2.getId() + ausgang1.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
-								Spielzug[] zuege = { zug };
+								Spielzug[] zuege = spielzugSplitter(zug);
 								if (zugValidieren(zuege)) {
 									nachbar = ausgang2.getNachbar(zug.getRichtung());
-									zug.setNach(nachbar.getId());
+									if(nachbar != null)
+										zug.setNach(nachbar.getId());
+									else
+										zug.setNach(null);
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
 								}
 							}
@@ -204,7 +207,7 @@ public class Spiel {
 								Spielzug zug = new Spielzug(ausgang1.getId() + ausgang2.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
-								Spielzug[] zuege = { zug };
+								Spielzug[] zuege = spielzugSplitter(zug);
 								if (zugValidieren(zuege)) {
 									nachbar = ausgang1.getNachbar(zug.getRichtung());
 									zug.setNach(nachbar.getId());
@@ -435,9 +438,10 @@ public class Spiel {
 	 */
 	private boolean zugValidieren(Spielzug[] zuege) {
 		boolean erfolgreich = false;
-
 		for (Spielzug zug : zuege) {
 			Spielfeld[] ausgangsfelder = spielBrett.getAusgangsfelder(zug);
+			if(ausgangsfelder.length == 0)
+				return false;
 			int richtung = bekommeRichtung(zug);
 			for (int i = 0; i < ausgangsfelder.length; i++) {
 				if (ausgangsfelder[i].getFigur() == null || zug.getFarbe() != ausgangsfelder[i].getFigur().getFarbe())
