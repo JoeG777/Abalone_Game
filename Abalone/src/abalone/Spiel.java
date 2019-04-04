@@ -173,14 +173,8 @@ public class Spiel {
 								Spielzug zug = new Spielzug(ausgang.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
-								Spielzug[] zuege = spielzugSplitter(zug);
-								Spielfeld[] felderVon = spielBrett.getAusgangsfelder(zug);
-								boolean flag = true;
-								for(Spielfeld feld : felderVon) {
-									if(feld == null || feld.getFigur() == null || feld.getFigur().getFarbe() != spielerAmZug.getFarbe())
-										flag = false;
-								}
-								if (flag && zugValidieren(zuege)) {
+								Spielzug[] zuege = {zug};
+								if (zugValidieren(zuege)) {
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
 								}
 							}
@@ -197,14 +191,8 @@ public class Spiel {
 								Spielzug zug = new Spielzug(ausgang2.getId() + ausgang1.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
-								Spielfeld[] felderVon = spielBrett.getAusgangsfelder(zug);
-								boolean flag = true;
-								for(Spielfeld feld : felderVon) {
-									if(feld == null || feld.getFigur() == null || feld.getFigur().getFarbe() != spielerAmZug.getFarbe())
-										flag = false;
-								}
-								Spielzug[] zuege = spielzugSplitter(zug);
-								if (flag && zugValidieren(zuege)) {
+								Spielzug[] zuege = {zug};
+								if (zugValidieren(zuege)) {
 									nachbar = ausgang2.getNachbar(zug.getRichtung());
 									if(nachbar != null)
 										zug.setNach(nachbar.getId());
@@ -219,14 +207,8 @@ public class Spiel {
 								Spielzug zug = new Spielzug(ausgang1.getId() + ausgang2.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
-								Spielzug[] zuege = spielzugSplitter(zug);
-								Spielfeld[] felderVon = spielBrett.getAusgangsfelder(zug);
-								boolean flag = true;
-								for(Spielfeld feld : felderVon) {
-									if(feld == null || feld.getFigur() == null || feld.getFigur().getFarbe() != spielerAmZug.getFarbe())
-										flag = false;
-								}
-								if (flag && zugValidieren(zuege)) {
+								Spielzug[] zuege = {zug};
+								if (zugValidieren(zuege)) {
 									nachbar = ausgang1.getNachbar(zug.getRichtung());
 									zug.setNach(nachbar.getId());
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
