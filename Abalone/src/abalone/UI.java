@@ -274,9 +274,14 @@ public class UI {
 	 */
 	public static void printErlaubteZuege(String[] zug, Spiel spiel) {
 		String[] erlaubteZuege = spiel.getErlaubteZuege(zug);
-		System.out.println ("Folgende Zuege sind momentan moeglich:");
-		for(String zugString : erlaubteZuege) {
-			System.out.println (zugString);
+		if(erlaubteZuege.length == 0) {
+			System.out.println ("Fuer " + zug[0] + " sind momentan keine Zuege moeglich.");
+		}
+		else {
+			System.out.println ("Folgende Zuege sind fuer " + zug[0] + " momentan moeglich: ");
+			for(String zugString : erlaubteZuege) {
+				System.out.println (zugString);
+			}
 		}
 	}
 	
