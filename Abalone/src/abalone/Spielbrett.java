@@ -170,24 +170,45 @@ public class Spielbrett {
 
 	/** 
 	 * Ordnet die HashMap in Form eines Abalone Spielbretts mit Koordinaten an
-	 * und gibt dieses als String zurück.
+	 * und gibt dieses zusammen mit Status Informationen des Spiels als String zurück.
 	 *  
+	 * @param Einen String der die verbleibenden Kugeln des ersten Spielers angibt.
+	 * @param Einen String der die verbleibenden Kugeln des zweiten Spielers angibt.
+	 * @param Einen String der die verlorenen Kugeln des ersten Spielers angibt.
+	 * @param Einen String der die verlorenen Kugeln des zweiten Spielers angibt.
+	 * @param Einen String der angibt, welcher Spieler an der Reihe ist.
 	 * @return Einen String in Form eines Abalone-Spielbretts.
 	 * 
 	 */
-	@Override
-	public String toString() {
+
+//	@Override
+	public String toStringEigen(String verbleibendeSteineO,String verbleibendeSteineX,String verloreneSteineO,String verloreneSteineX,String amZug) {
 		StringBuilder gesamtesFeld = new StringBuilder();
 		gesamtesFeld.append("                    \n");
+		String speicher;
 		// Start am Ende des Arrays, da I oben steht
 		for(int i = KOORDINATENQUER.length - 1; i >= 0; i--) {
 			String einzelneQuerlinie = baueEinzelneQuerlinie(i);
-			gesamtesFeld.append(einzelneQuerlinie + "\n");
+			switch(i) {
+			case 8: speicher = verbleibendeSteineO;
+					break;
+			case 7: speicher = verloreneSteineO;
+					break;
+			case 5: speicher = verbleibendeSteineX;
+					break;
+			case 4: speicher = verloreneSteineX;
+					break;
+			case 2: speicher = amZug;
+					break;
+			default: speicher = "";
+			}
+			gesamtesFeld.append(einzelneQuerlinie+speicher+ "\n");
 		}
 
 		// Untere Koordinaten anfügen
 		gesamtesFeld.append("                  6\n");
 		gesamtesFeld.append("         " + "1 2 3 4 5 ");
+		gesamtesFeld.append("\n");
 		return gesamtesFeld.toString();
 	}
 
