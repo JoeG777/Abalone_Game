@@ -12,6 +12,7 @@ public class UI {
 		welcomeScreen();
 		spielerAnlegen(spiel);
 		spielen(spiel);
+		sc.close();
 	}
 	/**
 	 * Diese Methode fragt den Namen und die Farbe der Spieler ab, um diese Parameter
@@ -169,6 +170,7 @@ public class UI {
 					if (eingabe.equalsIgnoreCase("Ja")) {
 						gewinner = null;
 						verlierer = null;
+						imSpiel = false;
 						break;
 					}
 				}
@@ -205,6 +207,9 @@ public class UI {
 			String auswahl = sc.nextLine();
 
 		if(auswahl.equals("1")) {
+			if (spiel.getHistorie().length() == 0) {
+				System.out.println("Es wurden noch nicht gezogen!");
+			}
 			System.out.println(spiel.getHistorie());
 		}
 		
@@ -214,7 +219,6 @@ public class UI {
 
 		else if (auswahl.equals("3")) {
 			inSchleifeBleiben = false;
-			spielen(spiel);
 		}
 		else {
 			System.out.println("Die Tasten befinden sich oben links auf ihrer Tastatur. + \n"
@@ -308,7 +312,6 @@ public class UI {
 				   "###############################################\n" + 
 				   "#################### ENDE #####################\n" +
 				   "###############################################" );
-	sc.close();
 	}
 }
 
