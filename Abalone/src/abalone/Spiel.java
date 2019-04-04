@@ -457,7 +457,6 @@ public class Spiel {
 												// belegt ist
 				if (ausgangsfelder[0].getNachbar(richtung) != null
 						&& ausgangsfelder[0].getNachbar(richtung).getFigur() == null) {
-					// bewegeFiguren(ausgangsfelder, zielfelder);F
 					erfolgreich = true;
 				}
 			}
@@ -471,16 +470,12 @@ public class Spiel {
 						if (isZuEinsSumito(vordersterStein, richtung)) {
 							Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
 							if (steinAbgeraeumt(gegnerStein, richtung)) {
-								// fuehreZugAus(ausgangsfelder, richtung);
 								erfolgreich = true;
 							} else {
-								// bewegeFigur(gegnerStein.getId(), gegnerStein.getNachbar(richtung).getId());
-								// fuehreZugAus(ausgangsfelder, richtung);
 								erfolgreich = true;
 							}
 						}
 					} else {
-						// fuehreZugAus(ausgangsfelder, richtung);
 						erfolgreich = true;
 					}
 				} else if (ausgangsfelder.length == 3) {
@@ -490,13 +485,10 @@ public class Spiel {
 							Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
 
 							if (steinAbgeraeumt(gegnerStein, richtung)) {
-								// fuehreZugAus(ausgangsfelder, richtung);
 								erfolgreich = true;
 							}
 
 							else {
-								// bewegeFigur(gegnerStein.getId(), gegnerStein.getNachbar(richtung).getId());
-								// fuehreZugAus(ausgangsfelder, richtung);
 								erfolgreich = true;
 							}
 						} else if (isZuZweiSumito(vordersterStein, richtung)) {
@@ -504,22 +496,14 @@ public class Spiel {
 							Spielfeld hintererGegnerStein = vordererGegnerStein.getNachbar(richtung);
 
 							if (steinAbgeraeumt(hintererGegnerStein, richtung)) {
-								// bewegeFigur(vordererGegnerStein.getId(),
-								// vordererGegnerStein.getNachbar(richtung).getId());
-								// fuehreZugAus(ausgangsfelder, richtung);
 								erfolgreich = true;
 							}
 
 							else {
-								// bewegeFigur(hintererGegnerStein.getId(),
-								// hintererGegnerStein.getNachbar(richtung).getId());
-								// bewegeFigur(vordererGegnerStein.getId(), hintererGegnerStein.getId());
-								// fuehreZugAus(ausgangsfelder, richtung);
 								erfolgreich = true;
 							}
 						}
 					} else {
-						// fuehreZugAus(ausgangsfelder, richtung);
 						erfolgreich = true;
 					}
 
@@ -530,7 +514,6 @@ public class Spiel {
 						return false;
 					}
 				}
-				// bewegeFiguren(ausgangsfelder, zielfelder);
 				erfolgreich = true;
 			}
 
@@ -837,6 +820,12 @@ public class Spiel {
 
 	}
 	
+	/**
+	 * Fuegt fuer geschlagene Kugeln einen Stern am Spielfeldrand an.
+	 * @param brettAlsString Das aktuelle Brett als String.
+	 * @param zug Der aktuell ausgefuehrte Zug.
+	 * @return Das aktuelle Brett als String mit angefuegtem Sternchen.
+	 */
 	private String addSternchen(String brettAlsString, Spielzug zug) {
 		String[] brettAlsArray = brettAlsString.split("\n");
 		char[] spielZugVon = zug.getVon().toCharArray();
@@ -846,7 +835,6 @@ public class Spiel {
 		int zeilenIndex = 0;
 		boolean gefunden = false;
 		char[] alsArray = null;
-		//if(!(spielZugVon[0] == 'I' && richtung == 1 || spielZugVon[0] == 'I' && richtung == 4) || !(spielZugVon[0] == 'A' && richtung ==2 || spielZugVon[0] == 'A' && richtung == 5)) {
 		if(!(spielZugVon[0] == 'A' && richtung ==2 || spielZugVon[0] == 'A' && richtung == 5)) {
 			for(int i = 0; i < brettAlsArray.length; i++) {
 				if(richtung == 1 || richtung == 4) {
