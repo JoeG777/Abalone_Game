@@ -244,26 +244,26 @@ public class Spiel {
 
 	/**
 	 * Gibt den Status des Spiels zurueck. Dieser umfasst: Das Spielbrett; Welcher
-	 * Spieler am Zug ist; Welche Spieler noch wie viele Steine im Spiel haben
+	 * Spieler am Zug ist; Welche Spieler noch wie viele Steine im Spiel haben und wieviele Steiner er verloren hat
 	 * 
 	 * @return der Status als String
 	 */
 	public String getStatus() {
 		String[] geschlageneKugeln = { "", " *", " * *", " * * *", " * * * *", " * * * * *", " * * * * * *" };
-		String amZug = "Am zug ist: " + spielerAmZug.getName() + "\n";
-		String verbleibendeSteine = "\r\n" + "Spieler " + this.spielerImSpiel[0].getName() + "(O) hat noch "
-				+ this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe()) + " Kugeln. \n" + "Geschlagene Kugeln:"
-				+ geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())] + "\n" + "\n"
-				+ "Spieler " + this.spielerImSpiel[1].getName() + "(X) hat noch "
-				+ this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln. \r\n" + "Geschlagene Kugeln:"
-				+ geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())] + "\n";
+		String amZug = "        Am zug ist: " + spielerAmZug.getName();
+		String verbleibendeSteineO = "             Spieler " + this.spielerImSpiel[0].getName() + "(O) hat noch "
+									+ this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe()) + " Kugeln." ;
+		String verloreneKugelnO    = "            Verlorene Kugeln:"+ geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())];
+		String verbleibendeSteineX = "          Spieler " + this.spielerImSpiel[1].getName() + "(X) hat noch "
+									+ this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln.";
+		String verloreneKugelnX    = "         Verlorene Kugeln:" + geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())] ;
 
-		String feld = this.spielBrett.toString() + "\n";
+		String feld = this.spielBrett.toStringEigen(verbleibendeSteineO,verbleibendeSteineX,verloreneKugelnO,verloreneKugelnX,amZug);
 		if(herausgedraengt) {
 			feld = this.addSternchen(feld, letzterZug);
-			herausgedraengt = false;
+			herausgedraengt = false;///
 		}
-		return feld + verbleibendeSteine + "\n" + amZug;
+		return feld;
 
 	}
 
