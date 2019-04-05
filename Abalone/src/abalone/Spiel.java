@@ -18,7 +18,7 @@ public class Spiel {
 	private Spieler[] spielerImSpiel;
 	private Spielbrett spielBrett;
 	private Historie historie;
-	private boolean  herausgedraengt = false;
+	private boolean herausgedraengt = false;
 	Spielzug letzterZug;
 
 	/**
@@ -41,16 +41,16 @@ public class Spiel {
 
 	/**
 	 * Diese Methode wird benutzt um Spieler einem Spiel hinzuzufuegen. Sie fuegt
-	 * maximal 2 Spieler hinzu. Sollte ein dritter Spieler hinzugefuegt werden, wirft
-	 * die Methode eine IndexOutOfBounds Exception.
+	 * maximal 2 Spieler hinzu. Sollte ein dritter Spieler hinzugefuegt werden,
+	 * wirft die Methode eine IndexOutOfBounds Exception.
 	 * 
 	 * @param name  Der für den Spieler gewaehlte Name.
 	 * @param farbe Die für den Spieler gewaehlte Farbe.
-	 * @exception IllegalArgumentException Wird geworfen, wenn der String farbe
-	 *  nicht "schwarz" oder "weiss" entspricht.
+	 * @exception IllegalArgumentException  Wird geworfen, wenn der String farbe
+	 *                                      nicht "schwarz" oder "weiss" entspricht.
 	 * @exception IndexOutOfBoundsException wird geworfen wenn ein Spieler
-	 *  hinzugefuegt wird, obwohl bereits zwei Spieler im
-	 * Spiel sind.
+	 *                                      hinzugefuegt wird, obwohl bereits zwei
+	 *                                      Spieler im Spiel sind.
 	 * @since 1.0
 	 */
 	public void addSpieler(String name, String farbe) {
@@ -113,13 +113,14 @@ public class Spiel {
 	}
 
 	/**
-	 * Die ziehe Methode erzeugt aus zwei Strings ein Zug Objekt und uebergibt dieses
-	 * dem Spielbrett.
+	 * Die ziehe Methode erzeugt aus zwei Strings ein Zug Objekt und uebergibt
+	 * dieses dem Spielbrett.
 	 * 
-	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1] =
-	 *            wohin gezogen wird.
-	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException 
-	 * wenn zugValidieren false zurueck gibt oder ein Array Eintrag NULL ist.
+	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1]
+	 *            = wohin gezogen wird.
+	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException wenn
+	 *                                     zugValidieren false zurueck gibt oder ein
+	 *                                     Array Eintrag NULL ist.
 	 * @since 1.0
 	 */
 	public void ziehe(String[] zug) {
@@ -155,34 +156,35 @@ public class Spiel {
 
 	/**
 	 * Gibt die erlaubten Zuege zurueck.
-	 * @param ausgangsFelder Die Ausgangsfelder, von denen gezogen wird.
-	 * gesammelt werden sollen.
+	 * 
+	 * @param ausgangsFelder Die Ausgangsfelder, von denen gezogen wird. gesammelt
+	 *                       werden sollen.
 	 * @return ErlaubteZuege Ein String Array mit den erlaubten Zuegen.
 	 */
 	public String[] getErlaubteZuege(String[] ausgangsFelder) {
-		if(!koordinatenValidieren(spielzugParser(ausgangsFelder))) {
+		if (!koordinatenValidieren(spielzugParser(ausgangsFelder))) {
 			throw new IllegalArgumentException("Ungueltige Eingabe");
 		}
-			ArrayList<String> erlaubteZuege = new ArrayList<String>();
-			if (koordinatenValidieren(felderParser(ausgangsFelder[0]))) {
-				for (String felder : ausgangsFelder) {
-					if (felder != null) {
-						// Fall 1: Nur ein Feld
-						if (felder.length() == 2) {
-							Spielfeld ausgang = spielBrett.getFeld(felder);
-							Spielfeld[] nachbarn = ausgang.getNachbarn();
-							for (Spielfeld nachbar : nachbarn) {
-								if (nachbar != null) {
-									Spielzug zug = new Spielzug(ausgang.getId(), nachbar.getId());
-									zug.setRichtung(bekommeRichtung(zug));
-									zug.setFarbe(getFarbeAmZug());
-									Spielzug[] zuege = {zug};
-									if (zugValidieren(zuege)) {
-										erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
-									}
+		ArrayList<String> erlaubteZuege = new ArrayList<String>();
+		if (koordinatenValidieren(felderParser(ausgangsFelder[0]))) {
+			for (String felder : ausgangsFelder) {
+				if (felder != null) {
+					// Fall 1: Nur ein Feld
+					if (felder.length() == 2) {
+						Spielfeld ausgang = spielBrett.getFeld(felder);
+						Spielfeld[] nachbarn = ausgang.getNachbarn();
+						for (Spielfeld nachbar : nachbarn) {
+							if (nachbar != null) {
+								Spielzug zug = new Spielzug(ausgang.getId(), nachbar.getId());
+								zug.setRichtung(bekommeRichtung(zug));
+								zug.setFarbe(getFarbeAmZug());
+								Spielzug[] zuege = { zug };
+								if (zugValidieren(zuege)) {
+									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
 								}
 							}
 						}
+					}
 					// Fall 2: Zwei Felder
 					if (felder.length() == 4) {
 						Spielfeld ausgang1 = spielBrett.getFeld(felder.substring(0, 2));
@@ -194,10 +196,10 @@ public class Spiel {
 								Spielzug zug = new Spielzug(ausgang2.getId() + ausgang1.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
-								Spielzug[] zuege = {zug};
+								Spielzug[] zuege = { zug };
 								if (zugValidieren(zuege)) {
 									nachbar = ausgang2.getNachbar(zug.getRichtung());
-									if(nachbar != null)
+									if (nachbar != null)
 										zug.setNach(nachbar.getId());
 									else
 										zug.setNach(null);
@@ -210,7 +212,7 @@ public class Spiel {
 								Spielzug zug = new Spielzug(ausgang1.getId() + ausgang2.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
-								Spielzug[] zuege = {zug};
+								Spielzug[] zuege = { zug };
 								if (zugValidieren(zuege)) {
 									nachbar = ausgang1.getNachbar(zug.getRichtung());
 									zug.setNach(nachbar.getId());
@@ -247,7 +249,8 @@ public class Spiel {
 
 	/**
 	 * Gibt den Status des Spiels zurueck. Dieser umfasst: Das Spielbrett; Welcher
-	 * Spieler am Zug ist; Welche Spieler noch wie viele Steine im Spiel haben und wieviele Steiner er verloren hat
+	 * Spieler am Zug ist; Welche Spieler noch wie viele Steine im Spiel haben und
+	 * wieviele Steiner er verloren hat
 	 * 
 	 * @return der Status als String
 	 */
@@ -255,14 +258,17 @@ public class Spiel {
 		String[] geschlageneKugeln = { "", " *", " * *", " * * *", " * * * *", " * * * * *", " * * * * * *" };
 		String amZug = "        Am zug ist: " + spielerAmZug.getName();
 		String verbleibendeSteineO = "             Spieler " + this.spielerImSpiel[0].getName() + "(O) hat noch "
-									+ this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe()) + " Kugeln." ;
-		String verloreneKugelnO    = "            Verlorene Kugeln:"+ geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())];
+				+ this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe()) + " Kugeln.";
+		String verloreneKugelnO = "            Verlorene Kugeln:"
+				+ geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())];
 		String verbleibendeSteineX = "          Spieler " + this.spielerImSpiel[1].getName() + "(X) hat noch "
-									+ this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln.";
-		String verloreneKugelnX    = "         Verlorene Kugeln:" + geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())] ;
+				+ this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln.";
+		String verloreneKugelnX = "         Verlorene Kugeln:"
+				+ geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())];
 
-		String feld = this.spielBrett.toStringEigen(verbleibendeSteineO,verbleibendeSteineX,verloreneKugelnO,verloreneKugelnX,amZug);
-		if(herausgedraengt) {
+		String feld = this.spielBrett.toStringEigen(verbleibendeSteineO, verbleibendeSteineX, verloreneKugelnO,
+				verloreneKugelnX, amZug);
+		if (herausgedraengt) {
 			feld = this.addSternchen(feld, letzterZug);
 			herausgedraengt = false;///
 		}
@@ -277,15 +283,15 @@ public class Spiel {
 	 * @param zug Ein String Array mit den Werten [0] = von wo gezogen wird, [1] =
 	 *            wohin gezogen wird.
 	 * @return ein zweidimensionales char Array, welches den Zug in chars aufteilt
-	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge 
-	 * ungueltig ist.
+	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge ungueltig
+	 *                                     ist.
 	 */
 	private char[][] spielzugParser(String[] zug) {
 		char[][] geparsterZug = new char[2][];
-		if (zug.length < 2 ) {
+		if (zug.length < 2) {
 			throw new IllegalArgumentException("Ungueltige laenge: " + zug.length);
 		}
-		if(zug[0] == null || zug[1] == null) {
+		if (zug[0] == null) {
 			throw new IllegalArgumentException("Ungueltiger Zug");
 		}
 		if (zug[0].length() % 2 != 0 || zug[0].length() > 4) {
@@ -309,12 +315,14 @@ public class Spiel {
 		}
 		geparsterZug[0] = ausgangsPunkt;
 		// Zielkoordinate anlegen
-		char[] zielPunkt = new char[2];
-		char buchstabe = zug[1].charAt(0);
-		char zahl = (zug[1].charAt(1));
-		zielPunkt[0] = buchstabe;
-		zielPunkt[1] = zahl;
-		geparsterZug[1] = zielPunkt;
+		if (zug.length == 2 && zug[1] != null) {
+			char[] zielPunkt = new char[2];
+			char buchstabe = zug[1].charAt(0);
+			char zahl = (zug[1].charAt(1));
+			zielPunkt[0] = buchstabe;
+			zielPunkt[1] = zahl;
+			geparsterZug[1] = zielPunkt;
+		}
 		return geparsterZug;
 
 	}
@@ -324,8 +332,8 @@ public class Spiel {
 	 * 
 	 * @param zug mit dem Datentyp String
 	 * @return zweidimensionales Char Array, welches den Zug als Chars enthält
-	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge 
-	 * ungueltig ist.
+	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge ungueltig
+	 *                                     ist.
 	 */
 	private char[][] felderParser(String zug) {
 		char[][] geparsterZug = new char[1][];
@@ -366,65 +374,67 @@ public class Spiel {
 		int buchstabenKoordinaten = 0;
 		int zahlenKoordinaten = 0;
 		for (char[] koordinate : geparsterZug) {
-			for (int i = 0; i < koordinate.length; i++) {
-				if (i % 2 == 0) {
-					buchstabenKoordinaten = 'I' - koordinate[i];
-					if ((buchstabenKoordinaten < 8 && buchstabenKoordinaten < 0)) {
-						return false;
-					}
-				} else {
-					zahlenKoordinaten = '9' - koordinate[i];
-					// Die cases Spiegeln die differenz Zwischen 'I' und dem aktuellen Buchstaben
-					// wider
-					// Buchstabe = I: case = 0, Buchstabe = A: case = 8
-					switch (buchstabenKoordinaten) {
-					case 0:
-						if (zahlenKoordinaten >= 5 || zahlenKoordinaten < 0) {
+			if (koordinate != null) {
+				for (int i = 0; i < koordinate.length; i++) {
+					if (i % 2 == 0) {
+						buchstabenKoordinaten = 'I' - koordinate[i];
+						if ((buchstabenKoordinaten < 8 && buchstabenKoordinaten < 0)) {
 							return false;
 						}
-						break;
-					case 1:
-						if (zahlenKoordinaten >= 6 || zahlenKoordinaten < 0) {
+					} else {
+						zahlenKoordinaten = '9' - koordinate[i];
+						// Die cases Spiegeln die differenz Zwischen 'I' und dem aktuellen Buchstaben
+						// wider
+						// Buchstabe = I: case = 0, Buchstabe = A: case = 8
+						switch (buchstabenKoordinaten) {
+						case 0:
+							if (zahlenKoordinaten >= 5 || zahlenKoordinaten < 0) {
+								return false;
+							}
+							break;
+						case 1:
+							if (zahlenKoordinaten >= 6 || zahlenKoordinaten < 0) {
+								return false;
+							}
+							break;
+						case 2:
+							if (zahlenKoordinaten >= 7 || zahlenKoordinaten < 0) {
+								return false;
+							}
+							break;
+						case 3:
+							if (zahlenKoordinaten >= 8 || zahlenKoordinaten < 0) {
+								return false;
+							}
+							break;
+						case 4:
+							if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 0) {
+								return false;
+							}
+							break;
+						case 5:
+							if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 1) {
+								return false;
+							}
+							break;
+						case 6:
+							if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 2) {
+								return false;
+							}
+							break;
+						case 7:
+							if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 3) {
+								return false;
+							}
+							break;
+						case 8:
+							if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 4) {
+								return false;
+							}
+							break;
+						default:
 							return false;
 						}
-						break;
-					case 2:
-						if (zahlenKoordinaten >= 7 || zahlenKoordinaten < 0) {
-							return false;
-						}
-						break;
-					case 3:
-						if (zahlenKoordinaten >= 8 || zahlenKoordinaten < 0) {
-							return false;
-						}
-						break;
-					case 4:
-						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 0) {
-							return false;
-						}
-						break;
-					case 5:
-						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 1) {
-							return false;
-						}
-						break;
-					case 6:
-						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 2) {
-							return false;
-						}
-						break;
-					case 7:
-						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 3) {
-							return false;
-						}
-						break;
-					case 8:
-						if (zahlenKoordinaten >= 9 || zahlenKoordinaten < 4) {
-							return false;
-						}
-						break;
-					default:
-						return false;
 					}
 				}
 			}
@@ -433,8 +443,7 @@ public class Spiel {
 	}
 
 	/**
-	 * Prueft ob mehrere Zuege abhaengig von der Spielfeldbelegung ausfuehrbar
-	 * sind.
+	 * Prueft ob mehrere Zuege abhaengig von der Spielfeldbelegung ausfuehrbar sind.
 	 * 
 	 * @param zuege Array des Typs Spielzug.
 	 * @return boolean True oder False, in Abhaengigkeit der Validitaet der Zuege.
@@ -443,7 +452,7 @@ public class Spiel {
 		boolean erfolgreich = false;
 		for (Spielzug zug : zuege) {
 			Spielfeld[] ausgangsfelder = spielBrett.getAusgangsfelder(zug);
-			if(ausgangsfelder.length == 0)
+			if (ausgangsfelder.length == 0)
 				return false;
 			int richtung = bekommeRichtung(zug);
 			for (int i = 0; i < ausgangsfelder.length; i++) {
@@ -549,7 +558,7 @@ public class Spiel {
 	 * 
 	 * @param ausgangsfelder Die Felder, von denen gezogen wird.
 	 * @param richtung       Die Richtung des Zuges.
-	 * @return Spielfeld-Array  Ein Array mit allen Zielfeldern des Zuges.
+	 * @return Spielfeld-Array Ein Array mit allen Zielfeldern des Zuges.
 	 */
 	private Spielfeld[] getZielfelder(Spielfeld[] ausgangsfelder, int richtung) {
 		Spielfeld[] zielfelder = new Spielfeld[ausgangsfelder.length];
@@ -568,8 +577,9 @@ public class Spiel {
 	 * 
 	 * @param felder   Die Ausgangsfelder eines Spielzuges.
 	 * @param richtung Die Richtung der Bewegung (Position im Array).
-	 * @return boolean true, wenn es sich um einen Zug handelt, bei dem eigene Steine geschoben
-	 *         werden. false, wenn es sich nicht um einen solchen Zug handelt.
+	 * @return boolean true, wenn es sich um einen Zug handelt, bei dem eigene
+	 *         Steine geschoben werden. false, wenn es sich nicht um einen solchen
+	 *         Zug handelt.
 	 */
 
 	private boolean isSchiebung(Spielfeld[] felder, int richtung) {
@@ -644,7 +654,7 @@ public class Spiel {
 	 * geworfen wird. Falls dies zutrifft, wird die Figur vom Spielfeld entfernt.
 	 * 
 	 * @param gegnerischerStein Das Feld, auf dem der Stein ist.
-	 * @param richtung    Richtung des Spielzuges.
+	 * @param richtung          Richtung des Spielzuges.
 	 * @return boolean true, wenn der Stein runtergeworfen wird, false, wenn nicht.
 	 */
 	private boolean steinAbgeraeumt(Spielfeld gegnerStein, int richtung) {
@@ -683,10 +693,12 @@ public class Spiel {
 	}
 
 	/**
-	 * Ermittelt aus einem Spielzug wie welche Steine einzeln gezogen werden muessen.
+	 * Ermittelt aus einem Spielzug wie welche Steine einzeln gezogen werden
+	 * muessen.
 	 * 
 	 * @param zug Der geplante Spielzug.
-	 * @return SpielzugArray Ein Array des Typs Spielzug mit allen einzeln auszufuehrenden Zuegen.
+	 * @return SpielzugArray Ein Array des Typs Spielzug mit allen einzeln
+	 *         auszufuehrenden Zuegen.
 	 */
 	private Spielzug[] spielzugSplitter(Spielzug zug) {
 		Spielfeld[] felder = spielBrett.getAusgangsfelder(zug);
@@ -716,7 +728,8 @@ public class Spiel {
 					zielNachbarzug = new Spielzug(zielNachbar.getId(), null, zug.getRichtung(), zug.getFarbe());
 
 				} else {
-					zielNachbarzug = new Spielzug(zielNachbar.getId(), zielNachbar2.getId(), zug.getRichtung(), zug.getFarbe());
+					zielNachbarzug = new Spielzug(zielNachbar.getId(), zielNachbar2.getId(), zug.getRichtung(),
+							zug.getFarbe());
 				}
 			}
 		}
@@ -741,7 +754,7 @@ public class Spiel {
 	/**
 	 * Gibt das hinterste Feld eines Spielzuges zurueck.
 	 * 
-	 * @param felder Ein Array des Typs Felder.
+	 * @param felder   Ein Array des Typs Felder.
 	 * @param richtung Die Richtung, in die gezogen wird.
 	 * @return spielfeld Das hinterste Spielfeld als Spielfeld Objekt.
 	 */
@@ -767,7 +780,7 @@ public class Spiel {
 	/**
 	 * Ordnet ein Spielfeld Array nach einer gegebenen Richtung.
 	 * 
-	 * @param felder Ein Array mit zu ordnenden Spielfeldern.
+	 * @param felder   Ein Array mit zu ordnenden Spielfeldern.
 	 * @param richtung Die Richtung, nach der geordnet werden soll.
 	 * @return sortiertesArray Das sortierte Array aus Spielfeldern.
 	 */
@@ -822,11 +835,12 @@ public class Spiel {
 		return new Spielzug(vonFeld1 + "" + vonFeld2, nachFeld);
 
 	}
-	
+
 	/**
 	 * Fuegt fuer geschlagene Kugeln einen Stern am Spielfeldrand an.
+	 * 
 	 * @param brettAlsString Das aktuelle Brett als String.
-	 * @param zug Der aktuell ausgefuehrte Zug.
+	 * @param zug            Der aktuell ausgefuehrte Zug.
 	 * @return Das aktuelle Brett als String mit angefuegtem Sternchen.
 	 */
 	private String addSternchen(String brettAlsString, Spielzug zug) {
@@ -838,149 +852,159 @@ public class Spiel {
 		int zeilenIndex = 0;
 		boolean gefunden = false;
 		char[] alsArray = null;
-		if(!(spielZugVon[0] == 'A' && richtung ==2 || spielZugVon[0] == 'A' && richtung == 5)) {
-			for(int i = 0; i < brettAlsArray.length; i++) {
-				if(richtung == 1 || richtung == 4) {
-					if(brettAlsArray[i].charAt(0) == spielZugVon[0] && !gefunden) {
-						zeilenIndex = i-1;
+		if (!(spielZugVon[0] == 'A' && richtung == 2 || spielZugVon[0] == 'A' && richtung == 5)) {
+			for (int i = 0; i < brettAlsArray.length; i++) {
+				if (richtung == 1 || richtung == 4) {
+					if (brettAlsArray[i].charAt(0) == spielZugVon[0] && !gefunden) {
+						zeilenIndex = i - 1;
 						gefunden = true;
 					}
 				}
-				if(richtung == 0 || richtung == 3) {
-					if(brettAlsArray[i].charAt(0) == spielZugVon[0] && !gefunden) {
+				if (richtung == 0 || richtung == 3) {
+					if (brettAlsArray[i].charAt(0) == spielZugVon[0] && !gefunden) {
 						zeilenIndex = i;
 						gefunden = true;
 					}
 				}
-				if(richtung == 2 || richtung == 5) {
-					if(brettAlsArray[i].charAt(0) == spielZugVon[0] && !gefunden) {
-						zeilenIndex = i+1;
+				if (richtung == 2 || richtung == 5) {
+					if (brettAlsArray[i].charAt(0) == spielZugVon[0] && !gefunden) {
+						zeilenIndex = i + 1;
 						gefunden = true;
 					}
 				}
 			}
 			gefunden = false;
 			alsArray = brettAlsArray[zeilenIndex].toCharArray();
-			for(int i = 0; i < brettAlsArray[zeilenIndex].length(); i++) {
+			for (int i = 0; i < brettAlsArray[zeilenIndex].length(); i++) {
 				char aktuellerChar = alsArray[i];
-				if(richtung >= 0 && richtung < 3) {
+				if (richtung >= 0 && richtung < 3) {
 					aktuellerChar = alsArray[i];
-					if((aktuellerChar == 'O' || aktuellerChar == 'X'|| aktuellerChar == '-') && !gefunden) {
-						if(richtung != 0) 
-							alsArray[i-2] = '*';
+					if ((aktuellerChar == 'O' || aktuellerChar == 'X' || aktuellerChar == '-') && !gefunden) {
+						if (richtung != 0)
+							alsArray[i - 2] = '*';
 						else
-							alsArray[i-2] = '*';
+							alsArray[i - 2] = '*';
 						gefunden = true;
 					}
 				}
-				if(richtung >= 3 && richtung < 6) {
+				if (richtung >= 3 && richtung < 6) {
 					aktuellerChar = alsArray[i];
-					if((aktuellerChar == 'O' || aktuellerChar == 'X'|| aktuellerChar == '-') && !gefunden) {
-						if(alsArray[i+2] == ' ') {
-							alsArray[i+2] = '*';
+					if ((aktuellerChar == 'O' || aktuellerChar == 'X' || aktuellerChar == '-') && !gefunden) {
+						if (alsArray[i + 2] == ' ') {
+							alsArray[i + 2] = '*';
 							gefunden = true;
 						}
 					}
 				}
 			}
 		}
-		if(spielZugVon[0] == 'I') {
+		if (spielZugVon[0] == 'I') {
 			alsArray = brettAlsArray[0].toCharArray();
 			zeilenIndex = 0;
 			switch (spielZugVon[1]) {
-				case '5' : if(richtung == 1) {
-								alsArray[5] = '*';
-							}
-						   if( richtung == 4) {
-							   alsArray[7] = '*';
-							}
-						   break;
-				case '6' : if(richtung == 1) {
-								alsArray[7] = '*';
-							}
-						   if( richtung == 4) {
-							   alsArray[9] = '*';
-						    }
-						   break;
-				case '7' : if(richtung == 1) {
-							   alsArray[9] = '*';
-							}
-						   if( richtung == 4) {
-							   alsArray[11] = '*';
-						   }
-						   break;
-				case '8' : if(richtung == 1) {
-								alsArray[11] = '*';
-						   }
-						   if( richtung == 4) {
-							   alsArray[13] = '*';
-						   }
-						   break;
-				case '9' : if(richtung == 1) {
-							   alsArray[13] = '*';
-						   }
-						   if( richtung == 4) {
-							   alsArray[15] = '*';
-						   }
-						   break;
-				
+			case '5':
+				if (richtung == 1) {
+					alsArray[5] = '*';
+				}
+				if (richtung == 4) {
+					alsArray[7] = '*';
+				}
+				break;
+			case '6':
+				if (richtung == 1) {
+					alsArray[7] = '*';
+				}
+				if (richtung == 4) {
+					alsArray[9] = '*';
+				}
+				break;
+			case '7':
+				if (richtung == 1) {
+					alsArray[9] = '*';
+				}
+				if (richtung == 4) {
+					alsArray[11] = '*';
+				}
+				break;
+			case '8':
+				if (richtung == 1) {
+					alsArray[11] = '*';
+				}
+				if (richtung == 4) {
+					alsArray[13] = '*';
+				}
+				break;
+			case '9':
+				if (richtung == 1) {
+					alsArray[13] = '*';
+				}
+				if (richtung == 4) {
+					alsArray[15] = '*';
+				}
+				break;
+
 			}
-			
+
 		}
-		if(spielZugVon[0] == 'A') {
+		if (spielZugVon[0] == 'A') {
 			alsArray = brettAlsArray[10].toCharArray();
 			zeilenIndex = 10;
 			switch (spielZugVon[1]) {
-				case '1' : if(richtung == 2) {
-								alsArray[5] = '*';
-							}
-						   if( richtung == 5) {
-							   alsArray[7] = '*';
-							}
-						   break;
-				case '2' : if(richtung == 2) {
-								alsArray[7] = '*';
-							}
-						   if( richtung == 5) {
-							   alsArray[9] = '*';
-						    }
-						   break;
-				case '3' : if(richtung == 2) {
-							   alsArray[9] = '*';
-							}
-						   if( richtung == 5) {
-							   alsArray[11] = '*';
-						   }
-						   break;
-				case '4' : if(richtung == 2) {
-								alsArray[11] = '*';
-						   }
-						   if( richtung == 5) {
-							   alsArray[13] = '*';
-						   }
-						   break;
-				case '5' : if(richtung == 2) {
-							   alsArray[13] = '*';
-						   }
-						   if( richtung ==5) {
-							   alsArray[15] = '*';
-						   }
-						   break;
-				
+			case '1':
+				if (richtung == 2) {
+					alsArray[5] = '*';
+				}
+				if (richtung == 5) {
+					alsArray[7] = '*';
+				}
+				break;
+			case '2':
+				if (richtung == 2) {
+					alsArray[7] = '*';
+				}
+				if (richtung == 5) {
+					alsArray[9] = '*';
+				}
+				break;
+			case '3':
+				if (richtung == 2) {
+					alsArray[9] = '*';
+				}
+				if (richtung == 5) {
+					alsArray[11] = '*';
+				}
+				break;
+			case '4':
+				if (richtung == 2) {
+					alsArray[11] = '*';
+				}
+				if (richtung == 5) {
+					alsArray[13] = '*';
+				}
+				break;
+			case '5':
+				if (richtung == 2) {
+					alsArray[13] = '*';
+				}
+				if (richtung == 5) {
+					alsArray[15] = '*';
+				}
+				break;
+
 			}
-			
+
 		}
 		gefunden = false;
 		String zeile = "";
-		for(int i = 0; i < alsArray.length; i++) {
+		for (int i = 0; i < alsArray.length; i++) {
 			zeile += alsArray[i];
 		}
 		brettAlsArray[zeilenIndex] = zeile;
 		String neuesBrett = "";
-		for(int i = 0; i < brettAlsArray.length; i++) {
+		for (int i = 0; i < brettAlsArray.length; i++) {
 			neuesBrett += brettAlsArray[i] + "\n";
 		}
 		return neuesBrett;
-		
-	} 
+
+	}
 }
