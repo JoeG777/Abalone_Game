@@ -160,26 +160,29 @@ public class Spiel {
 	 * @return ErlaubteZuege Ein String Array mit den erlaubten Zuegen.
 	 */
 	public String[] getErlaubteZuege(String[] ausgangsFelder) {
-		ArrayList<String> erlaubteZuege = new ArrayList<String>();
-		if (koordinatenValidieren(felderParser(ausgangsFelder[0]))) {
-			for (String felder : ausgangsFelder) {
-				if (felder != null) {
-					// Fall 1: Nur ein Feld
-					if (felder.length() == 2) {
-						Spielfeld ausgang = spielBrett.getFeld(felder);
-						Spielfeld[] nachbarn = ausgang.getNachbarn();
-						for (Spielfeld nachbar : nachbarn) {
-							if (nachbar != null) {
-								Spielzug zug = new Spielzug(ausgang.getId(), nachbar.getId());
-								zug.setRichtung(bekommeRichtung(zug));
-								zug.setFarbe(getFarbeAmZug());
-								Spielzug[] zuege = {zug};
-								if (zugValidieren(zuege)) {
-									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
+		if(!koordinatenValidieren(spielzugParser(ausgangsFelder))) {
+			throw new IllegalArgumentException("Ungueltige Eingabe");
+		}
+			ArrayList<String> erlaubteZuege = new ArrayList<String>();
+			if (koordinatenValidieren(felderParser(ausgangsFelder[0]))) {
+				for (String felder : ausgangsFelder) {
+					if (felder != null) {
+						// Fall 1: Nur ein Feld
+						if (felder.length() == 2) {
+							Spielfeld ausgang = spielBrett.getFeld(felder);
+							Spielfeld[] nachbarn = ausgang.getNachbarn();
+							for (Spielfeld nachbar : nachbarn) {
+								if (nachbar != null) {
+									Spielzug zug = new Spielzug(ausgang.getId(), nachbar.getId());
+									zug.setRichtung(bekommeRichtung(zug));
+									zug.setFarbe(getFarbeAmZug());
+									Spielzug[] zuege = {zug};
+									if (zugValidieren(zuege)) {
+										erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
+									}
 								}
 							}
 						}
-					}
 					// Fall 2: Zwei Felder
 					if (felder.length() == 4) {
 						Spielfeld ausgang1 = spielBrett.getFeld(felder.substring(0, 2));

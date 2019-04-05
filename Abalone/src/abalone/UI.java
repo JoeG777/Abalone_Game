@@ -276,15 +276,21 @@ public class UI {
 	 * @param spiel ein Spiel-Objekt.
 	 */
 	public static void printErlaubteZuege(String[] zug, Spiel spiel) {
-		String[] erlaubteZuege = spiel.getErlaubteZuege(zug);
-		if(erlaubteZuege.length == 0) {
-			System.out.println ("Fuer " + zug[0] + " sind momentan keine Zuege moeglich.");
-		}
-		else {
-			System.out.println ("Folgende Zuege sind fuer " + zug[0] + " momentan moeglich: ");
-			for(String zugString : erlaubteZuege) {
-				System.out.println (zugString);
+		try {
+			String[] erlaubteZuege = spiel.getErlaubteZuege(zug);
+			if(erlaubteZuege.length == 0) {
+				System.out.println ("Fuer " + zug[0] + " sind momentan keine Zuege moeglich.");
 			}
+			else {
+				System.out.println ("Folgende Zuege sind fuer " + zug[0] + " momentan moeglich: ");
+				for(String zugString : erlaubteZuege) {
+					System.out.println (zugString);
+				}
+			}
+			System.out.println ("Druecken Sie Enter zum fortfahren.");
+			sc.nextLine();
+		} catch( IllegalArgumentException e) {
+			System.out.println ("Ungueltige Eingabe");
 		}
 	}
 	
