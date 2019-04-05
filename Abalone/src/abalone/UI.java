@@ -22,7 +22,7 @@ public class UI {
 	 */
 	public static void spielerAnlegen(Spiel spiel) {
 
-		System.out.println("Gibt den Namen für den Spieler mit der Farbe Weiss ein:");
+		System.out.println("Geben Sie den Namen für den Spieler mit der Farbe Weiss ein:");
 		System.out.print(">");
 		String name = sc.nextLine();
 		while(name.length() > 20 || name.length() < 2) {
@@ -33,9 +33,9 @@ public class UI {
 		try {
 			spiel.addSpieler(name, "weiss");
 		}catch(IllegalArgumentException e) {
-			System.out.println("Unzulüssige eingabe, bitte benutze WEISS für Weiss und SCHWARZ für Schwarz)");
+			System.out.println("Unzulaessige Eingabe, bitte benutze WEISS für Weiss und SCHWARZ für Schwarz)");
 		}
-		System.out.println("Spieler angelegt. Nun gib den Namen für den Spieler mit der Farbe Schwarz ein:");
+		System.out.println("Spieler angelegt. Nun geben Sie den Namen für den Spieler mit der Farbe Schwarz ein:");
 		System.out.print(">");
 		String name2 = sc.nextLine();
 		while(name2.equalsIgnoreCase(name)) {
@@ -50,7 +50,7 @@ public class UI {
 		try {
 			spiel.addSpieler(name2, "schwarz");
 		}catch(IllegalArgumentException e) {
-			System.out.println("Unzulässige eingabe, bitte benutze WEISS für Weiss und SCHWARZ für Schwarz)");
+			System.out.println("Unzulaessige Eingabe, bitte benutze WEISS für Weiss und SCHWARZ für Schwarz)");
 		}
 	}
 	/**
@@ -138,7 +138,6 @@ public class UI {
 			eingabe=sc.nextLine();
 			if(eingabe.equalsIgnoreCase("back") || eingabe.equalsIgnoreCase("zuruck") || eingabe.equalsIgnoreCase("zurueck")) {
 				inSchleifeBleiben = false;
-				hauptMenue(spiel);
 			}
 		}
 		
