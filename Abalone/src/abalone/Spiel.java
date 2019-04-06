@@ -249,25 +249,52 @@ public class Spiel {
 
 	/**
 	 * Gibt den Status des Spiels zurueck. Dieser umfasst: Das Spielbrett; Welcher
-	 * Spieler am Zug ist; Welche Spieler noch wie viele Steine im Spiel haben und
-	 * wieviele Steiner er verloren hat
+	 * Spieler am Zug ist; Wieviele Steine die jeweiligen Spieler noch im Spiel haben und
+	 * wieviele Steiner Sie jeweils verloren haben
 	 * 
 	 * @return der Status als String
 	 */
 	public String getStatus() {
-		String[] geschlageneKugeln = { "", " *", " * *", " * * *", " * * * *", " * * * * *", " * * * * * *" };
+		String[] verloreneSteineArray = { "", " *", " * *", " * * *", " * * * *", " * * * * *", " * * * * * *" };
 		String amZug = "        Am zug ist: " + spielerAmZug.getName();
 		String verbleibendeSteineO = "             Spieler " + this.spielerImSpiel[0].getName() + "(O) hat noch "
 				+ this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe()) + " Kugeln.";
-		String verloreneKugelnO = "            Verlorene Kugeln:"
-				+ geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())];
+		String verloreneSteineO = "            Verlorene Kugeln:"
+				+ verloreneSteineArray[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())];
 		String verbleibendeSteineX = "          Spieler " + this.spielerImSpiel[1].getName() + "(X) hat noch "
 				+ this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln.";
-		String verloreneKugelnX = "         Verlorene Kugeln:"
-				+ geschlageneKugeln[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())];
+		String verloreneSteineX = "         Verlorene Kugeln:"
+				+ verloreneSteineArray[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())];
 
-		String feld = this.spielBrett.toStringEigen(verbleibendeSteineO, verbleibendeSteineX, verloreneKugelnO,
-				verloreneKugelnX, amZug);
+		StringBuilder gesamtesFeld = new StringBuilder();
+		gesamtesFeld.append("                    \n");
+		String speicher;
+		// Start am Ende des Arrays, da I oben steht
+		for(int i = this.spielBrett.getKoordinatenQuer().length - 1; i >= 0; i--) {
+			String einzelneQuerlinie = this.spielBrett.baueEinzelneQuerlinie(i);
+			switch(i) {
+			case 8: speicher = verbleibendeSteineO;
+					break;
+			case 7: speicher = verloreneSteineO;
+					break;
+			case 5: speicher = verbleibendeSteineX;
+					break;
+			case 4: speicher = verloreneSteineX;
+					break;
+			case 2: speicher = amZug;
+					break;
+			default: speicher = "";
+			}
+			gesamtesFeld.append(einzelneQuerlinie+speicher+ "\n");
+		}
+
+		// Untere Koordinaten anfügen
+		gesamtesFeld.append("                  6\n");
+		gesamtesFeld.append("         " + "1 2 3 4 5 ");
+		gesamtesFeld.append("\n");
+		String feld = gesamtesFeld.toString();
+		
+		
 		if (herausgedraengt) {
 			feld = this.addSternchen(feld, letzterZug);
 			herausgedraengt = false;///

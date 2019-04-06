@@ -16,9 +16,9 @@ import java.util.Objects;
 
 public class Spielbrett {
 
-	private static final String[] KOORDINATENQUER = {"A", "B", "C", "D", "E", 
+	public static final String[] KOORDINATENQUER = {"A", "B", "C", "D", "E", 
 			"F", "G", "H", "I"};
-	private static final String[] KOORDINATENDIAGONAL = {"1", "2", "3", "4", 
+	public static final String[] KOORDINATENDIAGONAL = {"1", "2", "3", "4", 
 			"5", "6", "7", "8", "9"} ;
 	private final int MAXDIAGONALE = 9;
 	private final int MITTE = 5;
@@ -38,7 +38,22 @@ public class Spielbrett {
 		}
 		this.stelleStartpositionAuf();
 	}
+	/**
+	 * Uebergibt die Querkoordinaten des Spielbrettes
+	 * @return Querkoordinaten des Spielbrettes als Stringarray
+	 */
+	public String[] getKoordinatenQuer() {
+		return KOORDINATENQUER;
+	}
 
+	/**
+	 * Uebergibt die diagonalen Koordinaten des Spielbrettes
+	 * @return diagonalen Koordinaten des Spielbrettes als Stringarray
+	 */
+	public String[] getKoordinatenDiagonal() {
+		return KOORDINATENDIAGONAL;
+	}
+	
 	/**
 	 * Verknüpft alle Feldbezeichnungen
 	 * eines Abalone-Bretts mit Spielfeld-Objekten.
@@ -181,8 +196,8 @@ public class Spielbrett {
 	 * 
 	 */
 
-//	@Override
-	public String toStringEigen(String verbleibendeSteineO,String verbleibendeSteineX,String verloreneSteineO,String verloreneSteineX,String amZug) {
+	
+/*	public String toStringEigen(String verbleibendeSteineO,String verbleibendeSteineX,String verloreneSteineO,String verloreneSteineX,String amZug) {
 		StringBuilder gesamtesFeld = new StringBuilder();
 		gesamtesFeld.append("                    \n");
 		String speicher;
@@ -210,12 +225,13 @@ public class Spielbrett {
 		gesamtesFeld.append("         " + "1 2 3 4 5 ");
 		gesamtesFeld.append("\n");
 		return gesamtesFeld.toString();
-	}
+		} 
+		*/
 
 
 
 	/**
-	 * Hilfsmethode von toString.
+	 * notwendige Hilfsmethode von getStatus von der Spielklasse.
 	 * Baut eine komplette Querzeile des Spielbretts mit passender Einrückung,
 	 * Feldern und Koordinaten und gibt diese als String zurück.
 	 * 
@@ -224,7 +240,7 @@ public class Spielbrett {
 	 * @return komplette Querzeile als String.
 	 * 
 	 */
-	private String baueEinzelneQuerlinie(int posKoordinateQuer) {
+	public String baueEinzelneQuerlinie(int posKoordinateQuer) {
 		StringBuilder einzelneQuerlinie = new StringBuilder();
 
 		einzelneQuerlinie.append(KOORDINATENQUER[posKoordinateQuer] + "  ");
