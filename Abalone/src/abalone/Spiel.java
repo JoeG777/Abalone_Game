@@ -256,45 +256,27 @@ public class Spiel {
 	 */
 	public String getStatus() {
 		String[] verloreneSteineArray = { "", " *", " * *", " * * *", " * * * *", " * * * * *", " * * * * * *" };
-		String amZug = "        Am zug ist: " + spielerAmZug.getName();
+		String amZug = "          Am zug ist: " + spielerAmZug.getName();
 		String verbleibendeSteineO = "             Spieler " + this.spielerImSpiel[0].getName() + "(O) hat noch "
 				+ this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe()) + " Kugeln.";
-		String verloreneSteineO = "            Verlorene Kugeln:"
+		String verloreneSteineO = "             Verlorene Kugeln:"
 				+ verloreneSteineArray[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())];
 		String verbleibendeSteineX = "          Spieler " + this.spielerImSpiel[1].getName() + "(X) hat noch "
 				+ this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln.";
 		String verloreneSteineX = "         Verlorene Kugeln:"
 				+ verloreneSteineArray[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())];
 
-		StringBuilder gesamtesFeld = new StringBuilder();
-		gesamtesFeld.append("                    \n");
-		String speicher;
-		// Start am Ende des Arrays, da I oben steht
-		for(int i = this.spielBrett.getKoordinatenQuer().length - 1; i >= 0; i--) {
-			String einzelneQuerlinie = this.spielBrett.baueEinzelneQuerlinie(i);
-			switch(i) {
-			case 8: speicher = verbleibendeSteineO;
-					break;
-			case 7: speicher = verloreneSteineO;
-					break;
-			case 5: speicher = verbleibendeSteineX;
-					break;
-			case 4: speicher = verloreneSteineX;
-					break;
-			case 2: speicher = amZug;
-					break;
-			default: speicher = "";
-			}
-			gesamtesFeld.append(einzelneQuerlinie+speicher+ "\n");
-		}
-
-		// Untere Koordinaten anfügen
-		gesamtesFeld.append("                  6\n");
-		gesamtesFeld.append("         " + "1 2 3 4 5 ");
-		gesamtesFeld.append("\n");
-		String feld = gesamtesFeld.toString();
+		String feld = this.spielBrett.toString();
+		String substring1 = feld.substring(21,38)+verbleibendeSteineO;
+		String substring2 = feld.substring(38,56)+verloreneSteineO;
+		String substring3 = feld.substring(56,78);
+		String substring4 = feld.substring(78,98)+verbleibendeSteineX;
+		String substring5 = feld.substring(98,120)+verloreneSteineX;
+		String substring6 = feld.substring(120,140);
+		String substring7 = feld.substring(140,162)+amZug;
+		String substring8 = feld.substring(162);
 		
-		
+		feld = substring1 + substring2 + substring3 + substring4 + substring5 + substring6 + substring7 + substring8;
 		if (herausgedraengt) {
 			feld = this.addSternchen(feld, letzterZug);
 			herausgedraengt = false;///

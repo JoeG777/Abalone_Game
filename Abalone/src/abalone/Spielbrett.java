@@ -38,21 +38,6 @@ public class Spielbrett {
 		}
 		this.stelleStartpositionAuf();
 	}
-	/**
-	 * Uebergibt die Querkoordinaten des Spielbrettes
-	 * @return Querkoordinaten des Spielbrettes als Stringarray
-	 */
-	public String[] getKoordinatenQuer() {
-		return KOORDINATENQUER;
-	}
-
-	/**
-	 * Uebergibt die diagonalen Koordinaten des Spielbrettes
-	 * @return diagonalen Koordinaten des Spielbrettes als Stringarray
-	 */
-	public String[] getKoordinatenDiagonal() {
-		return KOORDINATENDIAGONAL;
-	}
 	
 	/**
 	 * Verknüpft alle Feldbezeichnungen
@@ -184,27 +169,21 @@ public class Spielbrett {
 
 
 	/** 
-	 * Ordnet die HashMap in Form eines Abalone Spielbretts mit Koordinaten an
-	 * und gibt dieses zusammen mit Status Informationen des Spiels als String zurück.
-	 *  
-	 * @param Einen String der die verbleibenden Kugeln des ersten Spielers angibt.
-	 * @param Einen String der die verbleibenden Kugeln des zweiten Spielers angibt.
-	 * @param Einen String der die verlorenen Kugeln des ersten Spielers angibt.
-	 * @param Einen String der die verlorenen Kugeln des zweiten Spielers angibt.
-	 * @param Einen String der angibt, welcher Spieler an der Reihe ist.
+	 * Ordnet die HashMap in Form eines Abalone Spielbretts mit Koordinaten an.
 	 * @return Einen String in Form eines Abalone-Spielbretts.
 	 * 
 	 */
 
-	
-/*	public String toStringEigen(String verbleibendeSteineO,String verbleibendeSteineX,String verloreneSteineO,String verloreneSteineX,String amZug) {
+	@Override
+	public String toString() {
+		//String verbleibendeSteineO,String verbleibendeSteineX,String verloreneSteineO,String verloreneSteineX,String amZug
 		StringBuilder gesamtesFeld = new StringBuilder();
 		gesamtesFeld.append("                    \n");
-		String speicher;
+		//String speicher;
 		// Start am Ende des Arrays, da I oben steht
 		for(int i = KOORDINATENQUER.length - 1; i >= 0; i--) {
 			String einzelneQuerlinie = baueEinzelneQuerlinie(i);
-			switch(i) {
+			/*		switch(i) {
 			case 8: speicher = verbleibendeSteineO;
 					break;
 			case 7: speicher = verloreneSteineO;
@@ -216,8 +195,8 @@ public class Spielbrett {
 			case 2: speicher = amZug;
 					break;
 			default: speicher = "";
-			}
-			gesamtesFeld.append(einzelneQuerlinie+speicher+ "\n");
+			}*/
+			gesamtesFeld.append(einzelneQuerlinie + "\n");
 		}
 
 		// Untere Koordinaten anfügen
@@ -226,7 +205,7 @@ public class Spielbrett {
 		gesamtesFeld.append("\n");
 		return gesamtesFeld.toString();
 		} 
-		*/
+		
 
 
 
@@ -240,7 +219,7 @@ public class Spielbrett {
 	 * @return komplette Querzeile als String.
 	 * 
 	 */
-	public String baueEinzelneQuerlinie(int posKoordinateQuer) {
+	private String baueEinzelneQuerlinie(int posKoordinateQuer) {
 		StringBuilder einzelneQuerlinie = new StringBuilder();
 
 		einzelneQuerlinie.append(KOORDINATENQUER[posKoordinateQuer] + "  ");
