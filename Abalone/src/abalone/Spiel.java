@@ -267,6 +267,7 @@ public class Spiel {
 				+ verloreneSteineArray[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())];
 
 		String feld = this.spielBrett.toString();
+		String substring0 = feld.substring(0,21);
 		String substring1 = feld.substring(21,38)+verbleibendeSteineO;
 		String substring2 = feld.substring(38,56)+verloreneSteineO;
 		String substring3 = feld.substring(56,78);
@@ -276,7 +277,7 @@ public class Spiel {
 		String substring7 = feld.substring(140,162)+amZug;
 		String substring8 = feld.substring(162);
 		
-		feld = substring1 + substring2 + substring3 + substring4 + substring5 + substring6 + substring7 + substring8;
+		feld = substring0 + substring1 + substring2 + substring3 + substring4 + substring5 + substring6 + substring7 + substring8;
 		if (herausgedraengt) {
 			feld = this.addSternchen(feld, letzterZug);
 			herausgedraengt = false;///
@@ -913,42 +914,42 @@ public class Spiel {
 			switch (spielZugVon[1]) {
 			case '5':
 				if (richtung == 1) {
-					alsArray[5] = '*';
+					alsArray[6] = '*';
 				}
 				if (richtung == 4) {
-					alsArray[7] = '*';
+					alsArray[8] = '*';
 				}
 				break;
 			case '6':
 				if (richtung == 1) {
-					alsArray[7] = '*';
+					alsArray[8] = '*';
 				}
 				if (richtung == 4) {
-					alsArray[9] = '*';
+					alsArray[10] = '*';
 				}
 				break;
 			case '7':
 				if (richtung == 1) {
-					alsArray[9] = '*';
+					alsArray[10] = '*';
 				}
 				if (richtung == 4) {
-					alsArray[11] = '*';
+					alsArray[12] = '*';
 				}
 				break;
 			case '8':
 				if (richtung == 1) {
-					alsArray[11] = '*';
+					alsArray[12] = '*';
 				}
 				if (richtung == 4) {
-					alsArray[13] = '*';
+					alsArray[14] = '*';
 				}
 				break;
 			case '9':
 				if (richtung == 1) {
-					alsArray[13] = '*';
+					alsArray[14] = '*';
 				}
 				if (richtung == 4) {
-					alsArray[15] = '*';
+					alsArray[16] = '*';
 				}
 				break;
 
@@ -961,7 +962,7 @@ public class Spiel {
 			switch (spielZugVon[1]) {
 			case '1':
 				if (richtung == 2) {
-					alsArray[5] = '*';
+					alsArray[6] = '*';
 				}
 				if (richtung == 5) {
 					alsArray[7] = '*';
@@ -969,34 +970,34 @@ public class Spiel {
 				break;
 			case '2':
 				if (richtung == 2) {
-					alsArray[7] = '*';
+					alsArray[8] = '*';
 				}
 				if (richtung == 5) {
-					alsArray[9] = '*';
+					alsArray[10] = '*';
 				}
 				break;
 			case '3':
 				if (richtung == 2) {
-					alsArray[9] = '*';
+					alsArray[10] = '*';
 				}
 				if (richtung == 5) {
-					alsArray[11] = '*';
+					alsArray[12] = '*';
 				}
 				break;
 			case '4':
 				if (richtung == 2) {
-					alsArray[11] = '*';
+					alsArray[12] = '*';
 				}
 				if (richtung == 5) {
-					alsArray[13] = '*';
+					alsArray[14] = '*';
 				}
 				break;
 			case '5':
 				if (richtung == 2) {
-					alsArray[13] = '*';
+					alsArray[14] = '*';
 				}
 				if (richtung == 5) {
-					alsArray[15] = '*';
+					alsArray[16] = '*';
 				}
 				break;
 

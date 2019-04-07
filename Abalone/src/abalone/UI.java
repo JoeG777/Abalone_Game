@@ -1,6 +1,5 @@
 package abalone;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class UI {
@@ -70,7 +69,7 @@ public class UI {
 				+ "###############################################\n"
 				+ "########### Drücke Enter zum Starten ##########\n"
 				+ "###############################################");
-		String start = sc.nextLine();
+		sc.nextLine();
 
 	}
 
