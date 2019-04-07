@@ -176,26 +176,10 @@ public class Spielbrett {
 
 	@Override
 	public String toString() {
-		//String verbleibendeSteineO,String verbleibendeSteineX,String verloreneSteineO,String verloreneSteineX,String amZug
 		StringBuilder gesamtesFeld = new StringBuilder();
 		gesamtesFeld.append("                    \n");
-		//String speicher;
-		// Start am Ende des Arrays, da I oben steht
 		for(int i = KOORDINATENQUER.length - 1; i >= 0; i--) {
 			String einzelneQuerlinie = baueEinzelneQuerlinie(i);
-			/*		switch(i) {
-			case 8: speicher = verbleibendeSteineO;
-					break;
-			case 7: speicher = verloreneSteineO;
-					break;
-			case 5: speicher = verbleibendeSteineX;
-					break;
-			case 4: speicher = verloreneSteineX;
-					break;
-			case 2: speicher = amZug;
-					break;
-			default: speicher = "";
-			}*/
 			gesamtesFeld.append(einzelneQuerlinie + "\n");
 		}
 
