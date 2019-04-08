@@ -38,12 +38,13 @@ public class UI {
 		System.out.println("Spieler angelegt. Nun geben Sie den Namen für den Spieler mit der Farbe Schwarz ein:");
 		System.out.print(">");
 		String name2 = sc.nextLine();
-		while (name2.equalsIgnoreCase(name)) {
+		while (name2.equalsIgnoreCase(name) || (name2.length() > 20 || name2.length() < 2)) {
+			if(name2.equalsIgnoreCase(name)) {
 			System.out.println("Bitte geben Sie unterschiedliche Namen für die Spieler ein!");
-			name2 = sc.nextLine();
-		}
-		while (name2.length() > 20 || name2.length() < 2) {
-			System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
+			}
+			if((name2.length() > 20 || name2.length() < 2)) {
+				System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
+			}
 			System.out.print(">");
 			name2 = sc.nextLine();
 		}
