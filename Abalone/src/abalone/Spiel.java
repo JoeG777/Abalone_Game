@@ -1,6 +1,6 @@
 /**
  * <h1>Spiel</h1>
- * Die Klasse Spiel implementiert das zentrale Objekt für das Spiel Abalone. In
+ * Die Klasse Spiel implementiert das zentrale Objekt fuer das Spiel Abalone. In
  * ihr laufen alle anderen Klassen zusammen, somit bildet sie die Schnittstelle
  * zu weiteren Objekten wie einer UI 
  * @author Gruppe A4
@@ -44,8 +44,8 @@ public class Spiel {
 	 * maximal 2 Spieler hinzu. Sollte ein dritter Spieler hinzugefuegt werden,
 	 * wirft die Methode eine IndexOutOfBounds Exception.
 	 * 
-	 * @param name  Der für den Spieler gewaehlte Name.
-	 * @param farbe Die für den Spieler gewaehlte Farbe.
+	 * @param name  Der fuer den Spieler gewaehlte Name.
+	 * @param farbe Die fuer den Spieler gewaehlte Farbe.
 	 * @exception IllegalArgumentException  Wird geworfen, wenn der String farbe
 	 *                                      nicht "schwarz" oder "weiss" entspricht.
 	 * @exception IndexOutOfBoundsException wird geworfen wenn ein Spieler
@@ -342,7 +342,7 @@ public class Spiel {
 	 * Parst einen String zu einem zweidimensonalen Char Array
 	 * 
 	 * @param zug mit dem Datentyp String
-	 * @return zweidimensionales Char Array, welches den Zug als Chars enthält
+	 * @return zweidimensionales Char Array, welches den Zug als Chars enthaelt
 	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge ungueltig
 	 *                                     ist.
 	 */
@@ -565,7 +565,7 @@ public class Spiel {
 	}
 
 	/**
-	 * Gibt alle Spielfelder eines Zuges als Spielfeld-Array zurück.
+	 * Gibt alle Spielfelder eines Zuges als Spielfeld-Array zurueck.
 	 * 
 	 * @param ausgangsfelder Die Felder, von denen gezogen wird.
 	 * @param richtung       Die Richtung des Zuges.
@@ -613,7 +613,7 @@ public class Spiel {
 	 * @param vordersterStein der vorderste Stein eines Spielzuges in dem zwei bis
 	 *                        drei Steine bewegt werden.
 	 * @param richtung        die Richtung des Spielzuges.
-	 * @return boolean true, wenn möglich, false, wenn nicht möglich.
+	 * @return boolean true, wenn moeglich, false, wenn nicht moeglich.
 	 */
 	private boolean isZuEinsSumito(Spielfeld vordersterStein, int richtung) {
 		Spielfeld nachbarInRichtung = vordersterStein.getNachbar(richtung);
@@ -632,8 +632,8 @@ public class Spiel {
 	}
 
 	/**
-	 * Gibt für einen Zug aus 2 oder 3 Steinen, bei dem eigene Steine geschoben
-	 * werden, die Position des vordersten Steines in Richtung des Zuges zurück.
+	 * Gibt fuer einen Zug aus 2 oder 3 Steinen, bei dem eigene Steine geschoben
+	 * werden, die Position des vordersten Steines in Richtung des Zuges zurueck.
 	 * 
 	 * @param felder   Felder auf denen sich die zu ziehenden Steine befinden.
 	 * @param richtung Die Richtung des Zuges.
@@ -677,12 +677,12 @@ public class Spiel {
 	}
 
 	/**
-	 * Prueft, ob ein Zwei-zu-drei Sumito möglich ist.
+	 * Prueft, ob ein Zwei-zu-drei Sumito moeglich ist.
 	 * 
 	 * @param vordersterStein der vorderste Stein eines Spielzuges in dem drei
 	 *                        Steine bewegt werden.
 	 * @param richtung        die Richtung des Spielzuges.
-	 * @return boolean true, wenn möglich, false, wenn nicht möglich.
+	 * @return boolean true, wenn moeglich, false, wenn nicht moeglich.
 	 */
 	private boolean isZuZweiSumito(Spielfeld vordersterStein, int richtung) {
 		Spielfeld erstesFeldInRichtung = vordersterStein.getNachbar(richtung);

@@ -16,7 +16,7 @@ public class Historie {
 	}
 	
 	/**
-	 * Gibt das Zuege-Attribut der Historie zurück.
+	 * Gibt das Zuege-Attribut der Historie zurueck.
 	 * @return ArrayList aus Strings, in der die Zuege stehen.
 	 */
 	public ArrayList<String> getZuege() {
@@ -72,7 +72,7 @@ public class Historie {
 	}
 	
 	/**
-	 * Gibt die Historie als String zurück.
+	 * Gibt die Historie als String zurueck.
 	 */
 	@Override
 	public String toString()  {
@@ -90,7 +90,7 @@ public class Historie {
 	 * Diese Methode dient zum Hinzufuegen eines Spielzugs
 	 * in die Historie nach Abschluss des Spielzuges
 	 * 
-	 * @param spielzug Wird der Historie hinzugefügt
+	 * @param spielzug Wird der Historie hinzugefuegt
 	 */
 	public void spielzugHinzufuegen(Spielzug spielzug) {
 		if(spielzug == null) {

@@ -1,7 +1,7 @@
 /**
  * @author Gruppe A4
  * 
- * Die Klasse Spieler enthält den Plan für die 
+ * Die Klasse Spieler enthaelt den Plan fuer die 
  * Erschaffung eines Spielers.
  */
 package abalone;
@@ -19,7 +19,7 @@ public class Spieler {
 	/**
 	 * Erschafft ein Spieler Objekt
 	 * 
-	 * @param name Der gewählte Name des Spielers
+	 * @param name Der gewaehlte Name des Spielers
 	 * @param farbe Die Farbe des Spielers. Beim zweiten Spieler festgelegt
 	 * 
 	 */
@@ -67,7 +67,7 @@ public class Spieler {
 	 *  dass beide Farben vergeben sind
 	 * 
 	 * @param farbe Aus der Enumeration FarbEnum
-	 * @exception RuntimeException Fehlermeldung bei ungültiger Farbe
+	 * @exception RuntimeException Fehlermeldung bei ungueltiger Farbe
 	 */
 	private void setFarbe(FarbEnum farbe) {
 		//Fallunterscheidung: Ausschliessen, dass zwei Spieler dieselbe Farbe haben
@@ -83,7 +83,7 @@ public class Spieler {
 				farbeZweiterSpieler = FarbEnum.SCHWARZ;
 				break;
 			default:
-				throw new RuntimeException("Ungültige Farbe");
+				throw new RuntimeException("Ungueltige Farbe");
 			}
 		}else {
 			//2.Spieler nimmt die andere Farbe an egal was
@@ -103,7 +103,7 @@ public class Spieler {
 	
 	/**
 	 * Methode wird aufgerufen, wenn der Spieler eine gegnerische Kugel 
-	 * rauswirft. Die Anzahl wird einfach um eins erhöht.
+	 * rauswirft. Die Anzahl wird einfach um eins erhoeht.
 	 * 
 	 */
 	public void eliminiereKugel() {
@@ -111,7 +111,7 @@ public class Spieler {
 	}
 	
 	/**
-	 * Gibt die momentane Anzahl der eignene Kugeln zurück
+	 * Gibt die momentane Anzahl der eignene Kugeln zurueck
 	 * @return Anzahl, der sich im Spiel befindlichen Kugeln
 	 */
 	public int getEliminierteKugeln() {
@@ -132,7 +132,7 @@ public class Spieler {
 	
 	@Override
 	/**
-	 * Gibt einen hashCode für den Spieler zurueck.
+	 * Gibt einen hashCode fuer den Spieler zurueck.
 	 */
 	public int hashCode() {
 		return this.spielerID;
