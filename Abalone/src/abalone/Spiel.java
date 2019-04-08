@@ -256,33 +256,34 @@ public class Spiel {
 	 */
 	public String getStatus() {
 		String[] verloreneSteineArray = { "", " *", " * *", " * * *", " * * * *", " * * * * *", " * * * * * *" };
-		String amZug = "          Am zug ist: " + spielerAmZug.getName();
+		String amZug = "        Am zug ist: " + spielerAmZug.getName();
 		String verbleibendeSteineO = "             Spieler " + this.spielerImSpiel[0].getName() + "(O) hat noch "
 				+ this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe()) + " Kugeln.";
-		String verloreneSteineO = "             Verlorene Kugeln:"
+		String verloreneSteineO = "            Verlorene Kugeln:"
 				+ verloreneSteineArray[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())];
 		String verbleibendeSteineX = "          Spieler " + this.spielerImSpiel[1].getName() + "(X) hat noch "
 				+ this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln.";
 		String verloreneSteineX = "         Verlorene Kugeln:"
 				+ verloreneSteineArray[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())];
 
-		String feld = this.spielBrett.toString();
-		String substring0 = feld.substring(0,21);
-		String substring1 = feld.substring(21,38)+verbleibendeSteineO;
-		String substring2 = feld.substring(38,56)+verloreneSteineO;
-		String substring3 = feld.substring(56,78);
-		String substring4 = feld.substring(78,98)+verbleibendeSteineX;
-		String substring5 = feld.substring(98,120)+verloreneSteineX;
-		String substring6 = feld.substring(120,140);
-		String substring7 = feld.substring(140,162)+amZug;
-		String substring8 = feld.substring(162);
+		String brettZeilen[] = this.spielBrett.toString().split("\n");
+		brettZeilen[1] += verbleibendeSteineO;
+		brettZeilen[2] += verloreneSteineO;
+		brettZeilen[4] += verbleibendeSteineX;
+		brettZeilen[5] += verloreneSteineX;
+		brettZeilen[7] += amZug;
 		
-		feld = substring0 + substring1 + substring2 + substring3 + substring4 + substring5 + substring6 + substring7 + substring8;
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < brettZeilen.length; i++) {
+			sb.append(brettZeilen[i] +"\n");
+		}
+		String brett = sb.toString();
+		
 		if (herausgedraengt) {
-			feld = this.addSternchen(feld, letzterZug);
+			brett = this.addSternchen(brett, letzterZug);
 			herausgedraengt = false;///
 		}
-		return feld;
+		return brett;
 
 	}
 
