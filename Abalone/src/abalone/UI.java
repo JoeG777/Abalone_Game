@@ -167,21 +167,21 @@ public class UI {
 				hauptMenue(spiel);
 			} else
 
-			if (eingabe.equalsIgnoreCase("exit")) {
-				System.out.println("Wollen Sie wirklich das Spiel verlassen? (Ja/Nein)");
-				eingabe = sc.nextLine();
-				if (eingabe.equalsIgnoreCase("Ja")) {
-					gewinner = null;
-					verlierer = null;
-					imSpiel = false;
-					break;
+				if (eingabe.equalsIgnoreCase("exit")) {
+					System.out.println("Wollen Sie wirklich das Spiel verlassen? (Ja/Nein)");
+					eingabe = sc.nextLine();
+					if (eingabe.equalsIgnoreCase("Ja")) {
+						gewinner = null;
+						verlierer = null;
+						imSpiel = false;
+						break;
+					}
+				} else {
+					if (!ziehen(eingabe, spiel)) {
+						System.out.println("Irgendwas hat da nicht gestimmt!");
+						System.out.println();
+					}
 				}
-			} else {
-				if (!ziehen(eingabe, spiel)) {
-					System.out.println("Irgendwas hat da nicht gestimmt!");
-					System.out.println();
-				}
-			}
 			imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
 			if (!imSpiel) {
 				verlierer = spiel.getSpielerAmZug();
