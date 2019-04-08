@@ -240,7 +240,7 @@ public class UI {
 	 */
 	public static boolean ziehen(String zug, Spiel spiel) {
 
-		zug = zug.toUpperCase();
+		zug = zug.toUpperCase(); 
 		
 		String[] zugArr = new String[2];
 		try {
