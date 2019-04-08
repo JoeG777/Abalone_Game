@@ -3,12 +3,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import abalone.FarbEnum;
 import abalone.Spiel;
 import abalone.Spielbrett;
 import abalone.Spieler;
-import abalone.Spielfeld;
-import abalone.Spielfigur;
 import abalone.Spielzug;
 
 public class SpielTest {
