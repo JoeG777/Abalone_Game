@@ -27,7 +27,7 @@ public class Spielbrett {
 
 
 	/**
-	 * Konstruktor für Abalone Spielbrett
+	 * Konstruktor fuer Abalone Spielbrett
 	 */
 	public Spielbrett() {
 		setBrett(new HashMap<String, Spielfeld>());
@@ -40,23 +40,23 @@ public class Spielbrett {
 	}
 	
 	/**
-	 * Verknüpft alle Feldbezeichnungen
+	 * Verknuepft alle Feldbezeichnungen
 	 * eines Abalone-Bretts mit Spielfeld-Objekten.
 	 * 
 	 */
 	private void schaffeMapping() {
 		for(int i = 0; i < KOORDINATENQUER.length; i++) {
-			// Untere Felder schaffen und verknüpfen
+			// Untere Felder schaffen und verknuepfen
 			if(i < MITTE) {
-				//verknüpft von links nach rechts
+				//verknuepft von links nach rechts
 				for(int j = 0; j < MITTE + i; j++) {
 					String key = KOORDINATENQUER[i] + KOORDINATENDIAGONAL[j];
 					weiseKeyFeldZu(key);
 				}
 			}
-			// Obere Felder schaffen und verknüpfen 
+			// Obere Felder schaffen und verknuepfen 
 			else {
-				//verknüpft von rechts nach links
+				//verknuepft von rechts nach links
 				for(int j = KOORDINATENQUER.length-1; j > i-MITTE; j--) {
 					String key = KOORDINATENQUER[i] + KOORDINATENDIAGONAL[j];
 					weiseKeyFeldZu(key);
@@ -67,7 +67,7 @@ public class Spielbrett {
 	}
 
 	/**
-	 * Weist dem übergebenem Key ein Spielfeld zu.
+	 * Weist dem uebergebenem Key ein Spielfeld zu.
 	 * @param key Feldbezeichnung in Form eines Strings.
 	 * 
 	 */
@@ -136,7 +136,7 @@ public class Spielbrett {
 
 
 	/**
-	 * Gibt das Brettattribut des Spielbretts zurück.
+	 * Gibt das Brettattribut des Spielbretts zurueck.
 	 * @return Brettattribut in Form von einer
 	 * HashMap(String,Spielfeld)  des Spielbretts.
 	 * 
@@ -157,7 +157,7 @@ public class Spielbrett {
 	}
 	
 	/**
-	 * Gibt das zum übergebenen Key passende Feld zurueck.
+	 * Gibt das zum uebergebenen Key passende Feld zurueck.
 	 * @param key ein String, der zu einem Feld gehoert.
 	 * @return zum Key passendes Spielfeld-Objekt.
 	 */
@@ -183,7 +183,7 @@ public class Spielbrett {
 			gesamtesFeld.append(einzelneQuerlinie + "\n");
 		}
 
-		// Untere Koordinaten anfügen
+		// Untere Koordinaten anfuegen
 		gesamtesFeld.append("                  6\n");
 		gesamtesFeld.append("         " + "1 2 3 4 5 ");
 		gesamtesFeld.append("\n");
@@ -195,10 +195,10 @@ public class Spielbrett {
 
 	/**
 	 * notwendige Hilfsmethode von getStatus von der Spielklasse.
-	 * Baut eine komplette Querzeile des Spielbretts mit passender Einrückung,
-	 * Feldern und Koordinaten und gibt diese als String zurück.
+	 * Baut eine komplette Querzeile des Spielbretts mit passender Einrueckung,
+	 * Feldern und Koordinaten und gibt diese als String zurueck.
 	 * 
-	 * @param posKoordinateQuer Array-Position der gewünschten Querzeilenkoordinate.
+	 * @param posKoordinateQuer Array-Position der gewuenschten Querzeilenkoordinate.
 	 * 
 	 * @return komplette Querzeile als String.
 	 * 
@@ -217,7 +217,7 @@ public class Spielbrett {
 		einzelneQuerlinie.append(einrueckung);
 		einzelneQuerlinie.append(felder);
 
-		//Koordinaten an rechter, unterer Seite anfügen
+		//Koordinaten an rechter, unterer Seite anfuegen
 		if(posKoordinateQuer < 3) {
 			int arrPos = MAXDIAGONALE - 3 + posKoordinateQuer ;
 			einzelneQuerlinie.append("  " + KOORDINATENDIAGONAL[arrPos]);
@@ -229,19 +229,19 @@ public class Spielbrett {
 
 	/**
 	 * Hilfsmethode von toString.
-	 * Fügt alle Symbole der Felder einer Zeile mit Zwischenabständen zu einem
-	 * String zusammen. Zurückgegebner String ist immer gerade.
+	 * Fuegt alle Symbole der Felder einer Zeile mit Zwischenabstaenden zu einem
+	 * String zusammen. Zurueckgegebner String ist immer gerade.
 	 * 
-	 * @param posKoordinateQuer Array-Position der gewünschten Querzeilenkoordinate.
+	 * @param posKoordinateQuer Array-Position der gewuenschten Querzeilenkoordinate.
 	 * 
-	 * @return String aus Feldsymbolen, Zwischenabständen und einem Leerzeichen
+	 * @return String aus Feldsymbolen, Zwischenabstaenden und einem Leerzeichen
 	 * 
 	 */
 	private String fuegeFelderZusammen(int posKoordinateQuer) {
 
 		StringBuilder felder = new StringBuilder();
 
-		// Fügt Felder von RECHTS nach links zusammen
+		// Fuegt Felder von RECHTS nach links zusammen
 		for(int j = KOORDINATENDIAGONAL.length - 1; j >= 0; j--) {
 			String key = KOORDINATENQUER[posKoordinateQuer] + 
 					KOORDINATENDIAGONAL[j];
@@ -280,7 +280,7 @@ public class Spielbrett {
 
 	/**
 	 * Bewegt eine Figur von einem Feld auf ein anderes, 
-	 * ohne dabei zu überprüfen, ob dies "logisch" möglich ist. 
+	 * ohne dabei zu ueberpruefen, ob dies "logisch" moeglich ist. 
 	 * @param von das Feld auf dem sich die Figur befindet.
 	 * @param auf das Feld auf das die Figur bewegt werden soll. 
 	 */
@@ -298,7 +298,7 @@ public class Spielbrett {
 
 
 	/**
-	 * Gibt alle Ausgangsfelder eines Zuges zurück-
+	 * Gibt alle Ausgangsfelder eines Zuges zurueck-
 	 * @param zug Ein Spielzug-Objekt.
 	 * @return Spielfeld-Array mit allen Ausgangsfelder des Zuges.
 	 */

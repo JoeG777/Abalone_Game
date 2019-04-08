@@ -98,10 +98,10 @@ public class Spielzug {
 	
 	/**
 	 * Die equals Methode, die alle enthaltenen Daten eines Spielzug auf
-	 * Gleichheit überprüft
+	 * Gleichheit ueberprueft
 	 * @param o Vergleichsobjekt
-	 * @return Wahrheitswert Ob das übergebene Objekt und der referenzierte
-	 * Spielzug tatsächlich gleich sind
+	 * @return Wahrheitswert Ob das uebergebene Objekt und der referenzierte
+	 * Spielzug tatsaechlich gleich sind
 	 */
 	@Override
 	public boolean equals(Object o) {

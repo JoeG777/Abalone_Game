@@ -22,7 +22,7 @@ public class UI {
 	 */
 	public static void spielerAnlegen(Spiel spiel) {
 
-		System.out.println("Geben Sie den Namen für den Spieler mit der Farbe Weiss ein:");
+		System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 		System.out.print(">");
 		String name = sc.nextLine();
 		while (name.length() > 20 || name.length() < 2) {
@@ -33,13 +33,13 @@ public class UI {
 		try {
 			spiel.addSpieler(name, "weiss");
 		} catch (IllegalArgumentException e) {
-			System.out.println("Unzulaessige Eingabe, bitte benutze WEISS für Weiss und SCHWARZ für Schwarz)");
+			System.out.println("Unzulaessige Eingabe, bitte benutze WEISS fuer Weiss und SCHWARZ fuer Schwarz)");
 		}
-		System.out.println("Spieler angelegt. Nun geben Sie den Namen für den Spieler mit der Farbe Schwarz ein:");
+		System.out.println("Spieler angelegt. Nun geben Sie den Namen fuer den Spieler mit der Farbe Schwarz ein:");
 		System.out.print(">");
 		String name2 = sc.nextLine();
 		while (name2.equalsIgnoreCase(name)) {
-			System.out.println("Bitte geben Sie unterschiedliche Namen für die Spieler ein!");
+			System.out.println("Bitte geben Sie unterschiedliche Namen fuer die Spieler ein!");
 			name2 = sc.nextLine();
 		}
 		while (name2.length() > 20 || name2.length() < 2) {
@@ -50,7 +50,7 @@ public class UI {
 		try {
 			spiel.addSpieler(name2, "schwarz");
 		} catch (IllegalArgumentException e) {
-			System.out.println("Unzulaessige Eingabe, bitte benutze WEISS für Weiss und SCHWARZ für Schwarz)");
+			System.out.println("Unzulaessige Eingabe, bitte benutze WEISS fuer Weiss und SCHWARZ fuer Schwarz)");
 		}
 	}
 
@@ -67,7 +67,7 @@ public class UI {
 				+ "#  \\_| |_/_.__/ \\__,_|_|\\___/|_| |_|\\___|     #\r\n"
 				+ "#                                             #\r\n"
 				+ "###############################################\n"
-				+ "########### Drücke Enter zum Starten ##########\n"
+				+ "########### Druecke Enter zum Starten ##########\n"
 				+ "###############################################");
 		sc.nextLine();
 
@@ -87,7 +87,7 @@ public class UI {
 				+ "#### 1. Regeln ########### 2. Spielablauf #####\r\n"
 				+ "###############################################\r\n"
 				+ "### Geben Sie die Nummer oder den Namen des ###\r\n"
-				+ "##### Artikels ein den Sie lesen möchten. #####\r\n"
+				+ "##### Artikels ein den Sie lesen moechten. ####\r\n"
 				+ "###############################################\r\n");
 		String eingabe = sc.nextLine();
 		while (inSchleifeBleiben) {
@@ -117,13 +117,13 @@ public class UI {
 			else if (eingabe.equalsIgnoreCase("spielablauf") || eingabe.equals("2") || eingabe.contentEquals("2.")) {
 				System.out.println("");
 				System.out.println("\r\n"
-						+ "Wie beim Schach hat Abalone ein Notationssystem für Zuege. Hierbei werden die Querlinien mit Buchstaben von A bis I\r\n"
+						+ "Wie beim Schach hat Abalone ein Notationssystem fuer Zuege. Hierbei werden die Querlinien mit Buchstaben von A bis I\r\n"
 						+ "(die unterste Grundlinie ist A) bezeichnet und die Diagonalen von 1 bis 9 (die linke schwarze Diagonale ist 1)\r\n"
 						+ "\r\n"
 						+ "Ein Zug wird jeweils mit dem Anfangs-und Endpunkt des letzten schiebenden Steines bezeichnet.\r\n"
-						+ "Ein diagonaler Zug wird mit den Anfangspositionen der beiden aeußersten Steine bezeichnet und \r\n"
-						+ "mit der Endposition eines dieser beiden aeußersten Steine.\r\n"
-						+ "Beispiele dafür waeren: >C3C5-D3< oder >G6I8-F5<\r\n");
+						+ "Ein diagonaler Zug wird mit den Anfangspositionen der beiden aeussersten Steine bezeichnet und \r\n"
+						+ "mit der Endposition eines dieser beiden aeussersten Steine.\r\n"
+						+ "Beispiele dafuer waeren: >C3C5-D3< oder >G6I8-F5<\r\n");
 			} else {
 				System.out.println("");
 				System.out.println(
@@ -223,7 +223,7 @@ public class UI {
 				inSchleifeBleiben = false;
 			} else {
 				System.out.println("Die Tasten befinden sich oben links auf ihrer Tastatur. + \n"
-						+ "Falls Sie sich zusätzlich eine Tastatur mit NumPad\n"
+						+ "Falls Sie sich zusaetzlich eine Tastatur mit NumPad\n"
 						+ "geleistet haben finden Sie die Tasten auch rechts.");
 				System.out.println();
 			}
