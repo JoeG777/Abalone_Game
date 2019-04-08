@@ -255,10 +255,16 @@ public class UI {
 			}
 
 			if (zug.length() == 5) {
+				if (!zug.substring(2, 3).equals("-")) {
+					return false;
+				}
 				zugArr[0] = zug.substring(0, 2);
 				zugArr[1] = zug.substring(3, 5);
 			}
 			if (zug.length() == 7) {
+				if (!zug.substring(4, 5).equals("-")) {
+					return false;
+				}
 				zugArr[0] = zug.substring(0, 4);
 				zugArr[1] = zug.substring(5, 7);
 			}
