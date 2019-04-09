@@ -1,3 +1,11 @@
+/**
+ * 
+ * @author Gruppe A4
+ * 
+ * Die Klasse Spielfigur erschafft ein Spielfigur Objekt.
+ * Sie bietet Methoden um auf ihre Attribute zuzugreifen.
+ * 
+ */
 package abalone;
 
 public class Spielfigur {

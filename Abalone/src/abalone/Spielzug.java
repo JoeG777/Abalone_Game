@@ -1,3 +1,12 @@
+/**
+ * 
+ * @author Gruppe A4
+ * 
+ * Gibt den Spielzug an und beinhaltet alle notwendigen Informationen
+ * eines Spielzuges als Attribute.
+ * Bietet Methoden um auf diese zuzugreifen.
+ *
+ */
 package abalone;
 
 public class Spielzug {

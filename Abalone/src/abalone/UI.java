@@ -1,3 +1,9 @@
+/**
+ * @Author Gruppe A4
+ * Die UI bietet dem Nutzer eine Oberflaeche um Abalone zu spielen
+ * Sie nimmt dessen Eingaben an und uebergibt diese dem Spiel
+ * 
+ */
 package abalone;
 
 import java.util.Scanner;
@@ -5,7 +11,11 @@ import java.util.Scanner;
 public class UI {
 
 	static Scanner sc = new Scanner(System.in);
-
+/**
+ * Die Main Methode legt ein neues Spiel und und fuehrt alle
+ * notwendigen Methoden aus um eine Partie Abalone zu spielen
+ * @param args
+ */
 	public static void main(String[] args) {
 		Spiel spiel = new Spiel();
 		welcomeScreen();

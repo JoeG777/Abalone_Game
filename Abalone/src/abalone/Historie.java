@@ -1,3 +1,11 @@
+/**
+ * 
+ * @author Gruppe A4
+ * 
+ * Diese Klasse legt eine Historie aller Zuege an und
+ * bietet die Methoden um auf diese zuzugreifen.
+ *
+ */
 package abalone;
 
 import java.util.ArrayList;
