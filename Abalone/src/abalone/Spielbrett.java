@@ -291,7 +291,11 @@ public class Spielbrett {
 		}else
 			throw new IllegalArgumentException("Ungueltiger Zug");
 	}
-
+	
+	/**
+	 * Loescht einen Stein vom Spielfeld.
+	 * @param feld Spielfeld, auf dem der zu loeschende Stein ist.
+	 */
 	private void steinAbraeumen(Spielfeld feld) {
 		feld.setFigur(null);
 	}
