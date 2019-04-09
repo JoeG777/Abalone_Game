@@ -1,14 +1,12 @@
+package abalone;
+
 /**
- * 
- * @author Gruppe A4
- * 
+ * <h1>Spielfigur</h1>
  * Gibt den Spielzug an und beinhaltet alle notwendigen Informationen
  * eines Spielzuges als Attribute.
  * Bietet Methoden um auf diese zuzugreifen.
- *
+ * @author Gruppe A4
  */
-package abalone;
-
 public class Spielzug {
 	
 	private String von;

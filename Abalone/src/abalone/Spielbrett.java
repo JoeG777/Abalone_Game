@@ -1,11 +1,3 @@
-/**
- * @author Gruppe A4
- * @version 1.4  
- * Die Klasse Spielbrett erschafft ein Abalone Spielbrett 
- * auf Basis einer Hash Map.
- * Sie bietet Methoden, um auf verschiedene Spielfelder zuzugreifen oder
- * Figuren zu bewegen.
- */
 
 package abalone;
 
@@ -13,6 +5,16 @@ import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.Objects;
+
+/**
+ * <h1>Spielbrett</h1>
+ * Die Klasse Spielbrett erschafft ein Abalone Spielbrett 
+ * auf Basis einer Hash Map.
+ * Sie bietet Methoden, um auf verschiedene Spielfelder zuzugreifen oder
+ * Figuren zu bewegen.
+ * @author Gruppe A4
+ * @version 1.4  
+ */
 
 public class Spielbrett {
 

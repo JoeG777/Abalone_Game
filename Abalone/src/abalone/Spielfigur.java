@@ -1,13 +1,11 @@
-/**
- * 
- * @author Gruppe A4
- * 
- * Die Klasse Spielfigur erschafft ein Spielfigur Objekt.
- * Sie bietet Methoden um auf ihre Attribute zuzugreifen.
- * 
- */
 package abalone;
 
+/**
+ * <h1>Spielfigur</h1>
+ * Die Klasse Spielfigur erschafft ein Spielfigur Objekt.
+ * Sie bietet Methoden um auf ihre Attribute zuzugreifen.
+ * @author Gruppe A4
+ */
 public class Spielfigur {
 
 	private FarbEnum farbe;

@@ -1,3 +1,9 @@
+
+package abalone;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * <h1>Spiel</h1>
  * Die Klasse Spiel implementiert das zentrale Objekt fuer das Spiel Abalone. In
@@ -7,11 +13,6 @@
  * @version 1.2
  * @since 1.0
  */
-package abalone;
-
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class Spiel {
 
 	private Spieler spielerAmZug;

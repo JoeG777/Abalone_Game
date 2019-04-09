@@ -1,10 +1,11 @@
+package abalone;
+
 /**
- * @author Gruppe A4
- * 
+ * <h1>Spieler</h1>
  * Die Klasse Spieler enthaelt den Plan fuer die 
  * Erschaffung eines Spielers.
+ * @author Gruppe A4
  */
-package abalone;
 
 public class Spieler {
 

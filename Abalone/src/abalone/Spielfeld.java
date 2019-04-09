@@ -1,14 +1,11 @@
-/**
- * @author Gruppe A4
- * @version 1.4
- * 
- * Die Klasse Spielfeld erschafft ein Spielfeld-Objekt.
- * 
- * 
- */
-
 package abalone;
 
+/**
+ * <h1>Spielfeld</h1>
+ * Die Klasse Spielfeld erschafft ein Spielfeld-Objekt.
+ * @author Gruppe A4
+ * @version 1.4
+ */
 public class Spielfeld {
 	private Spielbrett brett;
 	private String id;
