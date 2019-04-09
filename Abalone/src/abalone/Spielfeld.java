@@ -1,14 +1,11 @@
-/**
- * @author Gruppe A4
- * @version 1.4
- * 
- * Die Klasse Spielfeld erschafft ein Spielfeld-Objekt.
- * 
- * 
- */
-
 package abalone;
 
+/**
+ * <h1>Spielfeld</h1>
+ * Die Klasse Spielfeld erschafft ein Spielfeld-Objekt.
+ * @author Gruppe A4
+ * @version 1.4
+ */
 public class Spielfeld {
 	private Spielbrett brett;
 	private String id;
@@ -126,8 +123,8 @@ public class Spielfeld {
 	}
 	
 	/**
-	 * Gibt das Nachbarn Attribut zurück.
-	 * @return Spielfeld-Array der Länge 6.
+	 * Gibt das Nachbarn Attribut zurueck.
+	 * @return Spielfeld-Array der Laenge 6.
 	 * 
 	 */
 	public Spielfeld[] getNachbarn() {
@@ -148,7 +145,7 @@ public class Spielfeld {
 	}
 	
 	/**
-	 * Gibt den Nachbar in die mitgegebene Richtung zurück, falls
+	 * Gibt den Nachbar in die mitgegebene Richtung zurueck, falls
 	 * einer existiert.
 	 * @param richtung Die Richtung in welcher der Nachbar liegt.
 	 * @return Spielfeld-Objekt des Nachbarn oder null, wenn kein Nachbar
@@ -187,7 +184,7 @@ public class Spielfeld {
 	}
 	
 	/**
-	 * Gibt den Index des Nachbarn im Array zurück.
+	 * Gibt den Index des Nachbarn im Array zurueck.
 	 * @param feld Spielfeld-Objekt des Nachbarn.
 	 * @return Index des Nachbarn im Nachbarn-Array.
 	 */

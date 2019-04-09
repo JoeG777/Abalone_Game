@@ -1,5 +1,12 @@
 package abalone;
 
+/**
+ * <h1>Spielfigur</h1>
+ * Gibt den Spielzug an und beinhaltet alle notwendigen Informationen
+ * eines Spielzuges als Attribute.
+ * Bietet Methoden um auf diese zuzugreifen.
+ * @author Gruppe A4
+ */
 public class Spielzug {
 	
 	private String von;
@@ -98,10 +105,10 @@ public class Spielzug {
 	
 	/**
 	 * Die equals Methode, die alle enthaltenen Daten eines Spielzug auf
-	 * Gleichheit überprüft
+	 * Gleichheit ueberprueft
 	 * @param o Vergleichsobjekt
-	 * @return Wahrheitswert Ob das übergebene Objekt und der referenzierte
-	 * Spielzug tatsächlich gleich sind
+	 * @return Wahrheitswert Ob das uebergebene Objekt und der referenzierte
+	 * Spielzug tatsaechlich gleich sind
 	 */
 	@Override
 	public boolean equals(Object o) {

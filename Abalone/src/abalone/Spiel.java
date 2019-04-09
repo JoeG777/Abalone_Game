@@ -1,17 +1,18 @@
+
+package abalone;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * <h1>Spiel</h1>
- * Die Klasse Spiel implementiert das zentrale Objekt für das Spiel Abalone. In
+ * Die Klasse Spiel implementiert das zentrale Objekt fuer das Spiel Abalone. In
  * ihr laufen alle anderen Klassen zusammen, somit bildet sie die Schnittstelle
  * zu weiteren Objekten wie einer UI 
  * @author Gruppe A4
  * @version 1.2
  * @since 1.0
  */
-package abalone;
-
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class Spiel {
 
 	private Spieler spielerAmZug;
@@ -44,8 +45,8 @@ public class Spiel {
 	 * maximal 2 Spieler hinzu. Sollte ein dritter Spieler hinzugefuegt werden,
 	 * wirft die Methode eine IndexOutOfBounds Exception.
 	 * 
-	 * @param name  Der für den Spieler gewaehlte Name.
-	 * @param farbe Die für den Spieler gewaehlte Farbe.
+	 * @param name  Der fuer den Spieler gewaehlte Name.
+	 * @param farbe Die fuer den Spieler gewaehlte Farbe.
 	 * @exception IllegalArgumentException  Wird geworfen, wenn der String farbe
 	 *                                      nicht "schwarz" oder "weiss" entspricht.
 	 * @exception IndexOutOfBoundsException wird geworfen wenn ein Spieler
@@ -256,33 +257,34 @@ public class Spiel {
 	 */
 	public String getStatus() {
 		String[] verloreneSteineArray = { "", " *", " * *", " * * *", " * * * *", " * * * * *", " * * * * * *" };
-		String amZug = "          Am zug ist: " + spielerAmZug.getName();
+		String amZug = "        Am zug ist: " + spielerAmZug.getName();
 		String verbleibendeSteineO = "             Spieler " + this.spielerImSpiel[0].getName() + "(O) hat noch "
 				+ this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe()) + " Kugeln.";
-		String verloreneSteineO = "             Verlorene Kugeln:"
+		String verloreneSteineO = "            Verlorene Kugeln:"
 				+ verloreneSteineArray[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())];
 		String verbleibendeSteineX = "          Spieler " + this.spielerImSpiel[1].getName() + "(X) hat noch "
 				+ this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe()) + " Kugeln.";
 		String verloreneSteineX = "         Verlorene Kugeln:"
 				+ verloreneSteineArray[14 - this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe())];
 
-		String feld = this.spielBrett.toString();
-		String substring0 = feld.substring(0,21);
-		String substring1 = feld.substring(21,38)+verbleibendeSteineO;
-		String substring2 = feld.substring(38,56)+verloreneSteineO;
-		String substring3 = feld.substring(56,78);
-		String substring4 = feld.substring(78,98)+verbleibendeSteineX;
-		String substring5 = feld.substring(98,120)+verloreneSteineX;
-		String substring6 = feld.substring(120,140);
-		String substring7 = feld.substring(140,162)+amZug;
-		String substring8 = feld.substring(162);
+		String brettZeilen[] = this.spielBrett.toString().split("\n");
+		brettZeilen[1] += verbleibendeSteineO;
+		brettZeilen[2] += verloreneSteineO;
+		brettZeilen[4] += verbleibendeSteineX;
+		brettZeilen[5] += verloreneSteineX;
+		brettZeilen[7] += amZug;
 		
-		feld = substring0 + substring1 + substring2 + substring3 + substring4 + substring5 + substring6 + substring7 + substring8;
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < brettZeilen.length; i++) {
+			sb.append(brettZeilen[i] +"\n");
+		}
+		String brett = sb.toString();
+		
 		if (herausgedraengt) {
-			feld = this.addSternchen(feld, letzterZug);
+			brett = this.addSternchen(brett, letzterZug);
 			herausgedraengt = false;///
 		}
-		return feld;
+		return brett;
 
 	}
 
@@ -341,7 +343,7 @@ public class Spiel {
 	 * Parst einen String zu einem zweidimensonalen Char Array
 	 * 
 	 * @param zug mit dem Datentyp String
-	 * @return zweidimensionales Char Array, welches den Zug als Chars enthält
+	 * @return zweidimensionales Char Array, welches den Zug als Chars enthaelt
 	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge ungueltig
 	 *                                     ist.
 	 */
@@ -564,7 +566,7 @@ public class Spiel {
 	}
 
 	/**
-	 * Gibt alle Spielfelder eines Zuges als Spielfeld-Array zurück.
+	 * Gibt alle Spielfelder eines Zuges als Spielfeld-Array zurueck.
 	 * 
 	 * @param ausgangsfelder Die Felder, von denen gezogen wird.
 	 * @param richtung       Die Richtung des Zuges.
@@ -612,7 +614,7 @@ public class Spiel {
 	 * @param vordersterStein der vorderste Stein eines Spielzuges in dem zwei bis
 	 *                        drei Steine bewegt werden.
 	 * @param richtung        die Richtung des Spielzuges.
-	 * @return boolean true, wenn möglich, false, wenn nicht möglich.
+	 * @return boolean true, wenn moeglich, false, wenn nicht moeglich.
 	 */
 	private boolean isZuEinsSumito(Spielfeld vordersterStein, int richtung) {
 		Spielfeld nachbarInRichtung = vordersterStein.getNachbar(richtung);
@@ -631,8 +633,8 @@ public class Spiel {
 	}
 
 	/**
-	 * Gibt für einen Zug aus 2 oder 3 Steinen, bei dem eigene Steine geschoben
-	 * werden, die Position des vordersten Steines in Richtung des Zuges zurück.
+	 * Gibt fuer einen Zug aus 2 oder 3 Steinen, bei dem eigene Steine geschoben
+	 * werden, die Position des vordersten Steines in Richtung des Zuges zurueck.
 	 * 
 	 * @param felder   Felder auf denen sich die zu ziehenden Steine befinden.
 	 * @param richtung Die Richtung des Zuges.
@@ -676,12 +678,12 @@ public class Spiel {
 	}
 
 	/**
-	 * Prueft, ob ein Zwei-zu-drei Sumito möglich ist.
+	 * Prueft, ob ein Zwei-zu-drei Sumito moeglich ist.
 	 * 
 	 * @param vordersterStein der vorderste Stein eines Spielzuges in dem drei
 	 *                        Steine bewegt werden.
 	 * @param richtung        die Richtung des Spielzuges.
-	 * @return boolean true, wenn möglich, false, wenn nicht möglich.
+	 * @return boolean true, wenn moeglich, false, wenn nicht moeglich.
 	 */
 	private boolean isZuZweiSumito(Spielfeld vordersterStein, int richtung) {
 		Spielfeld erstesFeldInRichtung = vordersterStein.getNachbar(richtung);

@@ -1,7 +1,14 @@
+
 package abalone;
 
 import java.util.ArrayList;
 
+/**
+ * <h1>Historie</h1>
+ * Diese Klasse legt eine Historie aller Zuege an und
+ * bietet die Methoden um auf diese zuzugreifen.
+ * @author Gruppe A4
+ */
 public class Historie {
 	
 	private ArrayList<String> zuege;
@@ -16,7 +23,7 @@ public class Historie {
 	}
 	
 	/**
-	 * Gibt das Zuege-Attribut der Historie zurück.
+	 * Gibt das Zuege-Attribut der Historie zurueck.
 	 * @return ArrayList aus Strings, in der die Zuege stehen.
 	 */
 	public ArrayList<String> getZuege() {
@@ -72,7 +79,7 @@ public class Historie {
 	}
 	
 	/**
-	 * Gibt die Historie als String zurück.
+	 * Gibt die Historie als String zurueck.
 	 */
 	@Override
 	public String toString()  {
@@ -90,7 +97,7 @@ public class Historie {
 	 * Diese Methode dient zum Hinzufuegen eines Spielzugs
 	 * in die Historie nach Abschluss des Spielzuges
 	 * 
-	 * @param spielzug Wird der Historie hinzugefügt
+	 * @param spielzug Wird der Historie hinzugefuegt
 	 */
 	public void spielzugHinzufuegen(Spielzug spielzug) {
 		if(spielzug == null) {

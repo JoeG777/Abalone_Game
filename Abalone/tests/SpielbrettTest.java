@@ -188,7 +188,7 @@ public class SpielbrettTest {
 				"B     X X X X X X   8\n" + 
 				"A      X X X X X   7\n" + 
 				"                  6\n" + 
-				"         1 2 3 4 5 ";
+				"         1 2 3 4 5 \n";
 		assertEquals(erwartet, testBrett.toString());
 	}
 }
