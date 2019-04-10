@@ -692,9 +692,15 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	private boolean isZuZweiSumito(Spielfeld vordersterStein, int richtung) {
 		Spielfeld erstesFeldInRichtung = vordersterStein.getNachbar(richtung);
-		Spielfeld zweitesFeldInRichtung = erstesFeldInRichtung.getNachbar(richtung);
-		Spielfeld drittesFeldInRichtung = zweitesFeldInRichtung.getNachbar(richtung);
-
+		Spielfeld zweitesFeldInRichtung = null;
+		Spielfeld drittesFeldInRichtung = null;
+		if(erstesFeldInRichtung!=null) {
+		zweitesFeldInRichtung = erstesFeldInRichtung.getNachbar(richtung);
+		}
+		if(zweitesFeldInRichtung!=null) {
+		drittesFeldInRichtung = zweitesFeldInRichtung.getNachbar(richtung);
+		}
+		
 		if (erstesFeldInRichtung != null && erstesFeldInRichtung.istBesetzt()
 				&& erstesFeldInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe()
 				&& zweitesFeldInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe()) {
