@@ -13,8 +13,9 @@ import java.util.Collections;
  * @version 1.2
  * @since 1.0
  */
-public class Spiel implements bedienerInterface{
+public class Spiel implements bedienerInterface, java.io.Serializable {
 
+	private static final long serialVersionUID = 109L;
 	private Spieler spielerAmZug;
 	private Spieler[] spielerImSpiel;
 	private Spielbrett spielBrett;
