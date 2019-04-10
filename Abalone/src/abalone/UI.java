@@ -18,8 +18,8 @@ public class UI {
  */
 	public static void main(String[] args) {
 		bedienerInterface spiel = new Spiel();
-		hauptMenue(spiel);
 		welcomeScreen();
+		hauptMenue(spiel);
 		sc.close();
 	}
 
