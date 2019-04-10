@@ -1129,6 +1129,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				String[] erlaubterZugSplit = erlaubterZug.split("-");
 				Spielzug zug = new Spielzug(erlaubterZugSplit[0], erlaubterZugSplit[1]);
 				Spielzug formatierterZug = formatieren(zug);
+				zug.setFarbe(spieler.getFarbe());
 				if (!alleMoeglichenZuege.contains(formatierterZug)) {
 					alleMoeglichenZuege.add(formatierterZug);
 				}

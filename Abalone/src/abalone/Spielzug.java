@@ -125,9 +125,8 @@ public class Spielzug implements java.io.Serializable {
 		
 		Spielzug z = (Spielzug) o;
 		
-		return (this.getVon() == z.getVon() &&
-				this.getNach() == z.getNach() &&
-				this.getRichtung() == z.getRichtung() &&
+		return (this.getVon().equals(z.getVon()) &&
+				this.getNach().equals(z.getNach()) &&
 				this.getFarbe() == z.getFarbe());
 	}
 	
