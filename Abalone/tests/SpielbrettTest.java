@@ -10,9 +10,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import abalone.FarbEnum;
-import abalone.Spielbrett;
-import abalone.Spielfeld;
 import abalone.Spielzug;
+import abalone.spielbrett.Spielbrett;
+import abalone.spielbrett.Spielfeld;
 
 public class SpielbrettTest {
 

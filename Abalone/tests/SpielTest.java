@@ -4,9 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import abalone.Spiel;
-import abalone.Spielbrett;
 import abalone.Spieler;
 import abalone.Spielzug;
+import abalone.spielbrett.Spielbrett;
 
 public class SpielTest {
 	Spiel spiel;

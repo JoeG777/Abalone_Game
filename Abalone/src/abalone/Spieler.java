@@ -129,10 +129,6 @@ public class Spieler implements java.io.Serializable {
 		+ " Kugeln eliminiert";
 		}
 	
-	/**
-	 * @return SpielerID Eindeutige Spielererkennung
-	 */
-	
 	@Override
 	/**
 	 * Gibt einen hashCode fuer den Spieler zurueck.

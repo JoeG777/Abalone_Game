@@ -4,6 +4,9 @@ package abalone;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import abalone.spielbrett.Spielbrett;
+import abalone.spielbrett.Spielfeld;
+
 /**
  * <h1>Spiel</h1>
  * Die Klasse Spiel implementiert das zentrale Objekt fuer das Spiel Abalone. In

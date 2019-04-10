@@ -2,9 +2,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import abalone.Spielfeld;
+
+import abalone.spielbrett.Spielbrett;
+import abalone.spielbrett.Spielfeld;
 import abalone.FarbEnum;
-import abalone.Spielbrett;
 
 public class SpielfeldTest {
 	Spielbrett brett;

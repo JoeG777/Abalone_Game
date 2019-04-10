@@ -4,9 +4,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import abalone.FarbEnum;
-import abalone.Spielbrett;
-import abalone.Spielfeld;
-import abalone.Spielfigur;
+import abalone.spielbrett.Spielbrett;
+import abalone.spielbrett.Spielfeld;
+import abalone.spielbrett.Spielfigur;
 
 public class SpielfigurTest {
 	static Spielbrett spielbrett;

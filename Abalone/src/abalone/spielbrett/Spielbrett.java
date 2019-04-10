@@ -1,10 +1,13 @@
 
-package abalone;
+package abalone.spielbrett;
 
 import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.Objects;
+
+import abalone.FarbEnum;
+import abalone.Spielzug;
 
 /**
  * <h1>Spielbrett</h1>
@@ -106,13 +109,13 @@ public class Spielbrett implements java.io.Serializable {
 				String idWeiss = buchstabeWeiss + zahl;
 				if(brett.containsKey(idWeiss)) {
 					Spielfeld feld = brett.get(idWeiss);
-					feld.setFigur(new Spielfigur(feld, "WEISS"));
+					feld.setFigur(feld.new Spielfigur(feld, "WEISS"));
 				}
 				String idSchwarz = buchstabeSchwarz + zahl;
 
 				if(brett.containsKey(idSchwarz)) {
 					Spielfeld feld = brett.get(idSchwarz);
-					feld.setFigur(new Spielfigur(feld, "SCHWARZ"));
+					feld.setFigur(feld.new Spielfigur(feld, "SCHWARZ"));
 				}
 			}
 		}
@@ -131,9 +134,9 @@ public class Spielbrett implements java.io.Serializable {
 			String idSchwarz = "C" + i;
 
 			Spielfeld weiss = brett.get(idWeiss);
-			weiss.setFigur(new Spielfigur(weiss, "WEISS"));
+			weiss.setFigur(weiss.new Spielfigur(weiss, "WEISS"));
 			Spielfeld schwarz = brett.get(idSchwarz);
-			schwarz.setFigur(new Spielfigur(schwarz, "SCHWARZ"));
+			schwarz.setFigur(weiss.new Spielfigur(schwarz, "SCHWARZ"));
 		}
 	}
 
