@@ -6,8 +6,9 @@ package abalone;
  * Sie bietet Methoden um auf ihre Attribute zuzugreifen.
  * @author Gruppe A4
  */
-public class Spielfigur {
+public class Spielfigur implements java.io.Serializable {
 
+	private static final long serialVersionUID = 104L;
 	private FarbEnum farbe;
 
 	/**

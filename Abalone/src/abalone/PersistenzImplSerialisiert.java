@@ -14,10 +14,11 @@ import java.io.ObjectOutputStream;
  * und Laden des Spiel-Status als serialisierte Datei
  * @author Gruppe A4
  */
-public class PersistenzImplSerialisiert implements PersistenzInterface {
+public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.Serializable {
 	
-	ObjectInputStream ois = null;
-	ObjectOutputStream oos = null;
+	private static final long serialVersionUID = 100L;
+	private ObjectInputStream ois = null;
+	private ObjectOutputStream oos = null;
 	
 	/** Diese Methode bekommt einen Spiel-Status in Form einer Datei
 	 * uebergeben und oeffnet diese

@@ -16,8 +16,9 @@ import java.util.Objects;
  * @version 1.4  
  */
 
-public class Spielbrett {
+public class Spielbrett implements java.io.Serializable {
 
+	private static final long serialVersionUID = 107L;
 	public static final String[] KOORDINATENQUER = {"A", "B", "C", "D", "E", 
 			"F", "G", "H", "I"};
 	public static final String[] KOORDINATENDIAGONAL = {"1", "2", "3", "4", 

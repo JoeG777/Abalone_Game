@@ -1,6 +1,8 @@
 package abalone;
 
-public class PersistenzImplCSV implements PersistenzInterface {
+public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializable {
+
+	private static final long serialVersionUID = 101L;
 
 	@Override
 	public void oeffnen(String dateiName) {
