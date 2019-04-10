@@ -1108,5 +1108,25 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return moeglicheAusgangsfelder;
 	}
 	
+	public ArrayList<Spielzug> getAlleMoeglichenZuege(Spieler spieler) {
+
+		ArrayList<Spielzug> alleMoeglichenZuege = new ArrayList <Spielzug>();
+		ArrayList<String[]> moeglicheAusgangsFelder = getMoeglicheAusgangsfelder(spieler.getFarbe());
+
+		for (String[] ausgangsFelder : moeglicheAusgangsFelder) {
+			String[] erlaubteZuege = getErlaubteZuege(ausgangsFelder);
+			for (String erlaubterZug : erlaubteZuege) {
+				String[] erlaubterZugSplit = erlaubterZug.split("-");
+				Spielzug zug = new Spielzug(erlaubterZugSplit[0], erlaubterZugSplit[1]);
+				Spielzug formatierterZug = formatieren(zug);
+				if (!alleMoeglichenZuege.contains(formatierterZug)) {
+					alleMoeglichenZuege.add(formatierterZug);
+				}
+				
+			}
+		}
+		return alleMoeglichenZuege;
+	}
+
 	
 }
