@@ -17,6 +17,7 @@ import java.io.ObjectOutputStream;
 public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.Serializable {
 	
 	private static final long serialVersionUID = 100L;
+	String dateiName;
 	private ObjectInputStream ois = null;
 	private ObjectOutputStream oos = null;
 	
@@ -26,8 +27,7 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	 */
 	@Override
 	public void oeffnen(String dateiName) throws FileNotFoundException, IOException {
-		ois = new ObjectInputStream(new FileInputStream(dateiName));
-		oos = new ObjectOutputStream(new FileOutputStream(dateiName));
+		this.dateiName = dateiName;
 	}
 
 	/**
@@ -45,8 +45,22 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	 */
 	@Override
 	public Object lesen() throws ClassNotFoundException, IOException {
-		Object gelesenesObjekt = ois.readObject();
-		return gelesenesObjekt;
+		ois = new ObjectInputStream(new FileInputStream(dateiName));
+		try {
+			Object gelesenesObjekt = (Spieler)ois.readObject();
+			return gelesenesObjekt;
+		}catch(NullPointerException e) {
+			throw new IOException("Datei nicht gefunden");
+		}
+		catch(NumberFormatException e) {
+			throw new IOException("Falsches Format");
+		}
+		catch(IndexOutOfBoundsException e) {
+			throw new IOException("Zu wenig Elemente");
+		}
+		finally {
+			oos.close();
+		}
 	}
 
 	/**
@@ -55,7 +69,19 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	 */
 	@Override
 	public void schreiben(Object zuSchreibendesObjekt) throws IOException {
-		oos.writeObject(zuSchreibendesObjekt);
+		oos = new ObjectOutputStream(new FileOutputStream(dateiName));
+		try {
+			oos.writeObject(zuSchreibendesObjekt);
+		}catch(FileNotFoundException e) {
+			throw new IOException("Datei nicht gefunden");
+		}
+		catch(IOException e) {
+			throw new IOException("Irgendwas ist schief gelaufen " + e.getMessage());
+		}
+		finally {
+			oos.close();
+		
+		}
+		
 	}
-
 }
