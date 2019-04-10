@@ -3,7 +3,7 @@ package abalone;
 public class PersistenzImplCSV implements PersistenzInterface {
 
 	@Override
-	public void oeffnen() {
+	public void oeffnen(String dateiName) {
 		
 		
 	}
@@ -15,13 +15,13 @@ public class PersistenzImplCSV implements PersistenzInterface {
 	}
 
 	@Override
-	public void lesen() {
+	public Object lesen() {
 		
-		
+		return null;
 	}
 
 	@Override
-	public void schreiben() {
+	public void schreiben(Object zuSchreibendesObjekt) {
 		
 		
 	}
