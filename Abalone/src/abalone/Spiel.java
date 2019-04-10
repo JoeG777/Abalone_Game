@@ -1077,4 +1077,35 @@ public class Spiel implements bedienerInterface{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public ArrayList<Spielfeld[]> getMoeglicheAusgangsfelder(FarbEnum farbe) {
+		ArrayList<Spielfeld[]> moeglicheAusgangsfelder = new ArrayList<Spielfeld[]>();
+		ArrayList<Spielfeld> felderInFarbe = spielBrett.getFelderMitFarbe(farbe);
+
+		for(Spielfeld momentanesFeld : felderInFarbe) {
+			Spielfeld[] betrachtetesEinzelfeld = {momentanesFeld};
+			moeglicheAusgangsfelder.add(betrachtetesEinzelfeld);			
+
+			for(int i = 3; i <= 5; i++) {
+				if(momentanesFeld.getNachbar(i) != null) {
+					Spielfeld nachbar = momentanesFeld.getNachbar(i);
+					if(nachbar.getFigur() != null && nachbar.getFigur().getFarbe() == farbe) {
+						Spielfeld[] betrachteteZweiFelder = {momentanesFeld, nachbar};
+						moeglicheAusgangsfelder.add(betrachteteZweiFelder);
+
+						if(nachbar.getNachbar(i) != null) {
+							Spielfeld nachbarDesNachbars = nachbar.getNachbar(i);
+							if(nachbarDesNachbars.getFigur() != null && nachbarDesNachbars.getFigur().getFarbe() == farbe) {
+							Spielfeld[] betrachteteDreiFelder = {momentanesFeld, nachbar, nachbarDesNachbars};
+							moeglicheAusgangsfelder.add(betrachteteDreiFelder);
+							}
+						}
+					}
+				}
+			}
+		}
+		return moeglicheAusgangsfelder;
+	}
+	
+	
 }
