@@ -1079,25 +1079,25 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 	}
 	
-	public ArrayList<Spielfeld[]> getMoeglicheAusgangsfelder(FarbEnum farbe) {
-		ArrayList<Spielfeld[]> moeglicheAusgangsfelder = new ArrayList<Spielfeld[]>();
+	public ArrayList<String[]> getMoeglicheAusgangsfelder(FarbEnum farbe) {
+		ArrayList<String[]> moeglicheAusgangsfelder = new ArrayList<String[]>();
 		ArrayList<Spielfeld> felderInFarbe = spielBrett.getFelderMitFarbe(farbe);
 
 		for(Spielfeld momentanesFeld : felderInFarbe) {
-			Spielfeld[] betrachtetesEinzelfeld = {momentanesFeld};
+			String[] betrachtetesEinzelfeld = {momentanesFeld.getId()};
 			moeglicheAusgangsfelder.add(betrachtetesEinzelfeld);			
 
 			for(int i = 3; i <= 5; i++) {
 				if(momentanesFeld.getNachbar(i) != null) {
 					Spielfeld nachbar = momentanesFeld.getNachbar(i);
 					if(nachbar.getFigur() != null && nachbar.getFigur().getFarbe() == farbe) {
-						Spielfeld[] betrachteteZweiFelder = {momentanesFeld, nachbar};
+						String[] betrachteteZweiFelder = {momentanesFeld.getId(), nachbar.getId()};
 						moeglicheAusgangsfelder.add(betrachteteZweiFelder);
 
 						if(nachbar.getNachbar(i) != null) {
 							Spielfeld nachbarDesNachbars = nachbar.getNachbar(i);
 							if(nachbarDesNachbars.getFigur() != null && nachbarDesNachbars.getFigur().getFarbe() == farbe) {
-							Spielfeld[] betrachteteDreiFelder = {momentanesFeld, nachbar, nachbarDesNachbars};
+							String[] betrachteteDreiFelder = {momentanesFeld.getId(), nachbar.getId(), nachbarDesNachbars.getId()};
 							moeglicheAusgangsfelder.add(betrachteteDreiFelder);
 							}
 						}
