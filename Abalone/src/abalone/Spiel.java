@@ -59,19 +59,33 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @since 1.0
 	 */
 	@Override
-	public void addSpieler(String name, String farbe) {
-		if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
-			throw new IndexOutOfBoundsException("Das Spieler Array ist bereits voll!");
-		}
-		if (farbe.equals("weiss") && spielerImSpiel[0] == null) {
+	public void addSpieler(String name, String farbe, int anzahlSpieler) {
+		if (anzahlSpieler == 2) {
+			if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
+				throw new IndexOutOfBoundsException("Das Spieler Array ist bereits voll!");
+			}
+			if (farbe.equals("weiss") && spielerImSpiel[0] == null) {
+				FarbEnum spielerFarbe = FarbEnum.WEISS;
+				spielerImSpiel[0] = new Spieler(name, spielerFarbe);
+				this.spielerAmZug = spielerImSpiel[0];
+			} else if (farbe.equals("schwarz") && spielerImSpiel[0] != null) {
+				FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
+				spielerImSpiel[1] = new Spieler(name, spielerFarbe);
+			} else {
+				throw new IllegalArgumentException("Unbekannte farbe :" + farbe);
+			}
+		} else if (anzahlSpieler == 1) {
 			FarbEnum spielerFarbe = FarbEnum.WEISS;
 			spielerImSpiel[0] = new Spieler(name, spielerFarbe);
 			this.spielerAmZug = spielerImSpiel[0];
-		} else if (farbe.equals("schwarz") && spielerImSpiel[0] != null) {
-			FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new Spieler(name, spielerFarbe);
-		} else {
-			throw new IllegalArgumentException("Unbekannte farbe :" + farbe);
+			FarbEnum KIFarbe = FarbEnum.SCHWARZ;
+			spielerImSpiel[1] = new KI(KIFarbe);
+		} else if (anzahlSpieler == 0) {
+			FarbEnum KIFarbe = FarbEnum.WEISS;
+			spielerImSpiel[0] = new KI(KIFarbe);
+			this.spielerAmZug = spielerImSpiel[0];
+			KIFarbe = FarbEnum.SCHWARZ;
+			spielerImSpiel[1] = new KI(KIFarbe);
 		}
 
 	}
