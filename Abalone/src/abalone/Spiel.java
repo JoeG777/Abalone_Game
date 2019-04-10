@@ -13,7 +13,7 @@ import java.util.Collections;
  * @version 1.2
  * @since 1.0
  */
-public class Spiel {
+public class Spiel implements bedienerInterface{
 
 	private Spieler spielerAmZug;
 	private Spieler[] spielerImSpiel;
@@ -54,6 +54,7 @@ public class Spiel {
 	 *                                      Spieler im Spiel sind.
 	 * @since 1.0
 	 */
+	@Override
 	public void addSpieler(String name, String farbe) {
 		if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
 			throw new IndexOutOfBoundsException("Das Spieler Array ist bereits voll!");
@@ -76,6 +77,7 @@ public class Spiel {
 	 * 
 	 * @return spielerName Name des Spielers, welcher am Zug ist, als String.
 	 */
+	@Override
 	public String getSpielerAmZug() {
 		return spielerAmZug.getName();
 	}
@@ -124,6 +126,7 @@ public class Spiel {
 	 *                                     Array Eintrag NULL ist.
 	 * @since 1.0
 	 */
+	@Override
 	public void ziehe(String[] zug) {
 		if (koordinatenValidieren(spielzugParser(zug))) {
 			Spielzug halter = new Spielzug(zug[0], zug[1]);
@@ -255,6 +258,7 @@ public class Spiel {
 	 * 
 	 * @return der Status als String
 	 */
+	@Override
 	public String getStatus() {
 		String[] verloreneSteineArray = { "", " *", " * *", " * * *", " * * * *", " * * * * *", " * * * * * *" };
 		String amZug = "        Am zug ist: " + spielerAmZug.getName();
@@ -1018,5 +1022,59 @@ public class Spiel {
 		}
 		return neuesBrett;
 
+	}
+
+	/**
+	 * Gibt alle bereits ausgefuehrten Zuege aus.
+	 * @return Historie Implementierung der Historie fuer das Interface
+	 */
+	@Override
+	public String getAlleZuege() {
+		return getHistorie();
+	}
+
+	/**
+	 * Gibt einen String mit den Namen im Stil "Name1,Name2" zurück. 
+	 * Angepasst fuer das Interface im Stil, dass nur ein String ueberliefert 
+	 * wird.
+	 * 
+	 * @return AlleNamenDerSpieler Spielernamen getrennt durch Kommata
+	 */
+	@Override
+	public String getSpielerImSpielInterface() {
+		String spielerString = "";
+		for(Spieler s: getSpielerImSpiel()) {
+			spielerString += s.getName() + " ";
+		}
+		
+		return spielerString;
+	}
+	
+	/**
+	 * Anpassung der getErlaubte-Methode fuer das Interface
+	 * 
+	 * @return erlaubteZuege Als String implementiert
+	 * 
+	 */
+	@Override
+	public String getErlaubteZuegeInterface(String[] ausgangsfelder) {
+		String zuegeString = "";
+		for(String s : getErlaubteZuege(ausgangsfelder)) {
+			zuegeString += s + ",";
+		}
+		
+		return zuegeString;
+	}
+	
+	@Override
+	public void spielAusDateiLaden() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void spielStatusSpeichern() {
+		// TODO Auto-generated method stub
+		
 	}
 }

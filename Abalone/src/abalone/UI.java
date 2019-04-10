@@ -17,7 +17,7 @@ public class UI {
  * notwendigen Methoden aus um eine Partie Abalone zu spielen
  */
 	public static void main(String[] args) {
-		Spiel spiel = new Spiel();
+		bedienerInterface spiel = new Spiel();
 		welcomeScreen();
 		spielerAnlegen(spiel);
 		spielen(spiel);
@@ -30,7 +30,7 @@ public class UI {
 	 * 
 	 * @param spiel Das Spielobjekt
 	 */
-	public static void spielerAnlegen(Spiel spiel) {
+	public static void spielerAnlegen(bedienerInterface spiel) {
 
 		System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 		System.out.print(">");
@@ -92,7 +92,7 @@ public class UI {
 	 * 
 	 * @param spiel Das erstelle Spiel Objekt.
 	 */
-	public static void hilfsMenu(Spiel spiel) {
+	public static void hilfsMenu(bedienerInterface spiel) {
 		boolean inSchleifeBleiben = true;
 		System.out.println("###############################################\r\n"
 				+ "################# HilfsMenue ##################\r\n"
@@ -163,7 +163,7 @@ public class UI {
 	 * 
 	 * @param spiel Das Spiel Objekt
 	 */
-	public static void spielen(Spiel spiel) {
+	public static void spielen(bedienerInterface spiel) {
 		String gewinner = "";
 		String verlierer = "";
 		boolean imSpiel = true;
@@ -197,9 +197,10 @@ public class UI {
 			imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
 			if (!imSpiel) {
 				verlierer = spiel.getSpielerAmZug();
-				for (Spieler s1 : spiel.getSpielerImSpiel()) {
-					if (!s1.getName().equals(verlierer)) {
-						gewinner = s1.getName();
+				String[] spielerImSpielArr = spiel.getSpielerImSpielInterface().split(",");
+				for (String s1 : spielerImSpielArr) {
+					if (!s1.equals(verlierer)) {
+						gewinner = s1;
 					}
 				}
 			}
@@ -213,7 +214,7 @@ public class UI {
 	 * 
 	 * @param spiel Das erstellte Spiel Objekt.
 	 */
-	public static void hauptMenue(Spiel spiel) {
+	public static void hauptMenue(bedienerInterface spiel) {
 		boolean inSchleifeBleiben = true;
 
 		while (inSchleifeBleiben) {
@@ -222,10 +223,10 @@ public class UI {
 			String auswahl = sc.nextLine();
 
 			if (auswahl.equals("1")) {
-				if (spiel.getHistorie().length() == 0) {
+				if (spiel.getAlleZuege().length() == 0) {
 					System.out.println("Es wurden noch nicht gezogen!");
 				}
-				System.out.println(spiel.getHistorie());
+				System.out.println(spiel.getAlleZuege());
 			}
 
 			else if (auswahl.equals("2")) {
@@ -251,7 +252,7 @@ public class UI {
 	 * @param spiel Das Spielobjekt.
 	 * @return boolean Ob der Zug korrekt war.
 	 */
-	public static boolean ziehen(String zug, Spiel spiel) {
+	public static boolean ziehen(String zug, bedienerInterface spiel) {
 
 		zug = zug.toUpperCase(); 
 		
@@ -301,9 +302,9 @@ public class UI {
 	 * @param zug   Ein Spielzug-Objekt mit Nach-Attribut auf null.
 	 * @param spiel ein Spiel-Objekt.
 	 */
-	public static void printErlaubteZuege(String[] zug, Spiel spiel) {
+	public static void printErlaubteZuege(String[] zug, bedienerInterface spiel) {
 		try {
-			String[] erlaubteZuege = spiel.getErlaubteZuege(zug);
+			String[] erlaubteZuege = spiel.getErlaubteZuegeInterface(zug).split(",");
 			if (erlaubteZuege.length == 0) {
 				System.out.println("Fuer " + zug[0] + " sind momentan keine Zuege moeglich.");
 			} else {

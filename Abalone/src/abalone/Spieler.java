@@ -50,7 +50,7 @@ public class Spieler {
 	 * Setzt das Attribut Name 
 	 * @param name selbstgewaehlter Name
 	 */
-	public void setName(String name) {
+	private void setName(String name) {
 		this.name = name;
 	}
 	
@@ -124,7 +124,8 @@ public class Spieler {
 	public String toString() {
 		return "Spieler " + this.getSpielerID()
 		+ " mit dem Namen " + this.getName() + " spielt die Farbe "
-		+ this.getFarbe().name() + " und hat schon " + getEliminierteKugeln() + " Kugeln eliminiert";
+		+ this.getFarbe().name() + " und hat schon " + getEliminierteKugeln() 
+		+ " Kugeln eliminiert";
 		}
 	
 	/**
