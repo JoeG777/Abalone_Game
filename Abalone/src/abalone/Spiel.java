@@ -1079,25 +1079,25 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 	}
 	
-	public ArrayList<String[]> getMoeglicheAusgangsfelder(FarbEnum farbe) {
-		ArrayList<String[]> moeglicheAusgangsfelder = new ArrayList<String[]>();
+	public ArrayList<String> getMoeglicheAusgangsfelder(FarbEnum farbe) {
+		ArrayList<String> moeglicheAusgangsfelder = new ArrayList<String>();
 		ArrayList<Spielfeld> felderInFarbe = spielBrett.getFelderMitFarbe(farbe);
 
 		for(Spielfeld momentanesFeld : felderInFarbe) {
-			String[] betrachtetesEinzelfeld = {momentanesFeld.getId()};
+			String betrachtetesEinzelfeld = momentanesFeld.getId();
 			moeglicheAusgangsfelder.add(betrachtetesEinzelfeld);			
 
 			for(int i = 3; i <= 5; i++) {
 				if(momentanesFeld.getNachbar(i) != null) {
 					Spielfeld nachbar = momentanesFeld.getNachbar(i);
 					if(nachbar.getFigur() != null && nachbar.getFigur().getFarbe() == farbe) {
-						String[] betrachteteZweiFelder = {momentanesFeld.getId(), nachbar.getId()};
+						String betrachteteZweiFelder = momentanesFeld.getId() + ""+ nachbar.getId();
 						moeglicheAusgangsfelder.add(betrachteteZweiFelder);
 
 						if(nachbar.getNachbar(i) != null) {
 							Spielfeld nachbarDesNachbars = nachbar.getNachbar(i);
 							if(nachbarDesNachbars.getFigur() != null && nachbarDesNachbars.getFigur().getFarbe() == farbe) {
-							String[] betrachteteDreiFelder = {momentanesFeld.getId(), nachbar.getId(), nachbarDesNachbars.getId()};
+							String betrachteteDreiFelder = momentanesFeld.getId() + ""+ nachbarDesNachbars.getId();
 							moeglicheAusgangsfelder.add(betrachteteDreiFelder);
 							}
 						}
@@ -1111,10 +1111,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	public ArrayList<Spielzug> getAlleMoeglichenZuege(Spieler spieler) {
 
 		ArrayList<Spielzug> alleMoeglichenZuege = new ArrayList <Spielzug>();
-		ArrayList<String[]> moeglicheAusgangsFelder = getMoeglicheAusgangsfelder(spieler.getFarbe());
+		ArrayList<String> moeglicheAusgangsFelder = getMoeglicheAusgangsfelder(spieler.getFarbe());
 
-		for (String[] ausgangsFelder : moeglicheAusgangsFelder) {
-			String[] erlaubteZuege = getErlaubteZuege(ausgangsFelder);
+		for (String ausgangsFelder : moeglicheAusgangsFelder) {
+			String[] ausgangsFelderFormat = {ausgangsFelder, null};
+			String[] erlaubteZuege = getErlaubteZuege(ausgangsFelderFormat);
 			for (String erlaubterZug : erlaubteZuege) {
 				String[] erlaubterZugSplit = erlaubterZug.split("-");
 				Spielzug zug = new Spielzug(erlaubterZugSplit[0], erlaubterZugSplit[1]);
