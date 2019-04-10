@@ -9,8 +9,9 @@ import java.util.ArrayList;
  * bietet die Methoden um auf diese zuzugreifen.
  * @author Gruppe A4
  */
-public class Historie {
+public class Historie implements java.io.Serializable {
 	
+	private static final long serialVersionUID = 102L;
 	private ArrayList<String> zuege;
 	private int zaehler;
 	

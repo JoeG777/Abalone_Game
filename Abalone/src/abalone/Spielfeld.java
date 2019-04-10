@@ -6,7 +6,9 @@ package abalone;
  * @author Gruppe A4
  * @version 1.4
  */
-public class Spielfeld {
+public class Spielfeld implements java.io.Serializable {
+	
+	private static final long serialVersionUID = 105L;
 	private Spielbrett brett;
 	private String id;
 	private FarbEnum farbe;

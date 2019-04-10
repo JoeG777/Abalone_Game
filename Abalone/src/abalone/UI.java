@@ -9,8 +9,9 @@ import java.util.Scanner;
  * @author Gruppe A4
  * 
  */
-public class UI {
+public class UI implements java.io.Serializable {
 
+	private static final long serialVersionUID = 108L;
 	static Scanner sc = new Scanner(System.in);
 /**
  * Die Main Methode legt ein neues Spiel und und fuehrt alle

@@ -7,8 +7,9 @@ package abalone;
  * Bietet Methoden um auf diese zuzugreifen.
  * @author Gruppe A4
  */
-public class Spielzug {
+public class Spielzug implements java.io.Serializable {
 	
+	private static final long serialVersionUID = 103L;
 	private String von;
 	private String nach;
 	int richtung;
