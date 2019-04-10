@@ -18,9 +18,8 @@ public class UI {
  */
 	public static void main(String[] args) {
 		bedienerInterface spiel = new Spiel();
+		hauptMenue(spiel);
 		welcomeScreen();
-		spielerAnlegen(spiel);
-		spielen(spiel);
 		sc.close();
 	}
 
@@ -84,6 +83,35 @@ public class UI {
 				+ "###############################################");
 		sc.nextLine();
 
+	}
+	
+	public static void hauptMenue(bedienerInterface spiel) {
+		boolean imSpiel = true;
+		
+		while (imSpiel) {
+			
+		System.out.println("Bitte waehlen Sie welches Spiel Sie starten wollen!");
+		System.out.println();
+		System.out.println("1. 2 Spieler \n2. 1 Spieler + 1 KI \n3. 2 KIs \n4. Spiel laden");
+		String eingabe = sc.nextLine();
+			
+		if (eingabe.equals("1.") || eingabe.equals("1")) {
+			imSpiel = false;
+			spielerAnlegen(spiel);
+			spielen(spiel);
+
+		} else if (eingabe.equals("2.") || eingabe.equals("2")) {
+			System.out.println("Geht noch nicht ihr Keks!");
+		} else if (eingabe.equals("3.") || eingabe.equals("3")) {
+			System.out.println("Geht noch nicht ihr Keks!");
+
+		} else if (eingabe.equals("4.") || eingabe.equals("4")) {
+			System.out.println("Geht noch nicht ihr Keks!");
+
+		} else {
+			System.out.println("Bitte waehlen Sie eine der moeglichen Optionen aus!");
+			}
+		}
 	}
 
 	/**
@@ -176,7 +204,7 @@ public class UI {
 			System.out.print(">");
 			String eingabe = sc.nextLine();
 			if (eingabe.equalsIgnoreCase("menu")) {
-				hauptMenue(spiel);
+				menue(spiel);
 			} else
 
 				if (eingabe.equalsIgnoreCase("exit")) {
@@ -214,7 +242,7 @@ public class UI {
 	 * 
 	 * @param spiel Das erstellte Spiel Objekt.
 	 */
-	public static void hauptMenue(bedienerInterface spiel) {
+	public static void menue(bedienerInterface spiel) {
 		boolean inSchleifeBleiben = true;
 
 		while (inSchleifeBleiben) {
