@@ -113,7 +113,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 	/**
 	 * Fragt ab, ob ein Spieler gewonnen hat.
-	 * 
+	 * zi
 	 * @param name Name eines Spielers.
 	 * @return boolean Ob der uebergebene Spieler gewonnen hat.
 	 */
@@ -170,8 +170,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		// TEST ANFANG
 		if(zug[0].equals("KIKI") && zug[1].equals("KI")) {
 			String[] kiZug = ((KI)this.spielerAmZug).randomZiehen(this, this.spielerAmZug.getFarbe());
-			System.out.println(kiZug[0] + kiZug[1]);
+			System.out.println(kiZug[0] + "-" + kiZug[1]);
 			zug = kiZug;
+			
 		}
 		//TEST ENDE
 		if (koordinatenValidieren(spielzugParser(zug))) {
@@ -1171,10 +1172,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			for (String erlaubterZug : erlaubteZuege) {
 				String[] erlaubterZugSplit = erlaubterZug.split("-");
 				Spielzug zug = new Spielzug(erlaubterZugSplit[0], erlaubterZugSplit[1]);
-				Spielzug formatierterZug = formatieren(zug);
+				//Spielzug formatierterZug = formatieren(zug);
 				zug.setFarbe(spieler.getFarbe());
-				if (!alleMoeglichenZuege.contains(formatierterZug)) {
-					alleMoeglichenZuege.add(formatierterZug);
+				if (!alleMoeglichenZuege.contains(zug)) {
+					alleMoeglichenZuege.add(zug);
 				}
 				
 			}
