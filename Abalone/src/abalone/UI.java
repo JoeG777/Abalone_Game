@@ -135,18 +135,13 @@ public class UI implements java.io.Serializable {
 		} else if (eingabe.equals("3.") || eingabe.equals("3")) {
 			imSpiel = false;
 			spielerAnlegen(spiel, 0);
-			spielen(spiel);
+			spieleKI(spiel);
 			System.out.println("Geht noch nicht ihr Keks!");
 
 		} else if (eingabe.equals("4.") || eingabe.equals("4")) {
 			System.out.println("Geht noch nicht ihr Keks!");
 
-		}else if (eingabe.contentEquals("5.") || eingabe.contentEquals("5")) {
-			System.out.println("KI - Test");
-			kiAnlegen(spiel);
-			spieleKI(spiel);
-		}
-		else {
+		} else {
 			System.out.println("Bitte waehlen Sie eine der moeglichen Optionen aus!");
 			}
 		}
@@ -431,9 +426,6 @@ public class UI implements java.io.Serializable {
 		System.out.println("Bitte geben Sie einen gueltigen Dateinamen ein: ");
 		String dateiName = sc.nextLine();
 		spiel.lesen(dateiName);
-	}
-	public static void kiAnlegen(bedienerInterface spiel) {
-		spielerAnlegen(spiel, 0);
 	}
 	
 	public static void spieleKI(bedienerInterface spiel) {
