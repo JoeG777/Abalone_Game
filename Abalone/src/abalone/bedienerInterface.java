@@ -1,5 +1,8 @@
 package abalone;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
  * Schnittstelle zwischen der Konsolen-UI und dem Spiel mit der Spiellogik.
  * 
@@ -20,4 +23,6 @@ public interface bedienerInterface {
 	String getStatus();
 	String getErlaubteZuegeInterface(String[] ausgangsfelder);////muss noch ein anderer Returnwert sein
 	boolean hatGewonnen(String name);
+	void lesen(String dateiName) throws FileNotFoundException, IOException, ClassNotFoundException;
+	void speichern(String dateiName) throws FileNotFoundException, IOException;
 }
