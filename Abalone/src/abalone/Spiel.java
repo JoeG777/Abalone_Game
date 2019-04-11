@@ -1,6 +1,8 @@
 
 package abalone;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -24,8 +26,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	private Spielbrett spielBrett;
 	private Historie historie;
 	private boolean herausgedraengt = false;
-	Spielzug letzterZug;
-
+	private Spielzug letzterZug;
+	
 	/**
 	 * Konstruktor, instanziiert alle anfangs benoetigten Objekte.
 	 */
@@ -118,7 +120,32 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		return false;
 	}
-
+	
+	public void speichern(String dateiName) throws FileNotFoundException, IOException {
+		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
+		serial.oeffnen("pimmel.ser");
+		Object[] spielState = {this.spielerImSpiel,this.spielerAmZug,this.spielBrett,this.historie,this.herausgedraengt,this.letzterZug};
+		serial.schreiben(spielState);
+		/*serial.schreiben(this.spielerAmZug);
+		serial.schreiben(this.spielBrett);
+		serial.schreiben(this.historie);
+		//serial.schreiben(this.herausgedraengt);
+		serial.schreiben(letzterZug);
+		serial.schliessen(); */
+	}
+	
+	public void lesen(String dateiName) throws FileNotFoundException, IOException, ClassNotFoundException {
+		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
+		serial.oeffnen("pimmel.ser");
+		Object[] spielState = (Object[]) serial.lesen();
+		this.spielerImSpiel = (Spieler[])spielState[0];
+		this.spielerAmZug = (Spieler)spielState[1];
+		this.spielBrett = (Spielbrett) spielState[2];
+		this.historie = (Historie) spielState[3];
+		this.herausgedraengt = (boolean) spielState[4];
+		this.letzterZug = (Spielzug) spielState[5];
+		serial.schliessen();
+	}
 	/**
 	 * Die ziehe Methode erzeugt aus zwei Strings ein Zug Objekt und uebergibt
 	 * dieses dem Spielbrett.

@@ -6,10 +6,9 @@ package abalone;
  * Erschaffung eines Spielers.
  * @author Gruppe A4
  */
-
 public class Spieler implements java.io.Serializable {
 
-	private static final long serialVersionUID = 106L;
+	private static final long serialVersionUID = 106;
 	private String name;
 	private FarbEnum farbe;
 	private int spielerID;
