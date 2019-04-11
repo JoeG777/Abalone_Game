@@ -326,8 +326,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String brettZeilen[] = this.spielBrett.toString().split("\n");
 		brettZeilen[1] += verbleibendeSteineO;
 		brettZeilen[2] += verloreneSteineO;
+		brettZeilen[3] += "    ";
 		brettZeilen[4] += verbleibendeSteineX;
 		brettZeilen[5] += verloreneSteineX;
+		brettZeilen[6] += "    ";
 		brettZeilen[7] += amZug;
 		
 		StringBuilder sb = new StringBuilder();
