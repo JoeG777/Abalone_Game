@@ -131,13 +131,10 @@ public class UI implements java.io.Serializable {
 			imSpiel = false;
 			spielerAnlegen(spiel,1);
 			spielen(spiel);
-			System.out.println("Geht noch nicht ihr Keks!");
 		} else if (eingabe.equals("3.") || eingabe.equals("3")) {
 			imSpiel = false;
 			spielerAnlegen(spiel, 0);
 			spieleKI(spiel);
-			System.out.println("Geht noch nicht ihr Keks!");
-
 		} else if (eingabe.equals("4.") || eingabe.equals("4")) {
 			System.out.println("Geht noch nicht ihr Keks!");
 
