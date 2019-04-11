@@ -43,7 +43,7 @@ public class UI implements java.io.Serializable {
 			System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 			System.out.print(">");
 			String name = sc.nextLine();
-			while (name.length() > 20 || name.length() < 2) {
+			while (name.length() > 20 || name.length() < 2 || name.equals("(KI)")) {
 				System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
 				System.out.print(">");
 				name = sc.nextLine();
@@ -57,7 +57,7 @@ public class UI implements java.io.Serializable {
 			System.out.print(">");
 			String name2 = sc.nextLine();
 
-			while (name2.equalsIgnoreCase(name) || (name2.length() > 20 || name2.length() < 2)) {
+			while (name2.equalsIgnoreCase(name) || (name2.length() > 20 || name2.length() < 2 || name.equals("(KI)"))) {
 				if(name2.equalsIgnoreCase(name)) {
 					System.out.println("Bitte geben Sie unterschiedliche Namen für die Spieler ein!");
 				}
@@ -79,7 +79,7 @@ public class UI implements java.io.Serializable {
 			System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 			System.out.print(">");
 			String name = sc.nextLine();
-			while (name.length() > 20 || name.length() < 2) {
+			while (name.length() > 20 || name.length() < 2 || name.equals("(KI)")) {
 				System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
 				System.out.print(">");
 				name = sc.nextLine();
@@ -131,13 +131,10 @@ public class UI implements java.io.Serializable {
 			imSpiel = false;
 			spielerAnlegen(spiel,1);
 			spielen(spiel);
-			System.out.println("Geht noch nicht ihr Keks!");
 		} else if (eingabe.equals("3.") || eingabe.equals("3")) {
 			imSpiel = false;
 			spielerAnlegen(spiel, 0);
-			spieleKI(spiel);
-			System.out.println("Geht noch nicht ihr Keks!");
-
+			spielen(spiel);
 		} else if (eingabe.equals("4.") || eingabe.equals("4")) {
 			System.out.println("Geht noch nicht ihr Keks!");
 
@@ -238,29 +235,36 @@ public class UI implements java.io.Serializable {
 					+ " und 'exit' falls sie das Spiel abbrechen moechten.");
 			System.out.println();
 			System.out.println(spiel.getStatus());
-			System.out.print(">");
-			String eingabe = sc.nextLine();
-			if (eingabe.equalsIgnoreCase("menu")) {
-				menue(spiel);
-			} else
+			if (spiel.getSpielerAmZug().length() > 4 && spiel.getSpielerAmZug().substring(0,4).equals("(KI)")) {
+				System.out.print("ENTER DRÜCKEN");
+				String eingabe = sc.nextLine();
+				String[] ki = {"KIKI", "KI"};
+				spiel.ziehe(ki);
+			} else {
+				System.out.print(">");
+				String eingabe = sc.nextLine();
+				if (eingabe.equalsIgnoreCase("menu")) {
+					menue(spiel);
+				} else
 
-			if (eingabe.equalsIgnoreCase("exit")) {
-				System.out.println("Wollen Sie wirklich das Spiel verlassen? (Ja/Nein)");
-				eingabe = sc.nextLine();
-				if (eingabe.equalsIgnoreCase("Ja")) {
-					gewinner = null;
-					verlierer = null;
-					imSpiel = false;
-					break;
-				}
-			} else if (eingabe.equalsIgnoreCase("laden")) {
-				laden(spiel);
-			} else if (eingabe.equalsIgnoreCase("speichern")) {
-				speichern(spiel);
-			}else
-			if (!ziehen(eingabe, spiel)) {
-				System.out.println("Irgendwas hat da nicht gestimmt!");
-				System.out.println();
+					if (eingabe.equalsIgnoreCase("exit")) {
+						System.out.println("Wollen Sie wirklich das Spiel verlassen? (Ja/Nein)");
+						eingabe = sc.nextLine();
+						if (eingabe.equalsIgnoreCase("Ja")) {
+							gewinner = null;
+							verlierer = null;
+							imSpiel = false;
+							break;
+						}
+					} else if (eingabe.equalsIgnoreCase("laden")) {
+						laden(spiel);
+					} else if (eingabe.equalsIgnoreCase("speichern")) {
+						speichern(spiel);
+					}else
+						if (!ziehen(eingabe, spiel)) {
+							System.out.println("Irgendwas hat da nicht gestimmt!");
+							System.out.println();
+						}
 			}
 		}
 		imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
@@ -428,15 +432,4 @@ public class UI implements java.io.Serializable {
 		spiel.lesen(dateiName);
 	}
 	
-	public static void spieleKI(bedienerInterface spiel) {
-		boolean imSpiel = true;
-		
-		while(imSpiel) {
-			System.out.println(spiel.getStatus());
-			System.out.print("ENTER DRÜCKEN");
-			String eingabe = sc.nextLine();
-			String[] ki = {"KIKI", "KI"};
-			spiel.ziehe(ki);
-		}
-	}
 }

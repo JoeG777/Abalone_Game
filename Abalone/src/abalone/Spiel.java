@@ -99,7 +99,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public String getSpielerAmZug() {
-		return spielerAmZug.getName();
+		if (this.spielerAmZug instanceof KI) {
+			return "(KI) \t" + spielerAmZug.getName();
+		} else {
+			return spielerAmZug.getName();
+		}
 	}
 
 	/**
