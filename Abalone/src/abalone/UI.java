@@ -134,7 +134,7 @@ public class UI implements java.io.Serializable {
 		} else if (eingabe.equals("3.") || eingabe.equals("3")) {
 			imSpiel = false;
 			spielerAnlegen(spiel, 0);
-			spieleKI(spiel);
+			spielen(spiel);
 		} else if (eingabe.equals("4.") || eingabe.equals("4")) {
 			System.out.println("Geht noch nicht ihr Keks!");
 
@@ -235,29 +235,36 @@ public class UI implements java.io.Serializable {
 					+ " und 'exit' falls sie das Spiel abbrechen moechten.");
 			System.out.println();
 			System.out.println(spiel.getStatus());
-			System.out.print(">");
-			String eingabe = sc.nextLine();
-			if (eingabe.equalsIgnoreCase("menu")) {
-				menue(spiel);
-			} else
+			if (spiel.getSpielerAmZug().substring(0,4).equals("(KI)")) {
+				System.out.print("ENTER DRÜCKEN");
+				String eingabe = sc.nextLine();
+				String[] ki = {"KIKI", "KI"};
+				spiel.ziehe(ki);
+			} else {
+				System.out.print(">");
+				String eingabe = sc.nextLine();
+				if (eingabe.equalsIgnoreCase("menu")) {
+					menue(spiel);
+				} else
 
-			if (eingabe.equalsIgnoreCase("exit")) {
-				System.out.println("Wollen Sie wirklich das Spiel verlassen? (Ja/Nein)");
-				eingabe = sc.nextLine();
-				if (eingabe.equalsIgnoreCase("Ja")) {
-					gewinner = null;
-					verlierer = null;
-					imSpiel = false;
-					break;
-				}
-			} else if (eingabe.equalsIgnoreCase("laden")) {
-				laden(spiel);
-			} else if (eingabe.equalsIgnoreCase("speichern")) {
-				speichern(spiel);
-			}else
-			if (!ziehen(eingabe, spiel)) {
-				System.out.println("Irgendwas hat da nicht gestimmt!");
-				System.out.println();
+					if (eingabe.equalsIgnoreCase("exit")) {
+						System.out.println("Wollen Sie wirklich das Spiel verlassen? (Ja/Nein)");
+						eingabe = sc.nextLine();
+						if (eingabe.equalsIgnoreCase("Ja")) {
+							gewinner = null;
+							verlierer = null;
+							imSpiel = false;
+							break;
+						}
+					} else if (eingabe.equalsIgnoreCase("laden")) {
+						laden(spiel);
+					} else if (eingabe.equalsIgnoreCase("speichern")) {
+						speichern(spiel);
+					}else
+						if (!ziehen(eingabe, spiel)) {
+							System.out.println("Irgendwas hat da nicht gestimmt!");
+							System.out.println();
+						}
 			}
 		}
 		imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
@@ -425,15 +432,4 @@ public class UI implements java.io.Serializable {
 		spiel.lesen(dateiName);
 	}
 	
-	public static void spieleKI(bedienerInterface spiel) {
-		boolean imSpiel = true;
-		
-		while(imSpiel) {
-			System.out.println(spiel.getStatus());
-			System.out.print("ENTER DRÜCKEN");
-			String eingabe = sc.nextLine();
-			String[] ki = {"KIKI", "KI"};
-			spiel.ziehe(ki);
-		}
-	}
 }
