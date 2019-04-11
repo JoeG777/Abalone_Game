@@ -296,6 +296,18 @@ public class Spielfeld implements java.io.Serializable {
 		return "-";
 	}
 	
+	public String writeCSVString() {
+		String csv = "SPIELFELD:";
+		String figur;
+		if(this.figur == null) {
+			figur = "FIGUR:null";
+		}else {
+			figur = this.figur.writeCSVString();
+		}
+		csv += ","+this.id+","+figur;
+		return csv + "/b";
+	}
+	
 	
 	
 	//Innere Memberclass Spielfigur
@@ -388,6 +400,19 @@ public class Spielfeld implements java.io.Serializable {
 		@Override
 		public String toString() {
 			return "Eine Figur der Farbe " + this.getFarbe();
+		}
+		
+		public String writeCSVString() {
+			String farbe;
+			if(this.farbe == FarbEnum.SCHWARZ){
+				farbe = "schwarz";
+			}else
+			if(this.farbe == FarbEnum.WEISS) {
+				farbe = "weiss";
+			}else {
+				farbe = "null";
+			}
+			return "FIGUR:"+farbe;
 		}
 	}
 	

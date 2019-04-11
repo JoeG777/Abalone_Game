@@ -3,6 +3,8 @@ package abalone;
 
 import java.util.ArrayList;
 
+import abalone.spielbrett.Spielfeld;
+
 /**
  * <h1>Historie</h1>
  * Diese Klasse legt eine Historie aller Zuege an und
@@ -107,6 +109,14 @@ public class Historie implements java.io.Serializable {
 		zuege.add(getZaehler() + ". " + spielzug.getVon() + " - " 
 				+ spielzug.getNach());
 		incZaehler();
+	}
+	
+	public String writeCSV() {
+		String csv = "HISTORIE:";
+		for(String zug: zuege) {
+			csv += zug + ",";
+		}
+		return csv;
 	}
 	
 	

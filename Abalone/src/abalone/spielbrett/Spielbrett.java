@@ -366,5 +366,14 @@ public class Spielbrett implements java.io.Serializable {
 		felder.removeIf(Objects::isNull);
 		return felder;
 	}
+	
+	public String writeCSV() {
+		String brettCSV = "BRETT:";
+		for(String key: brett.keySet()) {
+		    Spielfeld feld = brett.get(key);
+		    brettCSV += feld.writeCSVString() + ";";
+		}
+		return brettCSV;
+	}
 }
 

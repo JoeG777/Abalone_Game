@@ -162,5 +162,22 @@ public class Spieler implements java.io.Serializable {
 				this.getFarbe() == s.getFarbe() &&
 				this.getSpielerID() == s.getSpielerID());
 	}
+	
+	public String writeCSV() {
+		String csv = "SPIELER:";
+		csv += this.name;
+		String farbe;
+		if(this.farbe == FarbEnum.WEISS) {
+			farbe = "weiss";
+		}else
+			if(this.farbe == FarbEnum.SCHWARZ) {
+				farbe = "schwarz";
+			}
+			else {
+				farbe = "null";
+			}
+		csv += ","+farbe+","+spielerID+","+eliminierteKugeln;
+		return csv;
+	}
 
 }

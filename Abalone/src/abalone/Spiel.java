@@ -124,7 +124,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	public boolean hatGewonnen(String name) {
 		Spieler spieler = null;
 		Spieler[] spielerArr = getSpielerImSpiel();
-
 		for (int i = 0; i < spielerArr.length; i++) {
 			if (spielerArr[i].getName().equals(name)) {
 				spieler = spielerArr[i];
@@ -1188,6 +1187,14 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		return alleMoeglichenZuege;
 	}
-
+	
+	public String writeCSV() {
+		String csv = "SPIEL:";
+		for(Spieler spieler: spielerImSpiel) {
+			csv += spieler.writeCSV()+";";
+		}
+		csv += historie.writeCSV() + ";" + spielBrett.writeCSV();
+		return csv;
+	}
 	
 }
