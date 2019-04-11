@@ -235,7 +235,7 @@ public class UI implements java.io.Serializable {
 					+ " und 'exit' falls sie das Spiel abbrechen moechten.");
 			System.out.println();
 			System.out.println(spiel.getStatus());
-			if (spiel.getSpielerAmZug().substring(0,4).equals("(KI)")) {
+			if (spiel.getSpielerAmZug().length() > 4 && spiel.getSpielerAmZug().substring(0,4).equals("(KI)")) {
 				System.out.print("ENTER DRÜCKEN");
 				String eingabe = sc.nextLine();
 				String[] ki = {"KIKI", "KI"};
