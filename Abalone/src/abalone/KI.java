@@ -16,20 +16,12 @@ public class KI extends Spieler {
 		return anzahlKIs;
 	}
 
-	public String randomZiehen(Spiel spiel, FarbEnum farbe) {
+	public String[] randomZiehen(Spiel spiel, FarbEnum farbe) {
 
 		ArrayList<Spielzug> alleMoeglichenZuege = spiel.getAlleMoeglichenZuege(this);
-		int x = alleMoeglichenZuege.size();
-		int random = (int) (Math.random() * x);
-		int counter = 0;
-		String randomZug = "";
-
-			for (Spielzug zug : alleMoeglichenZuege) {
-				if (counter == random) {
-					randomZug = zug.getVon() + zug.getNach();
-				}
-				counter++;
-			}
+		int random = (int) (Math.random() * alleMoeglichenZuege.size());
+		String[] randomZug = {alleMoeglichenZuege.get(random).getVon(),
+				alleMoeglichenZuege.get(random).getNach()};
 		
 		return randomZug;
 	}
