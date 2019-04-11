@@ -119,7 +119,7 @@ public class UI implements java.io.Serializable {
 			
 		System.out.println("Bitte waehlen Sie welches Spiel Sie starten wollen!");
 		System.out.println();
-		System.out.println("1. 2 Spieler \n2. 1 Spieler + 1 KI \n3. 2 KIs \n4. Spiel laden \n5. KI Test");
+		System.out.println("1. 2 Spieler \n2. 1 Spieler + 1 KI \n3. 2 KIs \n4. Spiel laden");
 		String eingabe = sc.nextLine();
 			
 		if (eingabe.equals("1.") || eingabe.equals("1")) {
