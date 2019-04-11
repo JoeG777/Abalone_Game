@@ -110,7 +110,7 @@ public class UI implements java.io.Serializable {
 			
 		System.out.println("Bitte waehlen Sie welches Spiel Sie starten wollen!");
 		System.out.println();
-		System.out.println("1. 2 Spieler \n2. 1 Spieler + 1 KI \n3. 2 KIs \n4. Spiel laden");
+		System.out.println("1. 2 Spieler \n2. 1 Spieler + 1 KI \n3. 2 KIs \n4. Spiel laden \n5. KI Test");
 		String eingabe = sc.nextLine();
 			
 		if (eingabe.equals("1.") || eingabe.equals("1")) {
@@ -132,7 +132,12 @@ public class UI implements java.io.Serializable {
 		} else if (eingabe.equals("4.") || eingabe.equals("4")) {
 			System.out.println("Geht noch nicht ihr Keks!");
 
-		} else {
+		}else if (eingabe.contentEquals("5.") || eingabe.contentEquals("5")) {
+			System.out.println("KI - Test");
+			kiAnlegen(spiel);
+			spieleKI(spiel);
+		}
+		else {
 			System.out.println("Bitte waehlen Sie eine der moeglichen Optionen aus!");
 			}
 		}
@@ -396,5 +401,21 @@ public class UI implements java.io.Serializable {
 				+ "###############################################\n"
 				+ "#################### ENDE #####################\n"
 				+ "###############################################");
+	}
+	
+	public static void kiAnlegen(bedienerInterface spiel) {
+		spielerAnlegen(spiel, 0);
+	}
+	
+	public static void spieleKI(bedienerInterface spiel) {
+		boolean imSpiel = true;
+		
+		while(imSpiel) {
+			System.out.println(spiel.getStatus());
+			System.out.print("ENTER DRÜCKEN");
+			String eingabe = sc.nextLine();
+			String[] ki = {"KIKI", "KI"};
+			spiel.ziehe(ki);
+		}
 	}
 }

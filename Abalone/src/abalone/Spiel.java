@@ -146,8 +146,16 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public void ziehe(String[] zug) {
+		// TEST ANFANG
+		if(zug[0].equals("KIKI") && zug[1].equals("KI")) {
+			String[] kiZug = ((KI)this.spielerAmZug).randomZiehen(this, this.spielerAmZug.getFarbe());
+			System.out.println(kiZug[0] + kiZug[1]);
+			zug = kiZug;
+		}
+		//TEST ENDE
 		if (koordinatenValidieren(spielzugParser(zug))) {
 			Spielzug halter = new Spielzug(zug[0], zug[1]);
+			System.out.println(halter.getVon() + halter.getNach());
 			Spielzug spielzug = formatieren(halter);
 			if (spielzug.getNach() == null) {
 				throw new IllegalArgumentException("Unzulaessiger Zug");
