@@ -43,7 +43,7 @@ public class UI implements java.io.Serializable {
 			System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 			System.out.print(">");
 			String name = sc.nextLine();
-			while (name.length() > 20 || name.length() < 2) {
+			while (name.length() > 20 || name.length() < 2 || name.equals("(KI)")) {
 				System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
 				System.out.print(">");
 				name = sc.nextLine();
@@ -57,7 +57,7 @@ public class UI implements java.io.Serializable {
 			System.out.print(">");
 			String name2 = sc.nextLine();
 
-			while (name2.equalsIgnoreCase(name) || (name2.length() > 20 || name2.length() < 2)) {
+			while (name2.equalsIgnoreCase(name) || (name2.length() > 20 || name2.length() < 2 || name.equals("(KI)"))) {
 				if(name2.equalsIgnoreCase(name)) {
 					System.out.println("Bitte geben Sie unterschiedliche Namen für die Spieler ein!");
 				}
@@ -79,7 +79,7 @@ public class UI implements java.io.Serializable {
 			System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 			System.out.print(">");
 			String name = sc.nextLine();
-			while (name.length() > 20 || name.length() < 2) {
+			while (name.length() > 20 || name.length() < 2 || name.equals("(KI)")) {
 				System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
 				System.out.print(">");
 				name = sc.nextLine();
