@@ -19,7 +19,7 @@ public interface bedienerInterface {
 
 	//alle public Methoden aus Spiel, die in UI benutzt werden müssen
 	String getSpielerImSpielInterface(); //muss noch ein anderer Returnwert sein
-	void addSpieler(String name, String farbe);
+	void addSpieler(String name, String farbe, int anzahlSpieler);
 	String getStatus();
 	String getErlaubteZuegeInterface(String[] ausgangsfelder);////muss noch ein anderer Returnwert sein
 	boolean hatGewonnen(String name);

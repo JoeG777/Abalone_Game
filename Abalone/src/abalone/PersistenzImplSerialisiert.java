@@ -17,7 +17,7 @@ import java.io.ObjectOutputStream;
 public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.Serializable {
 	
 	private static final long serialVersionUID = 100L;
-	String dateiName;
+	private String dateiName;
 	private ObjectInputStream ois = null;
 	private ObjectOutputStream oos = null;
 	
@@ -35,8 +35,10 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	 */
 	@Override
 	public void schliessen() throws IOException {
-		oos.close();
-		ois.close();
+		if(oos != null)
+			oos.close();
+		if(ois != null)
+			ois.close();
 	}
 
 	/**
@@ -47,7 +49,7 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	public Object lesen() throws ClassNotFoundException, IOException {
 		ois = new ObjectInputStream(new FileInputStream(dateiName));
 		try {
-			Object gelesenesObjekt = (Spieler)ois.readObject();
+			Object gelesenesObjekt = ois.readObject();
 			return gelesenesObjekt;
 		}catch(NullPointerException e) {
 			throw new IOException("Datei nicht gefunden");
@@ -59,7 +61,7 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 			throw new IOException("Zu wenig Elemente");
 		}
 		finally {
-			oos.close();
+			ois.close();
 		}
 	}
 

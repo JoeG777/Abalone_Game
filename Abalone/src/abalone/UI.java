@@ -37,40 +37,57 @@ public class UI implements java.io.Serializable {
 	 * 
 	 * @param spiel Das Spielobjekt
 	 */
-	public static void spielerAnlegen(bedienerInterface spiel) {
+	public static void spielerAnlegen(bedienerInterface spiel, int anzahlSpieler) {
 
-		System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
-		System.out.print(">");
-		String name = sc.nextLine();
-		while (name.length() > 20 || name.length() < 2) {
-			System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
+		if (anzahlSpieler == 2) {
+			System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 			System.out.print(">");
-			name = sc.nextLine();
-		}
-		try {
-			spiel.addSpieler(name, "weiss");
-		} catch (IllegalArgumentException e) {
-			System.out.println("Unzulaessige Eingabe, bitte benutze WEISS fuer Weiss und SCHWARZ fuer Schwarz)");
-		}
-		System.out.println("Spieler angelegt. Nun geben Sie den Namen fuer den Spieler mit der Farbe Schwarz ein:");
-		System.out.print(">");
-		String name2 = sc.nextLine();
-
-		while (name2.equalsIgnoreCase(name) || (name2.length() > 20 || name2.length() < 2)) {
-			if (name2.equalsIgnoreCase(name)) {
-				System.out.println("Bitte geben Sie unterschiedliche Namen für die Spieler ein!");
-			}
-			if ((name2.length() > 20 || name2.length() < 2)) {
+			String name = sc.nextLine();
+			while (name.length() > 20 || name.length() < 2) {
 				System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
+				System.out.print(">");
+				name = sc.nextLine();
 			}
-
+			try {
+				spiel.addSpieler(name, "weiss",2);
+			} catch (IllegalArgumentException e) {
+				System.out.println("Unzulaessige Eingabe, bitte benutze WEISS fuer Weiss und SCHWARZ fuer Schwarz)");
+			}
+			System.out.println("Spieler angelegt. Nun geben Sie den Namen fuer den Spieler mit der Farbe Schwarz ein:");
 			System.out.print(">");
-			name2 = sc.nextLine();
+			String name2 = sc.nextLine();
+
+			while (name2.equalsIgnoreCase(name) || (name2.length() > 20 || name2.length() < 2)) {
+				if(name2.equalsIgnoreCase(name)) {
+					System.out.println("Bitte geben Sie unterschiedliche Namen für die Spieler ein!");
+				}
+				if((name2.length() > 20 || name2.length() < 2)) {
+					System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
+				}
+
+				System.out.print(">");
+				name2 = sc.nextLine();
+			}
+			try {
+				spiel.addSpieler(name2, "schwarz", anzahlSpieler);
+			} catch (IllegalArgumentException e) {
+				System.out.println("Unzulaessige Eingabe, bitte benutze WEISS fuer Weiss und SCHWARZ fuer Schwarz)");
+			}
 		}
-		try {
-			spiel.addSpieler(name2, "schwarz");
-		} catch (IllegalArgumentException e) {
-			System.out.println("Unzulaessige Eingabe, bitte benutze WEISS fuer Weiss und SCHWARZ fuer Schwarz)");
+		if (anzahlSpieler == 1) {
+			
+			System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
+			System.out.print(">");
+			String name = sc.nextLine();
+			while (name.length() > 20 || name.length() < 2) {
+				System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
+				System.out.print(">");
+				name = sc.nextLine();
+			}
+			spiel.addSpieler(name, "weiss", anzahlSpieler);
+		}
+		if (anzahlSpieler == 0) {
+			spiel.addSpieler(null, null, anzahlSpieler);
 		}
 	}
 
@@ -99,26 +116,38 @@ public class UI implements java.io.Serializable {
 
 		while (imSpiel) {
 
-			System.out.println("Bitte waehlen Sie welches Spiel Sie starten wollen!");
-			System.out.println();
-			System.out.println("1. 2 Spieler \n2. 1 Spieler + 1 KI \n3. 2 KIs \n4. Spiel laden");
-			String eingabe = sc.nextLine();
+			
+		System.out.println("Bitte waehlen Sie welches Spiel Sie starten wollen!");
+		System.out.println();
+		System.out.println("1. 2 Spieler \n2. 1 Spieler + 1 KI \n3. 2 KIs \n4. Spiel laden \n5. KI Test");
+		String eingabe = sc.nextLine();
+			
+		if (eingabe.equals("1.") || eingabe.equals("1")) {
+			imSpiel = false;
+			spielerAnlegen(spiel,2);
+			spielen(spiel);
 
-			if (eingabe.equals("1.") || eingabe.equals("1")) {
-				imSpiel = false;
-				spielerAnlegen(spiel);
-				spielen(spiel);
+		} else if (eingabe.equals("2.") || eingabe.equals("2")) {
+			imSpiel = false;
+			spielerAnlegen(spiel,1);
+			spielen(spiel);
+			System.out.println("Geht noch nicht ihr Keks!");
+		} else if (eingabe.equals("3.") || eingabe.equals("3")) {
+			imSpiel = false;
+			spielerAnlegen(spiel, 0);
+			spielen(spiel);
+			System.out.println("Geht noch nicht ihr Keks!");
 
-			} else if (eingabe.equals("2.") || eingabe.equals("2")) {
-				System.out.println("Geht noch nicht ihr Keks!");
-			} else if (eingabe.equals("3.") || eingabe.equals("3")) {
-				System.out.println("Geht noch nicht ihr Keks!");
+		} else if (eingabe.equals("4.") || eingabe.equals("4")) {
+			System.out.println("Geht noch nicht ihr Keks!");
 
-			} else if (eingabe.equals("4.") || eingabe.equals("4")) {
-				System.out.println("Geht noch nicht ihr Keks!");
-
-			} else {
-				System.out.println("Bitte waehlen Sie eine der moeglichen Optionen aus!");
+		}else if (eingabe.contentEquals("5.") || eingabe.contentEquals("5")) {
+			System.out.println("KI - Test");
+			kiAnlegen(spiel);
+			spieleKI(spiel);
+		}
+		else {
+			System.out.println("Bitte waehlen Sie eine der moeglichen Optionen aus!");
 			}
 		}
 	}
@@ -402,5 +431,20 @@ public class UI implements java.io.Serializable {
 		System.out.println("Bitte geben Sie einen gueltigen Dateinamen ein: ");
 		String dateiName = sc.nextLine();
 		spiel.lesen(dateiName);
+	}
+	public static void kiAnlegen(bedienerInterface spiel) {
+		spielerAnlegen(spiel, 0);
+	}
+	
+	public static void spieleKI(bedienerInterface spiel) {
+		boolean imSpiel = true;
+		
+		while(imSpiel) {
+			System.out.println(spiel.getStatus());
+			System.out.print("ENTER DRÜCKEN");
+			String eingabe = sc.nextLine();
+			String[] ki = {"KIKI", "KI"};
+			spiel.ziehe(ki);
+		}
 	}
 }

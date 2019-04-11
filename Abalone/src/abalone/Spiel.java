@@ -61,19 +61,33 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @since 1.0
 	 */
 	@Override
-	public void addSpieler(String name, String farbe) {
-		if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
-			throw new IndexOutOfBoundsException("Das Spieler Array ist bereits voll!");
-		}
-		if (farbe.equals("weiss") && spielerImSpiel[0] == null) {
+	public void addSpieler(String name, String farbe, int anzahlSpieler) {
+		if (anzahlSpieler == 2) {
+			if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
+				throw new IndexOutOfBoundsException("Das Spieler Array ist bereits voll!");
+			}
+			if (farbe.equals("weiss") && spielerImSpiel[0] == null) {
+				FarbEnum spielerFarbe = FarbEnum.WEISS;
+				spielerImSpiel[0] = new Spieler(name, spielerFarbe);
+				this.spielerAmZug = spielerImSpiel[0];
+			} else if (farbe.equals("schwarz") && spielerImSpiel[0] != null) {
+				FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
+				spielerImSpiel[1] = new Spieler(name, spielerFarbe);
+			} else {
+				throw new IllegalArgumentException("Unbekannte farbe :" + farbe);
+			}
+		} else if (anzahlSpieler == 1) {
 			FarbEnum spielerFarbe = FarbEnum.WEISS;
 			spielerImSpiel[0] = new Spieler(name, spielerFarbe);
 			this.spielerAmZug = spielerImSpiel[0];
-		} else if (farbe.equals("schwarz") && spielerImSpiel[0] != null) {
-			FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new Spieler(name, spielerFarbe);
-		} else {
-			throw new IllegalArgumentException("Unbekannte farbe :" + farbe);
+			FarbEnum KIFarbe = FarbEnum.SCHWARZ;
+			spielerImSpiel[1] = new KI(KIFarbe);
+		} else if (anzahlSpieler == 0) {
+			FarbEnum KIFarbe = FarbEnum.WEISS;
+			spielerImSpiel[0] = new KI(KIFarbe);
+			this.spielerAmZug = spielerImSpiel[0];
+			KIFarbe = FarbEnum.SCHWARZ;
+			spielerImSpiel[1] = new KI(KIFarbe);
 		}
 
 	}
@@ -123,20 +137,14 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	
 	public void speichern(String dateiName) throws FileNotFoundException, IOException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
-		serial.oeffnen("pimmel.ser");
+		serial.oeffnen(dateiName);
 		Object[] spielState = {this.spielerImSpiel,this.spielerAmZug,this.spielBrett,this.historie,this.herausgedraengt,this.letzterZug};
 		serial.schreiben(spielState);
-		/*serial.schreiben(this.spielerAmZug);
-		serial.schreiben(this.spielBrett);
-		serial.schreiben(this.historie);
-		//serial.schreiben(this.herausgedraengt);
-		serial.schreiben(letzterZug);
-		serial.schliessen(); */
 	}
 	
 	public void lesen(String dateiName) throws FileNotFoundException, IOException, ClassNotFoundException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
-		serial.oeffnen("pimmel.ser");
+		serial.oeffnen(dateiName);
 		Object[] spielState = (Object[]) serial.lesen();
 		this.spielerImSpiel = (Spieler[])spielState[0];
 		this.spielerAmZug = (Spieler)spielState[1];
@@ -159,8 +167,16 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public void ziehe(String[] zug) {
+		// TEST ANFANG
+		if(zug[0].equals("KIKI") && zug[1].equals("KI")) {
+			String[] kiZug = ((KI)this.spielerAmZug).randomZiehen(this, this.spielerAmZug.getFarbe());
+			System.out.println(kiZug[0] + kiZug[1]);
+			zug = kiZug;
+		}
+		//TEST ENDE
 		if (koordinatenValidieren(spielzugParser(zug))) {
 			Spielzug halter = new Spielzug(zug[0], zug[1]);
+			System.out.println(halter.getVon() + halter.getNach());
 			Spielzug spielzug = formatieren(halter);
 			if (spielzug.getNach() == null) {
 				throw new IllegalArgumentException("Unzulaessiger Zug");
