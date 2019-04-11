@@ -180,25 +180,21 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		//TEST ENDE
 		if (koordinatenValidieren(spielzugParser(zug))) {
-			Spielzug halter = new Spielzug(zug[0], zug[1]);
-			System.out.println(halter.getVon() + halter.getNach());
-			Spielzug spielzug = formatieren(halter);
+			Spielzug spielzug = new Spielzug(zug[0], zug[1]);
 			if (spielzug.getNach() == null) {
 				throw new IllegalArgumentException("Unzulaessiger Zug");
 			}
 			spielzug.setRichtung(this.bekommeRichtung(spielzug));
-			spielzug.setFarbe(getFarbeAmZug());
-			Spielzug[] spielzuege = new Spielzug[1];
-			spielzuege[0] = spielzug;
-			if (zugValidieren(spielzuege)) {
-				spielzuege = spielzugSplitter(spielzug);
+			spielzug.setFarbe(getFarbeAmZug());;
+			if (zugValidieren(spielzug)) {
+				Spielzug[] spielzuege = spielzugSplitter(spielzug);
 				if (spielzuege[0].getNach() == null) {
 					letzterZug = spielzuege[0];
 					herausgedraengt = true;
-					halter.setNach(halter.getNach() + "*");
+					spielzug.setNach(spielzug.getNach() + "*");
 				}
 				spielBrett.ziehe(spielzuege);
-				historie.spielzugHinzufuegen(halter);
+				historie.spielzugHinzufuegen(spielzug);
 				if (getFarbeAmZug() == spielerImSpiel[0].getFarbe()) {
 					spielerAmZug = spielerImSpiel[1];
 				} else {
@@ -234,8 +230,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 								Spielzug zug = new Spielzug(ausgang.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
-								Spielzug[] zuege = { zug };
-								if (zugValidieren(zuege)) {
+								if (zugValidieren(zug)) {
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
 								}
 							}
@@ -251,9 +246,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 							if (nachbar != null) {
 								Spielzug zug = new Spielzug(ausgang2.getId() + ausgang1.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
-								zug.setFarbe(getFarbeAmZug());
-								Spielzug[] zuege = { zug };
-								if (zugValidieren(zuege)) {
+								zug.setFarbe(getFarbeAmZug());;
+								if (zugValidieren(zug)) {
 									nachbar = ausgang2.getNachbar(zug.getRichtung());
 									if (nachbar != null)
 										zug.setNach(nachbar.getId());
@@ -268,8 +262,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 								Spielzug zug = new Spielzug(ausgang1.getId() + ausgang2.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
-								Spielzug[] zuege = { zug };
-								if (zugValidieren(zuege)) {
+								if (zugValidieren(zug)) {
 									nachbar = ausgang1.getNachbar(zug.getRichtung());
 									zug.setNach(nachbar.getId());
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
@@ -518,9 +511,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param zuege Array des Typs Spielzug.
 	 * @return boolean True oder False, in Abhaengigkeit der Validitaet der Zuege.
 	 */
-	private boolean zugValidieren(Spielzug[] zuege) {
+	public boolean zugValidieren(Spielzug zug) {
 		boolean erfolgreich = false;
-		for (Spielzug zug : zuege) {
+
 			Spielfeld[] ausgangsfelder = spielBrett.getAusgangsfelder(zug);
 			if (ausgangsfelder.length == 0)
 				return false;
@@ -539,7 +532,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 												// belegt ist
 				if (ausgangsfelder[0].getNachbar(richtung) != null
 						&& ausgangsfelder[0].getNachbar(richtung).getFigur() == null) {
-					erfolgreich = true;
+					return true;
 				}
 			}
 
@@ -550,43 +543,21 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 					if (vordersterStein.getNachbar(richtung).getFigur() != null) {
 						if (isZuEinsSumito(vordersterStein, richtung)) {
-							Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
-							if (steinAbgeraeumt(gegnerStein, richtung)) {
-								erfolgreich = true;
-							} else {
-								erfolgreich = true;
-							}
+							return true;
 						}
 					} else {
-						erfolgreich = true;
+						return true;
 					}
 				} else if (ausgangsfelder.length == 3) {
 					Spielfeld vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
 					if (vordersterStein.getNachbar(richtung).getFigur() != null) {
 						if (isZuEinsSumito(vordersterStein, richtung)) {
-							Spielfeld gegnerStein = vordersterStein.getNachbar(richtung);
-
-							if (steinAbgeraeumt(gegnerStein, richtung)) {
-								erfolgreich = true;
-							}
-
-							else {
-								erfolgreich = true;
-							}
+							return true;
 						} else if (isZuZweiSumito(vordersterStein, richtung)) {
-							Spielfeld vordererGegnerStein = vordersterStein.getNachbar(richtung);
-							Spielfeld hintererGegnerStein = vordererGegnerStein.getNachbar(richtung);
-
-							if (steinAbgeraeumt(hintererGegnerStein, richtung)) {
-								erfolgreich = true;
-							}
-
-							else {
-								erfolgreich = true;
-							}
+							return true;
 						}
 					} else {
-						erfolgreich = true;
+						return true;
 					}
 
 				}
@@ -596,10 +567,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 						return false;
 					}
 				}
-				erfolgreich = true;
+				return true;
 			}
 
-		}
+		
 
 		return erfolgreich;
 	}
@@ -616,9 +587,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String zugVon = zug.getVon();
 		String zugNach = zug.getNach();
 		String feldVon = zugVon.substring(0, 2);
-		if (zugVon.length() == 4) {
-			feldVon = zugVon.substring(2, 4);
-		}
+
 
 		return spielBrett.getFeld(feldVon).getNachbarId(spielBrett.getFeld(zugNach));
 	}
