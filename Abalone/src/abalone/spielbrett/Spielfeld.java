@@ -305,7 +305,7 @@ public class Spielfeld implements java.io.Serializable {
 			figur = this.figur.writeCSVString();
 		}
 		csv += ","+this.id+","+figur;
-		return csv + "/b";
+		return csv;
 	}
 	
 	
