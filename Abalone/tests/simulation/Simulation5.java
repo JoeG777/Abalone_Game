@@ -33,8 +33,8 @@ public class Simulation5 {
 			
 		
 				
-		s.addSpieler("spieler1", "weiss");
-		s.addSpieler("spieler2", "schwarz");
+		s.addSpieler("spieler1", "weiss",2);
+		s.addSpieler("spieler2", "schwarz",2);
 		System.out.println(s.getStatus());
 		
 		for (String zug[] : zugSimulation) {

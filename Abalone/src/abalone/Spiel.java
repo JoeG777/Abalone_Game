@@ -1072,7 +1072,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	public String getSpielerImSpielInterface() {
 		String spielerString = "";
 		for(Spieler s: getSpielerImSpiel()) {
-			spielerString += s.getName() + " ";
+			spielerString += s.getName() + ",";
 		}
 		
 		return spielerString;

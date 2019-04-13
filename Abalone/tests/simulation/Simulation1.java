@@ -20,8 +20,8 @@ public class Simulation1 {
 			{"G6E6", "D6"}, {"A2", "A3"},//{"B1B2", "C1"},
 			{"F6D6", "C6"}};
 				
-		s.addSpieler("spieler1", "weiss");
-		s.addSpieler("spieler2", "schwarz");
+		s.addSpieler("spieler1", "weiss",2);
+		s.addSpieler("spieler2", "schwarz",2);
 		System.out.println(s.getStatus());
 		
 		for (String zug[] : zugSimulation) {

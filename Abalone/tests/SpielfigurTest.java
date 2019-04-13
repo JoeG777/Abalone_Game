@@ -6,7 +6,7 @@ import org.junit.Test;
 import abalone.FarbEnum;
 import abalone.spielbrett.Spielbrett;
 import abalone.spielbrett.Spielfeld;
-import abalone.spielbrett.Spielfigur;
+import abalone.spielbrett.Spielfeld.Spielfigur;
 
 public class SpielfigurTest {
 	static Spielbrett spielbrett;
@@ -31,7 +31,7 @@ public class SpielfigurTest {
 	
 	@Test
 	public void testSpielfigur() {
-		Spielfigur figur = new Spielfigur(feld, "SCHWARZ");
+		Spielfigur figur = feld.new Spielfigur(feld, "SCHWARZ");
 		FarbEnum farbe = FarbEnum.SCHWARZ;
 		
 		assertEquals(farbe, figur.getFarbe());
@@ -39,7 +39,7 @@ public class SpielfigurTest {
 	
 	@Test
 	public void testSpielfigur1() {
-		Spielfigur figur = new Spielfigur(feld, FarbEnum.SCHWARZ);
+		Spielfigur figur = feld.new Spielfigur(feld, FarbEnum.SCHWARZ);
 		FarbEnum farbe = FarbEnum.SCHWARZ;
 		
 		assertEquals(farbe, figur.getFarbe());
@@ -48,7 +48,7 @@ public class SpielfigurTest {
 	
 	@Test (expected = RuntimeException.class)
 	public void testSpielfigurEx() {
-		Spielfigur figur = new Spielfigur(null, FarbEnum.WEISS);
+		Spielfigur figur = feld.new Spielfigur(null, FarbEnum.WEISS);
 	}
 	
 	
