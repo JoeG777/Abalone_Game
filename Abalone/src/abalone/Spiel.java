@@ -243,11 +243,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 						Spielfeld[] nachbarn2 = ausgang2.getNachbarn();
 						for (Spielfeld nachbar : nachbarn1) {
 							if (nachbar != null) {
-								Spielzug zug = new Spielzug(ausgang2.getId() + ausgang1.getId(), nachbar.getId());
+								Spielzug zug = new Spielzug(ausgang1.getId() + ausgang2.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());;
 								if (zugValidieren(zug)) {
-									nachbar = ausgang2.getNachbar(zug.getRichtung());
+									nachbar = ausgang1.getNachbar(zug.getRichtung());
 									if (nachbar != null)
 										zug.setNach(nachbar.getId());
 									else
@@ -258,11 +258,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 						}
 						for (Spielfeld nachbar : nachbarn2) {
 							if (nachbar != null) {
-								Spielzug zug = new Spielzug(ausgang1.getId() + ausgang2.getId(), nachbar.getId());
+								Spielzug zug = new Spielzug(ausgang2.getId() + ausgang1.getId(), nachbar.getId());
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
 								if (zugValidieren(zug)) {
-									nachbar = ausgang1.getNachbar(zug.getRichtung());
+									nachbar = ausgang2.getNachbar(zug.getRichtung());
 									zug.setNach(nachbar.getId());
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
 								}
