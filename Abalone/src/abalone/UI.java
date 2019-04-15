@@ -136,8 +136,10 @@ public class UI implements java.io.Serializable {
 			spielerAnlegen(spiel, 0);
 			spielen(spiel);
 		} else if (eingabe.equals("4.") || eingabe.equals("4")) {
-			System.out.println("Geht noch nicht ihr Keks!");
-
+			//spielerAnlegen(spiel,2);
+			laden(spiel);
+			imSpiel = false;
+			spielen(spiel);
 		} else {
 			System.out.println("Bitte waehlen Sie eine der moeglichen Optionen aus!");
 			}
@@ -425,11 +427,25 @@ public class UI implements java.io.Serializable {
 		spiel.speichern(dateiName);
 	}
 
-	public static void laden(bedienerInterface spiel)
-			throws FileNotFoundException, IOException, ClassNotFoundException {
-		System.out.println("Bitte geben Sie einen gueltigen Dateinamen ein: ");
-		String dateiName = sc.nextLine();
-		spiel.lesen(dateiName);
+	public static void laden(bedienerInterface spiel) {
+		boolean b = true;
+		
+		while(b) {
+			try {
+				System.out.println("\nBitte geben Sie einen gueltigen Dateinamen ein: ");
+				String dateiName = sc.nextLine();
+				spiel.lesen(dateiName);
+				b = false;
+			} catch(FileNotFoundException fnfe) {
+				System.out.println("Dateiname ungueltig. Bitte Eingabe ueberpruefen.");
+			} catch (IOException ioe) {
+				System.out.println("Etwas ist schief gelaufen.");
+			} catch (ClassNotFoundException cnfe) {
+				System.out.println("Klasse nicht gefunden.");
+			}
+		}
+		
+		
 	}
 	
 }
