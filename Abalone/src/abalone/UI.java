@@ -136,7 +136,6 @@ public class UI implements java.io.Serializable {
 			spielerAnlegen(spiel, 0);
 			spielen(spiel);
 		} else if (eingabe.equals("4.") || eingabe.equals("4")) {
-			//spielerAnlegen(spiel,2);
 			laden(spiel);
 			imSpiel = false;
 			spielen(spiel);
@@ -258,11 +257,7 @@ public class UI implements java.io.Serializable {
 							imSpiel = false;
 							break;
 						}
-					} else if (eingabe.equalsIgnoreCase("laden")) {
-						laden(spiel);
-					} else if (eingabe.equalsIgnoreCase("speichern")) {
-						speichern(spiel);
-					}else
+					} else
 						if (!ziehen(eingabe, spiel)) {
 							System.out.println("Irgendwas hat da nicht gestimmt!");
 							System.out.println();
@@ -288,13 +283,16 @@ public class UI implements java.io.Serializable {
 	 * hilfsMenue 3 fuer weiter spielen
 	 * 
 	 * @param spiel Das erstellte Spiel Objekt.
+	 * @throws IOException
+	 * @throws FileNotFoundException 
 	 */
-	public static void menue(bedienerInterface spiel) {
+	public static void menue(bedienerInterface spiel) throws FileNotFoundException, IOException {
 		boolean inSchleifeBleiben = true;
 
 		while (inSchleifeBleiben) {
 			System.out.println(
-					"Bitte waehlen Sie:\n(1) Historie ausgeben\n" + "(2) Hilfsmenue ausgeben\n(3) weiter spielen.\n");
+					"Bitte waehlen Sie:\n(1) Historie ausgeben\n" + "(2) Hilfsmenue ausgeben\n(3) weiter spielen.\n"
+							+ "(4) Spiel speichern\n(5) Spiel laden\n");
 			String auswahl = sc.nextLine();
 
 			if (auswahl.equals("1")) {
@@ -310,7 +308,17 @@ public class UI implements java.io.Serializable {
 
 			else if (auswahl.equals("3")) {
 				inSchleifeBleiben = false;
-			} else {
+			}
+			
+			else if (auswahl.equals("4")) {
+				speichern(spiel);
+			}
+			
+			else if (auswahl.equals("5")) {
+				laden(spiel);
+			}
+			
+			else {
 				System.out.println("Die Tasten befinden sich oben links auf ihrer Tastatur. + \n"
 						+ "Falls Sie sich zusaetzlich eine Tastatur mit NumPad\n"
 						+ "geleistet haben finden Sie die Tasten auch rechts.");
@@ -422,9 +430,19 @@ public class UI implements java.io.Serializable {
 	}
 
 	public static void speichern(bedienerInterface spiel) throws FileNotFoundException, IOException {
-		System.out.println("Bitte geben Sie einen gueltigen Dateinamen ein: ");
-		String dateiName = sc.nextLine();
-		spiel.speichern(dateiName);
+		boolean b = true;
+		
+		while(b) {
+			try {
+				System.out.println("Bitte geben Sie einen gueltigen Dateinamen ein: ");
+				String dateiName = sc.nextLine();
+				spiel.speichern(dateiName);
+				b = false;
+			} catch(IOException ioe) {
+				System.out.println("Ungueltiger Dateiname.");
+			}
+		}
+		
 	}
 
 	public static void laden(bedienerInterface spiel) {
