@@ -1158,11 +1158,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	}
 	
 	public String writeCSV() {
-		String csv = "SPIEL:";
+		String csv = "SPIEL: \n";
 		for(Spieler spieler: spielerImSpiel) {
-			csv += spieler.writeCSV()+";";
+			csv += spieler.writeCSV()+"\n";
 		}
-		csv += historie.writeCSV() + ";" + spielBrett.writeCSV();
+		csv += historie.writeCSV() + "\n" + spielBrett.writeCSV();
 		return csv;
 	}
 	

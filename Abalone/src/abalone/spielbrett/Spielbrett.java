@@ -368,10 +368,10 @@ public class Spielbrett implements java.io.Serializable {
 	}
 	
 	public String writeCSV() {
-		String brettCSV = "BRETT:";
+		String brettCSV = "BRETT: \n";
 		for(String key: brett.keySet()) {
 		    Spielfeld feld = brett.get(key);
-		    brettCSV += feld.writeCSVString() + ";";
+		    brettCSV += feld.writeCSVString() + "\n";
 		}
 		return brettCSV;
 	}
