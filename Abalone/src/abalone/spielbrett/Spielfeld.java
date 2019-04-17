@@ -24,13 +24,14 @@ class Spielfeld implements java.io.Serializable {
 	 * @param id Die ID des Feldes in Abalone-Notation.
 	 * @param farbe Die Farbe des Feldes.
 	 * @param figur Die Figur, die sich auf dem Feld befindet.
+	 * @throws SpielfeldException 
 	 * @exception RuntimeException Wird geworfen, wenn kein Spielbrett 
 	 * existiert.
 	 * 
 	 */
-	public Spielfeld(Spielbrett brett, String id, FarbEnum farbe, Spielfigur figur) {
+	public Spielfeld(Spielbrett brett, String id, FarbEnum farbe, Spielfigur figur) throws SpielfeldException {
 		if(brett == null) {
-			throw new RuntimeException("Kann nicht ohne Brett existieren!");
+			throw new SpielfeldException(5, "Kann nicht ohne Brett existieren!");
 		}
 		setBrett(brett);
 		setId(id);
@@ -44,11 +45,12 @@ class Spielfeld implements java.io.Serializable {
 	 * null.
 	 * @param brett Ein Spielbrett-Objekt (muss zur Erzeugung existieren).
 	 * @param id Die ID des Feldes in Abalone-Notation.
+	 * @throws SpielfeldException 
 	 * 
 	 */
-	public Spielfeld(Spielbrett brett, String id) {
+	public Spielfeld(Spielbrett brett, String id) throws SpielfeldException {
 		if(brett == null) {
-			throw new RuntimeException("Kann nicht ohne Brett existieren!");
+			throw new SpielfeldException(5, "Kann nicht ohne Brett existieren!");
 		}
 		setBrett(brett);
 		setId(id);
@@ -95,8 +97,9 @@ class Spielfeld implements java.io.Serializable {
 	/**
 	 * Setter fuer das initilisieren und Setzen einer Figur
 	 * @param farbe
+	 * @throws SpielfeldException 
 	 */
-	public void setAndInitFigur(String farbe) {
+	public void setAndInitFigur(String farbe) throws SpielfeldException {
 		this.figur = new Spielfigur(this, farbe);
 	}
 	/**
@@ -153,11 +156,12 @@ class Spielfeld implements java.io.Serializable {
 	/**
 	 * Setzt das Nachbarn Attribut. 
 	 * @param nachbarn Spielfeld-Array der Laenge 6.
+	 * @throws SpielfeldException 
 	 * 
 	 */
-	private void setNachbarn(Spielfeld[] nachbarn) {
+	private void setNachbarn(Spielfeld[] nachbarn) throws SpielfeldException {
 		if(nachbarn.length != 6) {
-			throw new RuntimeException("Das Nachbarn-Array muss eine L√§nge von 6 haben.");
+			throw new SpielfeldException(2, "Nachbar Array sollte 6 groﬂ sein, ist aber " + nachbarn.length + "groﬂ!");
 		}
 		
 		this.nachbarn = nachbarn;
@@ -245,10 +249,11 @@ class Spielfeld implements java.io.Serializable {
 	 * Position 2 entspricht unten-links, Position 3 entspricht rechts,
 	 * Position 4 entspricht oben-rechts, Position 5 enstpricht unten-rechts.
 	 * Existiert kein solches Spielfeld, steht im Array null.
+	 * @throws SpielfeldException 
 	 */
-	public void setzeNachbarn() {
+	public void setzeNachbarn() throws SpielfeldException {
 		if(brett == null) {
-			throw new RuntimeException("Es muss ein Brett geben");
+			throw new SpielfeldException(3, "Es muss ein Brett geben");
 		}
 		
 		String[] potentielleNachbarn = findePotentielleNachbarn(this.id);
@@ -346,12 +351,13 @@ class Spielfeld implements java.io.Serializable {
 		 * Erzeugt ein neues Spielfigur Objekt mit Farbe als FarbEnum.
 		 * @param feld Ein Spielfeld Objekt (Muss zur Erzeugung existieren).
 		 * @param farbe Die Farbe der Spielfigur
+		 * @throws SpielfeldException 
 		 * @exception RuntimeException Wird geworfen, wenn kein Spielfeld-Objekt
 		 * existiert.
 		 */
-		public Spielfigur(Spielfeld feld, FarbEnum farbe) {
+		public Spielfigur(Spielfeld feld, FarbEnum farbe) throws SpielfeldException {
 			if (feld == null) {
-				throw new RuntimeException("Spielfeld-Objekt muss existieren.");
+				throw new SpielfeldException(4, "Spielfeld-Objekt muss existieren.");
 			}
 			setFarbe(farbe);
 		}
@@ -360,11 +366,12 @@ class Spielfeld implements java.io.Serializable {
 		 * Erzeugt ein neues Spielfigur Objekt mit Farbe als String.
 		 * @param feld Ein Spielfeld Objekt (muss zur Erzeugung existieren).
 		 * @param farbe Die Farbe der Spielfigur.
+		 * @throws SpielfeldException 
 		 */
 
-		public Spielfigur(Spielfeld feld, String farbe) {
+		public Spielfigur(Spielfeld feld, String farbe) throws SpielfeldException {
 			if(feld == null) {
-				throw new RuntimeException("Spielfeld-Objekt muss existieren.");
+				throw new SpielfeldException(4, "Spielfeld-Objekt muss existieren.");
 			}
 
 			if(farbe == null|| 

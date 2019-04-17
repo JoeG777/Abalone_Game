@@ -277,9 +277,10 @@ public class Spielbrett implements java.io.Serializable {
 	 * wird auf null gesetzt).
 	 * @param zuege ein Spielzug-Array das einzelne Zuege aus einem Stein 
 	 * enthaehlt.
+	 * @throws SpielbrettException 
 	 */
 
-	public void ziehe(Spielzug[] zuege) {
+	public void ziehe(Spielzug[] zuege) throws SpielbrettException {
 		for(Spielzug zug : zuege) {
 			if(zug != null ) {
 				if(zug.getNach() != null) {
@@ -297,13 +298,14 @@ public class Spielbrett implements java.io.Serializable {
 	 * ohne dabei zu ueberpruefen, ob dies "logisch" moeglich ist. 
 	 * @param von das Feld auf dem sich die Figur befindet.
 	 * @param auf das Feld auf das die Figur bewegt werden soll. 
+	 * @throws SpielbrettException 
 	 */
-	private void bewegeFigur(String von, String auf) {
+	private void bewegeFigur(String von, String auf) throws SpielbrettException {
 		if(brett.get(auf) != null && brett.get(von) != null) {
 			brett.get(auf).setFigur(brett.get(von).getFigur());;
 			brett.get(von).setFigur(null);
 		}else
-			throw new IllegalArgumentException("Ungueltiger Zug");
+			throw new SpielbrettException(1, "Ungueltiger Zug " + von + "-" + auf);
 	}
 	
 	/**
