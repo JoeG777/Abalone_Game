@@ -11,16 +11,17 @@ import java.io.IOException;
  */
 public interface bedienerInterface {
 	//vorgegebenen Methoden aus PDF inkl 2b
-	String getSpielerAmZug();//nicht szu implementieren
+	String getSpielerAmZug();
 	String getAlleZuege();//Historie ausgeben in Rumpf
-	void ziehe(String[] zugArr);// ziehe Methode in den Rumpf
+	void ziehe(String[] zugArr);
 	void spielAusDateiLaden();
-	void spielStatusSpeichern();//Spieler, Status, Historie
+	void spielStatusSpeichern();
 
 	//alle public Methoden aus Spiel, die in UI benutzt werden müssen
-	String getSpielerImSpielInterface(); //muss noch ein anderer Returnwert sein
+	String getSpielerImSpielInterface(); 
 	void addSpieler(String name, String farbe, int anzahlSpieler);
 	String getStatus();
+	String getHistorie();
 	String getErlaubteZuegeInterface(String[] ausgangsfelder);////muss noch ein anderer Returnwert sein
 	boolean hatGewonnen(String name);
 	void lesen(String dateiName) throws FileNotFoundException, IOException, ClassNotFoundException;

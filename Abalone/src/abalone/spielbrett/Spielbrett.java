@@ -109,13 +109,13 @@ public class Spielbrett implements java.io.Serializable {
 				String idWeiss = buchstabeWeiss + zahl;
 				if(brett.containsKey(idWeiss)) {
 					Spielfeld feld = brett.get(idWeiss);
-					feld.setFigur(feld.new Spielfigur(feld, "WEISS"));
+					feld.setAndInitFigur("WEISS");
 				}
 				String idSchwarz = buchstabeSchwarz + zahl;
 
 				if(brett.containsKey(idSchwarz)) {
 					Spielfeld feld = brett.get(idSchwarz);
-					feld.setFigur(feld.new Spielfigur(feld, "SCHWARZ"));
+					feld.setAndInitFigur("SCHWARZ");
 				}
 			}
 		}
@@ -134,9 +134,9 @@ public class Spielbrett implements java.io.Serializable {
 			String idSchwarz = "C" + i;
 
 			Spielfeld weiss = brett.get(idWeiss);
-			weiss.setFigur(weiss.new Spielfigur(weiss, "WEISS"));
+			weiss.setAndInitFigur("WEISS");
 			Spielfeld schwarz = brett.get(idSchwarz);
-			schwarz.setFigur(weiss.new Spielfigur(schwarz, "SCHWARZ"));
+			schwarz.setAndInitFigur("SCHWARZ");
 		}
 	}
 
@@ -163,14 +163,22 @@ public class Spielbrett implements java.io.Serializable {
 	}
 	
 	/**
-	 * Gibt das zum uebergebenen Key passende Feld zurueck.
+	 * symbolische Methode, die zu einem uebergebenen Id die id zurueck gibt
 	 * @param key ein String, der zu einem Feld gehoert.
 	 * @return zum Key passendes Spielfeld-Objekt.
 	 */
-	public Spielfeld getFeld(String key) {
-		return brett.get(key);
+	public String getFeld(String key) {
+		return brett.get(key).getId();
 	}
 
+	/**
+	 * Zur internen Verwaltung von Spielfeldern
+	 * @param id
+	 * @return
+	 */
+	private Spielfeld getFeldById(String id) {
+		return brett.get(id);
+	}
 
 
 
@@ -278,7 +286,7 @@ public class Spielbrett implements java.io.Serializable {
 					bewegeFigur(zug.getVon(), zug.getNach());
 				}
 				else {
-					steinAbraeumen(getFeld(zug.getVon()));
+					steinAbraeumen(this.getFeldById(getFeld(zug.getVon())));
 				}
 			}
 		}
@@ -312,18 +320,18 @@ public class Spielbrett implements java.io.Serializable {
 	 * @param zug Ein Spielzug-Objekt.
 	 * @return Spielfeld-Array mit allen Ausgangsfelder des Zuges.
 	 */
-	public Spielfeld[] getAusgangsfelder(Spielzug zug) {
-		ArrayList<Spielfeld> ausgangsfelder = new ArrayList<Spielfeld>();
+	public String[] getAusgangsfelder(Spielzug zug) {
+		ArrayList<String> ausgangsfelder = new ArrayList<String>();
 		if(zug.getVon().length() == 2) {
-			ausgangsfelder.add(brett.get(zug.getVon()));
+			ausgangsfelder.add(brett.get(zug.getVon()).getId());
 		}
 		else if(zug.getVon().length() == 4) {
 			Spielfeld feldLinks = brett.get(zug.getVon().substring(0, 2));
 			Spielfeld feldRechts = brett.get(zug.getVon().substring(2, 4));
 
 			if(feldLinks != null && feldLinks.hatNachbar(feldRechts)) {
-				ausgangsfelder.add(feldLinks);
-				ausgangsfelder.add(feldRechts);
+				ausgangsfelder.add(feldLinks.getId());
+				ausgangsfelder.add(feldRechts.getId());
 			}
 
 			else {
@@ -334,9 +342,9 @@ public class Spielbrett implements java.io.Serializable {
 
 
 						if(ziel == feldRechts) {
-							ausgangsfelder.add(feldLinks);
-							ausgangsfelder.add(dazwischen);
-							ausgangsfelder.add(feldRechts);
+							ausgangsfelder.add(feldLinks.getId());
+							ausgangsfelder.add(dazwischen.getId());
+							ausgangsfelder.add(feldRechts.getId());
 						}
 					}
 				}
@@ -346,8 +354,9 @@ public class Spielbrett implements java.io.Serializable {
 			return null;
 		}
 
-		return ausgangsfelder.toArray(new Spielfeld[0]);
+		return ausgangsfelder.toArray(new String[0]); //vorher new Spielfeld[0]
 	}
+	
 
 	/**
 	 * Gibt alle Felder zurueck, die mit einer Figur belegt sind, 
@@ -356,11 +365,11 @@ public class Spielbrett implements java.io.Serializable {
 	 * @return ArrayList aus Spielfeldern, auf denen Figuren der uebergebenen 
 	 * Farbe sind
 	 */
-	public ArrayList<Spielfeld> getFelderMitFarbe(FarbEnum farbe) {
-		ArrayList<Spielfeld> felder = new ArrayList<Spielfeld>();
+	public ArrayList<String> getFelderMitFarbe(FarbEnum farbe) {
+		ArrayList<String> felder = new ArrayList<String>();
 		for(Spielfeld feld : brett.values()) {
-			if(feld.getFigur() != null && feld.getFigur().getFarbe() == farbe) {
-				felder.add(feld);
+			if(feld.getFigur() != null && feld.getFarbeDerFigur() == farbe) {
+				felder.add(feld.getId());
 			}
 		}
 		felder.removeIf(Objects::isNull);
@@ -374,6 +383,77 @@ public class Spielbrett implements java.io.Serializable {
 		    brettCSV += feld.writeCSVString() + "\n";
 		}
 		return brettCSV;
+	}
+	
+	/**
+	 * Methode zum Herausfinden der Ids der Nachbarfelder
+	 * @param id
+	 * @return NachbarFelderIds Nachbar Ids
+	 */
+	public String[] getNachbarnByIdVonFeld(String id) {
+		String[] nachbarIds = new String[6];
+		Spielfeld[] nachbarn = this.getFeldById(id).getNachbarn();
+		for(int i = 0; i<nachbarn.length;i++) {
+			if(nachbarn[i] != null) {
+				nachbarIds[i] = nachbarn[i].getId();
+			}
+		}
+		return nachbarIds;
+	}
+	
+	public String getNachbarByIdInRichtung(String id, int richtung) {
+		return this.getFeldById(id).getNachbar(richtung).getId();
+		//Spielbrett holt sich Feld -> Nachbar -> id -> Rueckgabe
+	}
+	
+	/**
+	 * Ermittelt, ob ein Spielfeld von einer Figur besetzt ist
+	 * @return Wahrheitswert Ob besetzt oder nicht
+	 */
+	public boolean istBesetzt(String id) {
+		if(this.getFeldById(id).getFigur() == null) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Zugriff auf die Farbe einer Figur.
+	 * @param id
+	 * @return FarbeDerFigurAufDemFeld
+	 */
+	public FarbEnum getFarbeDerFigurById(String id) {
+		return this.getFeldById(id).getFarbeDerFigur();
+	}
+	
+	/**
+	 * Abfrage, ob ein Spielfeld von einer Figur der mitgegebenen Farbe ist
+	 * @param id des Spielfelds
+	 * @param farbe die eigene Farbe
+	 * @return Wahrheitswert
+	 */
+	public boolean istDurchGegnerBesetztById(String id, FarbEnum farbe) {
+		return this.getFeldById(id).istDurchGegnerBesetzt(farbe);
+	}
+	
+	/**
+	 * Abfrage, ob Felder Nachbar von einander sind
+	 * @param id eigenes Feld
+	 * @param nachbarId Feld zu ueberpruefen
+	 * @return Wahrheitswert
+	 */
+	public boolean hatNachbarById(String id, String nachbarId) {
+		return this.getFeldById(id).hatNachbar(this.getFeldById(nachbarId));
+	}
+	
+	/**
+	 * Zugriff auf den Index eines Nachbarns im Nachbararray
+	 * @param id eigenes Feld
+	 * @param nachbarId zu ueberpruefendes Feld
+	 * @return Index im Nachbarn-Array
+	 */
+	public int getNachbarIndexById(String id, String nachbarId) {
+		return this.getFeldById(id).getNachbarId(this.getFeldById(nachbarId));
 	}
 }
 

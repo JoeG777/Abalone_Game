@@ -3,8 +3,6 @@ package abalone;
 
 import java.util.ArrayList;
 
-import abalone.spielbrett.Spielfeld;
-
 /**
  * <h1>Historie</h1>
  * Diese Klasse legt eine Historie aller Zuege an und

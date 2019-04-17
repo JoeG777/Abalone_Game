@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import abalone.spielbrett.Spielbrett;
-import abalone.spielbrett.Spielfeld;
 
 /**
  * <h1>Spiel</h1>
@@ -27,7 +26,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	private Historie historie;
 	private boolean herausgedraengt = false;
 	private Spielzug letzterZug;
-	
+
 	/**
 	 * Konstruktor, instanziiert alle anfangs benoetigten Objekte.
 	 */
@@ -137,14 +136,14 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		return false;
 	}
-	
+
 	public void speichern(String dateiName) throws FileNotFoundException, IOException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
 		serial.oeffnen(dateiName);
 		Object[] spielState = {this.spielerImSpiel,this.spielerAmZug,this.spielBrett,this.historie,this.herausgedraengt,this.letzterZug};
 		serial.schreiben(spielState);
 	}
-	
+
 	public void lesen(String dateiName) throws FileNotFoundException, IOException, ClassNotFoundException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
 		serial.oeffnen(dateiName);
@@ -175,7 +174,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			String[] kiZug = ((KI)this.spielerAmZug).randomZiehen(this, this.spielerAmZug.getFarbe());
 			System.out.println(kiZug[0] + "-" + kiZug[1]);
 			zug = kiZug;
-			
+
 		}
 		//TEST ENDE
 		if (koordinatenValidieren(spielzugParser(zug))) {
@@ -222,11 +221,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				if (felder != null) {
 					// Fall 1: Nur ein Feld
 					if (felder.length() == 2) {
-						Spielfeld ausgang = spielBrett.getFeld(felder);
-						Spielfeld[] nachbarn = ausgang.getNachbarn();
-						for (Spielfeld nachbar : nachbarn) {
+						String ausgang = spielBrett.getFeld(felder);
+						String[] nachbarn = spielBrett.getNachbarnByIdVonFeld(felder);
+						for (String nachbar : nachbarn) {
 							if (nachbar != null) {
-								Spielzug zug = new Spielzug(ausgang.getId(), nachbar.getId());
+								Spielzug zug = new Spielzug(spielBrett.getFeld(ausgang), spielBrett.getFeld(nachbar));
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
 								if (zugValidieren(zug)) {
@@ -237,33 +236,33 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 					}
 					// Fall 2: Zwei Felder
 					if (felder.length() == 4) {
-						Spielfeld ausgang1 = spielBrett.getFeld(felder.substring(0, 2));
-						Spielfeld ausgang2 = spielBrett.getFeld(felder.substring(2, 4));
-						Spielfeld[] nachbarn1 = ausgang1.getNachbarn();
-						Spielfeld[] nachbarn2 = ausgang2.getNachbarn();
-						for (Spielfeld nachbar : nachbarn1) {
+						String ausgang1 = spielBrett.getFeld(felder.substring(0, 2));
+						String ausgang2 = spielBrett.getFeld(felder.substring(2, 4));
+						String[] nachbarn1 = spielBrett.getNachbarnByIdVonFeld(ausgang1);
+						String[] nachbarn2 = spielBrett.getNachbarnByIdVonFeld(ausgang2);
+						for (String nachbar : nachbarn1) {
 							if (nachbar != null) {
-								Spielzug zug = new Spielzug(ausgang1.getId() + ausgang2.getId(), nachbar.getId());
+								Spielzug zug = new Spielzug(ausgang1 + ausgang2 , nachbar);
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());;
 								if (zugValidieren(zug)) {
-									nachbar = ausgang1.getNachbar(zug.getRichtung());
+									nachbar = spielBrett.getNachbarByIdInRichtung(ausgang1,zug.getRichtung());
 									if (nachbar != null)
-										zug.setNach(nachbar.getId());
+										zug.setNach(spielBrett.getFeld(nachbar));
 									else
 										zug.setNach(null);
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
 								}
 							}
 						}
-						for (Spielfeld nachbar : nachbarn2) {
+						for (String nachbar : nachbarn2) {
 							if (nachbar != null) {
-								Spielzug zug = new Spielzug(ausgang2.getId() + ausgang1.getId(), nachbar.getId());
+								Spielzug zug = new Spielzug(ausgang2+ ausgang1, nachbar);
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
 								if (zugValidieren(zug)) {
-									nachbar = ausgang2.getNachbar(zug.getRichtung());
-									zug.setNach(nachbar.getId());
+									nachbar = spielBrett.getNachbarByIdInRichtung(ausgang2, zug.getRichtung());
+									zug.setNach(nachbar);
 									erlaubteZuege.add(zug.getVon() + "-" + zug.getNach());
 								}
 							}
@@ -290,6 +289,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * 
 	 * @return HistorienString Historie als String.
 	 */
+	@Override
 	public String getHistorie() {
 		return this.historie.toString();
 
@@ -323,13 +323,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		brettZeilen[5] += verloreneSteineX;
 		brettZeilen[6] += "    ";
 		brettZeilen[7] += amZug;
-		
+
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < brettZeilen.length; i++) {
 			sb.append(brettZeilen[i] +"\n");
 		}
 		String brett = sb.toString();
-		
+
 		if (herausgedraengt) {
 			brett = this.addSternchen(brett, letzterZug);
 			herausgedraengt = false;///
@@ -513,63 +513,63 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	public boolean zugValidieren(Spielzug zug) {
 		boolean erfolgreich = false;
 
-			Spielfeld[] ausgangsfelder = spielBrett.getAusgangsfelder(zug);
-			if (ausgangsfelder.length == 0)
+		String[] ausgangsfelder = spielBrett.getAusgangsfelder(zug);
+		if (ausgangsfelder.length == 0)
+			return false;
+		int richtung = bekommeRichtung(zug);
+		for (int i = 0; i < ausgangsfelder.length; i++) {
+			if (!(spielBrett.istBesetzt(ausgangsfelder[i]))|| zug.getFarbe() != spielBrett.getFarbeDerFigurById(ausgangsfelder[i]));
+			return false;
+		}
+		String[] zielfelder = getZielfelder(ausgangsfelder, richtung);
+		for (String feld : zielfelder) {
+			if (feld == null) {
 				return false;
-			int richtung = bekommeRichtung(zug);
-			for (int i = 0; i < ausgangsfelder.length; i++) {
-				if (ausgangsfelder[i].getFigur() == null || zug.getFarbe() != ausgangsfelder[i].getFigur().getFarbe())
-					return false;
 			}
-			Spielfeld[] zielfelder = getZielfelder(ausgangsfelder, richtung);
-			for (Spielfeld feld : zielfelder) {
-				if (feld == null) {
-					return false;
-				}
-			}
-			if (ausgangsfelder.length == 1) { // Ein Stein darf nicht schieben, also nur ueberpruefen, ob Zielfeld
-												// belegt ist
-				if (ausgangsfelder[0].getNachbar(richtung) != null
-						&& ausgangsfelder[0].getNachbar(richtung).getFigur() == null) {
-					return true;
-				}
-			}
-
-			else if (isSchiebung(ausgangsfelder, richtung)) { // Schiebende Zuege sind anders zu behandeln als diagonale
-
-				if (ausgangsfelder.length == 2) {
-					Spielfeld vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
-
-					if (vordersterStein.getNachbar(richtung).getFigur() != null) {
-						if (isZuEinsSumito(vordersterStein, richtung)) {
-							return true;
-						}
-					} else {
-						return true;
-					}
-				} else if (ausgangsfelder.length == 3) {
-					Spielfeld vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
-					if (vordersterStein.getNachbar(richtung).getFigur() != null) {
-						if (isZuEinsSumito(vordersterStein, richtung)) {
-							return true;
-						} else if (isZuZweiSumito(vordersterStein, richtung)) {
-							return true;
-						}
-					} else {
-						return true;
-					}
-
-				}
-			} else if (!isSchiebung(ausgangsfelder, richtung)) {
-				for (Spielfeld feld : zielfelder) {
-					if (feld != null && feld.getFigur() != null) {
-						return false;
-					}
-				}
+		}
+		if (ausgangsfelder.length == 1) { // Ein Stein darf nicht schieben, also nur ueberpruefen, ob Zielfeld
+			// belegt ist
+			if (spielBrett.getNachbarByIdInRichtung(ausgangsfelder[0],richtung) != null
+					&& !(spielBrett.istBesetzt(spielBrett.getNachbarByIdInRichtung(ausgangsfelder[0],richtung)))) {
 				return true;
 			}
+		}
 
-		
+		else if (isSchiebung(ausgangsfelder, richtung)) { // Schiebende Zuege sind anders zu behandeln als diagonale
+
+			if (ausgangsfelder.length == 2) {
+				String vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
+
+				if (spielBrett.istBesetzt(spielBrett.getNachbarByIdInRichtung(vordersterStein,richtung))) {
+					if (isZuEinsSumito(vordersterStein, richtung)) {
+						return true;
+					}
+				} else {
+					return true;
+				}
+			} else if (ausgangsfelder.length == 3) {
+				String vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
+				if (spielBrett.istBesetzt(spielBrett.getNachbarByIdInRichtung(vordersterStein, richtung))) {
+					if (isZuEinsSumito(vordersterStein, richtung)) {
+						return true;
+					} else if (isZuZweiSumito(vordersterStein, richtung)) {
+						return true;
+					}
+				} else {
+					return true;
+				}
+
+			}
+		} else if (!isSchiebung(ausgangsfelder, richtung)) {
+			for (String feld : zielfelder) {
+				if (feld != null && spielBrett.istBesetzt(feld)) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+
 
 		return erfolgreich;
 	}
@@ -588,7 +588,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String feldVon = zugVon.substring(0, 2);
 
 
-		return spielBrett.getFeld(feldVon).getNachbarId(spielBrett.getFeld(zugNach));
+		return spielBrett.getNachbarIndexById(feldVon, spielBrett.getFeld(zugNach));
 	}
 
 	/**
@@ -598,11 +598,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param richtung       Die Richtung des Zuges.
 	 * @return Spielfeld-Array Ein Array mit allen Zielfeldern des Zuges.
 	 */
-	private Spielfeld[] getZielfelder(Spielfeld[] ausgangsfelder, int richtung) {
-		Spielfeld[] zielfelder = new Spielfeld[ausgangsfelder.length];
+	private String[] getZielfelder(String[] ausgangsfelder, int richtung) {
+		String[] zielfelder = new String[ausgangsfelder.length];
 
 		for (int i = 0; i < ausgangsfelder.length; i++) {
-			zielfelder[i] = ausgangsfelder[i].getNachbar(richtung);
+			zielfelder[i] = spielBrett.getNachbarByIdInRichtung(ausgangsfelder[i],richtung);
 		}
 
 		return zielfelder;
@@ -620,14 +620,14 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 *         Zug handelt.
 	 */
 
-	private boolean isSchiebung(Spielfeld[] felder, int richtung) {
+	private boolean isSchiebung(String[] felder, int richtung) {
 		if (felder.length == 3) {
-			if (felder[1] == felder[0].getNachbar(richtung) || felder[1] == felder[2].getNachbar(richtung)) {
+			if (felder[1] == spielBrett.getNachbarByIdInRichtung(felder[0],richtung) || felder[1] == spielBrett.getNachbarByIdInRichtung(felder[2],richtung)) {
 				return true;
 			}
 		}
 		if (felder.length == 2) {
-			if (felder[0] == felder[1].getNachbar(richtung) || felder[1] == felder[0].getNachbar(richtung)) {
+			if (felder[0] == spielBrett.getNachbarByIdInRichtung(felder[1],richtung) || felder[1] == spielBrett.getNachbarByIdInRichtung(felder[0],richtung)) {
 				return true;
 			}
 		}
@@ -642,15 +642,15 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param richtung        die Richtung des Spielzuges.
 	 * @return boolean true, wenn moeglich, false, wenn nicht moeglich.
 	 */
-	private boolean isZuEinsSumito(Spielfeld vordersterStein, int richtung) {
-		Spielfeld nachbarInRichtung = vordersterStein.getNachbar(richtung);
-		if (nachbarInRichtung != null && nachbarInRichtung.istBesetzt()
-				&& nachbarInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe()) {
-			Spielfeld nachbarHinterNachbar = nachbarInRichtung.getNachbar(richtung);
+	private boolean isZuEinsSumito(String vordersterStein, int richtung) {
+		String nachbarInRichtung = spielBrett.getNachbarByIdInRichtung(vordersterStein, richtung);
+		if (nachbarInRichtung != null && spielBrett.istBesetzt(nachbarInRichtung)
+				&& spielBrett.getFarbeDerFigurById(nachbarInRichtung) != spielBrett.getFarbeDerFigurById(vordersterStein)) {
+			String nachbarHinterNachbar = spielBrett.getNachbarByIdInRichtung(nachbarInRichtung, richtung);
 			if (nachbarHinterNachbar == null) {
 				return true;
 			}
-			if (nachbarHinterNachbar.getFigur() == null) {
+			if (!(spielBrett.istBesetzt(nachbarHinterNachbar))) {
 				return true;
 			}
 		}
@@ -666,17 +666,17 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param richtung Die Richtung des Zuges.
 	 * @return Spielfeld-Objekt Spielfeld auf dem sich der vorderste Stein befindet.
 	 */
-	private Spielfeld getVorderstenStein(Spielfeld[] felder, int richtung) {
-		Spielfeld posVordersterStein = null;
+	private String getVorderstenStein(String[] felder, int richtung) {
+		String posVordersterStein = null;
 
 		if (felder.length == 3) {
-			if (felder[0].getNachbar(richtung) != felder[1]) {
+			if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung) != felder[1]) {
 				posVordersterStein = felder[0];
 			} else {
 				posVordersterStein = felder[2];
 			}
 		} else if (felder.length == 2) {
-			if (felder[0].getNachbar(richtung) != felder[1]) {
+			if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung) != felder[1]) {
 				posVordersterStein = felder[0];
 			} else {
 				posVordersterStein = felder[1];
@@ -695,8 +695,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param richtung          Richtung des Spielzuges.
 	 * @return boolean true, wenn der Stein runtergeworfen wird, false, wenn nicht.
 	 */
-	private boolean steinAbgeraeumt(Spielfeld gegnerStein, int richtung) {
-		if (gegnerStein.getNachbar(richtung) == null) {
+	private boolean steinAbgeraeumt(String gegnerStein, int richtung) {
+		if (spielBrett.getNachbarByIdInRichtung(gegnerStein, richtung) == null) {
 			return true;
 		}
 
@@ -711,25 +711,25 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param richtung        die Richtung des Spielzuges.
 	 * @return boolean true, wenn moeglich, false, wenn nicht moeglich.
 	 */
-	private boolean isZuZweiSumito(Spielfeld vordersterStein, int richtung) {
-		Spielfeld erstesFeldInRichtung = vordersterStein.getNachbar(richtung);
-		Spielfeld zweitesFeldInRichtung = null;
-		Spielfeld drittesFeldInRichtung = null;
+	private boolean isZuZweiSumito(String vordersterStein, int richtung) {
+		String erstesFeldInRichtung = spielBrett.getNachbarByIdInRichtung(vordersterStein, richtung);
+		String zweitesFeldInRichtung = null;
+		String drittesFeldInRichtung = null;
 		if(erstesFeldInRichtung!=null) {
-		zweitesFeldInRichtung = erstesFeldInRichtung.getNachbar(richtung);
+			zweitesFeldInRichtung = spielBrett.getNachbarByIdInRichtung(erstesFeldInRichtung, richtung);
 		}
 		if(zweitesFeldInRichtung!=null) {
-		drittesFeldInRichtung = zweitesFeldInRichtung.getNachbar(richtung);
+			drittesFeldInRichtung = spielBrett.getNachbarByIdInRichtung(zweitesFeldInRichtung, richtung);
 		}
-		
-		if (erstesFeldInRichtung != null && erstesFeldInRichtung.istBesetzt()
-				&& erstesFeldInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe()
-				&& zweitesFeldInRichtung.getFigur().getFarbe() != vordersterStein.getFigur().getFarbe()) {
+
+		if (erstesFeldInRichtung != null && spielBrett.istBesetzt(erstesFeldInRichtung)
+				&& spielBrett.getFarbeDerFigurById(erstesFeldInRichtung) != spielBrett.getFarbeDerFigurById(vordersterStein)
+				&& spielBrett.getFarbeDerFigurById(zweitesFeldInRichtung) != spielBrett.getFarbeDerFigurById(vordersterStein)) {
 
 			if (drittesFeldInRichtung == null) {
 				return true;
 			}
-			if (drittesFeldInRichtung.getFigur() == null) {
+			if (!(spielBrett.istBesetzt(drittesFeldInRichtung))) {
 				return true;
 			}
 		}
@@ -745,7 +745,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 *         auszufuehrenden Zuegen.
 	 */
 	private Spielzug[] spielzugSplitter(Spielzug zug) {
-		Spielfeld[] felder = spielBrett.getAusgangsfelder(zug);
+		String[] felder = spielBrett.getAusgangsfelder(zug);
 		if (isSchiebung(felder, zug.getRichtung()))
 			felder = ordneInRichtung(felder, zug.getRichtung());
 		if (felder.length <= 1) {
@@ -754,25 +754,25 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		ArrayList<Spielzug> zuege = new ArrayList<Spielzug>();
 		int richtung = zug.getRichtung();
-		Spielfeld zielfeld = felder[0].getNachbar(richtung);
+		String zielfeld = spielBrett.getNachbarByIdInRichtung(felder[0], richtung);
 		Spielzug zielFeldZug = null;
 		Spielzug zielNachbarzug = null;
 
-		if (zielfeld.istDurchGegnerBesetzt(getFarbeAmZug())) {
-			Spielfeld zielNachbar = zielfeld.getNachbar(richtung);
+		if (spielBrett.istDurchGegnerBesetztById(zielfeld, getFarbeAmZug())) {
+			String zielNachbar = spielBrett.getNachbarByIdInRichtung(zielfeld, richtung);
 			if (zielNachbar == null) {
-				zielFeldZug = new Spielzug(zielfeld.getId(), null, zug.getRichtung(), zug.getFarbe());
+				zielFeldZug = new Spielzug(zielfeld, null, zug.getRichtung(), zug.getFarbe());
 
 			} else {
-				zielFeldZug = new Spielzug(zielfeld.getId(), zielNachbar.getId());
+				zielFeldZug = new Spielzug(zielfeld, zielNachbar);
 			}
-			if (zielNachbar != null && zielNachbar.istDurchGegnerBesetzt(getFarbeAmZug())) {
-				Spielfeld zielNachbar2 = zielNachbar.getNachbar(richtung);
+			if (zielNachbar != null && spielBrett.istDurchGegnerBesetztById(zielNachbar, getFarbeAmZug())) {
+				String zielNachbar2 = spielBrett.getNachbarByIdInRichtung(zielNachbar,richtung);
 				if (zielNachbar2 == null) {
-					zielNachbarzug = new Spielzug(zielNachbar.getId(), null, zug.getRichtung(), zug.getFarbe());
+					zielNachbarzug = new Spielzug(zielNachbar, null, zug.getRichtung(), zug.getFarbe());
 
 				} else {
-					zielNachbarzug = new Spielzug(zielNachbar.getId(), zielNachbar2.getId(), zug.getRichtung(),
+					zielNachbarzug = new Spielzug(zielNachbar, zielNachbar2, zug.getRichtung(),
 							zug.getFarbe());
 				}
 			}
@@ -785,14 +785,14 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		for (int i = 0; i < felder.length; i++) {
 
-			if (felder[i] != null && felder[i].getNachbar(zug.getRichtung()) != null) {
-				Spielfeld zielFeld = felder[i].getNachbar(zug.getRichtung());
-				Spielzug teilZug = new Spielzug(felder[i].getId(), zielFeld.getId(), zug.getRichtung(), zug.getFarbe());
+			if (felder[i] != null && spielBrett.getNachbarByIdInRichtung(felder[i], zug.getRichtung()) != null) {
+				String zielFeld = spielBrett.getNachbarByIdInRichtung(felder[i], zug.getRichtung());
+				Spielzug teilZug = new Spielzug(felder[i], zielFeld, zug.getRichtung(), zug.getFarbe());
 				zuege.add(teilZug);
 			}
 		}
 
-		return zuege.toArray(new Spielzug[0]);
+		return zuege.toArray(new Spielzug[0]); 
 	}
 
 	/**
@@ -802,19 +802,19 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param richtung Die Richtung, in die gezogen wird.
 	 * @return spielfeld Das hinterste Spielfeld als Spielfeld Objekt.
 	 */
-	private Spielfeld getHinterstenStein(Spielfeld[] felder, int richtung) {
+	private String getHinterstenStein(String[] felder, int richtung) {
 		if (felder.length == 3) {
-			if (felder[0].getNachbar(richtung) == felder[1]) {
+			if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung) == felder[1]) {
 				return felder[0];
-			} else if (felder[2].getNachbar(richtung) == felder[1]) {
+			} else if (spielBrett.getNachbarByIdInRichtung(felder[2], richtung) == felder[1]) {
 				return felder[2];
 			}
 		}
 
 		if (felder.length == 2) {
-			if (felder[0].getNachbar(richtung) == felder[1]) {
+			if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung) == felder[1]) {
 				return felder[0];
-			} else if (felder[1].getNachbar(richtung) == felder[0]) {
+			} else if (spielBrett.getNachbarByIdInRichtung(felder[1], richtung) == felder[0]) {
 				return felder[1];
 			}
 		}
@@ -828,18 +828,18 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param richtung Die Richtung, nach der geordnet werden soll.
 	 * @return sortiertesArray Das sortierte Array aus Spielfeldern.
 	 */
-	private Spielfeld[] ordneInRichtung(Spielfeld[] felder, int richtung) {
-		ArrayList<Spielfeld> geordneteFelder = new ArrayList<Spielfeld>();
+	private String[] ordneInRichtung(String[] felder, int richtung) {
+		ArrayList<String> geordneteFelder = new ArrayList<String>();
 
-		Spielfeld hintersterStein = getHinterstenStein(felder, richtung);
+		String hintersterStein = getHinterstenStein(felder, richtung);
 		geordneteFelder.add(hintersterStein);
 
 		for (int i = 1; i < felder.length; i++) { // Baut vom hintersten Stein bis zum vordersten Stein auf
-			geordneteFelder.add(geordneteFelder.get(i - 1).getNachbar(richtung));
+			geordneteFelder.add(spielBrett.getNachbarByIdInRichtung(geordneteFelder.get(i - 1), richtung));
 		}
 
 		Collections.reverse(geordneteFelder); // Dreht um, sodass erster Stein vorne steht
-		return geordneteFelder.toArray(new Spielfeld[0]);
+		return geordneteFelder.toArray(new String[0]);
 	}
 
 	/**
@@ -856,21 +856,21 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String vonFeld1 = zug.getVon().substring(0, 2);
 		String vonFeld2 = zug.getVon().substring(2, 4);
 		String nachFeld = zug.getNach();
-		if (!(spielBrett.getFeld(vonFeld2).hatNachbar(spielBrett.getFeld(nachFeld)))
-				|| (spielBrett.getFeld(vonFeld1).hatNachbar(spielBrett.getFeld(vonFeld2))
-						&& (spielBrett.getFeld(vonFeld1).hatNachbar(nachFeld)
-								&& spielBrett.getFeld(vonFeld2).hatNachbar(nachFeld)))
-				|| (spielBrett.getFeld(vonFeld1).hatNachbar(nachFeld)
-						&& spielBrett.getFeld(vonFeld2).hatNachbar(nachFeld))) {
-			int richtung = spielBrett.getFeld(vonFeld1).getNachbarId(spielBrett.getFeld(nachFeld));
-
+		if (!(spielBrett.hatNachbarById(vonFeld2,spielBrett.getFeld(nachFeld)))
+				|| (spielBrett.hatNachbarById(vonFeld1,spielBrett.getFeld(vonFeld2))
+						&& (spielBrett.hatNachbarById(vonFeld1, nachFeld)
+								&& spielBrett.hatNachbarById(vonFeld2, nachFeld)))
+				|| (spielBrett.hatNachbarById(vonFeld1, nachFeld)
+						&& spielBrett.hatNachbarById(vonFeld2, nachFeld))) {
+			int richtung = spielBrett.getNachbarIndexById(vonFeld1, spielBrett.getFeld(nachFeld));
+			//(spielBrett.getFeld(vonFeld1).hatNachbar(nachFeld)&& spielBrett.getFeld(vonFeld2).hatNachbar(nachFeld)))
 			if (vonFeld1.charAt(1) > vonFeld2.charAt(1) || vonFeld1.charAt(0) > vonFeld2.charAt(0)) {
 				String halter = vonFeld1;
 				vonFeld1 = vonFeld2;
 				vonFeld2 = halter;
 			}
-			if (spielBrett.getFeld(vonFeld2).getNachbar(richtung) != null) {
-				nachFeld = spielBrett.getFeld(vonFeld2).getNachbar(richtung).getId();
+			if (spielBrett.getNachbarByIdInRichtung(vonFeld2,richtung) != null) {
+				nachFeld = spielBrett.getNachbarByIdInRichtung(vonFeld2, richtung);
 			} else {
 				nachFeld = null;
 			}
@@ -1053,12 +1053,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	}
 
 	/**
-	 * Gibt alle bereits ausgefuehrten Zuege aus.
-	 * @return Historie Implementierung der Historie fuer das Interface
+	 * Gibt fuer eine KI alle auf dem Spielbrett moeglichen Bewegungen zurueck
+	 * @return alleMoeglichenZuege als String
 	 */
 	@Override
 	public String getAlleZuege() {
-		return getHistorie();
+		return "";
 	}
 
 	/**
@@ -1074,10 +1074,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		for(Spieler s: getSpielerImSpiel()) {
 			spielerString += s.getName() + ",";
 		}
-		
+
 		return spielerString;
 	}
-	
+
 	/**
 	 * Anpassung der getErlaubte-Methode fuer das Interface
 	 * 
@@ -1090,42 +1090,42 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		for(String s : getErlaubteZuege(ausgangsfelder)) {
 			zuegeString += s + ",";
 		}
-		
+
 		return zuegeString;
 	}
-	
+
 	@Override
 	public void spielAusDateiLaden() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void spielStatusSpeichern() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public ArrayList<String> getMoeglicheAusgangsfelder(FarbEnum farbe) {
 		ArrayList<String> moeglicheAusgangsfelder = new ArrayList<String>();
-		ArrayList<Spielfeld> felderInFarbe = spielBrett.getFelderMitFarbe(farbe);
+		ArrayList<String> felderInFarbe = spielBrett.getFelderMitFarbe(farbe);
 
-		for(Spielfeld momentanesFeld : felderInFarbe) {
-			String betrachtetesEinzelfeld = momentanesFeld.getId();
+		for(String momentanesFeld : felderInFarbe) {
+			String betrachtetesEinzelfeld = momentanesFeld;
 			moeglicheAusgangsfelder.add(betrachtetesEinzelfeld);			
 
 			for(int i = 3; i <= 5; i++) {
-				if(momentanesFeld.getNachbar(i) != null) {
-					Spielfeld nachbar = momentanesFeld.getNachbar(i);
-					if(nachbar.getFigur() != null && nachbar.getFigur().getFarbe() == farbe) {
-						String betrachteteZweiFelder = momentanesFeld.getId() + ""+ nachbar.getId();
+				if(spielBrett.getNachbarByIdInRichtung(momentanesFeld, i) != null) {
+					String nachbar = spielBrett.getNachbarByIdInRichtung(momentanesFeld, i);
+					if(spielBrett.istBesetzt(nachbar) && spielBrett.getFarbeDerFigurById(nachbar) == farbe) {
+						String betrachteteZweiFelder = momentanesFeld+ ""+ nachbar;
 						moeglicheAusgangsfelder.add(betrachteteZweiFelder);
 
-						if(nachbar.getNachbar(i) != null) {
-							Spielfeld nachbarDesNachbars = nachbar.getNachbar(i);
-							if(nachbarDesNachbars.getFigur() != null && nachbarDesNachbars.getFigur().getFarbe() == farbe) {
-							String betrachteteDreiFelder = momentanesFeld.getId() + ""+ nachbarDesNachbars.getId();
-							moeglicheAusgangsfelder.add(betrachteteDreiFelder);
+						if(spielBrett.getNachbarByIdInRichtung(nachbar, i) != null) {
+							String nachbarDesNachbars = spielBrett.getNachbarByIdInRichtung(nachbar, i);
+							if(spielBrett.istBesetzt(nachbarDesNachbars) && spielBrett.getFarbeDerFigurById(nachbarDesNachbars) == farbe) {
+								String betrachteteDreiFelder = momentanesFeld + ""+ nachbarDesNachbars;
+								moeglicheAusgangsfelder.add(betrachteteDreiFelder);
 							}
 						}
 					}
@@ -1134,7 +1134,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		return moeglicheAusgangsfelder;
 	}
-	
+
 	public ArrayList<Spielzug> getAlleMoeglichenZuege(Spieler spieler) {
 
 		ArrayList<Spielzug> alleMoeglichenZuege = new ArrayList <Spielzug>();
@@ -1151,12 +1151,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				if (!alleMoeglichenZuege.contains(zug)) {
 					alleMoeglichenZuege.add(zug);
 				}
-				
+
 			}
 		}
 		return alleMoeglichenZuege;
 	}
-	
+
 	public String writeCSV() {
 		String csv = "SPIEL: \n";
 		for(Spieler spieler: spielerImSpiel) {
@@ -1165,5 +1165,5 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		csv += historie.writeCSV() + "\n" + spielBrett.writeCSV();
 		return csv;
 	}
-	
+
 }

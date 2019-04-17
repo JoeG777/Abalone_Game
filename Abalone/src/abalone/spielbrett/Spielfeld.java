@@ -8,7 +8,7 @@ import abalone.FarbEnum;
  * @author Gruppe A4
  * @version 1.4
  */
-public class Spielfeld implements java.io.Serializable {
+class Spielfeld implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 105L;
 	private Spielbrett brett;
@@ -35,7 +35,7 @@ public class Spielfeld implements java.io.Serializable {
 		setBrett(brett);
 		setId(id);
 		setFarbe(farbe);
-		setFigur(figur);
+		setAndInitFigur(farbe.toString());
 
 	}
 	
@@ -53,7 +53,7 @@ public class Spielfeld implements java.io.Serializable {
 		setBrett(brett);
 		setId(id);
 		setFarbe(null);
-		setFigur(null);
+		setAndInitFigur(null);
 	}
 	
 	/**
@@ -93,11 +93,26 @@ public class Spielfeld implements java.io.Serializable {
 	}
 	
 	/**
+	 * Setter fuer das initilisieren und Setzen einer Figur
+	 * @param farbe
+	 */
+	public void setAndInitFigur(String farbe) {
+		this.figur = new Spielfigur(this, farbe);
+	}
+	/**
 	 * Gibt die Farbe des Spielfeldes zurück.
 	 * @return Die Farbe des Spielfeldes als Enum.
 	 */
 	public FarbEnum getFarbe() {
 		return this.farbe;
+	}
+	
+	/**
+	 * Getter-Methode der Figurfarbe fuer das Spielbrett
+	 * @return farbe
+	 */
+	public FarbEnum getFarbeDerFigur() {
+		return this.getFigur().getFarbe();
 	}
 	
 	/**
@@ -160,19 +175,19 @@ public class Spielfeld implements java.io.Serializable {
 			return this.nachbarn[richtung];
 		return null;
 	}
-	
-	/**
-	 * Prueft, ob ein Feld den mitgegebenen Nachbar hat.
-	 * @param feld ID des Nachbarn
-	 * @return true, wenn Feld Nachbar hat, false wenn nicht.
-	 */
-	public boolean hatNachbar(String feld) {
-		for(int i = 0; i < this.nachbarn.length; i++) {
-			if(nachbarn[i] != null && feld.equals(nachbarn[i].getId()))
-				return true;
-		}
-		return false;
-	}
+//	
+//	/**
+//	 * Prueft, ob ein Feld den mitgegebenen Nachbar hat.
+//	 * @param feld ID des Nachbarn
+//	 * @return true, wenn Feld Nachbar hat, false wenn nicht.
+//	 */
+//	public boolean hatNachbar(String feld) {
+//		for(int i = 0; i < this.nachbarn.length; i++) {
+//			if(nachbarn[i] != null && feld.equals(nachbarn[i].getId()))
+//				return true;
+//		}
+//		return false;
+//	}
 	
 	/**
 	 * Prueft, ob ein Feld den mitgegebenen Nachbar hat.
@@ -322,7 +337,7 @@ public class Spielfeld implements java.io.Serializable {
 	 * Sie bietet Methoden um auf ihre Attribute zuzugreifen.
 	 * @author Gruppe A4
 	 */
-	public class Spielfigur implements java.io.Serializable {
+	private class Spielfigur implements java.io.Serializable {
 
 		private static final long serialVersionUID = 104L;
 		private FarbEnum farbe;
