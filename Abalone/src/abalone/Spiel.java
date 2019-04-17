@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import abalone.spielbrett.Spielbrett;
+import abalone.spielbrett.SpielbrettException;
+import abalone.spielbrett.SpielfeldException;
 
 /**
  * <h1>Spiel</h1>
@@ -29,8 +31,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 	/**
 	 * Konstruktor, instanziiert alle anfangs benoetigten Objekte.
+	 * @throws SpielfeldException 
 	 */
-	public Spiel() {
+	public Spiel() throws SpielfeldException {
 		spielBrett = new Spielbrett();
 		historie = new Historie();
 		this.spielerImSpiel = new Spieler[2];
@@ -52,6 +55,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * 
 	 * @param name  Der fuer den Spieler gewaehlte Name.
 	 * @param farbe Die fuer den Spieler gewaehlte Farbe.
+	 * @throws AbaloneException 
 	 * @exception IllegalArgumentException  Wird geworfen, wenn der String farbe
 	 *                                      nicht "schwarz" oder "weiss" entspricht.
 	 * @exception IndexOutOfBoundsException wird geworfen wenn ein Spieler
@@ -60,10 +64,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @since 1.0
 	 */
 	@Override
-	public void addSpieler(String name, String farbe, int anzahlSpieler) {
+	public void addSpieler(String name, String farbe, int anzahlSpieler) throws AbaloneException {
 		if (anzahlSpieler == 2) {
 			if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
-				throw new IndexOutOfBoundsException("Das Spieler Array ist bereits voll!");
+				throw new AbaloneException(11,"Das Spieler Array ist bereits voll!");
 			}
 			if (farbe.equals("weiss") && spielerImSpiel[0] == null) {
 				FarbEnum spielerFarbe = FarbEnum.WEISS;
@@ -73,7 +77,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
 				spielerImSpiel[1] = new Spieler(name, spielerFarbe);
 			} else {
-				throw new IllegalArgumentException("Unbekannte farbe :" + farbe);
+				throw new AbaloneException(10,"Unbekannte farbe :" + farbe);
 			}
 		} else if (anzahlSpieler == 1) {
 			FarbEnum spielerFarbe = FarbEnum.WEISS;
@@ -162,13 +166,15 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * 
 	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1]
 	 *            = wohin gezogen wird.
+	 * @throws SpielbrettException 
+	 * @throws UngueltigerZugException 
 	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException wenn
 	 *                                     zugValidieren false zurueck gibt oder ein
 	 *                                     Array Eintrag NULL ist.
 	 * @since 1.0
 	 */
 	@Override
-	public void ziehe(String[] zug) {
+	public void ziehe(String[] zug) throws SpielbrettException, UngueltigerZugException {
 		// TEST ANFANG
 		if(zug[0].equals("KIKI") && zug[1].equals("KI")) {
 			String[] kiZug = ((KI)this.spielerAmZug).randomZiehen(this, this.spielerAmZug.getFarbe());
@@ -180,7 +186,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		if (koordinatenValidieren(spielzugParser(zug))) {
 			Spielzug spielzug = new Spielzug(zug[0], zug[1]);
 			if (spielzug.getNach() == null) {
-				throw new IllegalArgumentException("Unzulaessiger Zug");
+				throw new UngueltigerZugException(7,"Unzulaessiger Zug");
 			}
 			spielzug.setRichtung(this.bekommeRichtung(spielzug));
 			spielzug.setFarbe(getFarbeAmZug());;
@@ -199,7 +205,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 					spielerAmZug = spielerImSpiel[0];
 				}
 			} else {
-				throw new IllegalArgumentException("Unzulaessiger Zug");
+				throw new UngueltigerZugException(7,"Unzulaessiger Zug");
 			}
 		}
 	}
@@ -210,8 +216,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param ausgangsFelder Die Ausgangsfelder, von denen gezogen wird. gesammelt
 	 *                       werden sollen.
 	 * @return ErlaubteZuege Ein String Array mit den erlaubten Zuegen.
+	 * @throws UngueltigerZugException 
 	 */
-	public String[] getErlaubteZuege(String[] ausgangsFelder) {
+	public String[] getErlaubteZuege(String[] ausgangsFelder) throws UngueltigerZugException {
 		if (!koordinatenValidieren(spielzugParser(ausgangsFelder))) {
 			throw new IllegalArgumentException("Ungueltige Eingabe");
 		}
@@ -345,19 +352,20 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param zug Ein String Array mit den Werten [0] = von wo gezogen wird, [1] =
 	 *            wohin gezogen wird.
 	 * @return ein zweidimensionales char Array, welches den Zug in chars aufteilt
+	 * @throws UngueltigerZugException 
 	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge ungueltig
 	 *                                     ist.
 	 */
-	private char[][] spielzugParser(String[] zug) {
+	private char[][] spielzugParser(String[] zug) throws UngueltigerZugException {
 		char[][] geparsterZug = new char[2][];
 		if (zug.length < 2) {
-			throw new IllegalArgumentException("Ungueltige laenge: " + zug.length);
+			throw new UngueltigerZugException(8,"Ungueltige laenge: " + zug.length);
 		}
 		if (zug[0] == null) {
-			throw new IllegalArgumentException("Ungueltiger Zug");
+			throw new UngueltigerZugException(9, "Zug darf nicht null sein!");
 		}
 		if (zug[0].length() % 2 != 0 || zug[0].length() > 4) {
-			throw new IllegalArgumentException("Ungueltige zuglaenge: " + zug[0].length());
+			throw new UngueltigerZugException(9,"Ungueltige zuglaenge: " + zug[0].length());
 		}
 
 		// Ausgangskoordinate(n) anlege(n)
@@ -394,13 +402,14 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * 
 	 * @param zug mit dem Datentyp String
 	 * @return zweidimensionales Char Array, welches den Zug als Chars enthaelt
+	 * @throws UngueltigerZugException 
 	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge ungueltig
 	 *                                     ist.
 	 */
-	private char[][] felderParser(String zug) {
+	private char[][] felderParser(String zug) throws UngueltigerZugException {
 		char[][] geparsterZug = new char[1][];
 		if (zug.length() % 2 != 0 || zug.length() > 4) {
-			throw new IllegalArgumentException("Ungueltige zuglaenge: " + zug.length());
+			throw new UngueltigerZugException(8, "Ungueltige zuglaenge: " + zug.length());
 		}
 
 		// Ausgangskoordinate(n) anlege(n)
@@ -1082,10 +1091,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Anpassung der getErlaubte-Methode fuer das Interface
 	 * 
 	 * @return erlaubteZuege Als String implementiert
+	 * @throws UngueltigerZugException 
 	 * 
 	 */
 	@Override
-	public String getErlaubteZuegeInterface(String[] ausgangsfelder) {
+	public String getErlaubteZuegeInterface(String[] ausgangsfelder) throws UngueltigerZugException {
 		String zuegeString = "";
 		for(String s : getErlaubteZuege(ausgangsfelder)) {
 			zuegeString += s + ",";
@@ -1160,7 +1170,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	public String writeCSV() {
 		String csv = "SPIEL: \n";
 		for(Spieler spieler: spielerImSpiel) {
-			csv += spieler.writeCSV()+"\n";
+			csv +=  spieler.writeCSV()+"\n";
 		}
 		csv += historie.writeCSV() + "\n" + spielBrett.writeCSV();
 		return csv;
