@@ -55,7 +55,7 @@ class Spielfeld implements java.io.Serializable {
 		setBrett(brett);
 		setId(id);
 		setFarbe(null);
-		setAndInitFigur(null);
+		//setAndInitFigur(null);
 	}
 	
 	/**
@@ -374,10 +374,10 @@ class Spielfeld implements java.io.Serializable {
 				throw new SpielfeldException(4, "Spielfeld-Objekt muss existieren.");
 			}
 
-			if(farbe == null|| 
-					(!(farbe.equals("WEISS") || farbe.equals("SCHWARZ")))) {
-				throw new RuntimeException("Farbe muss Schwarz oder Weiss sein");
-			}
+		//	if(farbe == null|| 
+		//			(!(farbe.equals("WEISS") || farbe.equals("SCHWARZ")))) {
+		//		throw new RuntimeException("Farbe muss Schwarz oder Weiss sein");
+		//	}
 
 			if(farbe.equals("WEISS")) {
 				setFarbe(FarbEnum.WEISS);

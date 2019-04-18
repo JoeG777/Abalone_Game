@@ -1,10 +1,19 @@
 
 package abalone;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 import abalone.spielbrett.Spielbrett;
 import abalone.spielbrett.SpielbrettException;
@@ -28,6 +37,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	private Historie historie;
 	private boolean herausgedraengt = false;
 	private Spielzug letzterZug;
+	private BufferedWriter logger;
 
 	/**
 	 * Konstruktor, instanziiert alle anfangs benoetigten Objekte.
@@ -37,6 +47,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		spielBrett = new Spielbrett();
 		historie = new Historie();
 		this.spielerImSpiel = new Spieler[2];
+		try {
+			File file = new File("log.txt");
+			logger = new BufferedWriter(new FileWriter(file));
+		}catch(FileNotFoundException e) {
+		}catch(IOException e) {
+			
+		}
 	}
 
 	/**
@@ -141,24 +158,49 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return false;
 	}
 
-	public void speichern(String dateiName) throws FileNotFoundException, IOException {
+	public void speichern(String dateiName) throws AbaloneException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
-		serial.oeffnen(dateiName);
+		try {
+			serial.oeffnen(dateiName);
+		} catch(IOException e) {
+			log(e);
+			throw new AbaloneException(13,"Datei konnte nicht geoeffnet werden!");
+		}
 		Object[] spielState = {this.spielerImSpiel,this.spielerAmZug,this.spielBrett,this.historie,this.herausgedraengt,this.letzterZug};
-		serial.schreiben(spielState);
+		try {
+			serial.schreiben(spielState);
+		}catch(IOException e) {
+			log(e);
+			throw new AbaloneException(13, "Datei konnte nicht geoeffnet werden!");
+		}
 	}
 
-	public void lesen(String dateiName) throws FileNotFoundException, IOException, ClassNotFoundException {
+	public void lesen(String dateiName) throws AbaloneException{
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
-		serial.oeffnen(dateiName);
-		Object[] spielState = (Object[]) serial.lesen();
+		try {
+			serial.oeffnen(dateiName);
+		} catch(IOException e) {
+			log(e);
+			throw new AbaloneException(13,"Datei konnte nicht geoeffnet werden!");
+		}
+		Object[] spielState = null;
+		try {
+			spielState = (Object[]) serial.lesen();
+		}
+		catch(IOException e) {
+			log(e);
+			throw new AbaloneException(13,"Datei nicht gefunden!");
+		}
+		catch(ClassNotFoundException e){
+			log(e);
+			throw new AbaloneException(15,"Die Datei scheint kaputt zu sein!");
+		};
 		this.spielerImSpiel = (Spieler[])spielState[0];
 		this.spielerAmZug = (Spieler)spielState[1];
 		this.spielBrett = (Spielbrett) spielState[2];
 		this.historie = (Historie) spielState[3];
 		this.herausgedraengt = (boolean) spielState[4];
-		this.letzterZug = (Spielzug) spielState[5];
-		serial.schliessen();
+		this.letzterZug = (Spielzug) spielState[5];;
 	}
 	/**
 	 * Die ziehe Methode erzeugt aus zwei Strings ein Zug Objekt und uebergibt
@@ -166,17 +208,28 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * 
 	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1]
 	 *            = wohin gezogen wird.
-	 * @throws SpielbrettException 
-	 * @throws UngueltigerZugException 
+	 * @throws AbaloneException 
 	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException wenn
 	 *                                     zugValidieren false zurueck gibt oder ein
 	 *                                     Array Eintrag NULL ist.
 	 * @since 1.0
 	 */
 	@Override
-	public void ziehe(String[] zug) throws SpielbrettException, UngueltigerZugException {
+	public void ziehe(String[] zug) throws AbaloneException {
+		try{
+			ziehen(zug);
+		}catch(UngueltigerZugException e) {
+			log(e);
+			throw new AbaloneException(0,"UngueltigerZug!");
+		}catch(SpielbrettException e) {
+			log(e);
+			throw new AbaloneException(1,"Irgendwas ist schief gelaufen!");
+		}
+	}
+	
+	public void ziehen(String[] zug) throws SpielbrettException, UngueltigerZugException {
 		// TEST ANFANG
-		if(zug[0].equals("KIKI") && zug[1].equals("KI")) {
+		if(zug[0] != null && zug[0].equals("KIKI") && zug[1] != null && zug[1].equals("KI")) {
 			String[] kiZug = ((KI)this.spielerAmZug).randomZiehen(this, this.spielerAmZug.getFarbe());
 			System.out.println(kiZug[0] + "-" + kiZug[1]);
 			zug = kiZug;
@@ -218,9 +271,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @return ErlaubteZuege Ein String Array mit den erlaubten Zuegen.
 	 * @throws UngueltigerZugException 
 	 */
+	
 	public String[] getErlaubteZuege(String[] ausgangsFelder) throws UngueltigerZugException {
 		if (!koordinatenValidieren(spielzugParser(ausgangsFelder))) {
-			throw new IllegalArgumentException("Ungueltige Eingabe");
+			throw new UngueltigerZugException(7, "Ungueltige Eingabe");
 		}
 		ArrayList<String> erlaubteZuege = new ArrayList<String>();
 		if (koordinatenValidieren(felderParser(ausgangsFelder[0]))) {
@@ -527,8 +581,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			return false;
 		int richtung = bekommeRichtung(zug);
 		for (int i = 0; i < ausgangsfelder.length; i++) {
-			if (!(spielBrett.istBesetzt(ausgangsfelder[i]))|| zug.getFarbe() != spielBrett.getFarbeDerFigurById(ausgangsfelder[i]));
-			return false;
+			if (!(spielBrett.istBesetzt(ausgangsfelder[i]))|| zug.getFarbe() != spielBrett.getFarbeDerFigurById(ausgangsfelder[i]))
+				return false;
 		}
 		String[] zielfelder = getZielfelder(ausgangsfelder, richtung);
 		for (String feld : zielfelder) {
@@ -1091,13 +1145,20 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Anpassung der getErlaubte-Methode fuer das Interface
 	 * 
 	 * @return erlaubteZuege Als String implementiert
-	 * @throws UngueltigerZugException 
+	 * @throws AbaloneException 
 	 * 
 	 */
 	@Override
-	public String getErlaubteZuegeInterface(String[] ausgangsfelder) throws UngueltigerZugException {
+	public String getErlaubteZuegeInterface(String[] ausgangsfelder) throws AbaloneException {
 		String zuegeString = "";
-		for(String s : getErlaubteZuege(ausgangsfelder)) {
+		String[] felder = null;
+		try {
+			felder=getErlaubteZuege(ausgangsfelder);
+		}catch(UngueltigerZugException e) {
+			log(e);
+			throw new AbaloneException(1,"Ungueltiger Zug!");
+		}
+		for(String s : felder) {
 			zuegeString += s + ",";
 		}
 
@@ -1145,14 +1206,21 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return moeglicheAusgangsfelder;
 	}
 
-	public ArrayList<Spielzug> getAlleMoeglichenZuege(Spieler spieler) {
+	public ArrayList<Spielzug> getAlleMoeglichenZuege(Spieler spieler) throws AbaloneException {
 
 		ArrayList<Spielzug> alleMoeglichenZuege = new ArrayList <Spielzug>();
 		ArrayList<String> moeglicheAusgangsFelder = getMoeglicheAusgangsfelder(spieler.getFarbe());
 
 		for (String ausgangsFelder : moeglicheAusgangsFelder) {
 			String[] ausgangsFelderFormat = {ausgangsFelder, null};
-			String[] erlaubteZuege = getErlaubteZuege(ausgangsFelderFormat);
+			String[] erlaubteZuege = null;
+			try {
+				erlaubteZuege = getErlaubteZuege(ausgangsFelderFormat);
+			}
+			catch(UngueltigerZugException e) {
+				log(e);
+				throw new AbaloneException(1,"Ungueltiger Zug!");
+			}
 			for (String erlaubterZug : erlaubteZuege) {
 				String[] erlaubterZugSplit = erlaubterZug.split("-");
 				Spielzug zug = new Spielzug(erlaubterZugSplit[0], erlaubterZugSplit[1]);
@@ -1174,6 +1242,21 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		csv += historie.writeCSV() + "\n" + spielBrett.writeCSV();
 		return csv;
+	}
+	
+	public void log(Exception e ) {
+		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+		Date date = new Date();
+		try {
+			logger.newLine();
+			logger.write("Fehler am " + dateFormat.format(date) + ": ");
+			logger.newLine();
+			logger.write(e.toString());
+		}catch(FileNotFoundException fehler) {
+			
+		}catch(IOException fehler) {
+			
+		}
 	}
 
 }
