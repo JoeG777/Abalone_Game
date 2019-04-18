@@ -29,10 +29,7 @@ class Spielfeld implements java.io.Serializable {
 	 * existiert.
 	 * 
 	 */
-	public Spielfeld(Spielbrett brett, String id, FarbEnum farbe, Spielfigur figur) throws SpielfeldException {
-		if(brett == null) {
-			throw new SpielfeldException(5, "Kann nicht ohne Brett existieren!");
-		}
+	public Spielfeld(Spielbrett brett, String id, FarbEnum farbe, Spielfigur figur){
 		setBrett(brett);
 		setId(id);
 		setFarbe(farbe);
@@ -48,10 +45,7 @@ class Spielfeld implements java.io.Serializable {
 	 * @throws SpielfeldException 
 	 * 
 	 */
-	public Spielfeld(Spielbrett brett, String id) throws SpielfeldException {
-		if(brett == null) {
-			throw new SpielfeldException(5, "Kann nicht ohne Brett existieren!");
-		}
+	public Spielfeld(Spielbrett brett, String id){
 		setBrett(brett);
 		setId(id);
 //		setFarbe(null);
@@ -99,12 +93,12 @@ class Spielfeld implements java.io.Serializable {
 	 * @param farbe
 	 * @throws SpielfeldException 
 	 */
-	public void setAndInitFigur(String farbe) throws SpielfeldException {
-		this.figur = new Spielfigur(this, farbe);
+	public void setAndInitFigur(String farbe){
+		this.figur = new Spielfigur(farbe);
 	}
 	
 	public void setAndInitFigur(FarbEnum farbe) {
-		this.figur = new Spielfigur(this, farbe);
+		this.figur = new Spielfigur(farbe);
 	}
 	/**
 	 * Gibt die Farbe des Spielfeldes zurück.
@@ -359,10 +353,7 @@ class Spielfeld implements java.io.Serializable {
 		 * @exception RuntimeException Wird geworfen, wenn kein Spielfeld-Objekt
 		 * existiert.
 		 */
-		public Spielfigur(Spielfeld feld, FarbEnum farbe) throws SpielfeldException {
-			if (feld == null) {
-				throw new SpielfeldException(4, "Spielfeld-Objekt muss existieren.");
-			}
+		public Spielfigur(FarbEnum farbe){
 			setFarbe(farbe);
 		}
 		
@@ -373,11 +364,7 @@ class Spielfeld implements java.io.Serializable {
 		 * @throws SpielfeldException 
 		 */
 
-		public Spielfigur(Spielfeld feld, String farbe) throws SpielfeldException {
-			if(feld == null) {
-				throw new SpielfeldException(4, "Spielfeld-Objekt muss existieren.");
-			}
-
+		public Spielfigur(String farbe) {
 			if(farbe == null|| 
 					(!(farbe.equals("WEISS") || farbe.equals("SCHWARZ")))) {
 				throw new RuntimeException("Farbe muss Schwarz oder Weiss sein");
