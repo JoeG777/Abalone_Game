@@ -807,7 +807,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @return SpielzugArray Ein Array des Typs Spielzug mit allen einzeln
 	 *         auszufuehrenden Zuegen.
 	 */
-	private Spielzug[] spielzugSplitter(Spielzug zug) {
+	public Spielzug[] spielzugSplitter(Spielzug zug) {
 		String[] felder = spielBrett.getAusgangsfelder(zug);
 		if (isSchiebung(felder, zug.getRichtung()))
 			felder = ordneInRichtung(felder, zug.getRichtung());

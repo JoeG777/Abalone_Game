@@ -3,6 +3,7 @@ package abalone;
 import java.util.ArrayList;
 
 import abalone.spielbrett.Spielbrett;
+import abalone.spielbrett.SpielbrettException;
 import abalone.spielbrett.SpielfeldException;
 
 public class KI extends Spieler {
@@ -19,7 +20,7 @@ public class KI extends Spieler {
 		return anzahlKIs;
 	}
 
-	public String[] randomZiehen(Spiel spiel, FarbEnum farbe) {
+	public String[] randomZiehen(Spiel spiel) throws AbaloneException, SpielbrettException{
 		String[] randomZug = new String[2];
 		try {
 			ArrayList<Spielzug> alleMoeglichenZuege = spiel.getAlleMoeglichenZuege(this);
