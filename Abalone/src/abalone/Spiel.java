@@ -1258,5 +1258,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			
 		}
 	}
+	
+	
+	
+	Spielbrett getSpielbrett() {
+		return this.spielBrett;
+	}
+	
+
 
 }

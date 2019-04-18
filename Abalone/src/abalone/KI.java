@@ -3,6 +3,7 @@ package abalone;
 import java.util.ArrayList;
 
 import abalone.spielbrett.Spielbrett;
+import abalone.spielbrett.SpielfeldException;
 
 public class KI extends Spieler {
 
@@ -29,29 +30,5 @@ public class KI extends Spieler {
 		
 		return randomZug;
 	}
-	
-	public class Node{
-		boolean isRoot;
-		Node[] subNodes;
-		int value;
-		Spielbrett brett;
-		Spielzug zug;
-		
-		public Node(boolean isRoot, Spielbrett brett, Spielzug zug) {
-			this.isRoot = isRoot;
-			this.brett = brett;
-		}
-		
-		public void generateSubNodes(Spielzug[] zuege) {
-			subNodes = new Node[zuege.length];
-			for(int i = 0; i<zuege.length; i++) {
-				subNodes[i] = new Node(false, this.brett, zuege[i]);
-			}
-		}
-		
-		public void computeValue() {
-			
-		}
-		
-	}
+
 }
