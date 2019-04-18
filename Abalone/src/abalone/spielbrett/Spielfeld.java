@@ -8,14 +8,13 @@ import abalone.FarbEnum;
  * @author Gruppe A4
  * @version 1.4
  */
-class Spielfeld implements java.io.Serializable {
+class Spielfeld implements java.io.Serializable, Cloneable {
 	
 	private static final long serialVersionUID = 105L;
-	private Spielbrett brett;
 	private String id;
 	private FarbEnum farbe;
 	private Spielfigur figur;
-	private Spielfeld[] nachbarn;
+	private String[] nachbarn;
 	
 	
 	/**
@@ -29,14 +28,16 @@ class Spielfeld implements java.io.Serializable {
 	 * existiert.
 	 * 
 	 */
-	public Spielfeld(Spielbrett brett, String id, FarbEnum farbe, Spielfigur figur) throws SpielfeldException {
-		if(brett == null) {
-			throw new SpielfeldException(5, "Kann nicht ohne Brett existieren!");
-		}
-		setBrett(brett);
+	public Spielfeld(String id, FarbEnum farbe, Spielfigur figur){
 		setId(id);
 		setFarbe(farbe);
-		setAndInitFigur(farbe);
+		if(figur != null) {
+		setAndInitFigur(figur.getFarbe());
+		}
+		else {
+			setFigur(null);
+		}
+		
 
 	}
 	
@@ -48,35 +49,18 @@ class Spielfeld implements java.io.Serializable {
 	 * @throws SpielfeldException 
 	 * 
 	 */
-	public Spielfeld(Spielbrett brett, String id) throws SpielfeldException {
-		if(brett == null) {
-			throw new SpielfeldException(5, "Kann nicht ohne Brett existieren!");
-		}
-		setBrett(brett);
+	public Spielfeld(String id){
 		setId(id);
 		setFarbe(null);
 //		setAndInitFigur(null);
 //		setFarbe(null);
 	}
 	
-	/**
-	 * Gibt das Brett-Attribut zurÃ¼ck.
-	 * @return Ein Spielbrett-Objekt.
-	 * 
-	 */
-	public Spielbrett getBrett() {
-		return this.brett;
+	private Spielfeld(String id, FarbEnum farbe, Spielfigur figur, String[] nachbarn) throws SpielfeldException{
+		this(id, farbe, figur);
+		this.setNachbarn(nachbarn);
+		
 	}
-	
-	/**
-	 * Setzt das Brett-Attribut.
-	 * @param brett Das bespielte Brett
-	 * 
-	 */
-	private void setBrett(Spielbrett brett) {
-		this.brett = brett;
-	}
-	
 	/**
 	 * Gibt die Figur des Spielfeldes zurÃ¼ck.
 	 * @return Ein Spielfigur-Objekt. 
@@ -154,7 +138,7 @@ class Spielfeld implements java.io.Serializable {
 	 * @return Spielfeld-Array der Laenge 6.
 	 * 
 	 */
-	public Spielfeld[] getNachbarn() {
+	public String[] getNachbarn() {
 		return this.nachbarn;
 	}
 	
@@ -164,7 +148,7 @@ class Spielfeld implements java.io.Serializable {
 	 * @throws SpielfeldException 
 	 * 
 	 */
-	private void setNachbarn(Spielfeld[] nachbarn) throws SpielfeldException {
+	private void setNachbarn(String[] nachbarn) throws SpielfeldException {
 		if(nachbarn.length != 6) {
 			throw new SpielfeldException(2, "Nachbar Array sollte 6 groß sein, ist aber " + nachbarn.length + "groß!");
 		}
@@ -179,10 +163,26 @@ class Spielfeld implements java.io.Serializable {
 	 * @return Spielfeld-Objekt des Nachbarn oder null, wenn kein Nachbar
 	 * in die Richtung existiert.
 	 */
-	public Spielfeld getNachbar(int richtung) {
+	public String getNachbar(int richtung) {
 		if(richtung >= 0 && richtung < 6)
 			return this.nachbarn[richtung];
 		return null;
+	}
+	
+	@Override 
+	public Spielfeld clone() {
+		Spielfigur figur = null;
+		if(this.getFigur() != null) {
+			figur = this.getFigur().clone();
+		}
+		try {
+			Spielfeld klon = new Spielfeld(this.getId(), this.getFarbe(), figur, this.getNachbarn().clone());
+			return klon;
+		} catch (SpielfeldException e) {
+			e.printStackTrace();
+		}
+
+		return new Spielfeld("A1");
 	}
 //	
 //	/**
@@ -205,7 +205,7 @@ class Spielfeld implements java.io.Serializable {
 	 */
 	public boolean hatNachbar(Spielfeld feld) {
 		for(int i = 0; i < this.nachbarn.length; i++) {
-			if(nachbarn[i] != null && feld.equals(nachbarn[i]))
+			if(nachbarn[i] != null && feld.getId().equals(nachbarn[i]))
 				return true;
 		}
 		return false;
@@ -218,11 +218,12 @@ class Spielfeld implements java.io.Serializable {
 	 */
 	public int getNachbarId(Spielfeld feld) {
 		for(int i = 0; i < nachbarn.length; i++) {
-			if(nachbarn[i] != null && feld.getId().equals(nachbarn[i].getId()))
+			if(nachbarn[i] != null && feld.getId().equals(nachbarn[i]))
 				return i;
 		}
 		return -1;
 	}
+	
 	
 	/**
 	 * Ermittelt, ob ein Spielfeld von einer Figur besetzt ist
@@ -256,17 +257,14 @@ class Spielfeld implements java.io.Serializable {
 	 * Existiert kein solches Spielfeld, steht im Array null.
 	 * @throws SpielfeldException 
 	 */
-	public void setzeNachbarn() throws SpielfeldException {
-		if(brett == null) {
-			throw new SpielfeldException(3, "Es muss ein Brett geben");
-		}
+	public void setzeNachbarn(Spielbrett brett) throws SpielfeldException {
 		
 		String[] potentielleNachbarn = findePotentielleNachbarn(this.id);
-		Spielfeld[] echteNachbarn = new Spielfeld[6];
+		String[] echteNachbarn = new String[6];
 		
 		for(int i = 0; i < potentielleNachbarn.length; i++) {
-			if(this.brett.getBrett().containsKey(potentielleNachbarn[i])) {
-				echteNachbarn[i] = brett.getBrett().get(potentielleNachbarn[i]);
+			if(brett.getBrett().containsKey(potentielleNachbarn[i])) {
+				echteNachbarn[i] = potentielleNachbarn[i];
 			}
 			else {
 				echteNachbarn[i] = null;
@@ -347,7 +345,7 @@ class Spielfeld implements java.io.Serializable {
 	 * Sie bietet Methoden um auf ihre Attribute zuzugreifen.
 	 * @author Gruppe A4
 	 */
-	private class Spielfigur implements java.io.Serializable {
+	private class Spielfigur implements java.io.Serializable, Cloneable {
 
 		private static final long serialVersionUID = 104L;
 		private FarbEnum farbe;
@@ -422,6 +420,10 @@ class Spielfeld implements java.io.Serializable {
 			return "Eine Figur der Farbe " + this.getFarbe();
 		}
 		
+		@Override
+		public Spielfigur clone() {
+			return new Spielfigur(this.getFarbe());
+		}
 		public String writeCSVString() {
 			String farbe;
 			if(this.farbe == FarbEnum.SCHWARZ){

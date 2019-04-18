@@ -19,7 +19,7 @@ import abalone.Spielzug;
  * @version 1.4  
  */
 
-public class Spielbrett implements java.io.Serializable {
+public class Spielbrett implements java.io.Serializable, Cloneable {
 
 	private static final long serialVersionUID = 107L;
 	public static final String[] KOORDINATENQUER = {"A", "B", "C", "D", "E", 
@@ -41,11 +41,14 @@ public class Spielbrett implements java.io.Serializable {
 		schaffeMapping(); 
 
 		for(Spielfeld feld : brett.values()) {
-			feld.setzeNachbarn();
+			feld.setzeNachbarn(this);
 		}
 		this.stelleStartpositionAuf();
 	}
 	
+	private Spielbrett(HashMap<String, Spielfeld> map) {
+		this.setBrett(map);
+	}
 	/**
 	 * Verknuepft alle Feldbezeichnungen
 	 * eines Abalone-Bretts mit Spielfeld-Objekten.
@@ -81,7 +84,7 @@ public class Spielbrett implements java.io.Serializable {
 	 * 
 	 */
 	private void weiseKeyFeldZu(String key) throws SpielfeldException {
-		Spielfeld feld = new Spielfeld(this, key);
+		Spielfeld feld = new Spielfeld(key);
 		brett.put(key, feld);
 	}
 
@@ -153,7 +156,7 @@ public class Spielbrett implements java.io.Serializable {
 	 * HashMap(String,Spielfeld)  des Spielbretts.
 	 * 
 	 */
-	public HashMap<String, Spielfeld> getBrett() {
+	HashMap<String, Spielfeld> getBrett() {
 		return this.brett;
 	}
 
@@ -210,7 +213,15 @@ public class Spielbrett implements java.io.Serializable {
 		return gesamtesFeld.toString();
 		} 
 		
-
+	@Override
+	public Spielbrett clone() {
+		HashMap<String, Spielfeld> klon = new HashMap<String, Spielfeld>();
+		for(HashMap.Entry<String, Spielfeld> entry : this.getBrett().entrySet()) {
+			klon.put(entry.getKey(), entry.getValue().clone());
+		}
+		
+		return new Spielbrett(klon);
+	}
 
 
 	/**
@@ -345,8 +356,8 @@ public class Spielbrett implements java.io.Serializable {
 			else {
 				for(int i = 0; i < 6; i++) {
 					if(feldLinks != null && feldLinks.getNachbar(i) != null) {
-						Spielfeld dazwischen = feldLinks.getNachbar(i);
-						Spielfeld ziel = dazwischen.getNachbar(i);
+						Spielfeld dazwischen = brett.get(feldLinks.getNachbar(i));
+						Spielfeld ziel = brett.get(dazwischen.getNachbar(i));
 
 
 						if(ziel == feldRechts) {
@@ -399,18 +410,13 @@ public class Spielbrett implements java.io.Serializable {
 	 * @return NachbarFelderIds Nachbar Ids
 	 */
 	public String[] getNachbarnByIdVonFeld(String id) {
-		String[] nachbarIds = new String[6];
-		Spielfeld[] nachbarn = this.getFeldById(id).getNachbarn();
-		for(int i = 0; i<nachbarn.length;i++) {
-			if(nachbarn[i] != null) {
-				nachbarIds[i] = nachbarn[i].getId();
-			}
-		}
+		String[] nachbarIds = this.getFeldById(id).getNachbarn();
+
 		return nachbarIds;
 	}
 	
 	public String getNachbarByIdInRichtung(String id, int richtung) {
-		return this.getFeldById(id).getNachbar(richtung).getId();
+		return this.getFeldById(id).getNachbar(richtung);
 		//Spielbrett holt sich Feld -> Nachbar -> id -> Rueckgabe
 	}
 	
