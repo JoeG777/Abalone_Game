@@ -34,8 +34,9 @@ public class Spielbrett implements java.io.Serializable {
 
 	/**
 	 * Konstruktor fuer Abalone Spielbrett
+	 * @throws SpielfeldException 
 	 */
-	public Spielbrett() {
+	public Spielbrett() throws SpielfeldException {
 		setBrett(new HashMap<String, Spielfeld>());
 		schaffeMapping(); 
 
@@ -48,9 +49,10 @@ public class Spielbrett implements java.io.Serializable {
 	/**
 	 * Verknuepft alle Feldbezeichnungen
 	 * eines Abalone-Bretts mit Spielfeld-Objekten.
+	 * @throws SpielfeldException 
 	 * 
 	 */
-	private void schaffeMapping() {
+	private void schaffeMapping() throws SpielfeldException {
 		for(int i = 0; i < KOORDINATENQUER.length; i++) {
 			// Untere Felder schaffen und verknuepfen
 			if(i < MITTE) {
@@ -75,9 +77,10 @@ public class Spielbrett implements java.io.Serializable {
 	/**
 	 * Weist dem uebergebenem Key ein Spielfeld zu.
 	 * @param key Feldbezeichnung in Form eines Strings.
+	 * @throws SpielfeldException 
 	 * 
 	 */
-	private void weiseKeyFeldZu(String key) {
+	private void weiseKeyFeldZu(String key) throws SpielfeldException {
 		Spielfeld feld = new Spielfeld(this, key);
 		brett.put(key, feld);
 	}
@@ -85,9 +88,10 @@ public class Spielbrett implements java.io.Serializable {
 
 	/**
 	 * Stellt die Abalone Standard-Startposition auf.
+	 * @throws SpielfeldException 
 	 * 
 	 */
-	private void stelleStartpositionAuf() {
+	private void stelleStartpositionAuf() throws SpielfeldException {
 		stelleGrundlinienAuf();
 		stelleVordereSteineAuf();
 	}
@@ -97,9 +101,10 @@ public class Spielbrett implements java.io.Serializable {
 	/**
 	 * Stellt auf jedem Spielfeld in Querzeile A, B, H, I
 	 * eine Figur auf. 
+	 * @throws SpielfeldException 
 	 * 
 	 */
-	private void stelleGrundlinienAuf() {
+	private void stelleGrundlinienAuf() throws SpielfeldException {
 
 		for(int i = 0; i < 2; i++) {
 			String buchstabeWeiss = KOORDINATENQUER[MAXDIAGONALE - 1 -i];
@@ -126,9 +131,10 @@ public class Spielbrett implements java.io.Serializable {
 	/**
 	 * Stellt die vorderen drei Steine (der Startposition)
 	 * beider Seiten auf.
+	 * @throws SpielfeldException 
 	 * 
 	 */
-	private void stelleVordereSteineAuf() {
+	private void stelleVordereSteineAuf() throws SpielfeldException {
 		for(int i = 3; i < 6; i++) {
 			String idWeiss = "G" + (i+2);
 			String idSchwarz = "C" + i;
@@ -277,9 +283,10 @@ public class Spielbrett implements java.io.Serializable {
 	 * wird auf null gesetzt).
 	 * @param zuege ein Spielzug-Array das einzelne Zuege aus einem Stein 
 	 * enthaehlt.
+	 * @throws SpielbrettException 
 	 */
 
-	public void ziehe(Spielzug[] zuege) {
+	public void ziehe(Spielzug[] zuege) throws SpielbrettException {
 		for(Spielzug zug : zuege) {
 			if(zug != null ) {
 				if(zug.getNach() != null) {
@@ -297,13 +304,14 @@ public class Spielbrett implements java.io.Serializable {
 	 * ohne dabei zu ueberpruefen, ob dies "logisch" moeglich ist. 
 	 * @param von das Feld auf dem sich die Figur befindet.
 	 * @param auf das Feld auf das die Figur bewegt werden soll. 
+	 * @throws SpielbrettException 
 	 */
-	private void bewegeFigur(String von, String auf) {
+	private void bewegeFigur(String von, String auf) throws SpielbrettException {
 		if(brett.get(auf) != null && brett.get(von) != null) {
 			brett.get(auf).setFigur(brett.get(von).getFigur());;
 			brett.get(von).setFigur(null);
 		}else
-			throw new IllegalArgumentException("Ungueltiger Zug");
+			throw new SpielbrettException(1, "Ungueltiger Zug " + von + "-" + auf);
 	}
 	
 	/**
