@@ -10,7 +10,7 @@ public class Simulation1 {
 		Spiel s = new Spiel();
 		Scanner sc = new Scanner(System.in);
 		String[][] zugSimulation = {
-			{"I9G7", "F6"},{"C3C5", "D3"},
+			{"I9G7", "H8"},{"C3C5", "D3"},
 			{"I7G7", "F7"}, {"A1B2", "C3"},
 			{"I8G6", "F5"}, {"A4B4", "C4"},
 			{"H6F6", "E6"}, {"B3D5", "E6"},

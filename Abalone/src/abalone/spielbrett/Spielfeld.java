@@ -35,7 +35,7 @@ class Spielfeld implements java.io.Serializable {
 		setBrett(brett);
 		setId(id);
 		setFarbe(farbe);
-		setAndInitFigur(farbe.toString());
+		setAndInitFigur(farbe);
 
 	}
 	
@@ -52,8 +52,8 @@ class Spielfeld implements java.io.Serializable {
 		}
 		setBrett(brett);
 		setId(id);
-		setFarbe(null);
-		setAndInitFigur(null);
+//		setFarbe(null);
+//		setAndInitFigur(null);
 	}
 	
 	/**
@@ -97,6 +97,10 @@ class Spielfeld implements java.io.Serializable {
 	 * @param farbe
 	 */
 	public void setAndInitFigur(String farbe) {
+		this.figur = new Spielfigur(this, farbe);
+	}
+	
+	public void setAndInitFigur(FarbEnum farbe) {
 		this.figur = new Spielfigur(this, farbe);
 	}
 	/**

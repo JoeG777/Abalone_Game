@@ -518,8 +518,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			return false;
 		int richtung = bekommeRichtung(zug);
 		for (int i = 0; i < ausgangsfelder.length; i++) {
-			if (!(spielBrett.istBesetzt(ausgangsfelder[i]))|| zug.getFarbe() != spielBrett.getFarbeDerFigurById(ausgangsfelder[i]));
-			return false;
+			if (!(spielBrett.istBesetzt(ausgangsfelder[i]))|| zug.getFarbe() != spielBrett.getFarbeDerFigurById(ausgangsfelder[i]))
+				return false;
 		}
 		String[] zielfelder = getZielfelder(ausgangsfelder, richtung);
 		for (String feld : zielfelder) {

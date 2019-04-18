@@ -191,4 +191,24 @@ public class SpielbrettTest {
 				"         1 2 3 4 5 \n";
 		assertEquals(erwartet, testBrett.toString());
 	}
+	
+	@Test
+	public void testGetFarbeDerFigurById() {
+		assertEquals(FarbEnum.WEISS, spielbrett.getFarbeDerFigurById("I9"));
+	}
+	
+	@Test
+	public void testIstDurchGegnerBesetztById() {
+		assertEquals(true, spielbrett.istDurchGegnerBesetztById("B6", FarbEnum.SCHWARZ));
+	}
+	
+	@Test
+	public void testHatNachbarById() {
+		assertEquals(true, spielbrett.hatNachbarById("A5", "A6"));
+	}
+	
+	@Test
+	public void testGetNachbarIndexById() {
+		assertEquals(1, spielbrett.getNachbarIndexById("A5", "B6"));
+	}
 }
