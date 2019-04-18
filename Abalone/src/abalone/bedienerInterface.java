@@ -15,7 +15,7 @@ public interface bedienerInterface {
 	//vorgegebenen Methoden aus PDF inkl 2b
 	String getSpielerAmZug();
 	String getAlleZuege();//Historie ausgeben in Rumpf
-	void ziehe(String[] zugArr) throws SpielbrettException, UngueltigerZugException;
+	void ziehe(String[] zugArr) throws AbaloneException;
 	void spielAusDateiLaden();
 	void spielStatusSpeichern();
 
@@ -24,8 +24,8 @@ public interface bedienerInterface {
 	void addSpieler(String name, String farbe, int anzahlSpieler) throws AbaloneException;
 	String getStatus();
 	String getHistorie();
-	String getErlaubteZuegeInterface(String[] ausgangsfelder) throws UngueltigerZugException;////muss noch ein anderer Returnwert sein
+	String getErlaubteZuegeInterface(String[] ausgangsfelder) throws AbaloneException;////muss noch ein anderer Returnwert sein
 	boolean hatGewonnen(String name);
-	void lesen(String dateiName) throws FileNotFoundException, IOException, ClassNotFoundException;
-	void speichern(String dateiName) throws FileNotFoundException, IOException;
+	void lesen(String dateiName) throws AbaloneException;
+	void speichern(String dateiName) throws AbaloneException;
 }

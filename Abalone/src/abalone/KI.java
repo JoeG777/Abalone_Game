@@ -19,11 +19,13 @@ public class KI extends Spieler {
 	}
 
 	public String[] randomZiehen(Spiel spiel, FarbEnum farbe) {
-
-		ArrayList<Spielzug> alleMoeglichenZuege = spiel.getAlleMoeglichenZuege(this);
-		int random = (int) (Math.random() * alleMoeglichenZuege.size());
-		String[] randomZug = {alleMoeglichenZuege.get(random).getVon(),
-				alleMoeglichenZuege.get(random).getNach()};
+		String[] randomZug = new String[2];
+		try {
+			ArrayList<Spielzug> alleMoeglichenZuege = spiel.getAlleMoeglichenZuege(this);
+			int random = (int) (Math.random() * alleMoeglichenZuege.size());
+			randomZug[0] = alleMoeglichenZuege.get(random).getVon();
+			randomZug[0] = 	alleMoeglichenZuege.get(random).getNach();
+		}catch(AbaloneException e) {}
 		
 		return randomZug;
 	}

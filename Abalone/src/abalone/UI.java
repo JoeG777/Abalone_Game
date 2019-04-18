@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import abalone.spielbrett.SpielfeldException;
+
 /**
  * <h1>UI</h1> Die UI bietet dem Nutzer eine Oberflaeche um Abalone zu spielen
  * Sie nimmt dessen Eingaben an und uebergibt diese dem Spiel
@@ -23,8 +25,9 @@ public class UI implements java.io.Serializable {
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 * @throws FileNotFoundException
+	 * @throws SpielfeldException 
 	 */
-	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException {
+	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException, SpielfeldException {
 		bedienerInterface spiel = new Spiel();
 		welcomeScreen();
 		hauptMenue(spiel);
@@ -50,7 +53,7 @@ public class UI implements java.io.Serializable {
 			}
 			try {
 				spiel.addSpieler(name, "weiss",2);
-			} catch (IllegalArgumentException e) {
+			} catch (AbaloneException e) {
 				System.out.println("Unzulaessige Eingabe, bitte benutze WEISS fuer Weiss und SCHWARZ fuer Schwarz)");
 			}
 			System.out.println("Spieler angelegt. Nun geben Sie den Namen fuer den Spieler mit der Farbe Schwarz ein:");
@@ -70,7 +73,7 @@ public class UI implements java.io.Serializable {
 			}
 			try {
 				spiel.addSpieler(name2, "schwarz", anzahlSpieler);
-			} catch (IllegalArgumentException e) {
+			} catch (AbaloneException e) {
 				System.out.println("Unzulaessige Eingabe, bitte benutze WEISS fuer Weiss und SCHWARZ fuer Schwarz)");
 			}
 		}
@@ -84,10 +87,18 @@ public class UI implements java.io.Serializable {
 				System.out.print(">");
 				name = sc.nextLine();
 			}
-			spiel.addSpieler(name, "weiss", anzahlSpieler);
+			try {
+				spiel.addSpieler(name, "weiss", anzahlSpieler);
+			}catch(AbaloneException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 		if (anzahlSpieler == 0) {
-			spiel.addSpieler(null, null, anzahlSpieler);
+			try {
+				spiel.addSpieler(null, null, anzahlSpieler);
+			}catch(AbaloneException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 
@@ -240,7 +251,11 @@ public class UI implements java.io.Serializable {
 				System.out.print("ENTER DRÜCKEN");
 				String eingabe = sc.nextLine();
 				String[] ki = {"KIKI", "KI"};
-				spiel.ziehe(ki);
+				try {
+					spiel.ziehe(ki);
+				}catch(AbaloneException e) {
+					System.out.println(e.getMessage());
+				}
 			} else {
 				System.out.print(">");
 				String eingabe = sc.nextLine();
@@ -369,7 +384,7 @@ public class UI implements java.io.Serializable {
 			}
 			try {
 				spiel.ziehe(zugArr);
-			} catch (IllegalArgumentException e) {
+			} catch (AbaloneException e) {
 				return false;
 			}
 		} catch (StringIndexOutOfBoundsException e) {
@@ -398,7 +413,7 @@ public class UI implements java.io.Serializable {
 			}
 			System.out.println("Druecken Sie Enter zum fortfahren.");
 			sc.nextLine();
-		} catch (IllegalArgumentException e) {
+		} catch (AbaloneException e) {
 			System.out.println("Ungueltige Eingabe");
 		}
 	}
@@ -438,7 +453,7 @@ public class UI implements java.io.Serializable {
 				String dateiName = sc.nextLine();
 				spiel.speichern(dateiName);
 				b = false;
-			} catch(IOException ioe) {
+			} catch(AbaloneException ioe) {
 				System.out.println("Ungueltiger Dateiname.");
 			}
 		}
@@ -454,12 +469,8 @@ public class UI implements java.io.Serializable {
 				String dateiName = sc.nextLine();
 				spiel.lesen(dateiName);
 				b = false;
-			} catch(FileNotFoundException fnfe) {
-				System.out.println("Dateiname ungueltig. Bitte Eingabe ueberpruefen.");
-			} catch (IOException ioe) {
-				System.out.println("Etwas ist schief gelaufen.");
-			} catch (ClassNotFoundException cnfe) {
-				System.out.println("Klasse nicht gefunden.");
+			} catch(AbaloneException fnfe) {
+				System.out.println(fnfe.getMessage());
 			}
 		}
 		
