@@ -1,5 +1,6 @@
 package abalone;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -47,7 +48,7 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	 */
 	@Override
 	public Object lesen() throws ClassNotFoundException, IOException {
-		ois = new ObjectInputStream(new FileInputStream(dateiName));
+		ois = new ObjectInputStream(new FileInputStream("sav/" + dateiName + ".ser"));
 		try {
 			Object gelesenesObjekt = ois.readObject();
 			return gelesenesObjekt;
@@ -71,10 +72,15 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	 */
 	@Override
 	public void schreiben(Object zuSchreibendesObjekt) throws IOException {
-		oos = new ObjectOutputStream(new FileOutputStream(dateiName));
+		File f = new File("sav");
+		if (!f.exists()) {
+			f.mkdir();
+		}
+		
+		oos = new ObjectOutputStream(new FileOutputStream("sav/" + dateiName + ".ser"));
 		try {
 			oos.writeObject(zuSchreibendesObjekt);
-		}catch(FileNotFoundException e) {
+		} catch(FileNotFoundException e) {
 			throw new IOException("Datei nicht gefunden");
 		}
 		catch(IOException e) {

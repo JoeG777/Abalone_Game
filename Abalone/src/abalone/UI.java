@@ -465,6 +465,7 @@ public class UI implements java.io.Serializable {
 						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n> ");
 						String dateiName = sc.nextLine();
 						spiel.speichernSerialisiert(dateiName);
+						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
 						b = false;
 					} catch(AbaloneException e) {
 						System.out.println(e.getMessage());
@@ -478,6 +479,7 @@ public class UI implements java.io.Serializable {
 						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n> ");
 						String dateiName = sc.nextLine();
 						spiel.speichernSerialisiert(dateiName);
+						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
 						b = false;
 					} catch(AbaloneException e) {
 						System.out.println(e.getMessage());
@@ -511,6 +513,7 @@ public class UI implements java.io.Serializable {
 						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n> ");
 						String dateiName = sc.nextLine();
 						spiel.lesenSerialisiert(dateiName);
+						System.out.println("\nDie Datei wurde erfolgreich geladen.");
 						b = false;
 					} catch(AbaloneException e) {
 						System.out.println(e.getMessage());
@@ -524,6 +527,7 @@ public class UI implements java.io.Serializable {
 						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n> ");
 						String dateiName = sc.nextLine();
 						spiel.lesenSerialisiert(dateiName);
+						System.out.println("\nDie Datei wurde erfolgreich geladen.");
 						b = false;
 					} catch(AbaloneException e) {
 						System.out.println(e.getMessage());
