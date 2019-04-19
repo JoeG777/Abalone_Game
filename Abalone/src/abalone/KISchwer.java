@@ -82,10 +82,11 @@ public class KISchwer extends KI {
 			gegnerFelder = simulationsbrett.getFelderMitFarbe(FarbEnum.WEISS).size();
 			gegnerFelderVorZug = vorZug.getFelderMitFarbe(FarbEnum.WEISS).size();
 		}
+		else {
 		gegnerFelder = simulationsbrett.getFelderMitFarbe(FarbEnum.SCHWARZ).size();
 		gegnerFelderVorZug = vorZug.getFelderMitFarbe(FarbEnum.WEISS).size();
-		
-		System.out.println("GegnerFelder: " + gegnerFelder + "Davor: " + gegnerFelderVorZug);
+		}
+
 		if(gegnerFelderVorZug > gegnerFelder) {
 			return true;
 		}
@@ -116,7 +117,6 @@ public class KISchwer extends KI {
 			}
 			
 			int score = rateSpielbrett();
-			System.out.println(zug.getVon() + " -- " + zug.getNach());
 			if(isGegnerGeschlagen(testbrett)) {
 				score += 50;
 			}
