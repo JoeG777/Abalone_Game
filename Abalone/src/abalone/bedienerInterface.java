@@ -26,6 +26,6 @@ public interface bedienerInterface {
 	String getHistorie();
 	String getErlaubteZuegeInterface(String[] ausgangsfelder) throws AbaloneException;////muss noch ein anderer Returnwert sein
 	boolean hatGewonnen(String name);
-	void lesen(String dateiName) throws AbaloneException;
-	void speichern(String dateiName) throws AbaloneException;
+	void lesenSerialisiert(String dateiName) throws AbaloneException;
+	void speichernSerialisiert(String dateiName) throws AbaloneException;
 }

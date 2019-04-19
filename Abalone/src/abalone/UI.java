@@ -44,11 +44,11 @@ public class UI implements java.io.Serializable {
 
 		if (anzahlSpieler == 2) {
 			System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
-			System.out.print(">");
+			System.out.print("> ");
 			String name = sc.nextLine();
 			while (name.length() > 20 || name.length() < 2) {
 				System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
-				System.out.print(">");
+				System.out.print("> ");
 				name = sc.nextLine();
 			}
 			try {
@@ -57,7 +57,7 @@ public class UI implements java.io.Serializable {
 				System.out.println("Unzulaessige Eingabe, bitte benutze WEISS fuer Weiss und SCHWARZ fuer Schwarz)");
 			}
 			System.out.println("Spieler angelegt. Nun geben Sie den Namen fuer den Spieler mit der Farbe Schwarz ein:");
-			System.out.print(">");
+			System.out.print("> ");
 			String name2 = sc.nextLine();
 
 			while (name2.equalsIgnoreCase(name) || name2.length() > 20 || name2.length() < 2) {
@@ -68,7 +68,7 @@ public class UI implements java.io.Serializable {
 					System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
 				}
 
-				System.out.print(">");
+				System.out.print("> ");
 				name2 = sc.nextLine();
 			}
 			try {
@@ -80,11 +80,11 @@ public class UI implements java.io.Serializable {
 		if (anzahlSpieler == 1) {
 			
 			System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
-			System.out.print(">");
+			System.out.print("> ");
 			String name = sc.nextLine();
 			while (name.length() > 20 || name.length() < 2) {
 				System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
-				System.out.print(">");
+				System.out.print("> ");
 				name = sc.nextLine();
 			}
 			try {
@@ -127,17 +127,15 @@ public class UI implements java.io.Serializable {
 
 		while (imSpiel) {
 
-			
 		System.out.println("Bitte waehlen Sie welches Spiel Sie starten wollen!");
 		System.out.println();
-		System.out.println("1. 2 Spieler \n2. 1 Spieler + 1 KI \n3. 2 KIs \n4. Spiel laden");
+		System.out.print("(1) 2 Spieler \n(2) 1 Spieler + 1 KI \n(3) 2 KIs \n(4) Spiel laden\n\n> ");
 		String eingabe = sc.nextLine();
 			
 		if (eingabe.equals("1.") || eingabe.equals("1")) {
 			imSpiel = false;
 			spielerAnlegen(spiel,2);
 			spielen(spiel);
-
 		} else if (eingabe.equals("2.") || eingabe.equals("2")) {
 			imSpiel = false;
 			spielerAnlegen(spiel,1);
@@ -257,7 +255,7 @@ public class UI implements java.io.Serializable {
 					System.out.println(e.getMessage());
 				}
 			} else {
-				System.out.print(">");
+				System.out.print("> ");
 				String eingabe = sc.nextLine();
 				if (eingabe.equalsIgnoreCase("menu")) {
 					menue(spiel);
@@ -305,9 +303,9 @@ public class UI implements java.io.Serializable {
 		boolean inSchleifeBleiben = true;
 
 		while (inSchleifeBleiben) {
-			System.out.println(
-					"Bitte waehlen Sie:\n(1) Historie ausgeben\n" + "(2) Hilfsmenue ausgeben\n(3) weiter spielen.\n"
-							+ "(4) Spiel speichern\n(5) Spiel laden\n");
+			System.out.print(
+					"\nBitte waehlen Sie:\n(1) Historie ausgeben\n" + "(2) Hilfsmenue ausgeben\n(3) Spiel fortsetzen\n"
+							+ "(4) Spiel speichern\n(5) Spiel laden\n\n> ");
 			String auswahl = sc.nextLine();
 
 			if (auswahl.equals("1")) {
@@ -443,38 +441,98 @@ public class UI implements java.io.Serializable {
 				+ "#################### ENDE #####################\n"
 				+ "###############################################");
 	}
-
-	public static void speichern(bedienerInterface spiel) throws FileNotFoundException, IOException {
+	
+	/**
+	 * Diese Methode dient zum Abspeichern eines Spielstandes.
+	 * @param spiel
+	 * @throws AbaloneException
+	 */
+	public static void speichern(bedienerInterface spiel) {
+		boolean a = true;
 		boolean b = true;
 		
-		while(b) {
-			try {
-				System.out.println("Bitte geben Sie einen gueltigen Dateinamen ein: ");
-				String dateiName = sc.nextLine();
-				spiel.speichern(dateiName);
-				b = false;
-			} catch(AbaloneException ioe) {
-				System.out.println("Ungueltiger Dateiname.");
+		while(a) {
+			System.out.println("\nBitte geben Sie ein, wie Sie die Datei speichern möchten.");
+			System.out.println("(1) Serialisierte Datei");
+			System.out.print("(2) CSV-Datei\n> ");
+			String eingabe = sc.nextLine();
+			
+			if(eingabe.equals("1")) {
+				a = false;
+				
+				while(b) {
+					try {
+						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n> ");
+						String dateiName = sc.nextLine();
+						spiel.speichernSerialisiert(dateiName);
+						b = false;
+					} catch(AbaloneException e) {
+						System.out.println(e.getMessage());
+					}
+				}
+			} else if(eingabe.equals("2")) {
+				a = false;
+				
+				while(b) {
+					try {
+						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n> ");
+						String dateiName = sc.nextLine();
+						spiel.speichernSerialisiert(dateiName);
+						b = false;
+					} catch(AbaloneException e) {
+						System.out.println(e.getMessage());
+					}
+				}
+			} else {
+				System.out.println("Ihre Eingabe ist fehlerhaft.");
 			}
 		}
-		
 	}
 
+	/**
+	 * Diese Methode dient zum Laden eines bereits gespeicherten Spielstandes.
+	 * @param spiel
+	 */
 	public static void laden(bedienerInterface spiel) {
+		boolean a = true;
 		boolean b = true;
 		
-		while(b) {
-			try {
-				System.out.println("\nBitte geben Sie einen gueltigen Dateinamen ein: ");
-				String dateiName = sc.nextLine();
-				spiel.lesen(dateiName);
-				b = false;
-			} catch(AbaloneException fnfe) {
-				System.out.println(fnfe.getMessage());
+		while(a) {
+			System.out.println("\nBitte geben Sie ein, was für eine Datei sie laden wollen.");
+			System.out.println("(1) Serialisierte Datei");
+			System.out.print("(2) CSV-Datei\n> ");
+			String eingabe = sc.nextLine();
+			
+			if(eingabe.equals("1")) {
+				a = false;
+				
+				while(b) {
+					try {
+						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n> ");
+						String dateiName = sc.nextLine();
+						spiel.lesenSerialisiert(dateiName);
+						b = false;
+					} catch(AbaloneException e) {
+						System.out.println(e.getMessage());
+					}
+				}
+			} else if(eingabe.equals("2")) {
+				a = false;
+				
+				while(b) {
+					try {
+						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n> ");
+						String dateiName = sc.nextLine();
+						spiel.lesenSerialisiert(dateiName);
+						b = false;
+					} catch(AbaloneException e) {
+						System.out.println(e.getMessage());
+					}
+				}
+			} else {
+				System.out.println("Ihre Eingabe ist fehlerhaft.");
 			}
 		}
-		
-		
 	}
 	
 }

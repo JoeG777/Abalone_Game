@@ -162,32 +162,46 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return false;
 	}
 
-	public void speichern(String dateiName) throws AbaloneException {
+	/**
+	 * Diese Methode erstellt und beschreibt eine Datei und wird zum Speichern
+	 * eines Spielstandes als serialisierte Datei verwendet
+	 */
+	public void speichernSerialisiert(String dateiName) throws AbaloneException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
+		
 		try {
 			serial.oeffnen(dateiName);
 		} catch(IOException e) {
 			log(e);
 			throw new AbaloneException(13,"Datei konnte nicht geoeffnet werden!");
 		}
+		
 		Object[] spielState = {this.spielerImSpiel,this.spielerAmZug,this.spielBrett,this.historie,this.herausgedraengt,this.letzterZug};
+		
 		try {
 			serial.schreiben(spielState);
-		}catch(IOException e) {
+		} catch(IOException e) {
 			log(e);
 			throw new AbaloneException(13, "Datei konnte nicht geoeffnet werden!");
 		}
 	}
 
-	public void lesen(String dateiName) throws AbaloneException{
+	/**
+	 * Diese Methode oeffnet und liest eine Datei und wird zum Laden
+	 * eines - als serialisierte Datei - gespeicherten Spielstandes verwendet
+	 */
+	public void lesenSerialisiert(String dateiName) throws AbaloneException{
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
+		
 		try {
 			serial.oeffnen(dateiName);
 		} catch(IOException e) {
 			log(e);
 			throw new AbaloneException(13,"Datei konnte nicht geoeffnet werden!");
 		}
+		
 		Object[] spielState = null;
+		
 		try {
 			spielState = (Object[]) serial.lesen();
 		}
@@ -199,6 +213,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			log(e);
 			throw new AbaloneException(15,"Die Datei scheint kaputt zu sein!");
 		};
+		
 		this.spielerImSpiel = (Spieler[])spielState[0];
 		this.spielerAmZug = (Spieler)spielState[1];
 		this.spielBrett = (Spielbrett) spielState[2];
@@ -206,6 +221,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		this.herausgedraengt = (boolean) spielState[4];
 		this.letzterZug = (Spielzug) spielState[5];;
 	}
+	
 	/**
 	 * Die ziehe Methode erzeugt aus zwei Strings ein Zug Objekt und uebergibt
 	 * dieses dem Spielbrett.
