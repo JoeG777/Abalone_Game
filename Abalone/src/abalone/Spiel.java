@@ -225,7 +225,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		if(spielerAmZug instanceof KIEinfach) {
 			zug = ((KIEinfach)getSpielerAmZugObj()).randomZiehen(this);
-			System.out.println(zug[0] + "-" + zug[1]);
 		}
 		try{
 			ziehen(zug);
@@ -869,9 +868,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @return spielfeld Das hinterste Spielfeld als Spielfeld Objekt.
 	 */
 	private String getHinterstenStein(String[] felder, int richtung) {
-		for(String feld : felder) {
-			System.out.println();
-		}
 		if (felder.length == 3) {
 			if(spielBrett.getNachbarByIdInRichtung(felder[0], richtung) != null) {
 				if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung).equals(felder[1])) {
@@ -1241,7 +1237,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			for (String erlaubterZug : erlaubteZuege) {
 				String[] erlaubterZugSplit = erlaubterZug.split("-");
 				Spielzug zug = new Spielzug(erlaubterZugSplit[0], erlaubterZugSplit[1]);
-				//Spielzug formatierterZug = formatieren(zug);
+				zug.setRichtung(bekommeRichtung(zug));
 				zug.setFarbe(spieler.getFarbe());
 				if (!alleMoeglichenZuege.contains(zug)) {
 					alleMoeglichenZuege.add(zug);

@@ -16,7 +16,7 @@ public class KISchwer extends KI {
 
 	public KISchwer(Spiel spiel, FarbEnum farbe) {
 		super(farbe);
-		simulationsbrett = spiel.getSpielbrett();
+		simulationsbrett = spiel.getSpielbrett().clone();
 		felderStaerke = new HashMap<String, Integer>();
 		initFelderStaerke();
 
@@ -71,8 +71,10 @@ public class KISchwer extends KI {
 			score += getFeldStaerkeById(id);
 		}
 		
+	
 		return score;
 	}
+	
 	private boolean isGegnerGeschlagen(Spielbrett vorZug) {
 		int gegnerFelder = 0;
 		int gegnerFelderVorZug =0;
@@ -83,6 +85,7 @@ public class KISchwer extends KI {
 		gegnerFelder = simulationsbrett.getFelderMitFarbe(FarbEnum.SCHWARZ).size();
 		gegnerFelderVorZug = vorZug.getFelderMitFarbe(FarbEnum.WEISS).size();
 		
+		System.out.println("GegnerFelder: " + gegnerFelder + "Davor: " + gegnerFelderVorZug);
 		if(gegnerFelderVorZug > gegnerFelder) {
 			return true;
 		}
@@ -93,28 +96,27 @@ public class KISchwer extends KI {
 	}
 
 	public String[] getBesterZug(Spiel spiel) {
+		simulationsbrett = spiel.getSpielbrett().clone();
 		String[] besterZug = new String[2];
-		int max = 0; 
+		int max = 0;
 		
 		ArrayList<Spielzug> moeglicheZuege = new ArrayList<Spielzug>();
 		try {
 			moeglicheZuege = spiel.getAlleMoeglichenZuege(this);
 		} catch (AbaloneException e) {
-			System.out.println("FALSCH");
 			e.printStackTrace();
 		}
+		
 		for(Spielzug zug : moeglicheZuege) {
 			Spielbrett testbrett = simulationsbrett.clone();
-			
-			
 			try {
 				simulationsbrett.ziehe(spiel.spielzugSplitter(zug));
 			} catch (SpielbrettException e) {
-				System.out.println("FALSCH");
 				e.printStackTrace();
 			}
 			
 			int score = rateSpielbrett();
+			System.out.println(zug.getVon() + " -- " + zug.getNach());
 			if(isGegnerGeschlagen(testbrett)) {
 				score += 50;
 			}
@@ -123,13 +125,10 @@ public class KISchwer extends KI {
 				besterZug[0] = zug.getVon();
 				besterZug[1] = zug.getNach();
 			}
+			score = 0;
 			simulationsbrett = testbrett;
 		}
-		
 		return besterZug;
-		
-		
-		
 	}
 
 
