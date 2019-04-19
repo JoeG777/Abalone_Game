@@ -447,6 +447,9 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	 * @return Wahrheitswert
 	 */
 	public boolean istDurchGegnerBesetztById(String id, FarbEnum farbe) {
+		if(id == null) {
+			return false;
+		}
 		return this.getFeldById(id).istDurchGegnerBesetzt(farbe);
 	}
 	

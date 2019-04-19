@@ -46,7 +46,7 @@ public class UI implements java.io.Serializable {
 			System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 			System.out.print(">");
 			String name = sc.nextLine();
-			while (name.length() > 20 || name.length() < 2 || name.equals("(KI)")) {
+			while (name.length() > 20 || name.length() < 2) {
 				System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
 				System.out.print(">");
 				name = sc.nextLine();
@@ -60,7 +60,7 @@ public class UI implements java.io.Serializable {
 			System.out.print(">");
 			String name2 = sc.nextLine();
 
-			while (name2.equalsIgnoreCase(name) || (name2.length() > 20 || name2.length() < 2 || name.equals("(KI)"))) {
+			while (name2.equalsIgnoreCase(name) || name2.length() > 20 || name2.length() < 2) {
 				if(name2.equalsIgnoreCase(name)) {
 					System.out.println("Bitte geben Sie unterschiedliche Namen für die Spieler ein!");
 				}
@@ -82,7 +82,7 @@ public class UI implements java.io.Serializable {
 			System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 			System.out.print(">");
 			String name = sc.nextLine();
-			while (name.length() > 20 || name.length() < 2 || name.equals("(KI)")) {
+			while (name.length() > 20 || name.length() < 2) {
 				System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
 				System.out.print(">");
 				name = sc.nextLine();
@@ -247,12 +247,12 @@ public class UI implements java.io.Serializable {
 					+ " und 'exit' falls sie das Spiel abbrechen moechten.");
 			System.out.println();
 			System.out.println(spiel.getStatus());
-			if (spiel.getSpielerAmZug().length() > 4 && spiel.getSpielerAmZug().substring(0,4).equals("(KI)")) {
+			if (spiel.getSpielerAmZug().equals("C")) {
 				System.out.print("ENTER DRÜCKEN");
 				String eingabe = sc.nextLine();
-				String[] ki = {"KIKI", "KI"};
+				String[] zug = {};
 				try {
-					spiel.ziehe(ki);
+					spiel.ziehe(zug);
 				}catch(AbaloneException e) {
 					System.out.println(e.getMessage());
 				}

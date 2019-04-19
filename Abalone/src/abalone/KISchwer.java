@@ -14,7 +14,7 @@ public class KISchwer extends KI {
 	public HashMap<String, Integer> felderStaerke;
 	private static final long serialVersionUID = 111L;
 
-	public KISchwer(Spiel spiel, FarbEnum farbe) throws SpielfeldException {
+	public KISchwer(Spiel spiel, FarbEnum farbe) {
 		super(farbe);
 		simulationsbrett = spiel.getSpielbrett();
 		felderStaerke = new HashMap<String, Integer>();
@@ -91,23 +91,33 @@ public class KISchwer extends KI {
 		
 		
 	}
-	@Override
-	public String[] randomZiehen(Spiel spiel) throws AbaloneException, SpielbrettException {
+
+	public String[] getBesterZug(Spiel spiel) {
 		String[] besterZug = new String[2];
 		int max = 0; 
 		
-		ArrayList<Spielzug> moeglicheZuege = spiel.getAlleMoeglichenZuege(this);
+		ArrayList<Spielzug> moeglicheZuege = new ArrayList<Spielzug>();
+		try {
+			moeglicheZuege = spiel.getAlleMoeglichenZuege(this);
+		} catch (AbaloneException e) {
+			System.out.println("FALSCH");
+			e.printStackTrace();
+		}
 		for(Spielzug zug : moeglicheZuege) {
 			Spielbrett testbrett = simulationsbrett.clone();
 			
 			
-			simulationsbrett.ziehe(spiel.spielzugSplitter(zug));
+			try {
+				simulationsbrett.ziehe(spiel.spielzugSplitter(zug));
+			} catch (SpielbrettException e) {
+				System.out.println("FALSCH");
+				e.printStackTrace();
+			}
 			
 			int score = rateSpielbrett();
 			if(isGegnerGeschlagen(testbrett)) {
 				score += 50;
 			}
-			
 			if(score > max) {
 				max = score;
 				besterZug[0] = zug.getVon();

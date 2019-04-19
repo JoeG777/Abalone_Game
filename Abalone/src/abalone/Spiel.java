@@ -101,13 +101,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			spielerImSpiel[0] = new Spieler(name, spielerFarbe);
 			this.spielerAmZug = spielerImSpiel[0];
 			FarbEnum KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KI(KIFarbe);
+			spielerImSpiel[1] = new KISchwer(this, KIFarbe);
 		} else if (anzahlSpieler == 0) {
 			FarbEnum KIFarbe = FarbEnum.WEISS;
-			spielerImSpiel[0] = new KI(KIFarbe);
+			spielerImSpiel[0] = new KIEinfach(KIFarbe);
 			this.spielerAmZug = spielerImSpiel[0];
 			KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KI(KIFarbe);
+			spielerImSpiel[1] = new KISchwer(this, KIFarbe);
 		}
 
 	}
@@ -120,12 +120,16 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	@Override
 	public String getSpielerAmZug() {
 		if (this.spielerAmZug instanceof KI) {
-			return "(KI) \t" + spielerAmZug.getName();
+			return "C";
 		} else {
 			return spielerAmZug.getName();
 		}
 	}
-
+	
+	private Spieler getSpielerAmZugObj() {
+		return this.spielerAmZug;
+	}
+	
 	/**
 	 * Gibt die Farbe des Spielers zurueck, der aktuell am Zug ist.
 	 * 
@@ -216,6 +220,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public void ziehe(String[] zug) throws AbaloneException {
+		if(spielerAmZug instanceof KISchwer)  {
+			zug = ((KISchwer)getSpielerAmZugObj()).getBesterZug(this);
+		}
+		if(spielerAmZug instanceof KIEinfach) {
+			zug = ((KIEinfach)getSpielerAmZugObj()).randomZiehen(this);
+			System.out.println(zug[0] + "-" + zug[1]);
+		}
 		try{
 			ziehen(zug);
 		}catch(UngueltigerZugException e) {
@@ -228,14 +239,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	}
 	
 	public void ziehen(String[] zug) throws SpielbrettException, UngueltigerZugException {
-		// TEST ANFANG
-		if(zug[0] != null && zug[0].equals("KIKI") && zug[1] != null && zug[1].equals("KI")) {
-			String[] kiZug = ((KI)this.spielerAmZug).randomZiehen(this, this.spielerAmZug.getFarbe());
-			System.out.println(kiZug[0] + "-" + kiZug[1]);
-			zug = kiZug;
-
-		}
-		//TEST ENDE
 		if (koordinatenValidieren(spielzugParser(zug))) {
 			Spielzug spielzug = new Spielzug(zug[0], zug[1]);
 			if (spielzug.getNach() == null) {
@@ -685,12 +688,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 	private boolean isSchiebung(String[] felder, int richtung) {
 		if (felder.length == 3) {
-			if (felder[1] == spielBrett.getNachbarByIdInRichtung(felder[0],richtung) || felder[1] == spielBrett.getNachbarByIdInRichtung(felder[2],richtung)) {
+			if (felder[1].equals(spielBrett.getNachbarByIdInRichtung(felder[0],richtung)) || felder[1].equals(spielBrett.getNachbarByIdInRichtung(felder[2],richtung))) {
 				return true;
 			}
 		}
 		if (felder.length == 2) {
-			if (felder[0] == spielBrett.getNachbarByIdInRichtung(felder[1],richtung) || felder[1] == spielBrett.getNachbarByIdInRichtung(felder[0],richtung)) {
+			if (felder[0].equals(spielBrett.getNachbarByIdInRichtung(felder[1],richtung)) || felder[1].equals(spielBrett.getNachbarByIdInRichtung(felder[0],richtung))) {
 				return true;
 			}
 		}
@@ -708,7 +711,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	private boolean isZuEinsSumito(String vordersterStein, int richtung) {
 		String nachbarInRichtung = spielBrett.getNachbarByIdInRichtung(vordersterStein, richtung);
 		if (nachbarInRichtung != null && spielBrett.istBesetzt(nachbarInRichtung)
-				&& spielBrett.getFarbeDerFigurById(nachbarInRichtung) != spielBrett.getFarbeDerFigurById(vordersterStein)) {
+				&& !spielBrett.getFarbeDerFigurById(nachbarInRichtung).equals(spielBrett.getFarbeDerFigurById(vordersterStein))) {
 			String nachbarHinterNachbar = spielBrett.getNachbarByIdInRichtung(nachbarInRichtung, richtung);
 			if (nachbarHinterNachbar == null) {
 				return true;
@@ -733,13 +736,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String posVordersterStein = null;
 
 		if (felder.length == 3) {
-			if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung) != felder[1]) {
+			if (!spielBrett.getNachbarByIdInRichtung(felder[0], richtung).equals(felder[1])) {
 				posVordersterStein = felder[0];
 			} else {
 				posVordersterStein = felder[2];
 			}
 		} else if (felder.length == 2) {
-			if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung) != felder[1]) {
+			if (!spielBrett.getNachbarByIdInRichtung(felder[0], richtung).equals(felder[1])) {
 				posVordersterStein = felder[0];
 			} else {
 				posVordersterStein = felder[1];
@@ -786,8 +789,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 
 		if (erstesFeldInRichtung != null && spielBrett.istBesetzt(erstesFeldInRichtung)
-				&& spielBrett.getFarbeDerFigurById(erstesFeldInRichtung) != spielBrett.getFarbeDerFigurById(vordersterStein)
-				&& spielBrett.getFarbeDerFigurById(zweitesFeldInRichtung) != spielBrett.getFarbeDerFigurById(vordersterStein)) {
+				&& !spielBrett.getFarbeDerFigurById(erstesFeldInRichtung).equals(spielBrett.getFarbeDerFigurById(vordersterStein))
+				&& !spielBrett.getFarbeDerFigurById(zweitesFeldInRichtung).equals(spielBrett.getFarbeDerFigurById(vordersterStein))) {
 
 			if (drittesFeldInRichtung == null) {
 				return true;
@@ -866,19 +869,32 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @return spielfeld Das hinterste Spielfeld als Spielfeld Objekt.
 	 */
 	private String getHinterstenStein(String[] felder, int richtung) {
+		for(String feld : felder) {
+			System.out.println();
+		}
 		if (felder.length == 3) {
-			if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung) == felder[1]) {
-				return felder[0];
-			} else if (spielBrett.getNachbarByIdInRichtung(felder[2], richtung) == felder[1]) {
-				return felder[2];
+			if(spielBrett.getNachbarByIdInRichtung(felder[0], richtung) != null) {
+				if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung).equals(felder[1])) {
+					return felder[0];
+				} 
+			}
+			if(spielBrett.getNachbarByIdInRichtung(felder[2], richtung) != null) {
+				if (spielBrett.getNachbarByIdInRichtung(felder[2], richtung).equals(felder[1])) {
+					return felder[2];
+				}
 			}
 		}
 
 		if (felder.length == 2) {
-			if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung) == felder[1]) {
-				return felder[0];
-			} else if (spielBrett.getNachbarByIdInRichtung(felder[1], richtung) == felder[0]) {
-				return felder[1];
+			if(spielBrett.getNachbarByIdInRichtung(felder[0], richtung) != null) {
+				if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung).equals(felder[1])) {
+					return felder[0];
+				} 
+			}
+			if(spielBrett.getNachbarByIdInRichtung(felder[1], richtung) != null) {
+				if (spielBrett.getNachbarByIdInRichtung(felder[1], richtung).equals(felder[0])) {
+					return felder[1];
+				}
 			}
 		}
 		return null;
@@ -1203,6 +1219,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				}
 			}
 		}
+		
 		return moeglicheAusgangsfelder;
 	}
 
