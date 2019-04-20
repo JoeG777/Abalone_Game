@@ -41,57 +41,14 @@ public class UI implements java.io.Serializable {
 	 * @param spiel Das Spielobjekt
 	 */
 	public static void spielerAnlegen(bedienerInterface spiel, int anzahlSpieler) {
-
 		if (anzahlSpieler == 2) {
-			System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
-			System.out.print("> ");
-			String name = sc.nextLine();
-			while (name.length() > 20 || name.length() < 2) {
-				System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
-				System.out.print("> ");
-				name = sc.nextLine();
-			}
-			try {
-				spiel.addSpieler(name, "weiss",2);
-			} catch (AbaloneException e) {
-				System.out.println("Unzulaessige Eingabe, bitte benutze WEISS fuer Weiss und SCHWARZ fuer Schwarz)");
-			}
-			System.out.println("Spieler angelegt. Nun geben Sie den Namen fuer den Spieler mit der Farbe Schwarz ein:");
-			System.out.print("> ");
-			String name2 = sc.nextLine();
-
-			while (name2.equalsIgnoreCase(name) || name2.length() > 20 || name2.length() < 2) {
-				if(name2.equalsIgnoreCase(name)) {
-					System.out.println("Bitte geben Sie unterschiedliche Namen für die Spieler ein!");
-				}
-				if((name2.length() > 20 || name2.length() < 2)) {
-					System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
-				}
-
-				System.out.print("> ");
-				name2 = sc.nextLine();
-			}
-			try {
-				spiel.addSpieler(name2, "schwarz", anzahlSpieler);
-			} catch (AbaloneException e) {
-				System.out.println("Unzulaessige Eingabe, bitte benutze WEISS fuer Weiss und SCHWARZ fuer Schwarz)");
-			}
+			addWeiss(spiel);
+			addSchwarz(spiel);
+			
 		}
 		if (anzahlSpieler == 1) {
 			
-			System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
-			System.out.print("> ");
-			String name = sc.nextLine();
-			while (name.length() > 20 || name.length() < 2) {
-				System.out.println("Bitte geben Sie einen Namen mit mindestens 2 und weniger als 20 Zeichen an!");
-				System.out.print("> ");
-				name = sc.nextLine();
-			}
-			try {
-				spiel.addSpieler(name, "weiss", anzahlSpieler);
-			}catch(AbaloneException e) {
-				System.out.println(e.getMessage());
-			}
+			addWeiss(spiel);
 		}
 		if (anzahlSpieler == 0) {
 			try {
@@ -99,6 +56,36 @@ public class UI implements java.io.Serializable {
 			}catch(AbaloneException e) {
 				System.out.println(e.getMessage());
 			}
+		}
+	}
+	
+	public static void addWeiss(bedienerInterface spiel){
+		System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
+		System.out.print("> ");
+		String name = sc.nextLine();
+		try {
+			spiel.addSpieler(name, "weiss",2);
+		} catch (AbaloneException e) {
+			if(e.getId() == 14) System.out.println("Ungueltige Laenge!");
+			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
+			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
+			addWeiss(spiel);
+		}
+		System.out.println("Spieler angelegt.");
+	}
+	
+	public static void addSchwarz(bedienerInterface spiel) {
+		System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Schwarz ein:");
+		System.out.print("> ");
+		String name = sc.nextLine();
+
+		try {
+			spiel.addSpieler(name, "schwarz",2);
+		} catch (AbaloneException e) {
+			if(e.getId() == 14) System.out.println("Ungueltige Laenge!");
+			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
+			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
+			addSchwarz(spiel);
 		}
 	}
 

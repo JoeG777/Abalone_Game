@@ -81,9 +81,23 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public void addSpieler(String name, String farbe, int anzahlSpieler) throws AbaloneException {
+		if(name.length() < 2 || name.length() > 20) {
+			AbaloneException e = new AbaloneException(14,"Ungueltige laenge des Namen: " + name.length());
+			log(e);
+			throw e;
+		}
 		if (anzahlSpieler == 2) {
 			if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
-				throw new AbaloneException(11,"Das Spieler Array ist bereits voll!");
+				AbaloneException e = new AbaloneException(11,"Das Spieler Array ist bereits voll!");
+				log(e);
+				throw e;
+			}
+			for(Spieler spieler: spielerImSpiel) {
+				if(spieler != null && spieler.getName().equals(name)) {
+					AbaloneException e = new AbaloneException(13,"Spielernamen muessen unterschiedlich sein!");
+					log(e);
+					throw e;
+				}
 			}
 			if (farbe.equals("weiss") && spielerImSpiel[0] == null) {
 				FarbEnum spielerFarbe = FarbEnum.WEISS;
@@ -93,7 +107,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
 				spielerImSpiel[1] = new Spieler(name, spielerFarbe);
 			} else {
-				throw new AbaloneException(10,"Unbekannte farbe :" + farbe);
+				AbaloneException e = new AbaloneException(10,"Unbekannte farbe :" + farbe);
+				log(e);
+				throw e;
 			}
 		} else if (anzahlSpieler == 1) {
 			FarbEnum spielerFarbe = FarbEnum.WEISS;
@@ -1277,6 +1293,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			logger.write("Fehler am " + dateFormat.format(date) + ": ");
 			logger.newLine();
 			logger.write(e.toString());
+			logger.newLine();
 			logger.flush();
 		}catch(FileNotFoundException fehler) {
 			
