@@ -170,18 +170,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	public void speichernSerialisiert(String dateiName) throws AbaloneException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
 		
-		try {
-			serial.oeffnen(dateiName);
-		} catch(IOException e) {
-			log(e);
-			throw new AbaloneException(13,"Datei konnte nicht geoeffnet werden!");
-		}
+		serial.oeffnen(dateiName);
 		
 		Object[] spielState = {this.spielerImSpiel,this.spielerAmZug,this.spielBrett,this.historie,this.herausgedraengt,this.letzterZug};
 		
 		try {
 			serial.schreiben(spielState);
-		} catch(IOException e) {
+		} catch (IOException e) {
 			log(e);
 			throw new AbaloneException(13, "Datei konnte nicht geoeffnet werden!");
 		}
@@ -192,26 +187,19 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * eines - als serialisierte Datei - gespeicherten Spielstandes verwendet
 	 * @param Name, der zu lesenden Datei
 	 */
-	public void lesenSerialisiert(String dateiName) throws AbaloneException{
+	public void lesenSerialisiert(String dateiName) throws AbaloneException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
 		
-		try {
-			serial.oeffnen(dateiName);
-		} catch(IOException e) {
-			log(e);
-			throw new AbaloneException(13,"Datei konnte nicht geoeffnet werden!");
-		}
+		serial.oeffnen(dateiName);
 		
 		Object[] spielState = null;
 		
 		try {
 			spielState = (Object[]) serial.lesen();
-		}
-		catch(IOException e) {
+		} catch (IOException e) {
 			log(e);
 			throw new AbaloneException(13,"Datei nicht gefunden!");
-		}
-		catch(ClassNotFoundException e){
+		} catch (ClassNotFoundException e){
 			log(e);
 			throw new AbaloneException(15,"Die Datei scheint kaputt zu sein!");
 		};

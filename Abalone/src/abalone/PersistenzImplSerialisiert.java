@@ -28,7 +28,7 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	 * @param dateiName String, welcher den Dateinamen des Spielstandes enthaelt
 	 */
 	@Override
-	public void oeffnen(String dateiName) throws FileNotFoundException, IOException {
+	public void oeffnen(String dateiName) {
 		this.dateiName = dateiName;
 	}
 
@@ -55,16 +55,13 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 		try {
 			Object gelesenesObjekt = ois.readObject();
 			return gelesenesObjekt;
-		}catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			throw new IOException("Datei nicht gefunden");
-		}
-		catch(NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			throw new IOException("Falsches Format");
-		}
-		catch(IndexOutOfBoundsException e) {
+		} catch(IndexOutOfBoundsException e) {
 			throw new IOException("Zu wenig Elemente");
-		}
-		finally {
+		} finally {
 			ois.close();
 		}
 	}
@@ -76,23 +73,18 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	@Override
 	public void schreiben(Object zuSchreibendesObjekt) throws IOException {
 		File f = new File("sav");
-		if (!f.exists()) {
+		if (!f.exists())
 			f.mkdir();
-		}
 		
 		oos = new ObjectOutputStream(new FileOutputStream("sav/" + dateiName + ".ser"));
 		try {
 			oos.writeObject(zuSchreibendesObjekt);
-		} catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			throw new IOException("Datei nicht gefunden");
-		}
-		catch(IOException e) {
+		} catch (IOException e) {
 			throw new IOException("Irgendwas ist schief gelaufen " + e.getMessage());
-		}
-		finally {
+		} finally {
 			oos.close();
-		
 		}
-		
 	}
 }
