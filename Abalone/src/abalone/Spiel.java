@@ -2,6 +2,7 @@
 package abalone;
 
 import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -48,6 +49,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		historie = new Historie();
 		this.spielerImSpiel = new Spieler[2];
 		initLog();
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+	          public void run() {
+	        	  endLog();
+	          }
+	      });
 	}
 
 	/**
@@ -60,7 +66,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	}
 	
 	@Override
-	protected void finalize() {
+	public void finalize() {
 		endLog();
 	}
 
@@ -1313,7 +1319,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		Date date = new Date();
 		try {
 			logger.newLine();
-			logger.write("---------- Start am " + dateFormat.format(date) + " ----------");
+			logger.write("---------- Gestartet am " + dateFormat.format(date) + " ----------");
 			logger.newLine();
 			logger.flush();
 		}catch(FileNotFoundException fehler) {
@@ -1329,7 +1335,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		try {
 			logger.newLine();
 			logger.write("---------- Beendet am " + dateFormat.format(date) + " ----------");
+			logger.newLine();
+			logger.newLine();
 			logger.flush();
+			logger.close();
 		}catch(FileNotFoundException fehler) {
 		}catch(IOException fehler) {
 		}

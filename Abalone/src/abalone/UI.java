@@ -292,7 +292,7 @@ public class UI implements java.io.Serializable {
 		while (inSchleifeBleiben) {
 			System.out.print(
 					"\nBitte waehlen Sie:\n(1) Historie ausgeben\n" + "(2) Hilfsmenue ausgeben\n(3) Spiel fortsetzen\n"
-							+ "(4) Spiel speichern\n(5) Spiel laden\n\n> ");
+							+ "(4) Spiel speichern\n(5) Spiel laden\n(6) Spiel beenden\n\n> ");
 			String auswahl = sc.nextLine();
 
 			if (auswahl.equals("1")) {
@@ -316,6 +316,8 @@ public class UI implements java.io.Serializable {
 			
 			else if (auswahl.equals("5")) {
 				laden(spiel);
+			}else if(auswahl.equals("6")){
+				spielBeenden(null, null);
 			}
 			
 			else {
@@ -427,6 +429,7 @@ public class UI implements java.io.Serializable {
 				+ "###############################################\n"
 				+ "#################### ENDE #####################\n"
 				+ "###############################################");
+		System.exit(0);
 	}
 	
 	/**
