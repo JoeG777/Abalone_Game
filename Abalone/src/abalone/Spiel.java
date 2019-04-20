@@ -47,13 +47,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		spielBrett = new Spielbrett();
 		historie = new Historie();
 		this.spielerImSpiel = new Spieler[2];
-		try {
-			File file = new File("log.txt");
-			logger = new BufferedWriter(new FileWriter(file));
-		}catch(FileNotFoundException e) {
-		}catch(IOException e) {
-			
-		}
+		initLog();
 	}
 
 	/**
@@ -63,6 +57,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	public Spieler[] getSpielerImSpiel() {
 		return spielerImSpiel;
+	}
+	
+	@Override
+	protected void finalize() {
+		endLog();
 	}
 
 	/**
@@ -1270,7 +1269,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return csv;
 	}
 	
-	public void log(Exception e ) {
+	private void log(Exception e ) {
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
 		try {
@@ -1278,11 +1277,46 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			logger.write("Fehler am " + dateFormat.format(date) + ": ");
 			logger.newLine();
 			logger.write(e.toString());
+			logger.flush();
 		}catch(FileNotFoundException fehler) {
 			
 		}catch(IOException fehler) {
 			
 		}
+	}
+	
+	private void initLog() {
+		try {
+			File file = new File("log.txt");
+			logger = new BufferedWriter(new FileWriter(file,true));
+		}catch(FileNotFoundException e) {
+		}catch(IOException e) {
+		}
+		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+		Date date = new Date();
+		try {
+			logger.newLine();
+			logger.write("---------- Start am " + dateFormat.format(date) + " ----------");
+			logger.newLine();
+			logger.flush();
+		}catch(FileNotFoundException fehler) {
+			
+		}catch(IOException fehler) {
+			
+		}
+	}
+	
+	private void endLog() {
+		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+		Date date = new Date();
+		try {
+			logger.newLine();
+			logger.write("---------- Beendet am " + dateFormat.format(date) + " ----------");
+			logger.flush();
+		}catch(FileNotFoundException fehler) {
+		}catch(IOException fehler) {
+		}
+		
 	}
 	
 	
