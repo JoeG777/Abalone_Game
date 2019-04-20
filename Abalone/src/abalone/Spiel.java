@@ -1151,7 +1151,15 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public String getAlleZuege() {
-		return "";
+		StringBuilder sb = new StringBuilder();
+		ArrayList<Spielzug> alleZuege = getAlleMoeglichenZuege(this.getSpielerAmZugObj().getFarbe());
+		for(Spielzug zug : alleZuege) {
+			sb.append(zug.getVon() + "-" + zug.getNach());
+			sb.append("\n");
+		}
+		
+		return sb.toString();
+		
 	}
 
 	/**
@@ -1237,26 +1245,27 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return moeglicheAusgangsfelder;
 	}
 
-	public ArrayList<Spielzug> getAlleMoeglichenZuege(Spieler spieler) throws AbaloneException {
+	public ArrayList<Spielzug> getAlleMoeglichenZuege(FarbEnum farbe) {
 
 		ArrayList<Spielzug> alleMoeglichenZuege = new ArrayList <Spielzug>();
-		ArrayList<String> moeglicheAusgangsFelder = getMoeglicheAusgangsfelder(spieler.getFarbe());
+		ArrayList<String> moeglicheAusgangsFelder = getMoeglicheAusgangsfelder(farbe);
 
 		for (String ausgangsFelder : moeglicheAusgangsFelder) {
 			String[] ausgangsFelderFormat = {ausgangsFelder, null};
 			String[] erlaubteZuege = null;
 			try {
 				erlaubteZuege = getErlaubteZuege(ausgangsFelderFormat);
+			} catch (UngueltigerZugException e) {
+
+				e.printStackTrace();
 			}
-			catch(UngueltigerZugException e) {
-				log(e);
-				throw new AbaloneException(1,"Ungueltiger Zug!");
-			}
+
 			for (String erlaubterZug : erlaubteZuege) {
 				String[] erlaubterZugSplit = erlaubterZug.split("-");
 				Spielzug zug = new Spielzug(erlaubterZugSplit[0], erlaubterZugSplit[1]);
 				zug.setRichtung(bekommeRichtung(zug));
-				zug.setFarbe(spieler.getFarbe());
+				zug.setFarbe(farbe);
+				zug = formatiereSpielzug(zug);
 				if (!alleMoeglichenZuege.contains(zug)) {
 					alleMoeglichenZuege.add(zug);
 				}
@@ -1264,6 +1273,30 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			}
 		}
 		return alleMoeglichenZuege;
+	}
+	
+	private Spielzug formatiereSpielzug(Spielzug zug) {
+		if(zug == null || zug.getVon().length() < 4) {
+			return zug;
+		}
+		int richtung = zug.getRichtung();
+		String von = zug.getVon();
+		String formatiert = "";
+
+		if(von.charAt(1) == von.charAt(3) && von.charAt(0) > von.charAt(2)  ) {
+			formatiert = von.substring(2,4) + von.substring(0,2);	
+		}
+		else if(von.charAt(1) > von.charAt(3))	{
+			formatiert = von.substring(2,4) + von.substring(0,2);	
+		}
+		else {
+			formatiert = von;
+		}		
+
+		return new Spielzug(formatiert, 
+				spielBrett.getNachbarByIdInRichtung(formatiert.substring(0,2), richtung), 
+				richtung, zug.getFarbe());
+		
 	}
 
 	/**

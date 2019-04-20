@@ -43,7 +43,7 @@ public class KISchwer extends KI {
 			schritte++;
 
 			if(schritte == 5) {
-				break;
+				done = true;
 			}
 
 		}
@@ -102,14 +102,11 @@ public class KISchwer extends KI {
 		int max = 0;
 		
 		ArrayList<Spielzug> moeglicheZuege = new ArrayList<Spielzug>();
-		try {
-			moeglicheZuege = spiel.getAlleMoeglichenZuege(this);
-		} catch (AbaloneException e) {
-			e.printStackTrace();
-		}
+		moeglicheZuege = spiel.getAlleMoeglichenZuege(this.getFarbe());
 		
 		for(Spielzug zug : moeglicheZuege) {
 			Spielbrett testbrett = simulationsbrett.clone();
+			System.out.println(zug.getVon() + " --- " + zug.getNach());
 			try {
 				simulationsbrett.ziehe(spiel.spielzugSplitter(zug));
 			} catch (SpielbrettException e) {
