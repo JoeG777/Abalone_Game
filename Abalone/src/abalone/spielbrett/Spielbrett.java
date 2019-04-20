@@ -395,12 +395,20 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 		return felder;
 	}
 	
-	public String writeCSV() {
+	/**
+	 * Diese Methode gibt die von Spielbrett notwendigen Informationen - zum
+	 * Speichern als CSV - in Form eines Strings zurueck
+	 * Strings
+	 * @return String, welche alle notwendigen Informationen des Spielbrettes enthaelt
+	 */
+	public String schreibeCSV() {
 		String brettCSV = "BRETT: \n";
+		
 		for(String key: brett.keySet()) {
 		    Spielfeld feld = brett.get(key);
 		    brettCSV += feld.writeCSVString() + "\n";
 		}
+		
 		return brettCSV;
 	}
 	

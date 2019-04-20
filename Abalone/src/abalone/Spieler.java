@@ -163,20 +163,27 @@ public class Spieler implements java.io.Serializable {
 				this.getSpielerID() == s.getSpielerID());
 	}
 	
-	public String writeCSV() {
+	/**
+	 * Diese Methode gibt die - zur CSV-Speicherung notwendigen - Informationen in Form
+	 * eines Strings zurueck
+	 * @return String, der die - zur CSV-Speicherung notwendigen - Informationen enthaelt
+	 */
+	public String schreibeCSV() {
 		String csv = "SPIELER:";
 		csv += this.name;
 		String farbe;
-		if(this.farbe == FarbEnum.WEISS) {
+		
+		if (this.farbe == FarbEnum.WEISS) {
 			farbe = "weiss";
-		}else
-			if(this.farbe == FarbEnum.SCHWARZ) {
+		} else {
+			if (this.farbe == FarbEnum.SCHWARZ) {
 				farbe = "schwarz";
-			}
-			else {
+			} else {
 				farbe = "null";
 			}
+		}
 		csv += ","+farbe+","+spielerID+","+eliminierteKugeln;
+		
 		return csv;
 	}
 

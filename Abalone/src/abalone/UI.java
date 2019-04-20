@@ -445,7 +445,6 @@ public class UI implements java.io.Serializable {
 	/**
 	 * Diese Methode dient zum Abspeichern eines Spielstandes.
 	 * @param spiel
-	 * @throws AbaloneException
 	 */
 	public static void speichern(bedienerInterface spiel) {
 		boolean a = true;

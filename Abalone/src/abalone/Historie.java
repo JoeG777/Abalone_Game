@@ -109,7 +109,12 @@ public class Historie implements java.io.Serializable {
 		incZaehler();
 	}
 	
-	public String writeCSV() {
+	/**
+	 * Diese Methode gibt die Historie als einzigen String - fuer die
+	 * CSV-Speicherung - zurueck
+	 * @return String, welcher die Historie enthaelt
+	 */
+	public String schreibeCSV() {
 		String csv = "HISTORIE:";
 		for(String zug: zuege) {
 			csv += zug + ",";

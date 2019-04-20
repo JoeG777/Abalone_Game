@@ -165,6 +165,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	/**
 	 * Diese Methode erstellt und beschreibt eine Datei und wird zum Speichern
 	 * eines Spielstandes als serialisierte Datei verwendet
+	 * @param Name, der zu speichernden Datei
 	 */
 	public void speichernSerialisiert(String dateiName) throws AbaloneException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
@@ -189,6 +190,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	/**
 	 * Diese Methode oeffnet und liest eine Datei und wird zum Laden
 	 * eines - als serialisierte Datei - gespeicherten Spielstandes verwendet
+	 * @param Name, der zu lesenden Datei
 	 */
 	public void lesenSerialisiert(String dateiName) throws AbaloneException{
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
@@ -1264,12 +1266,19 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return alleMoeglichenZuege;
 	}
 
-	public String writeCSV() {
+	/**
+	 * Diese Methode fasst alle notwendigen Informationen - zum Speichern als
+	 * CSV-Datei - in einen einzigen langen String ein
+	 * @return String, welcher den zu schreibenden CSV-Inhalt enthaelt
+	 */
+	public String schreibeCSV() {
 		String csv = "SPIEL: \n";
-		for(Spieler spieler: spielerImSpiel) {
-			csv +=  spieler.writeCSV()+"\n";
+		
+		for (Spieler spieler: spielerImSpiel) {
+			csv +=  spieler.schreibeCSV()+"\n";
 		}
-		csv += historie.writeCSV() + "\n" + spielBrett.writeCSV();
+		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
+		
 		return csv;
 	}
 	
