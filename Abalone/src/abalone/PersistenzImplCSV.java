@@ -1,6 +1,7 @@
 package abalone;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -77,8 +78,12 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 		
 		String s = (String) zuSchreibenderInhalt;
 		
+		File f = new File("sav");
+		if (!f.exists())
+			f.mkdir();
+		
 		try {
-			pw = new PrintWriter("sav/" + s + ".csv", "utf-8");
+			pw = new PrintWriter("sav/" + dateiName + ".csv", "utf-8");
 			pw.print(s);
 		} catch(FileNotFoundException e) {
 			throw new IOException("Datei nicht gefunden!");

@@ -61,8 +61,6 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 			throw new IOException("Falsches Format");
 		} catch(IndexOutOfBoundsException e) {
 			throw new IOException("Zu wenig Elemente");
-		} finally {
-			ois.close();
 		}
 	}
 
@@ -83,8 +81,6 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 			throw new IOException("Datei nicht gefunden");
 		} catch (IOException e) {
 			throw new IOException("Irgendwas ist schief gelaufen " + e.getMessage());
-		} finally {
-			oos.close();
 		}
 	}
 }

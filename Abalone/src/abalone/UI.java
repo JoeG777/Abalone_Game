@@ -467,7 +467,7 @@ public class UI implements java.io.Serializable {
 					try {
 						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n> ");
 						String dateiName = sc.nextLine();
-						spiel.speichernSerialisiert(dateiName);
+						spiel.speichernCSV(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
 						b = false;
 					} catch (AbaloneException e) {
