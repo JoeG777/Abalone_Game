@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.regex.Pattern;
 
 /** 
  * <h1>PersistenzImplSerialisiert</h1>
@@ -70,6 +71,10 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	 */
 	@Override
 	public void schreiben(Object zuSchreibendesObjekt) throws IOException {
+		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
+		if (regex.matcher(dateiName).find())
+			throw new IOException("Ungueltiger Dateiname!");
+		
 		File f = new File("sav");
 		if (!f.exists())
 			f.mkdir();

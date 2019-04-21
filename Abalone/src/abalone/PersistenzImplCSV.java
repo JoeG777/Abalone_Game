@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.regex.Pattern;
 
 /**
  * <h1>PersistenzImplCSV</h1>
@@ -75,8 +76,11 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 	public void schreiben(Object zuSchreibenderInhalt) throws IOException {
 		if(!(zuSchreibenderInhalt instanceof String))
 			throw new IOException("Fehlerhafte Informationen!");
-		
 		String s = (String) zuSchreibenderInhalt;
+		
+		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
+		if (regex.matcher(dateiName).find())
+			throw new IOException("Ungueltiger Dateiname!");
 		
 		File f = new File("sav");
 		if (!f.exists())

@@ -201,7 +201,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			serial.schliessen();
 		} catch (IOException e) {
 			log(e);
-			throw new AbaloneException(13, "Datei konnte nicht geoeffnet werden!");
+			throw new AbaloneException(16, "Ungueltiger Dateiname!");
 		}
 	}
 
@@ -260,7 +260,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			pic.schliessen();
 		} catch (IOException e) {
 			log(e);
-			throw new AbaloneException(13, "Datei konnte nicht geoeffnet werden!");
+			throw new AbaloneException(16, "Ungueltiger Dateiname!");
 		}
 	}
 	
