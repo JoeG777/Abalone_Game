@@ -446,7 +446,7 @@ public class UI implements java.io.Serializable {
 			System.out.print("(2) CSV-Datei\n> ");
 			String eingabe = sc.nextLine();
 			
-			if(eingabe.equals("1")) {
+			if (eingabe.equals("1")) {
 				a = false;
 				
 				while(b) {
@@ -460,7 +460,7 @@ public class UI implements java.io.Serializable {
 						System.out.println(e.getMessage());
 					}
 				}
-			} else if(eingabe.equals("2")) {
+			} else if (eingabe.equals("2")) {
 				a = false;
 				
 				while(b) {
@@ -470,7 +470,7 @@ public class UI implements java.io.Serializable {
 						spiel.speichernSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
 						b = false;
-					} catch(AbaloneException e) {
+					} catch (AbaloneException e) {
 						System.out.println(e.getMessage());
 					}
 				}

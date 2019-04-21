@@ -187,6 +187,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Diese Methode erstellt und beschreibt eine Datei und wird zum Speichern
 	 * eines Spielstandes als serialisierte Datei verwendet
 	 * @param Name, der zu speichernden Datei
+	 * @throws AbaloneException
 	 */
 	public void speichernSerialisiert(String dateiName) throws AbaloneException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
@@ -197,6 +198,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 		try {
 			serial.schreiben(spielState);
+			serial.schliessen();
 		} catch (IOException e) {
 			log(e);
 			throw new AbaloneException(13, "Datei konnte nicht geoeffnet werden!");
@@ -207,6 +209,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Diese Methode oeffnet und liest eine Datei und wird zum Laden
 	 * eines - als serialisierte Datei - gespeicherten Spielstandes verwendet
 	 * @param Name, der zu lesenden Datei
+	 * @throws AbaloneException
 	 */
 	public void lesenSerialisiert(String dateiName) throws AbaloneException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
@@ -217,6 +220,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 		try {
 			spielState = (Object[]) serial.lesen();
+			serial.schliessen();
 		} catch (IOException e) {
 			log(e);
 			throw new AbaloneException(13,"Datei nicht gefunden!");
@@ -231,6 +235,43 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		this.historie = (Historie) spielState[3];
 		this.herausgedraengt = (boolean) spielState[4];
 		this.letzterZug = (Spielzug) spielState[5];;
+	}
+	
+	/**
+	 * Diese Methode fasst alle notwendigen Informationen - zum Speichern als
+	 * CSV-Datei - in einen einzigen langen String ein
+	 * @return String, welcher den zu schreibenden CSV-Inhalt enthaelt
+	 * @param dateiName Name, der zu beschreibenden Datei
+	 * @throws AbaloneException 
+	 */
+	public void speichernCSV(String dateiName) throws AbaloneException {
+		PersistenzImplCSV pic = new PersistenzImplCSV();
+		String csv = "SPIEL: \n";
+		
+		for (Spieler spieler: spielerImSpiel) {
+			csv +=  spieler.schreibeCSV()+"\n";
+		}
+		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
+		
+		pic.oeffnen(dateiName);
+		
+		try {
+			pic.schreiben(csv);
+			pic.schliessen();
+		} catch (IOException e) {
+			log(e);
+			throw new AbaloneException(13, "Datei konnte nicht geoeffnet werden!");
+		}
+	}
+	
+	/**
+	 * Diese Methode oeffnet und liest eine CSV-Datei und wird zum Laden
+	 * eines - als CSV-Datei - gespeicherten Spielstandes verwendet
+	 * @param dateiName Name, der zu lesenden Datei
+	 * @throws AbaloneException
+	 */
+	public void lesenCSV(String dateiName) throws AbaloneException {
+		
 	}
 	
 	/**
@@ -1204,18 +1245,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return zuegeString;
 	}
 
-	@Override
-	public void spielAusDateiLaden() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void spielStatusSpeichern() {
-		// TODO Auto-generated method stub
-
-	}
-
 	public ArrayList<String> getMoeglicheAusgangsfelder(FarbEnum farbe) {
 		ArrayList<String> moeglicheAusgangsfelder = new ArrayList<String>();
 		ArrayList<String> felderInFarbe = spielBrett.getFelderMitFarbe(farbe);
@@ -1273,22 +1302,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			}
 		}
 		return alleMoeglichenZuege;
-	}
-
-	/**
-	 * Diese Methode fasst alle notwendigen Informationen - zum Speichern als
-	 * CSV-Datei - in einen einzigen langen String ein
-	 * @return String, welcher den zu schreibenden CSV-Inhalt enthaelt
-	 */
-	public String schreibeCSV() {
-		String csv = "SPIEL: \n";
-		
-		for (Spieler spieler: spielerImSpiel) {
-			csv +=  spieler.schreibeCSV()+"\n";
-		}
-		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
-		
-		return csv;
 	}
 	
 	private void log(Exception e ) {

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -19,6 +20,7 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 	private static final long serialVersionUID = 101L;
 	private String dateiName;
 	private BufferedReader br = null;
+	private PrintWriter pw = null;
 
 	/**
 	 * Diese Methode bekommt einen Spielstand in Form einer Datei
@@ -38,6 +40,8 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 	public void schliessen() throws IOException {
 		if (br != null)
 			br.close();
+		if (pw != null)
+			pw.close();
 	}
 
 	/**
@@ -64,13 +68,24 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 	/**
 	 * Diese Methode beschreibt eine CSV-Datei
 	 * @param zuSchreibenderInhalt Information, die beschrieben werden soll
+	 * @throws IOException
 	 */
 	@Override
-	public void schreiben(Object zuSchreibenderInhalt) {
+	public void schreiben(Object zuSchreibenderInhalt) throws IOException {
 		if(!(zuSchreibenderInhalt instanceof String))
-			throw new RuntimeException("Fehlerhafte Informationen!");
+			throw new IOException("Fehlerhafte Informationen!");
 		
 		String s = (String) zuSchreibenderInhalt;
+		
+		try {
+			pw = new PrintWriter("sav/" + s + ".csv", "utf-8");
+			pw.print(s);
+		} catch(FileNotFoundException e) {
+			throw new IOException("Datei nicht gefunden!");
+		} catch (IOException e) {
+			throw new IOException("Irgendwas ist schief gelaufen " + e.getMessage());
+		}
+		
 	}
 
 }
