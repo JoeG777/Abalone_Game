@@ -76,7 +76,7 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 	public void schreiben(Object zuSchreibendesObjekt) throws IOException {
 		if(!(zuSchreibendesObjekt instanceof Spiel))
 			throw new IOException("Objekt fehlerhaft!");
-		Spiel s = (Spiel) zuSchreibendesObjekt;
+		Spiel spiel = (Spiel) zuSchreibendesObjekt;
 		
 		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
 		if (regex.matcher(dateiName).find())
@@ -88,8 +88,8 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 		
 		try {
 			pw = new PrintWriter("sav/" + dateiName + ".csv", "utf-8");
-			pw.print(s.schreibeCSV());
-		} catch(FileNotFoundException e) {
+			pw.print(spiel.schreibeCSV());
+		} catch (FileNotFoundException e) {
 			throw new IOException("Datei nicht gefunden!");
 		} catch (IOException e) {
 			throw new IOException("Irgendwas ist schief gelaufen " + e.getMessage());

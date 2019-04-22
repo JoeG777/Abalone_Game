@@ -247,7 +247,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		pic.oeffnen(dateiName);	
 		
 		try {
-			//Spiel spiel = new Spiel();
 			pic.schreiben(this);
 			pic.schliessen();
 		} catch (IOException e) {
