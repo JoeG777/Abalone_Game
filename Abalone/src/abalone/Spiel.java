@@ -2,6 +2,7 @@
 package abalone;
 
 import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -47,13 +48,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		spielBrett = new Spielbrett();
 		historie = new Historie();
 		this.spielerImSpiel = new Spieler[2];
-		try {
-			File file = new File("log.txt");
-			logger = new BufferedWriter(new FileWriter(file));
-		}catch(FileNotFoundException e) {
-		}catch(IOException e) {
-			
-		}
+		initLog();
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+	          public void run() {
+	        	  endLog();
+	          }
+	      });
 	}
 
 	/**
@@ -63,6 +63,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	public Spieler[] getSpielerImSpiel() {
 		return spielerImSpiel;
+	}
+	
+	@Override
+	public void finalize() {
+		endLog();
 	}
 
 	/**
@@ -82,9 +87,23 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public void addSpieler(String name, String farbe, int anzahlSpieler) throws AbaloneException {
+		if(name.length() < 2 || name.length() > 20) {
+			AbaloneException e = new AbaloneException(14,"Ungueltige laenge des Namen: " + name.length());
+			log(e);
+			throw e;
+		}
 		if (anzahlSpieler == 2) {
 			if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
-				throw new AbaloneException(11,"Das Spieler Array ist bereits voll!");
+				AbaloneException e = new AbaloneException(11,"Das Spieler Array ist bereits voll!");
+				log(e);
+				throw e;
+			}
+			for(Spieler spieler: spielerImSpiel) {
+				if(spieler != null && spieler.getName().equals(name)) {
+					AbaloneException e = new AbaloneException(13,"Spielernamen muessen unterschiedlich sein!");
+					log(e);
+					throw e;
+				}
 			}
 			if (farbe.equals("weiss") && spielerImSpiel[0] == null) {
 				FarbEnum spielerFarbe = FarbEnum.WEISS;
@@ -94,7 +113,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
 				spielerImSpiel[1] = new Spieler(name, spielerFarbe);
 			} else {
-				throw new AbaloneException(10,"Unbekannte farbe :" + farbe);
+				AbaloneException e = new AbaloneException(10,"Unbekannte farbe :" + farbe);
+				log(e);
+				throw e;
 			}
 		} else if (anzahlSpieler == 1) {
 			FarbEnum spielerFarbe = FarbEnum.WEISS;
@@ -166,6 +187,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Diese Methode erstellt und beschreibt eine Datei und wird zum Speichern
 	 * eines Spielstandes als serialisierte Datei verwendet
 	 * @param Name, der zu speichernden Datei
+	 * @throws AbaloneException
 	 */
 	public void speichernSerialisiert(String dateiName) throws AbaloneException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
@@ -176,9 +198,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 		try {
 			serial.schreiben(spielState);
+			serial.schliessen();
 		} catch (IOException e) {
 			log(e);
-			throw new AbaloneException(13, "Datei konnte nicht geoeffnet werden!");
+			throw new AbaloneException(16, "Ungueltiger Dateiname!");
 		}
 	}
 
@@ -186,6 +209,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Diese Methode oeffnet und liest eine Datei und wird zum Laden
 	 * eines - als serialisierte Datei - gespeicherten Spielstandes verwendet
 	 * @param Name, der zu lesenden Datei
+	 * @throws AbaloneException
 	 */
 	public void lesenSerialisiert(String dateiName) throws AbaloneException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
@@ -196,6 +220,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 		try {
 			spielState = (Object[]) serial.lesen();
+			serial.schliessen();
 		} catch (IOException e) {
 			log(e);
 			throw new AbaloneException(13,"Datei nicht gefunden!");
@@ -210,6 +235,43 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		this.historie = (Historie) spielState[3];
 		this.herausgedraengt = (boolean) spielState[4];
 		this.letzterZug = (Spielzug) spielState[5];;
+	}
+	
+	/**
+	 * Diese Methode fasst alle notwendigen Informationen - zum Speichern als
+	 * CSV-Datei - in einen einzigen langen String ein
+	 * @return String, welcher den zu schreibenden CSV-Inhalt enthaelt
+	 * @param dateiName Name, der zu beschreibenden Datei
+	 * @throws AbaloneException 
+	 */
+	public void speichernCSV(String dateiName) throws AbaloneException {
+		PersistenzImplCSV pic = new PersistenzImplCSV();
+		String csv = "SPIEL: \n";
+		
+		for (Spieler spieler: spielerImSpiel) {
+			csv +=  spieler.schreibeCSV()+"\n";
+		}
+		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
+		
+		pic.oeffnen(dateiName);
+		
+		try {
+			pic.schreiben(csv);
+			pic.schliessen();
+		} catch (IOException e) {
+			log(e);
+			throw new AbaloneException(16, "Ungueltiger Dateiname!");
+		}
+	}
+	
+	/**
+	 * Diese Methode oeffnet und liest eine CSV-Datei und wird zum Laden
+	 * eines - als CSV-Datei - gespeicherten Spielstandes verwendet
+	 * @param dateiName Name, der zu lesenden Datei
+	 * @throws AbaloneException
+	 */
+	public void lesenCSV(String dateiName) throws AbaloneException {
+		
 	}
 	
 	/**
@@ -1191,18 +1253,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return zuegeString;
 	}
 
-	@Override
-	public void spielAusDateiLaden() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void spielStatusSpeichern() {
-		// TODO Auto-generated method stub
-
-	}
-
 	public ArrayList<String> getMoeglicheAusgangsfelder(FarbEnum farbe) {
 		ArrayList<String> moeglicheAusgangsfelder = new ArrayList<String>();
 		ArrayList<String> felderInFarbe = spielBrett.getFelderMitFarbe(farbe);
@@ -1262,6 +1312,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		return alleMoeglichenZuege;
 	}
+
 	
 	private Spielzug formatiereSpielzug(Spielzug zug) {
 		if(zug == null || zug.getVon().length() < 4) {
@@ -1302,8 +1353,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 		return csv;
 	}
-	
-	public void log(Exception e ) {
+
+	private void log(Exception e ) {
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
 		try {
@@ -1311,11 +1362,50 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			logger.write("Fehler am " + dateFormat.format(date) + ": ");
 			logger.newLine();
 			logger.write(e.toString());
+			logger.newLine();
+			logger.flush();
 		}catch(FileNotFoundException fehler) {
 			
 		}catch(IOException fehler) {
 			
 		}
+	}
+	
+	private void initLog() {
+		try {
+			File file = new File("log.txt");
+			logger = new BufferedWriter(new FileWriter(file,true));
+		}catch(FileNotFoundException e) {
+		}catch(IOException e) {
+		}
+		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+		Date date = new Date();
+		try {
+			logger.newLine();
+			logger.write("---------- Gestartet am " + dateFormat.format(date) + " ----------");
+			logger.newLine();
+			logger.flush();
+		}catch(FileNotFoundException fehler) {
+			
+		}catch(IOException fehler) {
+			
+		}
+	}
+	
+	private void endLog() {
+		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+		Date date = new Date();
+		try {
+			logger.newLine();
+			logger.write("---------- Beendet am " + dateFormat.format(date) + " ----------");
+			logger.newLine();
+			logger.newLine();
+			logger.flush();
+			logger.close();
+		}catch(FileNotFoundException fehler) {
+		}catch(IOException fehler) {
+		}
+		
 	}
 	
 	

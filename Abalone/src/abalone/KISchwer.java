@@ -10,12 +10,14 @@ import abalone.spielbrett.SpielbrettException;
 import abalone.spielbrett.SpielfeldException;
 
 public class KISchwer extends KI {
+	private bedienerInterface spiel;
 	private Spielbrett simulationsbrett;
 	public HashMap<String, Integer> felderStaerke;
 	private static final long serialVersionUID = 111L;
 
 	public KISchwer(Spiel spiel, FarbEnum farbe) {
 		super(farbe);
+		this.spiel = spiel;
 		simulationsbrett = spiel.getSpielbrett().clone();
 		felderStaerke = new HashMap<String, Integer>();
 		initFelderStaerke();

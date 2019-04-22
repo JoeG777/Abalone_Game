@@ -1,10 +1,5 @@
 package abalone;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import abalone.spielbrett.SpielbrettException;
-
 /**
  * Schnittstelle zwischen der Konsolen-UI und dem Spiel mit der Spiellogik.
  * 
@@ -16,8 +11,6 @@ public interface bedienerInterface {
 	String getSpielerAmZug();
 	String getAlleZuege();//Historie ausgeben in Rumpf
 	void ziehe(String[] zugArr) throws AbaloneException;
-	void spielAusDateiLaden();
-	void spielStatusSpeichern();
 
 	//alle public Methoden aus Spiel, die in UI benutzt werden müssen
 	String getSpielerImSpielInterface(); 
@@ -26,6 +19,8 @@ public interface bedienerInterface {
 	String getHistorie();
 	String getErlaubteZuegeInterface(String[] ausgangsfelder) throws AbaloneException;////muss noch ein anderer Returnwert sein
 	boolean hatGewonnen(String name);
-	void lesenSerialisiert(String dateiName) throws AbaloneException;
 	void speichernSerialisiert(String dateiName) throws AbaloneException;
+	void lesenSerialisiert(String dateiName) throws AbaloneException;
+	void speichernCSV(String dateiName) throws AbaloneException;
+	void lesenCSV(String dateiName) throws AbaloneException;
 }
