@@ -243,17 +243,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	public void speichernCSV(String dateiName) throws SpielException {
 		PersistenzImplCSV pic = new PersistenzImplCSV();
-		String csv = "SPIEL: \n";
 		
-		for (Spieler spieler: spielerImSpiel) {
-			csv +=  spieler.schreibeCSV()+"\n";
-		}
-		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
-		
-		pic.oeffnen(dateiName);
+		pic.oeffnen(dateiName);	
 		
 		try {
-			pic.schreiben(csv);
+			//Spiel spiel = new Spiel();
+			pic.schreiben(this);
 			pic.schliessen();
 		} catch (IOException e) {
 			log(e);
