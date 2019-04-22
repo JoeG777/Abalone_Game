@@ -140,11 +140,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public String getSpielerAmZug() {
-		if (this.spielerAmZug instanceof KI) {
-			return "C";
-		} else {
 			return spielerAmZug.getName();
-		}
 	}
 	
 	private Spieler getSpielerAmZugObj() {

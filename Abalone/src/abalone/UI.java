@@ -42,13 +42,12 @@ public class UI implements java.io.Serializable {
 	 */
 	public static void spielerAnlegen(bedienerInterface spiel, int anzahlSpieler) {
 		if (anzahlSpieler == 2) {
-			addWeiss(spiel);
-			addSchwarz(spiel);
+			addWeiss(spiel,2);
+			addSchwarz(spiel,2);
 			
 		}
 		if (anzahlSpieler == 1) {
-			
-			addWeiss(spiel);
+			addWeiss(spiel,1);
 		}
 		if (anzahlSpieler == 0) {
 			try {
@@ -59,33 +58,33 @@ public class UI implements java.io.Serializable {
 		}
 	}
 	
-	public static void addWeiss(bedienerInterface spiel){
+	public static void addWeiss(bedienerInterface spiel, int anzahl){
 		System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 		System.out.print("> ");
 		String name = sc.nextLine();
 		try {
-			spiel.addSpieler(name, "weiss",2);
+			spiel.addSpieler(name, "weiss",anzahl);
 		} catch (AbaloneException e) {
 			if(e.getId() == 14) System.out.println("Ungueltige Laenge!");
 			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
 			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
-			addWeiss(spiel);
+			addWeiss(spiel, anzahl);
 		}
 		System.out.println("Spieler angelegt.");
 	}
 	
-	public static void addSchwarz(bedienerInterface spiel) {
+	public static void addSchwarz(bedienerInterface spiel, int anzahl) {
 		System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Schwarz ein:");
 		System.out.print("> ");
 		String name = sc.nextLine();
 
 		try {
-			spiel.addSpieler(name, "schwarz",2);
+			spiel.addSpieler(name, "schwarz",anzahl);
 		} catch (AbaloneException e) {
 			if(e.getId() == 14) System.out.println("Ungueltige Laenge!");
 			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
 			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
-			addSchwarz(spiel);
+			addSchwarz(spiel, anzahl);
 		}
 	}
 
@@ -232,7 +231,7 @@ public class UI implements java.io.Serializable {
 					+ " und 'exit' falls sie das Spiel abbrechen moechten.");
 			System.out.println();
 			System.out.println(spiel.getStatus());
-			if (spiel.getSpielerAmZug().equals("C")) {
+			if (spiel.getSpielerAmZug().substring(0,2).equals("KI")) {
 				System.out.print("ENTER DRÜCKEN");
 				String eingabe = sc.nextLine();
 				String[] zug = {};
@@ -263,7 +262,6 @@ public class UI implements java.io.Serializable {
 							System.out.println();
 						}
 			}
-		}
 		imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
 		if (!imSpiel) {
 			verlierer = spiel.getSpielerAmZug();
@@ -273,6 +271,7 @@ public class UI implements java.io.Serializable {
 					gewinner = s1;
 				}
 			}
+		}
 		}
 
 	spielBeenden(gewinner, verlierer);
