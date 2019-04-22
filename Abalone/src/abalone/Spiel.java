@@ -87,7 +87,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public void addSpieler(String name, String farbe, int anzahlSpieler) throws AbaloneException {
-		if(name.length() < 2 || name.length() > 20) {
+		if(name != null && (name.length() < 2 || name.length() > 20)) {
 			AbaloneException e = new AbaloneException(14,"Ungueltige laenge des Namen: " + name.length());
 			log(e);
 			throw e;

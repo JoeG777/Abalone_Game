@@ -108,7 +108,7 @@ public class KISchwer extends KI {
 		
 		for(Spielzug zug : moeglicheZuege) {
 			Spielbrett testbrett = simulationsbrett.clone();
-			System.out.println(zug.getVon() + " --- " + zug.getNach());
+
 			try {
 				simulationsbrett.ziehe(spiel.spielzugSplitter(zug));
 			} catch (SpielbrettException e) {
