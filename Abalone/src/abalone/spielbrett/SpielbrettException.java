@@ -1,6 +1,7 @@
 package abalone.spielbrett;
 
 public class SpielbrettException extends Exception {
+	private static final long serialVersionUID = 23L;
 	private int id;
 	
 	public SpielbrettException(int id, String meldung) {

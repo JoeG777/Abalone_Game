@@ -272,16 +272,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	}
 	
 	/**
-	 * Die ziehe Methode erzeugt aus zwei Strings ein Zug Objekt und uebergibt
-	 * dieses dem Spielbrett.
-	 * 
+	 * Delegiert einen Zug an die ziehe Methode und faengt ggf. Fehler fuer das Logging ab.
 	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1]
 	 *            = wohin gezogen wird.
-	 * @throws SpielException 
-	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException wenn
-	 *                                     zugValidieren false zurueck gibt oder ein
-	 *                                     Array Eintrag NULL ist.
-	 * @since 1.0
+	 * @throws SpielbrettException Wird geworfen, falls ein aktueller zug für die Spielsituation ungueltig ist.
 	 */
 	@Override
 	public void ziehe(String[] zug) throws SpielException {
@@ -302,7 +296,19 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 	}
 	
-	public void ziehen(String[] zug) throws SpielbrettException, UngueltigerZugException {
+	/**
+	 * Die ziehe Methode erzeugt aus zwei Strings ein Zug Objekt und uebergibt
+	 * dieses dem Spielbrett.
+	 * 
+	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1]
+	 *            = wohin gezogen wird.
+	 * @throws SpielException 
+	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException wenn
+	 *                                     zugValidieren false zurueck gibt oder ein
+	 *                                     Array Eintrag NULL ist.
+	 * @since 1.0
+	 */
+	private void ziehen(String[] zug) throws SpielbrettException, UngueltigerZugException {
 		if (koordinatenValidieren(spielzugParser(zug))) {
 			Spielzug spielzug = new Spielzug(zug[0], zug[1]);
 			if (spielzug.getNach() == null) {
@@ -1350,7 +1356,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 		return csv;
 	}
-
+	
+	/**
+	 * Schreibt eine Exception in mit Datum & Uhrzeit in die log.txt
+	 * @param e - Die zu loggende Exception
+	 */
 	private void log(Exception e ) {
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
@@ -1368,6 +1378,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 	}
 	
+	/**
+	 * Falls das Programm bei der letzten Ausfuehrung nicht korrekt beendet wurde, wird dies von dieser Methode notiert.
+	 * Außerdem scheibt diese Methode die Nachrit, wann das Spiel gestartet wurde in die Logdatei.
+	 */
 	private void initLog() {
 		File file = new File("log.txt");
 		Scanner sc = null; 
@@ -1409,6 +1423,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 	}
 	
+	/**
+	 * Wird aufgerufen, wenn das Spiel korrekt beendet wird.
+	 * Schreibt Datum und Uhrzeit des Beendens in die log.txt
+	 */
 	private void endLog() {
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
