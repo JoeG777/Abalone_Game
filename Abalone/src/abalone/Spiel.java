@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Scanner;
 
 import abalone.spielbrett.Spielbrett;
 import abalone.spielbrett.SpielbrettException;
@@ -1368,11 +1369,31 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	}
 	
 	private void initLog() {
+		File file = new File("log.txt");
+		Scanner sc = null; 
 		try {
-			File file = new File("log.txt");
+			sc = new Scanner(file);
+		} catch (FileNotFoundException e1) {
+		}
+		try {
 			logger = new BufferedWriter(new FileWriter(file,true));
 		}catch(FileNotFoundException e) {
 		}catch(IOException e) {
+		}
+		if(sc != null) {
+			String scanned = "";
+			while(sc.hasNext()) {
+				scanned = sc.nextLine();
+			}
+			if(scanned.length() < 18 || !scanned.substring(0,18).equals("---------- Beendet")) {
+				try {
+					logger.newLine();
+					logger.write("---------- Das Spiel wurde nicht Ordungsgemaeß beendet! ----------");
+					logger.newLine();
+					logger.flush();
+				} catch (IOException e) {
+				}
+			}
 		}
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
@@ -1394,8 +1415,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		try {
 			logger.newLine();
 			logger.write("---------- Beendet am " + dateFormat.format(date) + " ----------");
-			logger.newLine();
-			logger.newLine();
 			logger.flush();
 			logger.close();
 		}catch(FileNotFoundException fehler) {
