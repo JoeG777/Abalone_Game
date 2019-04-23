@@ -1353,11 +1353,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @return String, welcher den zu schreibenden CSV-Inhalt enthaelt
 	 */
 	public String schreibeCSV() {
-		String csv = "SPIEL: \n";
-		
+		String csv = "SPIEL:\n";
+				
 		for (Spieler spieler: spielerImSpiel) {
 			csv +=  spieler.schreibeCSV()+"\n";
 		}
+		
+		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
 		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
 		
 		return csv;

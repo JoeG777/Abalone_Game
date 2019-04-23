@@ -402,7 +402,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	 * @return String, welche alle notwendigen Informationen des Spielbrettes enthaelt
 	 */
 	public String schreibeCSV() {
-		String brettCSV = "BRETT: \n";
+		String brettCSV = "BRETT:\n";
 		
 		for(String key: brett.keySet()) {
 		    Spielfeld feld = brett.get(key);
