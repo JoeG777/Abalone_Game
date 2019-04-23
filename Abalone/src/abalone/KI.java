@@ -143,7 +143,7 @@ public class KI extends Spieler {
 	 * Setzt das durchziehend-Attribut der KI.
 	 * @param durchziehend true, wenn die KI durchziehen soll, false, wenn nicht.
 	 */
-	private void setDurchziehend(boolean durchziehend) {
+	public void setDurchziehend(boolean durchziehend) {
 		this.durchziehend = durchziehend;
 	}
 	

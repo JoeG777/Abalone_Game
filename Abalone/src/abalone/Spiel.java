@@ -299,6 +299,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	@Override
 	public void ziehe(String[] zug) throws SpielException {
 		if(spielerAmZug instanceof KI)  {
+			if(zug[0].equals("DURCHZIEHEN")) {
+				((KI)spielerAmZug).setDurchziehend(true);
+			}
 			ArrayList<Spielzug> moeglicheZuege = getAlleMoeglichenZuege(getFarbeAmZug());
 			String[] besterZug = new String[2]; 
 			((KI)spielerAmZug).setGegnerFigVorZug(spielBrett.getFelderMitFarbe(getFarbeNichtAmZug()).size());

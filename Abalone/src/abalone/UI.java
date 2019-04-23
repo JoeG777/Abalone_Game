@@ -233,13 +233,18 @@ public class UI implements java.io.Serializable {
 			System.out.println();
 			System.out.println(spiel.getStatus());
 			if (spiel.getSpielerAmZug().substring(0,2).equals("KI")) {
-				if(kiLoop) {
+				if(kiLoop && 'D' == spiel.getSpielerAmZug().charAt(spiel.getSpielerAmZug().length()-1)) {
 					System.out.println("ENTER DRÜCKEN------menu EINGEBEN FUER DAS MENUE");
 					String eingabe = sc.nextLine();
 					if("BIS ZUM ENDE".equals(eingabe)) kiLoop = false;
 					if("menu".equals(eingabe))  menue(spiel);
 				}
 				String[] zug = {};
+				
+				if(!kiLoop) {
+					zug[0] = "DURCHZIEHEN";
+				}
+				
 				try {
 					spiel.ziehe(zug);
 				}catch(SpielException e) {
