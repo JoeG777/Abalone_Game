@@ -124,13 +124,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			spielerImSpiel[0] = new Spieler(name, spielerFarbe);
 			this.spielerAmZug = spielerImSpiel[0];
 			FarbEnum KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KI(KIFarbe);
+			spielerImSpiel[1] = new KI(KIFarbe, getSpielbrett());
 		} else if (anzahlSpieler == 0) {
 			FarbEnum KIFarbe = FarbEnum.WEISS;
-			spielerImSpiel[0] = new KI(KIFarbe);
+			spielerImSpiel[0] = new KI(KIFarbe, getSpielbrett());
 			this.spielerAmZug = spielerImSpiel[0];
 			KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KI(KIFarbe);
+			spielerImSpiel[1] = new KI(KIFarbe, getSpielbrett());
 		}
 
 	}
@@ -156,6 +156,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	private FarbEnum getFarbeAmZug() {
 		return this.spielerAmZug.getFarbe();
+	}
+	
+	private FarbEnum getFarbeNichtAmZug() {
+		if(getFarbeAmZug() == FarbEnum.SCHWARZ) {
+			return FarbEnum.WEISS;
+		}
+		return FarbEnum.SCHWARZ;
 	}
 
 	/**
@@ -291,7 +298,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	public void ziehe(String[] zug) throws SpielException {
 		if(spielerAmZug instanceof KI)  {
 			ArrayList<Spielzug> moeglicheZuege = getAlleMoeglichenZuege(getFarbeAmZug());
-			String besterZug[] = {}; 
+			String[] besterZug = new String[2]; 
+			((KI)spielerAmZug).setGegnerFigVorZug(spielBrett.getFelderMitFarbe(getFarbeNichtAmZug()).size());
+			int max = 0;
+			
 			for(Spielzug simulationszug : moeglicheZuege) {
 				Spielbrett brettNachZug = getSpielbrett().clone();
 				try {
@@ -300,7 +310,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				besterZug = ((KI)spielerAmZug).getBesterZug();
+				int zugScore = ((KI)spielerAmZug).calcStaerkeDesBretts(brettNachZug);
+				if(zugScore > max) {
+					max = zugScore;
+					besterZug[0] = simulationszug.getVon();
+					besterZug[1] = simulationszug.getNach();
+				}
 			}
 			zug = besterZug;
 		}
