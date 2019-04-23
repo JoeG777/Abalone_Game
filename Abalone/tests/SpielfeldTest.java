@@ -15,7 +15,7 @@ public class SpielfeldTest {
 	@Before
 	public void setUp() {
 		brett = new Spielbrett();
-		hauptFeld = new Spielfeld(brett, "A1", FarbEnum.WEISS, null);
+		hauptFeld = brett.getFeld("A1").setAndInitFigur(brett, "A1", FarbEnum.WEISS, null);
 	}
 	
 	@Test
