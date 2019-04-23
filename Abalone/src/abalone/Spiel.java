@@ -101,7 +101,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			}
 			for(Spieler spieler: spielerImSpiel) {
 				if(spieler != null && spieler.getName().equals(name)) {
-					SpielException e = new SpielException(13,"Spielernamen muessen unterschiedlich sein!");
+					SpielException e = new SpielException(17,"Spielernamen muessen unterschiedlich sein!");
 					log(e);
 					throw e;
 				}
@@ -186,7 +186,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param Name, der zu speichernden Datei
 	 * @throws SpielException
 	 */
-	public void speichernSerialisiert(String dateiName) throws SpielException {
+	public void speichernSerialisiert(String dateiName) throws DateiNichtGefundenException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
 		
 		serial.oeffnen(dateiName);
@@ -197,8 +197,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			serial.schreiben(spielState);
 			serial.schliessen();
 		} catch (IOException e) {
+			DateiNichtGefundenException ex = new DateiNichtGefundenException(16, "Ungueltiger Dateiname!");
 			log(e);
-			throw new SpielException(16, "Ungueltiger Dateiname!");
+			throw ex;
 		}
 	}
 
@@ -208,7 +209,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param Name, der zu lesenden Datei
 	 * @throws SpielException
 	 */
-	public void lesenSerialisiert(String dateiName) throws SpielException {
+	public void lesenSerialisiert(String dateiName) throws DateiNichtGefundenException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
 		
 		serial.oeffnen(dateiName);
@@ -219,11 +220,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			spielState = (Object[]) serial.lesen();
 			serial.schliessen();
 		} catch (IOException e) {
-			log(e);
-			throw new SpielException(13,"Datei nicht gefunden!");
+			DateiNichtGefundenException ex = new DateiNichtGefundenException(13,"Datei nicht gefunden!");
+			log(ex);
+			throw ex;
 		} catch (ClassNotFoundException e){
+			DateiNichtGefundenException ex = new DateiNichtGefundenException(15,"Die Datei scheint kaputt zu sein!");
 			log(e);
-			throw new SpielException(15,"Die Datei scheint kaputt zu sein!");
+			throw ex;
 		};
 		
 		this.spielerImSpiel = (Spieler[])spielState[0];
@@ -256,8 +259,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			pic.schreiben(csv);
 			pic.schliessen();
 		} catch (IOException e) {
-			log(e);
-			throw new SpielException(16, "Ungueltiger Dateiname!");
+			DateiNichtGefundenException ex = new DateiNichtGefundenException(16, "Ungueltiger Dateiname!");
+			log(ex);
 		}
 	}
 	
