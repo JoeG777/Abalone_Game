@@ -123,13 +123,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			spielerImSpiel[0] = new Spieler(name, spielerFarbe);
 			this.spielerAmZug = spielerImSpiel[0];
 			FarbEnum KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KISchwer(this, KIFarbe);
+			spielerImSpiel[1] = new KI(KIFarbe);
 		} else if (anzahlSpieler == 0) {
 			FarbEnum KIFarbe = FarbEnum.WEISS;
-			spielerImSpiel[0] = new KIEinfach(KIFarbe);
+			spielerImSpiel[0] = new KI(KIFarbe);
 			this.spielerAmZug = spielerImSpiel[0];
 			KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KISchwer(this, KIFarbe);
+			spielerImSpiel[1] = new KI(KIFarbe);
 		}
 
 	}
@@ -173,7 +173,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		for (int i = 0; i < spielerArr.length; i++) {
 			if (spieler != null && !spielerArr[i].equals(spieler)) {
-				if (14 - this.zaehleKugelnMitFarbe(spieler.getFarbe()) >= 6)
+				if (14 - this.zaehleKugelnMitFarbe(spieler.getFarbe()) >= 7)
 					return true;
 			}
 		}
@@ -246,17 +246,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	public void speichernCSV(String dateiName) throws SpielException {
 		PersistenzImplCSV pic = new PersistenzImplCSV();
-		String csv = "SPIEL: \n";
 		
-		for (Spieler spieler: spielerImSpiel) {
-			csv +=  spieler.schreibeCSV()+"\n";
-		}
-		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
-		
-		pic.oeffnen(dateiName);
+		pic.oeffnen(dateiName);	
 		
 		try {
-			pic.schreiben(csv);
+			pic.schreiben(this);
 			pic.schliessen();
 		} catch (IOException e) {
 			DateiNichtGefundenException ex = new DateiNichtGefundenException(16, "Ungueltiger Dateiname!");
@@ -282,11 +276,20 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public void ziehe(String[] zug) throws SpielException {
-		if(spielerAmZug instanceof KISchwer)  {
-			zug = ((KISchwer)getSpielerAmZugObj()).getBesterZug(this);
-		}
-		if(spielerAmZug instanceof KIEinfach) {
-			zug = ((KIEinfach)getSpielerAmZugObj()).randomZiehen(this);
+		if(spielerAmZug instanceof KI)  {
+			ArrayList<Spielzug> moeglicheZuege = getAlleMoeglichenZuege(getFarbeAmZug());
+			String besterZug[] = {}; 
+			for(Spielzug simulationszug : moeglicheZuege) {
+				Spielbrett brettNachZug = getSpielbrett().clone();
+				try {
+					brettNachZug.ziehe(spielzugSplitter(simulationszug));
+				} catch (SpielbrettException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				besterZug = ((KI)spielerAmZug).getBesterZug();
+			}
+			zug = besterZug;
 		}
 		try{
 			ziehen(zug);
@@ -1446,7 +1449,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	
 	
 	
-	Spielbrett getSpielbrett() {
+	private Spielbrett getSpielbrett() {
 		return this.spielBrett;
 	}
 	
