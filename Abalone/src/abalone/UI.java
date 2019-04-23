@@ -42,50 +42,49 @@ public class UI implements java.io.Serializable {
 	 */
 	public static void spielerAnlegen(bedienerInterface spiel, int anzahlSpieler) {
 		if (anzahlSpieler == 2) {
-			addWeiss(spiel);
-			addSchwarz(spiel);
+			addWeiss(spiel,2);
+			addSchwarz(spiel,2);
 			
 		}
 		if (anzahlSpieler == 1) {
-			
-			addWeiss(spiel);
+			addWeiss(spiel,1);
 		}
 		if (anzahlSpieler == 0) {
 			try {
 				spiel.addSpieler(null, null, anzahlSpieler);
-			}catch(AbaloneException e) {
+			}catch(SpielException e) {
 				System.out.println(e.getMessage());
 			}
 		}
 	}
 	
-	public static void addWeiss(bedienerInterface spiel){
+	public static void addWeiss(bedienerInterface spiel, int anzahl){
 		System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 		System.out.print("> ");
 		String name = sc.nextLine();
 		try {
-			spiel.addSpieler(name, "weiss",2);
-		} catch (AbaloneException e) {
+			spiel.addSpieler(name, "weiss",anzahl);
+		} catch (SpielException e) {
 			if(e.getId() == 14) System.out.println("Ungueltige Laenge!");
 			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
 			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
-			addWeiss(spiel);
+			addWeiss(spiel, anzahl);
 		}
 		System.out.println("Spieler angelegt.");
 	}
 	
-	public static void addSchwarz(bedienerInterface spiel) {
+	public static void addSchwarz(bedienerInterface spiel, int anzahl) {
 		System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Schwarz ein:");
 		System.out.print("> ");
 		String name = sc.nextLine();
 
 		try {
-			spiel.addSpieler(name, "schwarz",2);
-		} catch (AbaloneException e) {
+			spiel.addSpieler(name, "schwarz",anzahl);
+		} catch (SpielException e) {
 			if(e.getId() == 14) System.out.println("Ungueltige Laenge!");
 			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
 			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
-			addSchwarz(spiel);
+			addSchwarz(spiel, anzahl);
 		}
 	}
 
@@ -226,19 +225,23 @@ public class UI implements java.io.Serializable {
 		String gewinner = "";
 		String verlierer = "";
 		boolean imSpiel = true;
+		boolean kiLoop = true;
 		while (imSpiel) {
 			System.out.println();
 			System.out.println("Geben Sie 'Menu' ein falls Sie ins Hauptmenu wollen"
 					+ " und 'exit' falls sie das Spiel abbrechen moechten.");
 			System.out.println();
 			System.out.println(spiel.getStatus());
-			if (spiel.getSpielerAmZug().equals("C")) {
-				System.out.print("ENTER DRÜCKEN");
-				String eingabe = sc.nextLine();
+			if (spiel.getSpielerAmZug().substring(0,2).equals("KI")) {
+				if(kiLoop) {
+					System.out.print("ENTER DRÜCKEN");
+					String eingabe = sc.nextLine();
+					if("BIS ZUM ENDE".equals(eingabe)) kiLoop = false;
+				}
 				String[] zug = {};
 				try {
 					spiel.ziehe(zug);
-				}catch(AbaloneException e) {
+				}catch(SpielException e) {
 					System.out.println(e.getMessage());
 				}
 			} else {
@@ -263,7 +266,6 @@ public class UI implements java.io.Serializable {
 							System.out.println();
 						}
 			}
-		}
 		imSpiel = !spiel.hatGewonnen(spiel.getSpielerAmZug());
 		if (!imSpiel) {
 			verlierer = spiel.getSpielerAmZug();
@@ -273,6 +275,7 @@ public class UI implements java.io.Serializable {
 					gewinner = s1;
 				}
 			}
+		}
 		}
 
 	spielBeenden(gewinner, verlierer);
@@ -371,7 +374,7 @@ public class UI implements java.io.Serializable {
 			}
 			try {
 				spiel.ziehe(zugArr);
-			} catch (AbaloneException e) {
+			} catch (SpielException e) {
 				return false;
 			}
 		} catch (StringIndexOutOfBoundsException e) {
@@ -400,7 +403,7 @@ public class UI implements java.io.Serializable {
 			}
 			System.out.println("Druecken Sie Enter zum fortfahren.");
 			sc.nextLine();
-		} catch (AbaloneException e) {
+		} catch (SpielException e) {
 			System.out.println("Ungueltige Eingabe");
 		}
 	}
@@ -456,7 +459,7 @@ public class UI implements java.io.Serializable {
 						spiel.speichernSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
 						b = false;
-					} catch(AbaloneException e) {
+					} catch(SpielException e) {
 						System.out.println(e.getMessage());
 					}
 				}
@@ -470,7 +473,7 @@ public class UI implements java.io.Serializable {
 						spiel.speichernCSV(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
 						b = false;
-					} catch (AbaloneException e) {
+					} catch (SpielException e) {
 						System.out.println(e.getMessage());
 					}
 				}
@@ -504,7 +507,7 @@ public class UI implements java.io.Serializable {
 						spiel.lesenSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich geladen.");
 						b = false;
-					} catch(AbaloneException e) {
+					} catch(SpielException e) {
 						System.out.println(e.getMessage());
 					}
 				}
@@ -518,7 +521,7 @@ public class UI implements java.io.Serializable {
 						spiel.lesenSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich geladen.");
 						b = false;
-					} catch(AbaloneException e) {
+					} catch(SpielException e) {
 						System.out.println(e.getMessage());
 					}
 				}

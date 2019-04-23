@@ -10,12 +10,14 @@ import abalone.spielbrett.SpielbrettException;
 import abalone.spielbrett.SpielfeldException;
 
 public class KISchwer extends KI {
+	private bedienerInterface spiel;
 	private Spielbrett simulationsbrett;
 	public HashMap<String, Integer> felderStaerke;
 	private static final long serialVersionUID = 111L;
 
 	public KISchwer(Spiel spiel, FarbEnum farbe) {
 		super(farbe);
+		this.spiel = spiel;
 		simulationsbrett = spiel.getSpielbrett().clone();
 		felderStaerke = new HashMap<String, Integer>();
 		initFelderStaerke();
@@ -43,7 +45,7 @@ public class KISchwer extends KI {
 			schritte++;
 
 			if(schritte == 5) {
-				break;
+				done = true;
 			}
 
 		}
@@ -102,14 +104,11 @@ public class KISchwer extends KI {
 		int max = 0;
 		
 		ArrayList<Spielzug> moeglicheZuege = new ArrayList<Spielzug>();
-		try {
-			moeglicheZuege = spiel.getAlleMoeglichenZuege(this);
-		} catch (AbaloneException e) {
-			e.printStackTrace();
-		}
+		moeglicheZuege = spiel.getAlleMoeglichenZuege(this.getFarbe());
 		
 		for(Spielzug zug : moeglicheZuege) {
 			Spielbrett testbrett = simulationsbrett.clone();
+
 			try {
 				simulationsbrett.ziehe(spiel.spielzugSplitter(zug));
 			} catch (SpielbrettException e) {

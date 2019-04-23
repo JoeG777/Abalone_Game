@@ -1,9 +1,10 @@
 package abalone;
 
-public class AbaloneException extends Exception{
+public class SpielException extends Exception{
+	private static final long serialVersionUID = 21L;
 	private int id;
 	
-	public AbaloneException(int id, String meldung) {
+	public SpielException(int id, String meldung) {
 		super(meldung);
 		setId(id);
 	}

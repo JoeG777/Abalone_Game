@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Scanner;
 
 import abalone.spielbrett.Spielbrett;
 import abalone.spielbrett.SpielbrettException;
@@ -77,7 +78,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * 
 	 * @param name  Der fuer den Spieler gewaehlte Name.
 	 * @param farbe Die fuer den Spieler gewaehlte Farbe.
-	 * @throws AbaloneException 
+	 * @throws SpielException 
 	 * @exception IllegalArgumentException  Wird geworfen, wenn der String farbe
 	 *                                      nicht "schwarz" oder "weiss" entspricht.
 	 * @exception IndexOutOfBoundsException wird geworfen wenn ein Spieler
@@ -86,21 +87,21 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @since 1.0
 	 */
 	@Override
-	public void addSpieler(String name, String farbe, int anzahlSpieler) throws AbaloneException {
-		if(name.length() < 2 || name.length() > 20) {
-			AbaloneException e = new AbaloneException(14,"Ungueltige laenge des Namen: " + name.length());
+	public void addSpieler(String name, String farbe, int anzahlSpieler) throws SpielException {
+		if(name != null && (name.length() < 2 || name.length() > 20)) {
+			SpielException e = new SpielException(14,"Ungueltige laenge des Namen: " + name.length());
 			log(e);
 			throw e;
 		}
 		if (anzahlSpieler == 2) {
 			if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
-				AbaloneException e = new AbaloneException(11,"Das Spieler Array ist bereits voll!");
+				SpielException e = new SpielException(11,"Das Spieler Array ist bereits voll!");
 				log(e);
 				throw e;
 			}
 			for(Spieler spieler: spielerImSpiel) {
 				if(spieler != null && spieler.getName().equals(name)) {
-					AbaloneException e = new AbaloneException(13,"Spielernamen muessen unterschiedlich sein!");
+					SpielException e = new SpielException(17,"Spielernamen muessen unterschiedlich sein!");
 					log(e);
 					throw e;
 				}
@@ -113,7 +114,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
 				spielerImSpiel[1] = new Spieler(name, spielerFarbe);
 			} else {
-				AbaloneException e = new AbaloneException(10,"Unbekannte farbe :" + farbe);
+				SpielException e = new SpielException(10,"Unbekannte farbe :" + farbe);
 				log(e);
 				throw e;
 			}
@@ -122,13 +123,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			spielerImSpiel[0] = new Spieler(name, spielerFarbe);
 			this.spielerAmZug = spielerImSpiel[0];
 			FarbEnum KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KISchwer(this, KIFarbe);
+			spielerImSpiel[1] = new KI(KIFarbe);
 		} else if (anzahlSpieler == 0) {
 			FarbEnum KIFarbe = FarbEnum.WEISS;
-			spielerImSpiel[0] = new KIEinfach(KIFarbe);
+			spielerImSpiel[0] = new KI(KIFarbe);
 			this.spielerAmZug = spielerImSpiel[0];
 			KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KISchwer(this, KIFarbe);
+			spielerImSpiel[1] = new KI(KIFarbe);
 		}
 
 	}
@@ -140,11 +141,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public String getSpielerAmZug() {
-		if (this.spielerAmZug instanceof KI) {
-			return "C";
-		} else {
 			return spielerAmZug.getName();
-		}
 	}
 	
 	private Spieler getSpielerAmZugObj() {
@@ -176,7 +173,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		for (int i = 0; i < spielerArr.length; i++) {
 			if (spieler != null && !spielerArr[i].equals(spieler)) {
-				if (14 - this.zaehleKugelnMitFarbe(spieler.getFarbe()) >= 6)
+				if (14 - this.zaehleKugelnMitFarbe(spieler.getFarbe()) >= 7)
 					return true;
 			}
 		}
@@ -187,9 +184,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Diese Methode erstellt und beschreibt eine Datei und wird zum Speichern
 	 * eines Spielstandes als serialisierte Datei verwendet
 	 * @param Name, der zu speichernden Datei
-	 * @throws AbaloneException
+	 * @throws SpielException
 	 */
-	public void speichernSerialisiert(String dateiName) throws AbaloneException {
+	public void speichernSerialisiert(String dateiName) throws DateiNichtGefundenException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
 		
 		serial.oeffnen(dateiName);
@@ -200,8 +197,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			serial.schreiben(spielState);
 			serial.schliessen();
 		} catch (IOException e) {
+			DateiNichtGefundenException ex = new DateiNichtGefundenException(16, "Ungueltiger Dateiname!");
 			log(e);
-			throw new AbaloneException(16, "Ungueltiger Dateiname!");
+			throw ex;
 		}
 	}
 
@@ -209,9 +207,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Diese Methode oeffnet und liest eine Datei und wird zum Laden
 	 * eines - als serialisierte Datei - gespeicherten Spielstandes verwendet
 	 * @param Name, der zu lesenden Datei
-	 * @throws AbaloneException
+	 * @throws SpielException
 	 */
-	public void lesenSerialisiert(String dateiName) throws AbaloneException {
+	public void lesenSerialisiert(String dateiName) throws DateiNichtGefundenException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
 		
 		serial.oeffnen(dateiName);
@@ -222,11 +220,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			spielState = (Object[]) serial.lesen();
 			serial.schliessen();
 		} catch (IOException e) {
-			log(e);
-			throw new AbaloneException(13,"Datei nicht gefunden!");
+			DateiNichtGefundenException ex = new DateiNichtGefundenException(13,"Datei nicht gefunden!");
+			log(ex);
+			throw ex;
 		} catch (ClassNotFoundException e){
+			DateiNichtGefundenException ex = new DateiNichtGefundenException(15,"Die Datei scheint kaputt zu sein!");
 			log(e);
-			throw new AbaloneException(15,"Die Datei scheint kaputt zu sein!");
+			throw ex;
 		};
 		
 		this.spielerImSpiel = (Spieler[])spielState[0];
@@ -242,25 +242,19 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * CSV-Datei - in einen einzigen langen String ein
 	 * @return String, welcher den zu schreibenden CSV-Inhalt enthaelt
 	 * @param dateiName Name, der zu beschreibenden Datei
-	 * @throws AbaloneException 
+	 * @throws SpielException 
 	 */
-	public void speichernCSV(String dateiName) throws AbaloneException {
+	public void speichernCSV(String dateiName) throws SpielException {
 		PersistenzImplCSV pic = new PersistenzImplCSV();
-		String csv = "SPIEL: \n";
 		
-		for (Spieler spieler: spielerImSpiel) {
-			csv +=  spieler.schreibeCSV()+"\n";
-		}
-		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
-		
-		pic.oeffnen(dateiName);
+		pic.oeffnen(dateiName);	
 		
 		try {
-			pic.schreiben(csv);
+			pic.schreiben(this);
 			pic.schliessen();
 		} catch (IOException e) {
-			log(e);
-			throw new AbaloneException(16, "Ungueltiger Dateiname!");
+			DateiNichtGefundenException ex = new DateiNichtGefundenException(16, "Ungueltiger Dateiname!");
+			log(ex);
 		}
 	}
 	
@@ -268,10 +262,44 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Diese Methode oeffnet und liest eine CSV-Datei und wird zum Laden
 	 * eines - als CSV-Datei - gespeicherten Spielstandes verwendet
 	 * @param dateiName Name, der zu lesenden Datei
-	 * @throws AbaloneException
+	 * @throws SpielException
 	 */
-	public void lesenCSV(String dateiName) throws AbaloneException {
+	public void lesenCSV(String dateiName) throws SpielException {
 		
+	}
+	
+	/**
+	 * Delegiert einen Zug an die ziehe Methode und faengt ggf. Fehler fuer das Logging ab.
+	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1]
+	 *            = wohin gezogen wird.
+	 * @throws SpielbrettException Wird geworfen, falls ein aktueller zug für die Spielsituation ungueltig ist.
+	 */
+	@Override
+	public void ziehe(String[] zug) throws SpielException {
+		if(spielerAmZug instanceof KI)  {
+			ArrayList<Spielzug> moeglicheZuege = getAlleMoeglichenZuege(getFarbeAmZug());
+			String besterZug[] = {}; 
+			for(Spielzug simulationszug : moeglicheZuege) {
+				Spielbrett brettNachZug = getSpielbrett().clone();
+				try {
+					brettNachZug.ziehe(spielzugSplitter(simulationszug));
+				} catch (SpielbrettException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				besterZug = ((KI)spielerAmZug).getBesterZug();
+			}
+			zug = besterZug;
+		}
+		try{
+			ziehen(zug);
+		}catch(UngueltigerZugException e) {
+			log(e);
+			throw new SpielException(0,"UngueltigerZug!");
+		}catch(SpielbrettException e) {
+			log(e);
+			throw new SpielException(1,"Irgendwas ist schief gelaufen!");
+		}
 	}
 	
 	/**
@@ -280,32 +308,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * 
 	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1]
 	 *            = wohin gezogen wird.
-	 * @throws AbaloneException 
+	 * @throws SpielException 
 	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException wenn
 	 *                                     zugValidieren false zurueck gibt oder ein
 	 *                                     Array Eintrag NULL ist.
 	 * @since 1.0
 	 */
-	@Override
-	public void ziehe(String[] zug) throws AbaloneException {
-		if(spielerAmZug instanceof KISchwer)  {
-			zug = ((KISchwer)getSpielerAmZugObj()).getBesterZug(this);
-		}
-		if(spielerAmZug instanceof KIEinfach) {
-			zug = ((KIEinfach)getSpielerAmZugObj()).randomZiehen(this);
-		}
-		try{
-			ziehen(zug);
-		}catch(UngueltigerZugException e) {
-			log(e);
-			throw new AbaloneException(0,"UngueltigerZug!");
-		}catch(SpielbrettException e) {
-			log(e);
-			throw new AbaloneException(1,"Irgendwas ist schief gelaufen!");
-		}
-	}
-	
-	public void ziehen(String[] zug) throws SpielbrettException, UngueltigerZugException {
+	private void ziehen(String[] zug) throws SpielbrettException, UngueltigerZugException {
 		if (koordinatenValidieren(spielzugParser(zug))) {
 			Spielzug spielzug = new Spielzug(zug[0], zug[1]);
 			if (spielzug.getNach() == null) {
@@ -1201,7 +1210,15 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public String getAlleZuege() {
-		return "";
+		StringBuilder sb = new StringBuilder();
+		ArrayList<Spielzug> alleZuege = getAlleMoeglichenZuege(this.getSpielerAmZugObj().getFarbe());
+		for(Spielzug zug : alleZuege) {
+			sb.append(zug.getVon() + "-" + zug.getNach());
+			sb.append("\n");
+		}
+		
+		return sb.toString();
+		
 	}
 
 	/**
@@ -1225,18 +1242,18 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Anpassung der getErlaubte-Methode fuer das Interface
 	 * 
 	 * @return erlaubteZuege Als String implementiert
-	 * @throws AbaloneException 
+	 * @throws SpielException 
 	 * 
 	 */
 	@Override
-	public String getErlaubteZuegeInterface(String[] ausgangsfelder) throws AbaloneException {
+	public String getErlaubteZuegeInterface(String[] ausgangsfelder) throws SpielException {
 		String zuegeString = "";
 		String[] felder = null;
 		try {
 			felder=getErlaubteZuege(ausgangsfelder);
 		}catch(UngueltigerZugException e) {
 			log(e);
-			throw new AbaloneException(1,"Ungueltiger Zug!");
+			throw new SpielException(1,"Ungueltiger Zug!");
 		}
 		for(String s : felder) {
 			zuegeString += s + ",";
@@ -1275,26 +1292,27 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return moeglicheAusgangsfelder;
 	}
 
-	public ArrayList<Spielzug> getAlleMoeglichenZuege(Spieler spieler) throws AbaloneException {
+	public ArrayList<Spielzug> getAlleMoeglichenZuege(FarbEnum farbe) {
 
 		ArrayList<Spielzug> alleMoeglichenZuege = new ArrayList <Spielzug>();
-		ArrayList<String> moeglicheAusgangsFelder = getMoeglicheAusgangsfelder(spieler.getFarbe());
+		ArrayList<String> moeglicheAusgangsFelder = getMoeglicheAusgangsfelder(farbe);
 
 		for (String ausgangsFelder : moeglicheAusgangsFelder) {
 			String[] ausgangsFelderFormat = {ausgangsFelder, null};
 			String[] erlaubteZuege = null;
 			try {
 				erlaubteZuege = getErlaubteZuege(ausgangsFelderFormat);
+			} catch (UngueltigerZugException e) {
+
+				e.printStackTrace();
 			}
-			catch(UngueltigerZugException e) {
-				log(e);
-				throw new AbaloneException(1,"Ungueltiger Zug!");
-			}
+
 			for (String erlaubterZug : erlaubteZuege) {
 				String[] erlaubterZugSplit = erlaubterZug.split("-");
 				Spielzug zug = new Spielzug(erlaubterZugSplit[0], erlaubterZugSplit[1]);
 				zug.setRichtung(bekommeRichtung(zug));
-				zug.setFarbe(spieler.getFarbe());
+				zug.setFarbe(farbe);
+				zug = formatiereSpielzug(zug);
 				if (!alleMoeglichenZuege.contains(zug)) {
 					alleMoeglichenZuege.add(zug);
 				}
@@ -1303,7 +1321,54 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		return alleMoeglichenZuege;
 	}
+
 	
+	private Spielzug formatiereSpielzug(Spielzug zug) {
+		if(zug == null || zug.getVon().length() < 4) {
+			return zug;
+		}
+		int richtung = zug.getRichtung();
+		String von = zug.getVon();
+		String formatiert = "";
+
+		if(von.charAt(1) == von.charAt(3) && von.charAt(0) > von.charAt(2)  ) {
+			formatiert = von.substring(2,4) + von.substring(0,2);	
+		}
+		else if(von.charAt(1) > von.charAt(3))	{
+			formatiert = von.substring(2,4) + von.substring(0,2);	
+		}
+		else {
+			formatiert = von;
+		}		
+
+		return new Spielzug(formatiert, 
+				spielBrett.getNachbarByIdInRichtung(formatiert.substring(0,2), richtung), 
+				richtung, zug.getFarbe());
+		
+	}
+
+	/**
+	 * Diese Methode fasst alle notwendigen Informationen - zum Speichern als
+	 * CSV-Datei - in einen einzigen langen String ein
+	 * @return String, welcher den zu schreibenden CSV-Inhalt enthaelt
+	 */
+	public String schreibeCSV() {
+		String csv = "SPIEL:\n";
+				
+		for (Spieler spieler: spielerImSpiel) {
+			csv +=  spieler.schreibeCSV()+"\n";
+		}
+		
+		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
+		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
+		
+		return csv;
+	}
+	
+	/**
+	 * Schreibt eine Exception in mit Datum & Uhrzeit in die log.txt
+	 * @param e - Die zu loggende Exception
+	 */
 	private void log(Exception e ) {
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
@@ -1321,12 +1386,36 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 	}
 	
+	/**
+	 * Falls das Programm bei der letzten Ausfuehrung nicht korrekt beendet wurde, wird dies von dieser Methode notiert.
+	 * Außerdem scheibt diese Methode die Nachrit, wann das Spiel gestartet wurde in die Logdatei.
+	 */
 	private void initLog() {
+		File file = new File("log.txt");
+		Scanner sc = null; 
 		try {
-			File file = new File("log.txt");
+			sc = new Scanner(file);
+		} catch (FileNotFoundException e1) {
+		}
+		try {
 			logger = new BufferedWriter(new FileWriter(file,true));
 		}catch(FileNotFoundException e) {
 		}catch(IOException e) {
+		}
+		if(sc != null) {
+			String scanned = "";
+			while(sc.hasNext()) {
+				scanned = sc.nextLine();
+			}
+			if(scanned.length() < 18 || !scanned.substring(0,18).equals("---------- Beendet")) {
+				try {
+					logger.newLine();
+					logger.write("---------- Das Spiel wurde nicht Ordungsgemaeß beendet! ----------");
+					logger.newLine();
+					logger.flush();
+				} catch (IOException e) {
+				}
+			}
 		}
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
@@ -1342,14 +1431,16 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 	}
 	
+	/**
+	 * Wird aufgerufen, wenn das Spiel korrekt beendet wird.
+	 * Schreibt Datum und Uhrzeit des Beendens in die log.txt
+	 */
 	private void endLog() {
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
 		try {
 			logger.newLine();
 			logger.write("---------- Beendet am " + dateFormat.format(date) + " ----------");
-			logger.newLine();
-			logger.newLine();
 			logger.flush();
 			logger.close();
 		}catch(FileNotFoundException fehler) {
@@ -1360,7 +1451,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	
 	
 	
-	Spielbrett getSpielbrett() {
+	private Spielbrett getSpielbrett() {
 		return this.spielBrett;
 	}
 	
