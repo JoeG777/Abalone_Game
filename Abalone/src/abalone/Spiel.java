@@ -320,8 +320,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				try {
 					brettNachZug.ziehe(spielzugSplitter(simulationszug));
 				} catch (SpielbrettException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					log(e);
 				}
 				int zugScore = ((KI)spielerAmZug).calcStaerkeDesBretts(brettNachZug);
 				if(zugScore > max) {

@@ -50,7 +50,7 @@ public class Spieler implements java.io.Serializable {
 	 * Setzt das Attribut Name 
 	 * @param name selbstgewaehlter Name
 	 */
-	private void setName(String name) {
+	protected void setName(String name) {
 		this.name = name;
 	}
 	

@@ -225,7 +225,8 @@ public class UI implements java.io.Serializable {
 		String gewinner = "";
 		String verlierer = "";
 		boolean imSpiel = true;
-		boolean kiLoop = true;
+		boolean ki1Loop = true;
+		boolean ki2Loop = true;
 		while (imSpiel) {
 			System.out.println();
 			System.out.println("Geben Sie 'Menu' ein falls Sie ins Hauptmenu wollen"
@@ -233,17 +234,25 @@ public class UI implements java.io.Serializable {
 			System.out.println();
 			System.out.println(spiel.getStatus());
 			if (spiel.getSpielerAmZug().substring(0,2).equals("KI")) {
-				if(kiLoop && 'D' == spiel.getSpielerAmZug().charAt(spiel.getSpielerAmZug().length()-1)) {
+				boolean kiLoop = true;
+				if(spiel.getSpielerAmZug().charAt(3) == '1') kiLoop = ki1Loop;
+				if(spiel.getSpielerAmZug().charAt(3) == '2') kiLoop = ki2Loop;
+				String[] zug = {""};
+				if(spiel.getSpielerAmZug().length() != 4 &&
+						"(durchziehend)".equals(spiel.getSpielerAmZug().substring(4, 18))) {
+					kiLoop = false;
+				}
+				if(kiLoop) {
 					System.out.println("ENTER DRÜCKEN------menu EINGEBEN FUER DAS MENUE");
 					String eingabe = sc.nextLine();
-					if("BIS ZUM ENDE".equals(eingabe)) kiLoop = false;
+					if("BIS ZUM ENDE".equals(eingabe)) {
+						kiLoop = false;
+						zug[0] = "DURCHZIEHEN";
+					}
 					if("menu".equals(eingabe))  menue(spiel);
 				}
-				String[] zug = {};
-				
-				if(!kiLoop) {
-					zug[0] = "DURCHZIEHEN";
-				}
+				if(spiel.getSpielerAmZug().charAt(3) == '1') ki1Loop = kiLoop;
+				if(spiel.getSpielerAmZug().charAt(3) == '2') ki2Loop = kiLoop;
 				
 				try {
 					spiel.ziehe(zug);
