@@ -225,6 +225,7 @@ public class UI implements java.io.Serializable {
 		String gewinner = "";
 		String verlierer = "";
 		boolean imSpiel = true;
+		boolean kiLoop = true;
 		while (imSpiel) {
 			System.out.println();
 			System.out.println("Geben Sie 'Menu' ein falls Sie ins Hauptmenu wollen"
@@ -232,8 +233,11 @@ public class UI implements java.io.Serializable {
 			System.out.println();
 			System.out.println(spiel.getStatus());
 			if (spiel.getSpielerAmZug().substring(0,2).equals("KI")) {
-				System.out.print("ENTER DRÜCKEN");
-				String eingabe = sc.nextLine();
+				if(kiLoop) {
+					System.out.print("ENTER DRÜCKEN");
+					String eingabe = sc.nextLine();
+					if("BIS ZUM ENDE".equals(eingabe)) kiLoop = false;
+				}
 				String[] zug = {};
 				try {
 					spiel.ziehe(zug);
