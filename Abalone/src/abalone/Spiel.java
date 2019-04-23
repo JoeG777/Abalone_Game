@@ -290,6 +290,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	
 	/**
 	 * Delegiert einen Zug an die ziehe Methode und faengt ggf. Fehler fuer das Logging ab.
+	 * Falls der aktuelle Spieler eine KI ist, wird der passende Zug ermittelt und
+	 * uebergeben.
 	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1]
 	 *            = wohin gezogen wird.
 	 * @throws SpielbrettException Wird geworfen, falls ein aktueller zug für die Spielsituation ungueltig ist.
@@ -1289,7 +1291,17 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 		return zuegeString;
 	}
-
+	
+	/**
+	 * Ermittelt fuer die uebergebene Farbe alle moeglichen 
+	 * Ausgangsfeldkombinationen in der Notation von links
+	 * nach rechts.  
+	 * @param farbe die Farbe, deren Ausgangsfeldkombinationen
+	 * gefunden werden sollen.
+	 * @return eine ArrayList aus Strings, die alle moeglichen
+	 * Ausgangsfeldkombinationen enthält.
+	 * 
+	 */
 	public ArrayList<String> getMoeglicheAusgangsfelder(FarbEnum farbe) {
 		ArrayList<String> moeglicheAusgangsfelder = new ArrayList<String>();
 		ArrayList<String> felderInFarbe = spielBrett.getFelderMitFarbe(farbe);
@@ -1319,7 +1331,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 		return moeglicheAusgangsfelder;
 	}
-
+	
+	/**
+	 * Ermittelt fuer die uebergebene Farbe alle moeglichen Zuege.
+	 * @param farbe die Farbe, deren moegliche Zuege gefunden werden sollen.
+	 * @return eine ArrayList aus Spielzuegen mit allen moeglichen 
+	 * Spielzuegen der uebergebenen Farbe.
+	 */
 	public ArrayList<Spielzug> getAlleMoeglichenZuege(FarbEnum farbe) {
 
 		ArrayList<Spielzug> alleMoeglichenZuege = new ArrayList <Spielzug>();
@@ -1350,7 +1368,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return alleMoeglichenZuege;
 	}
 
-	
+	/**
+	 * Formatiert einen Spielzug so, dass die
+	 * Ausgangsfelder von links nach rechts angeordnet sind
+	 * und berichtigt die Notation.
+	 * @param zug der zu formatierende Spielzug
+	 * @return der formatierte Spielzug
+	 */
 	private Spielzug formatiereSpielzug(Spielzug zug) {
 		if(zug == null || zug.getVon().length() < 4) {
 			return zug;
