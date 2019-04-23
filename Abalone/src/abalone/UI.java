@@ -451,7 +451,8 @@ public class UI implements java.io.Serializable {
 		while(a) {
 			System.out.println("\nBitte geben Sie ein, wie Sie die Datei speichern möchten.");
 			System.out.println("(1) Serialisierte Datei");
-			System.out.print("(2) CSV-Datei\n> ");
+			System.out.println("(2) CSV-Datei");
+			System.out.print("(3) Zurueck zum Menu\n> ");
 			String eingabe = sc.nextLine();
 			
 			if (eingabe.equals("1")) {
@@ -459,12 +460,16 @@ public class UI implements java.io.Serializable {
 				
 				while(b) {
 					try {
-						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n>");
+						System.out.println("\nBitte geben Sie einen gueltigen Dateinamen ein.");
+						System.out.println("Zum Abbrechen 'abbruch' eingeben.\\n>");
 						String dateiName = sc.nextLine();
+						if (dateiName.equalsIgnoreCase("abbruch"));
+							hauptMenue(spiel);
+						
 						spiel.speichernSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
 						b = false;
-					} catch(SpielException e) {
+					} catch (SpielException e) {
 						System.out.println(e.getMessage());
 					}
 				}
@@ -473,8 +478,12 @@ public class UI implements java.io.Serializable {
 				
 				while(b) {
 					try {
-						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n>");
+						System.out.println("\nBitte geben Sie einen gueltigen Dateinamen ein.");
+						System.out.println("Zum Abbrechen 'abbruch' eingeben.\\n>");
 						String dateiName = sc.nextLine();
+						if (dateiName.equalsIgnoreCase("abbruch"));
+							hauptMenue(spiel);
+						
 						spiel.speichernCSV(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
 						b = false;
@@ -482,6 +491,8 @@ public class UI implements java.io.Serializable {
 						System.out.println(e.getMessage());
 					}
 				}
+			} else if (eingabe.equals("3")) {
+				hauptMenue(spiel);
 			} else {
 				System.out.println("Ihre Eingabe ist fehlerhaft.");
 			}
@@ -502,18 +513,21 @@ public class UI implements java.io.Serializable {
 		while(a) {
 			System.out.println("\nBitte geben Sie ein, was für eine Datei sie laden wollen.");
 			System.out.println("(1) Serialisierte Datei");
-			System.out.print("(2) CSV-Datei\n> ");
+			System.out.println("(2) CSV-Datei");
+			System.out.print("(3) Zurueck zum Menu\n> ");
 			String eingabe = sc.nextLine();
 			
-			if(eingabe.equals("1")) {
+			if (eingabe.equals("1")) {
 				a = false;
 				
 				while(b) {
 					try {
-						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\nGeben Sie menu ein, um in das Hauptmenue zu kommen.\n> ");
+						System.out.println("\nBitte geben Sie einen gueltigen Dateinamen ein.");
+						System.out.println("Zum Abbrechen 'abbruch' eingeben.\\n>");
 						String dateiName = sc.nextLine();
-						if("menu".equals(dateiName))
+						if (dateiName.equalsIgnoreCase("abbruch"))
 							hauptMenue(spiel);
+						
 						spiel.lesenSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich geladen.");
 						b = false;
@@ -521,15 +535,17 @@ public class UI implements java.io.Serializable {
 						System.out.println(e.getMessage());
 					}
 				}
-			} else if(eingabe.equals("2")) {
+			} else if (eingabe.equals("2")) {
 				a = false;
 				
 				while(b) {
 					try {
-						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\nGeben Sie menu ein, um in das Hauptmenue zu kommen.\n> ");
+						System.out.println("\nBitte geben Sie einen gueltigen Dateinamen ein.");
+						System.out.println("Zum Abbrechen 'abbruch' eingeben.\\n>");
 						String dateiName = sc.nextLine();
-						if("menu".equals(dateiName))
+						if (dateiName.equalsIgnoreCase("abbruch"))
 							hauptMenue(spiel);
+						
 						spiel.lesenSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich geladen.");
 						b = false;
@@ -537,6 +553,8 @@ public class UI implements java.io.Serializable {
 						System.out.println(e.getMessage());
 					}
 				}
+			} else if (eingabe.equals("3")) {
+				hauptMenue(spiel);
 			} else {
 				System.out.println("Ihre Eingabe ist fehlerhaft.");
 			}
