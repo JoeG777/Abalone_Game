@@ -289,8 +289,9 @@ public class UI implements java.io.Serializable {
 	 * @param spiel Das erstellte Spiel Objekt.
 	 * @throws IOException
 	 * @throws FileNotFoundException 
+	 * @throws ClassNotFoundException 
 	 */
-	public static void menue(bedienerInterface spiel) throws FileNotFoundException, IOException {
+	public static void menue(bedienerInterface spiel) throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean inSchleifeBleiben = true;
 
 		while (inSchleifeBleiben) {
@@ -439,8 +440,11 @@ public class UI implements java.io.Serializable {
 	/**
 	 * Diese Methode dient zum Abspeichern eines Spielstandes.
 	 * @param spiel
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 */
-	public static void speichern(bedienerInterface spiel) {
+	public static void speichern(bedienerInterface spiel) throws FileNotFoundException, ClassNotFoundException, IOException {
 		boolean a = true;
 		boolean b = true;
 		
@@ -455,7 +459,7 @@ public class UI implements java.io.Serializable {
 				
 				while(b) {
 					try {
-						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n> ");
+						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n>");
 						String dateiName = sc.nextLine();
 						spiel.speichernSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
@@ -469,7 +473,7 @@ public class UI implements java.io.Serializable {
 				
 				while(b) {
 					try {
-						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n> ");
+						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n>");
 						String dateiName = sc.nextLine();
 						spiel.speichernCSV(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
@@ -487,8 +491,11 @@ public class UI implements java.io.Serializable {
 	/**
 	 * Diese Methode dient zum Laden eines bereits gespeicherten Spielstandes.
 	 * @param spiel
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 */
-	public static void laden(bedienerInterface spiel) {
+	public static void laden(bedienerInterface spiel) throws FileNotFoundException, ClassNotFoundException, IOException {
 		boolean a = true;
 		boolean b = true;
 		
@@ -503,8 +510,10 @@ public class UI implements java.io.Serializable {
 				
 				while(b) {
 					try {
-						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n> ");
+						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\nGeben Sie menu ein, um in das Hauptmenue zu kommen.\n> ");
 						String dateiName = sc.nextLine();
+						if("menu".equals(dateiName))
+							hauptMenue(spiel);
 						spiel.lesenSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich geladen.");
 						b = false;
@@ -517,8 +526,10 @@ public class UI implements java.io.Serializable {
 				
 				while(b) {
 					try {
-						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\n> ");
+						System.out.print("\nBitte geben Sie einen gueltigen Dateinamen ein.\nGeben Sie menu ein, um in das Hauptmenue zu kommen.\n> ");
 						String dateiName = sc.nextLine();
+						if("menu".equals(dateiName))
+							hauptMenue(spiel);
 						spiel.lesenSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich geladen.");
 						b = false;
