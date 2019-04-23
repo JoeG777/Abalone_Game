@@ -5,44 +5,41 @@ import org.junit.Test;
 
 import abalone.FarbEnum;
 import abalone.spielbrett.Spielbrett;
-import abalone.spielbrett.Spielfeld;
-import abalone.spielbrett.Spielfeld.Spielfigur;
+import abalone.spielbrett.SpielfeldException;
 
 public class SpielfigurTest {
 	static Spielbrett spielbrett;
-	static Spielfeld feld;
-	static Spielfigur testFigur;
-	static Spielfeld feld2;
-	static Spielfigur testFigur2;
+	static String feld;
+//	static Spielfigur testFigur;
+	static String feld2;
+//	static Spielfigur testFigur2;
 
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws SpielfeldException {
 		spielbrett = new Spielbrett();
 		feld = spielbrett.getFeld("C4");
-		testFigur = feld.getFigur();
+//		testFigur = feld.getFigur();
 		feld2 = spielbrett.getFeld("G5");
-		testFigur2 = feld2.getFigur();
+//		testFigur2 = feld2.getFigur();
 	}
 	
 	@Test
 	public void testGetfarbe() {
-		assertEquals(FarbEnum.SCHWARZ, testFigur.getFarbe());
+		assertEquals(FarbEnum.SCHWARZ, spielbrett.getFarbeDerFigurById(feld));
 	}
 	
 	@Test
 	public void testSpielfigur() {
-		Spielfigur figur = feld.new Spielfigur(feld, "SCHWARZ");
-		FarbEnum farbe = FarbEnum.SCHWARZ;
+		spielbrett.getFeldById(feld).setAndInit("SCHWARZ");
 		
-		assertEquals(farbe, figur.getFarbe());
+		assertEquals(FarbEnum.SCHWARZ, spielbrett.getFarbeDerFigurById(feld));
 	}
 	
 	@Test
 	public void testSpielfigur1() {
-		Spielfigur figur = feld.new Spielfigur(feld, FarbEnum.SCHWARZ);
-		FarbEnum farbe = FarbEnum.SCHWARZ;
+		spielbrett.getFeldById(feld).setAndInitFigur(FarbEnum.SCHWARZ);
 		
-		assertEquals(farbe, figur.getFarbe());
+		assertEquals(FarbEnum.SCHWARZ,spielbrett.getFarbeDerFigurById(feld));
 		
 	}
 	

@@ -12,23 +12,24 @@ import org.junit.Test;
 import abalone.FarbEnum;
 import abalone.Spielzug;
 import abalone.spielbrett.Spielbrett;
-import abalone.spielbrett.Spielfeld;
+import abalone.spielbrett.SpielbrettException;
+import abalone.spielbrett.SpielfeldException;
 
 public class SpielbrettTest {
 
 	static Spielbrett spielbrett;
 
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws SpielfeldException {
 		spielbrett = new Spielbrett();
 	}
 
 
 	@Test
 	public void testGetFelderMitFarbe() {
-		ArrayList<Spielfeld> felderMitFarbe = spielbrett.getFelderMitFarbe(FarbEnum.WEISS);
+		ArrayList<String> felderMitFarbe = spielbrett.getFelderMitFarbe(FarbEnum.WEISS);
 
-		ArrayList<Spielfeld> gemeinteFelder = new ArrayList<Spielfeld>();
+		ArrayList<String> gemeinteFelder = new ArrayList<String>();
 		String[] idSpielfelder = {"I5", "I6", "I7", "I8", "I9", "G5", "G6", "G7", 
 				"H4", "H5", "H6", "H7", "H8", "H9", };
 		
@@ -40,7 +41,7 @@ public class SpielbrettTest {
 	}
 	
 	@Test
-	public void testGetFelderMitFarbe1() {
+	public void testGetFelderMitFarbe1() throws SpielbrettException {
 		Spielzug zug = new Spielzug("C3", "D4");
 		Spielzug zug1 = new Spielzug("A1", "G9");
 		Spielzug zug2 = new Spielzug("B3", null);
@@ -48,8 +49,8 @@ public class SpielbrettTest {
 		Spielzug[] zuege =  {zug, zug1, zug2};
 		spielbrett.ziehe(zuege);
 		
-		ArrayList<Spielfeld> felderMitFarbe = spielbrett.getFelderMitFarbe((FarbEnum.SCHWARZ));
-		ArrayList<Spielfeld> gemeinteFelder = new ArrayList<Spielfeld>();
+		ArrayList<String> felderMitFarbe = spielbrett.getFelderMitFarbe((FarbEnum.SCHWARZ));
+		ArrayList<String> gemeinteFelder = new ArrayList<String>();
 		
 		String[] idSpielfelder = {"A2", "A3", "A4", "A5", "B1", "B2", "B4", "B5", "B6", "C4", "C5", "G9", "D4"};
 
@@ -60,22 +61,17 @@ public class SpielbrettTest {
 
 
 	}
-	@Test
-	public void testGetFeld() {
-		Spielfeld i9 = spielbrett.getBrett().get("I9");
-		assertEquals(i9, spielbrett.getFeld("I9"));
-	}
 	
 	@Test
 	public void testGetAusgangsfelder() {
 		Spielzug zug = new Spielzug ("C3C5", "C4");
-		Spielfeld[] ausgangsfelder = spielbrett.getAusgangsfelder(zug);
+		String[] ausgangsfelder = spielbrett.getAusgangsfelder(zug);
 		
-		Spielfeld c3 = spielbrett.getFeld("C3");
-		Spielfeld c4 = spielbrett.getFeld("C4");
-		Spielfeld c5 = spielbrett.getFeld("C5");
+		String c3 = spielbrett.getFeld("C3");
+		String c4 = spielbrett.getFeld("C4");
+		String c5 = spielbrett.getFeld("C5");
 		
-		Spielfeld[] gemeinteFelder = {c3,c4,c5};
+		String[] gemeinteFelder = {c3,c4,c5};
 		
 		assertArrayEquals(gemeinteFelder, ausgangsfelder);
 	}
@@ -83,39 +79,16 @@ public class SpielbrettTest {
 	@Test
 	public void testGetAusgangsfelder1() {
 		Spielzug zug = new Spielzug ("F2E1", "G1");
-		Spielfeld[] ausgangsfelder = spielbrett.getAusgangsfelder(zug);
+		String[] ausgangsfelder = spielbrett.getAusgangsfelder(zug);
 		
-		Spielfeld e1 = spielbrett.getFeld("E1");
-		Spielfeld f2 = spielbrett.getFeld("F2");
+		String e1 = spielbrett.getFeld("E1");
+		String f2 = spielbrett.getFeld("F2");
 		
-		Spielfeld[] gemeinteFelder = {f2,e1};
+		String[] gemeinteFelder = {f2,e1};
 		
 		assertArrayEquals(gemeinteFelder, ausgangsfelder);
 	}
 	
-	@Test
-	public void testZiehe() {
-		Spielbrett testBrett = new Spielbrett();
-		Spielzug zug1 = new Spielzug("C3", "D3");
-		Spielzug zug2 = new Spielzug("C4", "D4");
-		Spielzug zug3 = new Spielzug("C5", "D5");
-		Spielzug[] zuege = {zug1, zug2, zug3};
-		
-		Spielbrett echtesBrett = new Spielbrett();
-		echtesBrett.getFeld("D3").setFigur(echtesBrett.getFeld("C3").getFigur());
-		echtesBrett.getFeld("D4").setFigur(echtesBrett.getFeld("C4").getFigur());
-		echtesBrett.getFeld("D5").setFigur(echtesBrett.getFeld("C5").getFigur());
-		echtesBrett.getFeld("C3").setFigur(null);
-		echtesBrett.getFeld("C4").setFigur(null);
-		echtesBrett.getFeld("C5").setFigur(null);
-
-		testBrett.ziehe(zuege);
-		
-		String testBrettString = testBrett.toString();
-		String echtesBrettString = echtesBrett.toString();
-		
-		assertEquals(echtesBrettString, testBrettString);
-	}
 	
 	@Test
 	public void testZiehe1() {
@@ -162,7 +135,7 @@ public class SpielbrettTest {
 	}
 	
 	@Test
-	public void zieheFalscheEingabe() {
+	public void zieheFalscheEingabe() throws SpielbrettException {
 		Spielbrett testBrett = new Spielbrett();
 		Spielzug[] zuege = {null};
 		testBrett.ziehe(zuege);
@@ -175,7 +148,7 @@ public class SpielbrettTest {
 	}
 	
 	@Test
-	public void testeToString() {
+	public void testeToString() throws SpielbrettException {
 		Spielbrett testBrett = new Spielbrett();
 		String erwartet = "                    \n" +
 				 "I      O O O O O \n" + 

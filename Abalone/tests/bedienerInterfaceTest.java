@@ -3,15 +3,17 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import abalone.AbaloneException;
 import abalone.Spiel;
 import abalone.bedienerInterface;
+import abalone.spielbrett.SpielfeldException;
 
 public class bedienerInterfaceTest {
 
 	bedienerInterface bI;
 	
 	@Before
-	public void init() {
+	public void init() throws SpielfeldException, AbaloneException {
 		bI = new Spiel();
 //		Spieler s1 = new Spieler("Johannes", FarbEnum.WEISS);
 //		Spieler s2 = new Spieler("Jens", FarbEnum.SCHWARZ);
