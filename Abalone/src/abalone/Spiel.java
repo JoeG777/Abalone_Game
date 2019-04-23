@@ -1501,8 +1501,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 	}
 	
-	
-	
+	/**
+	 * Gibt das Spielbrett des Spiels zurueck.
+	 * @return das Spielbrett des Spiels.
+	 */
 	private Spielbrett getSpielbrett() {
 		return this.spielBrett;
 	}
