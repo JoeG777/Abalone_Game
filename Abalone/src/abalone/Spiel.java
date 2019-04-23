@@ -123,13 +123,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			spielerImSpiel[0] = new Spieler(name, spielerFarbe);
 			this.spielerAmZug = spielerImSpiel[0];
 			FarbEnum KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KISchwer(this, KIFarbe);
+			spielerImSpiel[1] = new KI(KIFarbe);
 		} else if (anzahlSpieler == 0) {
 			FarbEnum KIFarbe = FarbEnum.WEISS;
-			spielerImSpiel[0] = new KIEinfach(KIFarbe);
+			spielerImSpiel[0] = new KI(KIFarbe);
 			this.spielerAmZug = spielerImSpiel[0];
 			KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KISchwer(this, KIFarbe);
+			spielerImSpiel[1] = new KI(KIFarbe);
 		}
 
 	}
@@ -273,11 +273,20 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public void ziehe(String[] zug) throws SpielException {
-		if(spielerAmZug instanceof KISchwer)  {
-			zug = ((KISchwer)getSpielerAmZugObj()).getBesterZug(this);
-		}
-		if(spielerAmZug instanceof KIEinfach) {
-			zug = ((KIEinfach)getSpielerAmZugObj()).randomZiehen(this);
+		if(spielerAmZug instanceof KI)  {
+			ArrayList<Spielzug> moeglicheZuege = getAlleMoeglichenZuege(getFarbeAmZug());
+			String besterZug[] = {}; 
+			for(Spielzug simulationszug : moeglicheZuege) {
+				Spielbrett brettNachZug = getSpielbrett().clone();
+				try {
+					brettNachZug.ziehe(spielzugSplitter(simulationszug));
+				} catch (SpielbrettException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				besterZug = ((KI)spielerAmZug).getBesterZug();
+			}
+			zug = besterZug;
 		}
 		try{
 			ziehen(zug);
@@ -1437,7 +1446,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	
 	
 	
-	Spielbrett getSpielbrett() {
+	private Spielbrett getSpielbrett() {
 		return this.spielBrett;
 	}
 	
