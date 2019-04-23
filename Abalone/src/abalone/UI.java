@@ -234,9 +234,10 @@ public class UI implements java.io.Serializable {
 			System.out.println(spiel.getStatus());
 			if (spiel.getSpielerAmZug().substring(0,2).equals("KI")) {
 				if(kiLoop) {
-					System.out.print("ENTER DRÜCKEN");
+					System.out.println("ENTER DRÜCKEN------menu EINGEBEN FUER DAS MENUE");
 					String eingabe = sc.nextLine();
 					if("BIS ZUM ENDE".equals(eingabe)) kiLoop = false;
+					if("menu".equals(eingabe))  menue(spiel);
 				}
 				String[] zug = {};
 				try {
