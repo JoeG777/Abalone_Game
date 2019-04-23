@@ -254,11 +254,19 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	public void speichernCSV(String dateiName) throws DateiIOException {
 		PersistenzImplCSV pic = new PersistenzImplCSV();
+		String csv = "SPIEL:\n";
+		
+		for (Spieler spieler: spielerImSpiel) {
+			csv +=  spieler.schreibeCSV()+"\n";
+		}
+		
+		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
+		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
 		
 		pic.oeffnen(dateiName);
 		
 		try {
-			pic.schreiben(this);
+			pic.schreiben(csv);
 			pic.schliessen();
 		} catch (IOException e) {
 			DateiIOException ex = new DateiIOException(16, "Ungueltiger Dateiname!");
@@ -1400,24 +1408,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				spielBrett.getNachbarByIdInRichtung(formatiert.substring(0,2), richtung), 
 				richtung, zug.getFarbe());
 		
-	}
-
-	/**
-	 * Diese Methode fasst alle notwendigen Informationen - zum Speichern als
-	 * CSV-Datei - in einen einzigen langen String ein
-	 * @return String, welcher den zu schreibenden CSV-Inhalt enthaelt
-	 */
-	public String schreibeCSV() {
-		String csv = "SPIEL:\n";
-				
-		for (Spieler spieler: spielerImSpiel) {
-			csv +=  spieler.schreibeCSV()+"\n";
-		}
-		
-		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
-		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
-		
-		return csv;
 	}
 	
 	/**

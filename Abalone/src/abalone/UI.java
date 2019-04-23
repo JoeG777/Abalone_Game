@@ -466,10 +466,10 @@ public class UI implements java.io.Serializable {
 				while(b) {
 					try {
 						System.out.println("\nBitte geben Sie einen gueltigen Dateinamen ein.");
-						System.out.println("Zum Abbrechen 'abbruch' eingeben.\\n>");
+						System.out.print("Zum Abbrechen 'abbruch' eingeben.\n> ");
 						String dateiName = sc.nextLine();
-						if (dateiName.equalsIgnoreCase("abbruch"));
-							hauptMenue(spiel);
+						if (dateiName.equalsIgnoreCase("abbruch"))
+							menue(spiel);
 						
 						spiel.speichernSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
@@ -484,10 +484,10 @@ public class UI implements java.io.Serializable {
 				while(b) {
 					try {
 						System.out.println("\nBitte geben Sie einen gueltigen Dateinamen ein.");
-						System.out.println("Zum Abbrechen 'abbruch' eingeben.\\n>");
+						System.out.print("Zum Abbrechen 'abbruch' eingeben.\n> ");
 						String dateiName = sc.nextLine();
-						if (dateiName.equalsIgnoreCase("abbruch"));
-							hauptMenue(spiel);
+						if (dateiName.equalsIgnoreCase("abbruch"))
+							menue(spiel);
 						
 						spiel.speichernCSV(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
@@ -497,7 +497,7 @@ public class UI implements java.io.Serializable {
 					}
 				}
 			} else if (eingabe.equals("3")) {
-				hauptMenue(spiel);
+				menue(spiel);
 			} else {
 				System.out.println("Ihre Eingabe ist fehlerhaft.");
 			}
@@ -528,7 +528,7 @@ public class UI implements java.io.Serializable {
 				while(b) {
 					try {
 						System.out.println("\nBitte geben Sie einen gueltigen Dateinamen ein.");
-						System.out.println("Zum Abbrechen 'abbruch' eingeben.\\n>");
+						System.out.print("Zum Abbrechen 'abbruch' eingeben.\n> ");
 						String dateiName = sc.nextLine();
 						if (dateiName.equalsIgnoreCase("abbruch"))
 							hauptMenue(spiel);
@@ -546,7 +546,7 @@ public class UI implements java.io.Serializable {
 				while(b) {
 					try {
 						System.out.println("\nBitte geben Sie einen gueltigen Dateinamen ein.");
-						System.out.println("Zum Abbrechen 'abbruch' eingeben.\\n>");
+						System.out.print("Zum Abbrechen 'abbruch' eingeben.\n> ");
 						String dateiName = sc.nextLine();
 						if (dateiName.equalsIgnoreCase("abbruch"))
 							hauptMenue(spiel);
