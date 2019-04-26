@@ -116,7 +116,7 @@ public class Historie implements java.io.Serializable {
 	 */
 	public String schreibeCSV() {
 		String csv = "HISTORIE:";
-		for(String zug: zuege) {
+		for (String zug: zuege) {
 			csv += zug + ",";
 		}
 		return csv;
@@ -128,7 +128,12 @@ public class Historie implements java.io.Serializable {
 	 * @param csv String, welcher die zu ladende Historie enthaelt
 	 */
 	public void ladeCSV(String csv) {
+		String[] array = csv.split(":");
+		String[] zuegeArray = array[1].split(",");
 		
+		for (String zug : zuegeArray) {
+			zuege.add(zug);
+		}
 	}
 	
 	
