@@ -59,31 +59,33 @@ public class UI implements java.io.Serializable {
 	}
 	
 	public static void addWeiss(bedienerInterface spiel, int anzahl){
-		System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
+		System.out.println("\nGeben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 		System.out.print("> ");
 		String name = sc.nextLine();
 		try {
 			spiel.addSpieler(name, "weiss",anzahl);
 		} catch (SpielException e) {
-			if(e.getId() == 14) System.out.println("Ungueltige Laenge!");
-			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
-			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
+			if(e.getId() == 14) System.out.println("Ungueltige Laenge!\n");
+			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!\n");
+			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!\n");
+			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen außer _ enthalten!\n");
 			addWeiss(spiel, anzahl);
 		}
 		System.out.println("Spieler angelegt.");
 	}
 	
 	public static void addSchwarz(bedienerInterface spiel, int anzahl) {
-		System.out.println("Geben Sie den Namen fuer den Spieler mit der Farbe Schwarz ein:");
+		System.out.println("\nGeben Sie den Namen fuer den Spieler mit der Farbe Schwarz ein:");
 		System.out.print("> ");
 		String name = sc.nextLine();
 
 		try {
 			spiel.addSpieler(name, "schwarz",anzahl);
 		} catch (SpielException e) {
-			if(e.getId() == 14) System.out.println("Ungueltige Laenge!");
-			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
-			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
+			if(e.getId() == 14) System.out.println("Ungueltige Laenge!\n");
+			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!\n");
+			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!\n");
+			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen außer _ enthalten!\n");
 			addSchwarz(spiel, anzahl);
 		}
 	}
@@ -466,7 +468,7 @@ public class UI implements java.io.Serializable {
 			System.out.println("\nBitte geben Sie ein, wie Sie die Datei speichern möchten.");
 			System.out.println("(1) Serialisierte Datei");
 			System.out.println("(2) CSV-Datei");
-			System.out.print("(3) Zurueck zum Menu\n> ");
+			System.out.print("(3) Zurueck zum Menue\n> ");
 			String eingabe = sc.nextLine();
 			
 			if (eingabe.equals("1")) {
@@ -528,7 +530,7 @@ public class UI implements java.io.Serializable {
 			System.out.println("\nBitte geben Sie ein, was für eine Datei sie laden wollen.");
 			System.out.println("(1) Serialisierte Datei");
 			System.out.println("(2) CSV-Datei");
-			System.out.print("(3) Zurueck zum Menu\n> ");
+			System.out.print("(3) Zurueck zum Menue\n> ");
 			String eingabe = sc.nextLine();
 			
 			if (eingabe.equals("1")) {

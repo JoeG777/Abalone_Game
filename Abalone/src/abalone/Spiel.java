@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import abalone.spielbrett.Spielbrett;
 import abalone.spielbrett.SpielbrettException;
@@ -94,6 +95,14 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			log(e);
 			throw e;
 		}
+		
+		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
+		if (regex.matcher(name).find()) {
+			SpielException e = new SpielException(18, "Spielername darf keine Sonderzeichen auﬂer _ enthalten!");
+			log(e);
+			throw e;
+		}
+			
 		if (anzahlSpieler == 2) {
 			if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
 				SpielException e = new SpielException(11,"Das Spieler Array ist bereits voll!");
