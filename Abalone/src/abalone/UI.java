@@ -68,7 +68,7 @@ public class UI implements java.io.Serializable {
 			if(e.getId() == 14) System.out.println("Ungueltige Laenge!\n");
 			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!\n");
 			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!\n");
-			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen außer _ enthalten!\n");
+			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen ausser _ enthalten!\n");
 			addWeiss(spiel, anzahl);
 		}
 		System.out.println("Spieler angelegt.");
@@ -85,7 +85,7 @@ public class UI implements java.io.Serializable {
 			if(e.getId() == 14) System.out.println("Ungueltige Laenge!\n");
 			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!\n");
 			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!\n");
-			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen außer _ enthalten!\n");
+			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen ausser _ enthalten!\n");
 			addSchwarz(spiel, anzahl);
 		}
 	}
@@ -115,7 +115,7 @@ public class UI implements java.io.Serializable {
 
 		while (imSpiel) {
 
-		System.out.println("Bitte waehlen Sie welches Spiel Sie starten wollen!");
+		System.out.println("\nBitte waehlen Sie welches Spiel Sie starten wollen!");
 		System.out.println();
 		System.out.print("(1) 2 Spieler \n(2) 1 Spieler + 1 KI \n(3) 2 KIs \n(4) Spiel laden\n\n> ");
 		String eingabe = sc.nextLine();
@@ -541,8 +541,15 @@ public class UI implements java.io.Serializable {
 						System.out.println("\nBitte geben Sie einen gueltigen Dateinamen ein.");
 						System.out.print("Zum Abbrechen 'abbruch' eingeben.\n> ");
 						String dateiName = sc.nextLine();
-						if (dateiName.equalsIgnoreCase("abbruch"))
-							hauptMenue(spiel);
+						
+						if (dateiName.equalsIgnoreCase("abbruch")) {
+							try {
+								if (spiel.getSpielerAmZug() == null);
+								else break;
+							} catch (NullPointerException e) {
+								hauptMenue(spiel);
+							}	
+						}
 						
 						spiel.lesenSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich geladen.");
@@ -559,8 +566,15 @@ public class UI implements java.io.Serializable {
 						System.out.println("\nBitte geben Sie einen gueltigen Dateinamen ein.");
 						System.out.print("Zum Abbrechen 'abbruch' eingeben.\n> ");
 						String dateiName = sc.nextLine();
-						if (dateiName.equalsIgnoreCase("abbruch"))
-							hauptMenue(spiel);
+
+						if (dateiName.equalsIgnoreCase("abbruch")) {
+							try {
+								if (spiel.getSpielerAmZug() == null);
+								else break;
+							} catch (NullPointerException e) {
+								hauptMenue(spiel);
+							}	
+						}
 						
 						spiel.lesenSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich geladen.");
@@ -570,7 +584,12 @@ public class UI implements java.io.Serializable {
 					}
 				}
 			} else if (eingabe.equals("3")) {
-				hauptMenue(spiel);
+					try {
+						if (spiel.getSpielerAmZug() == null);
+						else break;
+					} catch (NullPointerException e) {
+						hauptMenue(spiel);
+					}
 			} else {
 				System.out.println("Ihre Eingabe ist fehlerhaft.");
 			}

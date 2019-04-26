@@ -98,7 +98,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
 		if (regex.matcher(name).find()) {
-			SpielException e = new SpielException(18, "Spielername darf keine Sonderzeichen auﬂer _ enthalten!");
+			SpielException e = new SpielException(18, "Spielername darf keine Sonderzeichen ausser _ enthalten!");
 			log(e);
 			throw e;
 		}
