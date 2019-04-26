@@ -11,7 +11,7 @@ public class KI extends Spieler {
 
 	private static final long serialVersionUID = 110L;
 	private static int anzahlKIs = 0;
-	private static final String[] namen = {"KI-1", "KI-2"};
+	private static final String[] namen = {"KI_1", "KI_2"};
 	
 	private String[] besterZug;
 	private HashMap<String, Integer> werteMap;
