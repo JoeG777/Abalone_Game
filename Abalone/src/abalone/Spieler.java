@@ -164,9 +164,9 @@ public class Spieler implements java.io.Serializable {
 	}
 	
 	/**
-	 * Diese Methode gibt die - zur CSV-Speicherung notwendigen - Informationen in Form
+	 * Diese Methode gibt die zur CSV-Speicherung notwendigen Informationen in Form
 	 * eines Strings zurueck
-	 * @return String, der die - zur CSV-Speicherung notwendigen - Informationen enthaelt
+	 * @return String, der die zur CSV-Speicherung notwendigen Informationen enthaelt
 	 */
 	public String schreibeCSV() {
 		String csv = "SPIELER:";
@@ -185,6 +185,14 @@ public class Spieler implements java.io.Serializable {
 		csv += ","+farbe+","+spielerID+","+eliminierteKugeln;
 		
 		return csv;
+	}
+	
+	/**
+	 * Diese Methode dient zum CSV-Laden der Spieler-Informationen aus uebergebenen Strings
+	 * @param csv String, der die zum CSV-Laden notwendigen Informationen enthaelt
+	 */
+	public void ladeCSV(String weiss, String schwarz, String amZug) {
+		
 	}
 
 }

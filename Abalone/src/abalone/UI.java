@@ -65,10 +65,10 @@ public class UI implements java.io.Serializable {
 		try {
 			spiel.addSpieler(name, "weiss",anzahl);
 		} catch (SpielException e) {
-			if(e.getId() == 14) System.out.println("Ungueltige Laenge!\n");
-			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!\n");
-			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!\n");
-			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen ausser _ enthalten!\n");
+			if(e.getId() == 14) System.out.println("Ungueltige Laenge!");
+			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
+			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
+			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen ausser _ enthalten!");
 			addWeiss(spiel, anzahl);
 		}
 		System.out.println("Spieler angelegt.");
@@ -82,10 +82,10 @@ public class UI implements java.io.Serializable {
 		try {
 			spiel.addSpieler(name, "schwarz",anzahl);
 		} catch (SpielException e) {
-			if(e.getId() == 14) System.out.println("Ungueltige Laenge!\n");
-			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!\n");
-			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!\n");
-			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen ausser _ enthalten!\n");
+			if(e.getId() == 14) System.out.println("Ungueltige Laenge!");
+			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
+			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
+			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen ausser _ enthalten!");
 			addSchwarz(spiel, anzahl);
 		}
 	}
@@ -576,7 +576,7 @@ public class UI implements java.io.Serializable {
 							}	
 						}
 						
-						spiel.lesenSerialisiert(dateiName);
+						spiel.lesenCSV(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich geladen.");
 						b = false;
 					} catch(SpielException e) {

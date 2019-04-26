@@ -292,6 +292,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	public void lesenCSV(String dateiName) throws DateiIOException {
 		PersistenzImplCSV pic = new PersistenzImplCSV();
 		String csv = "";
+		Spieler spieler = new Spieler(null, null);
 		
 		pic.oeffnen(dateiName);
 		
@@ -303,6 +304,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			throw new DateiIOException(13, "Datei nicht gefunden!");
 		}
 		
+		String[] array = csv.split("\n");
+		spieler.ladeCSV(array[2], array[3], array[4]);
+		historie.ladeCSV(array[5]);
+		spielBrett.ladeCSV(array);
 	}
 	
 	/**

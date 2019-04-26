@@ -61,7 +61,7 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 			new InputStreamReader(new FileInputStream("sav/" + dateiName + ".csv"), "utf-8"));
 	
 		while ((zeile = br.readLine()) != null) {
-			datei = datei + ";" + zeile;
+			datei = datei + "\n" + zeile;
 		}
 		
 		return datei;
