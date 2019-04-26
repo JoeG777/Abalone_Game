@@ -17,6 +17,7 @@ public class UI implements java.io.Serializable {
 
 	private static final long serialVersionUID = 108L;
 	static Scanner sc = new Scanner(System.in);
+	private static bedienerInterface spiel;
 
 	/**
 	 * Die Main Methode legt ein neues Spiel und und fuehrt alle notwendigen
@@ -28,9 +29,9 @@ public class UI implements java.io.Serializable {
 	 * @throws SpielfeldException 
 	 */
 	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException, SpielfeldException {
-		bedienerInterface spiel = new Spiel();
+		spiel = new Spiel();
 		welcomeScreen();
-		hauptMenue(spiel);
+		hauptMenue();
 		sc.close();
 	}
 
@@ -40,14 +41,14 @@ public class UI implements java.io.Serializable {
 	 * 
 	 * @param spiel Das Spielobjekt
 	 */
-	public static void spielerAnlegen(bedienerInterface spiel, int anzahlSpieler) {
+	public static void spielerAnlegen(int anzahlSpieler) {
 		if (anzahlSpieler == 2) {
-			addWeiss(spiel,2);
-			addSchwarz(spiel,2);
+			addWeiss(2);
+			addSchwarz(2);
 			
 		}
 		if (anzahlSpieler == 1) {
-			addWeiss(spiel,1);
+			addWeiss(1);
 		}
 		if (anzahlSpieler == 0) {
 			try {
@@ -58,7 +59,7 @@ public class UI implements java.io.Serializable {
 		}
 	}
 	
-	public static void addWeiss(bedienerInterface spiel, int anzahl){
+	public static void addWeiss(int anzahl){
 		System.out.println("\nGeben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 		System.out.print("> ");
 		String name = sc.nextLine();
@@ -69,12 +70,12 @@ public class UI implements java.io.Serializable {
 			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
 			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
 			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen ausser _ enthalten!");
-			addWeiss(spiel, anzahl);
+			addWeiss(anzahl);
 		}
 		System.out.println("Spieler angelegt.");
 	}
 	
-	public static void addSchwarz(bedienerInterface spiel, int anzahl) {
+	public static void addSchwarz(int anzahl) {
 		System.out.println("\nGeben Sie den Namen fuer den Spieler mit der Farbe Schwarz ein:");
 		System.out.print("> ");
 		String name = sc.nextLine();
@@ -86,7 +87,7 @@ public class UI implements java.io.Serializable {
 			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
 			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
 			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen ausser _ enthalten!");
-			addSchwarz(spiel, anzahl);
+			addSchwarz(anzahl);
 		}
 	}
 
@@ -109,7 +110,7 @@ public class UI implements java.io.Serializable {
 
 	}
 
-	public static void hauptMenue(bedienerInterface spiel)
+	public static void hauptMenue()
 			throws FileNotFoundException, ClassNotFoundException, IOException {
 		boolean imSpiel = true;
 
@@ -122,20 +123,20 @@ public class UI implements java.io.Serializable {
 			
 		if (eingabe.equals("1.") || eingabe.equals("1")) {
 			imSpiel = false;
-			spielerAnlegen(spiel,2);
-			spielen(spiel);
+			spielerAnlegen(2);
+			spielen();
 		} else if (eingabe.equals("2.") || eingabe.equals("2")) {
 			imSpiel = false;
-			spielerAnlegen(spiel,1);
-			spielen(spiel);
+			spielerAnlegen(1);
+			spielen();
 		} else if (eingabe.equals("3.") || eingabe.equals("3")) {
 			imSpiel = false;
-			spielerAnlegen(spiel, 0);
-			spielen(spiel);
+			spielerAnlegen(0);
+			spielen();
 		} else if (eingabe.equals("4.") || eingabe.equals("4")) {
-			laden(spiel);
+			laden();
 			imSpiel = false;
-			spielen(spiel);
+			spielen();
 		} else {
 			System.out.println("Bitte waehlen Sie eine der moeglichen Optionen aus!");
 			}
@@ -148,7 +149,7 @@ public class UI implements java.io.Serializable {
 	 * 
 	 * @param spiel Das erstelle Spiel Objekt.
 	 */
-	public static void hilfsMenu(bedienerInterface spiel) {
+	public static void hilfsMenu() {
 		boolean inSchleifeBleiben = true;
 		System.out.println("###############################################\r\n"
 				+ "################# HilfsMenue ##################\r\n"
@@ -222,7 +223,7 @@ public class UI implements java.io.Serializable {
 	 * @throws ClassNotFoundException
 	 * @throws FileNotFoundException
 	 */
-	public static void spielen(bedienerInterface spiel)
+	public static void spielen()
 			throws FileNotFoundException, ClassNotFoundException, IOException {
 		String gewinner = "";
 		String verlierer = "";
@@ -251,7 +252,7 @@ public class UI implements java.io.Serializable {
 						kiLoop = false;
 						zug[0] = "DURCHZIEHEN";
 					}
-					if("menu".equals(eingabe))  menue(spiel);
+					if("menu".equals(eingabe))  menue();
 				}
 				if(spiel.getSpielerAmZug().charAt(3) == '1') ki1Loop = kiLoop;
 				if(spiel.getSpielerAmZug().charAt(3) == '2') ki2Loop = kiLoop;
@@ -265,7 +266,7 @@ public class UI implements java.io.Serializable {
 				System.out.print("> ");
 				String eingabe = sc.nextLine();
 				if (eingabe.equalsIgnoreCase("menu")) {
-					menue(spiel);
+					menue();
 				} else
 
 					if (eingabe.equalsIgnoreCase("exit")) {
@@ -278,7 +279,7 @@ public class UI implements java.io.Serializable {
 							break;
 						}
 					} else
-						if (!ziehen(eingabe, spiel)) {
+						if (!ziehen(eingabe)) {
 							System.out.println("Irgendwas hat da nicht gestimmt!");
 							System.out.println();
 						}
@@ -307,7 +308,7 @@ public class UI implements java.io.Serializable {
 	 * @throws FileNotFoundException 
 	 * @throws ClassNotFoundException 
 	 */
-	public static void menue(bedienerInterface spiel) throws FileNotFoundException, IOException, ClassNotFoundException {
+	public static void menue() throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean inSchleifeBleiben = true;
 
 		while (inSchleifeBleiben) {
@@ -324,7 +325,7 @@ public class UI implements java.io.Serializable {
 			}
 
 			else if (auswahl.equals("2")) {
-				hilfsMenu(spiel);
+				hilfsMenu();
 			}
 
 			else if (auswahl.equals("3")) {
@@ -332,11 +333,11 @@ public class UI implements java.io.Serializable {
 			}
 			
 			else if (auswahl.equals("4")) {
-				speichern(spiel);
+				speichern();
 			}
 			
 			else if (auswahl.equals("5")) {
-				laden(spiel);
+				laden();
 			}else if(auswahl.equals("6")){
 				spielBeenden(null, null);
 			}
@@ -358,7 +359,7 @@ public class UI implements java.io.Serializable {
 	 * @param spiel Das Spielobjekt.
 	 * @return boolean Ob der Zug korrekt war.
 	 */
-	public static boolean ziehen(String zug, bedienerInterface spiel) {
+	public static boolean ziehen(String zug) {
 
 		zug = zug.toUpperCase();
 
@@ -368,7 +369,7 @@ public class UI implements java.io.Serializable {
 			if (zug.length() == 4 || zug.length() == 2) {
 				zugArr[0] = zug;
 				zugArr[1] = null;
-				printErlaubteZuege(zugArr, spiel);
+				printErlaubteZuege(zugArr);
 				return true;
 			}
 
@@ -408,7 +409,7 @@ public class UI implements java.io.Serializable {
 	 * @param zug   Ein Spielzug-Objekt mit Nach-Attribut auf null.
 	 * @param spiel ein Spiel-Objekt.
 	 */
-	public static void printErlaubteZuege(String[] zug, bedienerInterface spiel) {
+	public static void printErlaubteZuege(String[] zug) {
 		try {
 			String[] erlaubteZuege = spiel.getErlaubteZuegeInterface(zug).split(",");
 			if (erlaubteZuege.length == 0) {
@@ -460,7 +461,7 @@ public class UI implements java.io.Serializable {
 	 * @throws ClassNotFoundException 
 	 * @throws FileNotFoundException 
 	 */
-	public static void speichern(bedienerInterface spiel) throws FileNotFoundException, ClassNotFoundException, IOException {
+	public static void speichern() throws FileNotFoundException, ClassNotFoundException, IOException {
 		boolean a = true;
 		boolean b = true;
 		
@@ -480,7 +481,7 @@ public class UI implements java.io.Serializable {
 						System.out.print("Zum Abbrechen 'abbruch' eingeben.\n> ");
 						String dateiName = sc.nextLine();
 						if (dateiName.equalsIgnoreCase("abbruch"))
-							menue(spiel);
+							menue();
 						
 						spiel.speichernSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
@@ -498,7 +499,7 @@ public class UI implements java.io.Serializable {
 						System.out.print("Zum Abbrechen 'abbruch' eingeben.\n> ");
 						String dateiName = sc.nextLine();
 						if (dateiName.equalsIgnoreCase("abbruch"))
-							menue(spiel);
+							menue();
 						
 						spiel.speichernCSV(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
@@ -508,7 +509,7 @@ public class UI implements java.io.Serializable {
 					}
 				}
 			} else if (eingabe.equals("3")) {
-				menue(spiel);
+				menue();
 			} else {
 				System.out.println("Ihre Eingabe ist fehlerhaft.");
 			}
@@ -522,7 +523,7 @@ public class UI implements java.io.Serializable {
 	 * @throws ClassNotFoundException 
 	 * @throws FileNotFoundException 
 	 */
-	public static void laden(bedienerInterface spiel) throws FileNotFoundException, ClassNotFoundException, IOException {
+	public static void laden() throws FileNotFoundException, ClassNotFoundException, IOException {
 		boolean a = true;
 		boolean b = true;
 		
@@ -547,11 +548,11 @@ public class UI implements java.io.Serializable {
 								if (spiel.getSpielerAmZug() == null);
 								else break;
 							} catch (NullPointerException e) {
-								hauptMenue(spiel);
+								hauptMenue();
 							}	
 						}
 						
-						spiel.lesenSerialisiert(dateiName);
+						spiel = (bedienerInterface) spiel.lesenSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich geladen.");
 						b = false;
 					} catch(SpielException e) {
@@ -572,7 +573,7 @@ public class UI implements java.io.Serializable {
 								if (spiel.getSpielerAmZug() == null);
 								else break;
 							} catch (NullPointerException e) {
-								hauptMenue(spiel);
+								hauptMenue();
 							}	
 						}
 						
@@ -588,7 +589,7 @@ public class UI implements java.io.Serializable {
 						if (spiel.getSpielerAmZug() == null);
 						else break;
 					} catch (NullPointerException e) {
-						hauptMenue(spiel);
+						hauptMenue();
 					}
 			} else {
 				System.out.println("Ihre Eingabe ist fehlerhaft.");

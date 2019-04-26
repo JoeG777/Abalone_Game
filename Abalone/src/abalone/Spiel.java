@@ -41,7 +41,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	private Historie historie;
 	private boolean herausgedraengt = false;
 	private Spielzug letzterZug;
-	private BufferedWriter logger;
 
 	/**
 	 * Konstruktor, instanziiert alle anfangs benoetigten Objekte.
@@ -207,11 +206,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
 		
 		serial.oeffnen(dateiName);
-		
-		Object[] spielState = {this.spielerImSpiel,this.spielerAmZug,this.spielBrett,this.historie,this.herausgedraengt,this.letzterZug};
-		
+		Spiel test = this;
 		try {
-			serial.schreiben(spielState);
+			serial.schreiben(test);
 			serial.schliessen();
 		} catch (IOException e) {
 			DateiIOException ex = new DateiIOException(16, "Ungueltiger Dateiname!");
@@ -226,15 +223,15 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param Name, der zu lesenden Datei
 	 * @throws DateiIOException
 	 */
-	public void lesenSerialisiert(String dateiName) throws DateiIOException {
+	public Object lesenSerialisiert(String dateiName) throws DateiIOException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
 		
 		serial.oeffnen(dateiName);
 		
-		Object[] spielState = null;
+		Spiel saveState = null;
 		
 		try {
-			spielState = (Object[]) serial.lesen();
+			saveState = (Spiel) serial.lesen();
 			serial.schliessen();
 		} catch (IOException e) {
 			DateiIOException ex = new DateiIOException(13,"Datei nicht gefunden!");
@@ -245,13 +242,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			log(e);
 			throw ex;
 		};
-		
-		this.spielerImSpiel = (Spieler[])spielState[0];
-		this.spielerAmZug = (Spieler)spielState[1];
-		this.spielBrett = (Spielbrett) spielState[2];
-		this.historie = (Historie) spielState[3];
-		this.herausgedraengt = (boolean) spielState[4];
-		this.letzterZug = (Spielzug) spielState[5];;
+		return saveState;
 	}
 	
 	/**
@@ -1428,6 +1419,18 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param e - Die zu loggende Exception
 	 */
 	private void log(Exception e ) {
+		BufferedWriter logger = null;
+		File file = new File("log.txt");
+		Scanner sc = null; 
+		try {
+			sc = new Scanner(file);
+		} catch (FileNotFoundException e1) {
+		}
+		try {
+			logger = new BufferedWriter(new FileWriter(file,true));
+		}catch(FileNotFoundException e1) {
+		}catch(IOException e1) {
+		}
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
 		try {
@@ -1442,6 +1445,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}catch(IOException fehler) {
 			
 		}
+		try {
+			logger.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 	/**
@@ -1449,6 +1457,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Auﬂerdem scheibt diese Methode die Nachrit, wann das Spiel gestartet wurde in die Logdatei.
 	 */
 	private void initLog() {
+		BufferedWriter logger = null;
 		File file = new File("log.txt");
 		Scanner sc = null; 
 		try {
@@ -1487,6 +1496,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}catch(IOException fehler) {
 			
 		}
+		try {
+			logger.close();
+		} catch (IOException e) {
+		}
 	}
 	
 	/**
@@ -1494,6 +1507,18 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Schreibt Datum und Uhrzeit des Beendens in die log.txt
 	 */
 	private void endLog() {
+		BufferedWriter logger = null;
+		File file = new File("log.txt");
+		Scanner sc = null; 
+		try {
+			sc = new Scanner(file);
+		} catch (FileNotFoundException e1) {
+		}
+		try {
+			logger = new BufferedWriter(new FileWriter(file,true));
+		}catch(FileNotFoundException e) {
+		}catch(IOException e) {
+		}
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
 		try {
@@ -1504,7 +1529,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}catch(FileNotFoundException fehler) {
 		}catch(IOException fehler) {
 		}
-		
+		try {
+			logger.close();
+		} catch (IOException e) {
+		}
 	}
 	
 	/**
