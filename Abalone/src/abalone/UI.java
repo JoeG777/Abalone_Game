@@ -70,6 +70,7 @@ public class UI implements java.io.Serializable {
 			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
 			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
 			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen ausser _ enthalten!");
+			if(e.getId() == 19) System.out.println("Spielername darf nicht mit \"KI\" beginnen!");
 			addWeiss(anzahl);
 		}
 		System.out.println("Spieler angelegt.");
@@ -87,6 +88,7 @@ public class UI implements java.io.Serializable {
 			if(e.getId() == 11) System.out.println("Es sind bereits 2 Spieler im Spiel!");
 			if(e.getId() == 13) System.out.println("Der Spieler mit diesem Namen existiert bereits!");
 			if(e.getId() == 18) System.out.println("Spielername darf keine Sonderzeichen ausser _ enthalten!");
+			if(e.getId() == 19) System.out.println("Spielername darf nicht mit \"KI\" beginnen!");
 			addSchwarz(anzahl);
 		}
 	}

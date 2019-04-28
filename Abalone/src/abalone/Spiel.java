@@ -102,6 +102,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				log(e);
 				throw e;
 			}
+			if(name.substring(0,2).equals("KI")) {
+				SpielException e = new SpielException(19, "Spielername darf nicht mit \"KI\" beginnen!");
+				log(e);
+				throw e;
+			}
 		}
 			
 		if (anzahlSpieler == 2) {
