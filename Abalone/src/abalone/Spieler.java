@@ -187,12 +187,4 @@ public class Spieler implements java.io.Serializable {
 		return csv;
 	}
 	
-	/**
-	 * Diese Methode dient zum CSV-Laden der Spieler-Informationen aus uebergebenen Strings
-	 * @param csv String, der die zum CSV-Laden notwendigen Informationen enthaelt
-	 */
-	public void ladeCSV(String weiss, String schwarz, String amZug) {
-		
-	}
-
 }

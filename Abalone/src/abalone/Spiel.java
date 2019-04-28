@@ -297,15 +297,47 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		try {
 			csv = pic.lesen();
 		} catch (UnsupportedEncodingException e) {
-			throw new DateiIOException(15,"Die Datei scheint kaputt zu sein!");
+			throw new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
 		} catch (IOException e) {
 			throw new DateiIOException(13, "Datei nicht gefunden!");
 		}
 		
 		String[] array = csv.split("\n");
-		spieler.ladeCSV(array[2], array[3], array[4]);
+		
+		this.ladeCSVSpieler(array[2], array[3], array[4]);
 		historie.ladeCSV(array[5]);
 		spielBrett.ladeCSV(array);
+	}
+	
+	/**
+	 * Diese Methode dient zum CSV-Laden der Spieler-Informationen aus uebergebenen Strings
+	 * @param csv String, der die zum CSV-Laden notwendigen Informationen enthaelt
+	 * @throws DateiIOException 
+	 */
+	private void ladeCSVSpieler(String spieler1, String spieler2, String amZug) throws DateiIOException {
+		String[] arraySpieler1 = spieler1.split(":");
+		String[] infoSpieler1 = arraySpieler1[1].split(",");
+		String[] arraySpieler2 = spieler2.split(":");
+		String[] infoSpieler2 = arraySpieler2[1].split(",");
+		
+		try {
+			if (infoSpieler1[0].equals("KI_1")) {
+				this.addSpieler(null, null, 0);
+			} else {
+				if (infoSpieler2[0].equals("KI_1")) {
+					this.addSpieler(infoSpieler1[0], infoSpieler1[1], 1);
+				} else {
+					this.addSpieler(infoSpieler1[0], infoSpieler1[1], 2);
+					this.addSpieler(infoSpieler2[0], infoSpieler2[1], 2);
+				}
+			}
+			
+			if (!(this.getSpielerAmZug().equals(amZug))) {
+				this.spielerAmZug = spielerImSpiel[1];
+			}
+		} catch (SpielException e) {
+			throw new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+		}
 	}
 	
 	/**
