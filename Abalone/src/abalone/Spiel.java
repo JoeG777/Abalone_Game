@@ -241,12 +241,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			saveState = (Spiel) serial.lesen();
 			serial.schliessen();
 		} catch (IOException e) {
-			DateiIOException ex = new DateiIOException(13,"Datei nicht gefunden!");
+			DateiIOException ex = new DateiIOException(13, "Datei nicht gefunden!");
 			log(ex);
 			throw ex;
 		} catch (ClassNotFoundException e){
-			DateiIOException ex = new DateiIOException(15,"Die Datei scheint kaputt zu sein!");
-			log(e);
+			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+			log(ex);
 			throw ex;
 		};
 		return saveState;
@@ -278,6 +278,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		} catch (IOException e) {
 			DateiIOException ex = new DateiIOException(16, "Ungueltiger Dateiname!");
 			log(ex);
+			throw ex;
 		}
 	}
 	
@@ -296,16 +297,32 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		try {
 			csv = pic.lesen();
 		} catch (UnsupportedEncodingException e) {
-			throw new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+			log(ex);
+			throw ex;
 		} catch (IOException e) {
-			throw new DateiIOException(13, "Datei nicht gefunden!");
+			DateiIOException ex = new DateiIOException(13, "Datei nicht gefunden!");
+			log(ex);
+			throw ex;
 		}
 		
 		String[] array = csv.split("\n");
 		
 		this.ladeCSVSpieler(array[2], array[3], array[4]);
 		historie.ladeCSV(array[5]);
-		spielBrett.ladeCSV(array);
+		
+		try {
+			spielBrett.ladeCSV(array);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+			log(ex);
+			throw ex;
+		} catch (IllegalArgumentException e) {
+			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+			log(ex);
+			throw ex;
+		}
+		
 	}
 	
 	/**
@@ -336,7 +353,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				this.spielerAmZug = spielerImSpiel[1];
 			
 		} catch (SpielException e) {
-			throw new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+			log(ex);
+			throw ex;
 		}
 	}
 	

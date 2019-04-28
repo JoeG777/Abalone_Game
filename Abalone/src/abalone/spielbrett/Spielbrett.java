@@ -471,10 +471,9 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	 */
 	public String schreibeCSV() {
 		String brettCSV = "BRETT:\n";
-		
-		for(String key: brett.keySet()) {
+		for(String key: brett.keySet()) {		
 		    Spielfeld feld = brett.get(key);
-		    brettCSV += feld.writeCSVString() + "\n";
+		    brettCSV += feld.schreibeCSV() + "\n";
 		}
 		
 		return brettCSV;
@@ -486,7 +485,13 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	 * @param array Array, welches alle notwendigen Informationen des Spielbrettes enthaelt
 	 */
 	public void ladeCSV(String[] array) {
+		int zaehler = 7;
 		
+		for (String key: brett.keySet()) {		
+		    Spielfeld feld = brett.get(key);
+		    feld.ladeCSV(array[zaehler]);
+		    zaehler++;
+		}
 	}
 }
 
