@@ -320,10 +320,10 @@ public class UI implements java.io.Serializable {
 			String auswahl = sc.nextLine();
 
 			if (auswahl.equals("1")) {
-				if (spiel.getAlleZuege().length() == 0) {
+				if (spiel.getHistorie().length() == 0) {
 					System.out.println("Es wurden noch nicht gezogen!");
 				}
-				System.out.println(spiel.getAlleZuege());
+				System.out.println(spiel.getHistorie());
 			}
 
 			else if (auswahl.equals("2")) {

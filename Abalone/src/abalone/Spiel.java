@@ -290,7 +290,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	public void lesenCSV(String dateiName) throws DateiIOException {
 		PersistenzImplCSV pic = new PersistenzImplCSV();
 		String csv = "";
-		Spieler spieler = new Spieler(null, null);
 		
 		pic.oeffnen(dateiName);
 		
@@ -319,6 +318,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String[] infoSpieler1 = arraySpieler1[1].split(",");
 		String[] arraySpieler2 = spieler2.split(":");
 		String[] infoSpieler2 = arraySpieler2[1].split(",");
+		String[] infoAmZug = amZug.split(":");
 		
 		try {
 			if (infoSpieler1[0].equals("KI_1")) {
@@ -332,9 +332,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				}
 			}
 			
-			if (!(this.getSpielerAmZug().equals(amZug))) {
+			if (!(this.getSpielerAmZug().equals(infoAmZug[1])))
 				this.spielerAmZug = spielerImSpiel[1];
-			}
+			
 		} catch (SpielException e) {
 			throw new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
 		}

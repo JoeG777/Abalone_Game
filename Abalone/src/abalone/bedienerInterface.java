@@ -9,7 +9,7 @@ package abalone;
 public interface bedienerInterface {
 	//vorgegebenen Methoden aus PDF inkl 2b
 	String getSpielerAmZug();
-	String getAlleZuege();//Historie ausgeben in Rumpf
+	String getAlleZuege();
 	void ziehe(String[] zugArr) throws SpielException;
 
 	//alle public Methoden aus Spiel, die in UI benutzt werden müssen
