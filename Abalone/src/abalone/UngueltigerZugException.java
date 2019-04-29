@@ -11,7 +11,7 @@ public class UngueltigerZugException extends SpielException{
 	/**
 	 * Erstellt eine neue Instanz der Klasse UngueltigerZugException
 	 * @param id ID des Fehlers
-	 * @param meldung Die gesetze Message der Exception
+	 * @param meldung Die gesetzte Message der Exception
 	 */
 	public UngueltigerZugException(int id, String meldung) {
 		super(id, meldung);

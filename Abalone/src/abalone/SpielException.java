@@ -11,7 +11,7 @@ public class SpielException extends Exception{
 	/**
 	 * Erstellt eine neue Instanz der Klasse SpielException
 	 * @param id ID des Fehlers
-	 * @param meldung Die gesetze Message der Exception
+	 * @param meldung Die gesetzte Message der Exception
 	 */
 	public SpielException(int id, String meldung) {
 		super(meldung);
