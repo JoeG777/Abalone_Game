@@ -32,6 +32,14 @@ public class KI extends Spieler {
 		initWerteMap(brett);
 		anzahlKIs++;
 	}
+	public KI(String name, FarbEnum farbe, Spielbrett brett) {
+		super(name, farbe);
+		setGegnerFigVorZug(0);
+		setDurchziehend(false);
+		this.werteMap = new HashMap<String, Integer>();
+		initWerteMap(brett);
+		anzahlKIs++;
+	}
 	
 	/**
 	 * Initialisiert die Werte der WerteMap.

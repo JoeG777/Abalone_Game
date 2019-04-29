@@ -24,10 +24,10 @@ import abalone.spielbrett.SpielbrettException;
 import abalone.spielbrett.SpielfeldException;
 
 /**
- * <h1>Spiel</h1>
- * Die Klasse Spiel implementiert das zentrale Objekt fuer das Spiel Abalone. In
- * ihr laufen alle anderen Klassen zusammen, somit bildet sie die Schnittstelle
- * zu weiteren Objekten wie einer UI 
+ * <h1>Spiel</h1> Die Klasse Spiel implementiert das zentrale Objekt fuer das
+ * Spiel Abalone. In ihr laufen alle anderen Klassen zusammen, somit bildet sie
+ * die Schnittstelle zu weiteren Objekten wie einer UI
+ * 
  * @author Gruppe A4
  * @version 1.2
  * @since 1.0
@@ -44,7 +44,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 	/**
 	 * Konstruktor, instanziiert alle anfangs benoetigten Objekte.
-	 * @throws SpielfeldException 
+	 * 
+	 * @throws SpielfeldException
 	 */
 	public Spiel() throws SpielfeldException {
 		spielBrett = new Spielbrett();
@@ -52,10 +53,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		this.spielerImSpiel = new Spieler[2];
 		initLog();
 		Runtime.getRuntime().addShutdownHook(new Thread() {
-	          public void run() {
-	        	  endLog();
-	          }
-	      });
+			public void run() {
+				endLog();
+			}
+		});
 	}
 
 	/**
@@ -66,7 +67,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	public Spieler[] getSpielerImSpiel() {
 		return spielerImSpiel;
 	}
-	
+
 	/**
 	 * Wird vom GC bei dessen Verenden aufgerufen
 	 */
@@ -82,7 +83,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * 
 	 * @param name  Der fuer den Spieler gewaehlte Name.
 	 * @param farbe Die fuer den Spieler gewaehlte Farbe.
-	 * @throws SpielException 
+	 * @throws SpielException
 	 * @exception IllegalArgumentException  Wird geworfen, wenn der String farbe
 	 *                                      nicht "schwarz" oder "weiss" entspricht.
 	 * @exception IndexOutOfBoundsException wird geworfen wenn ein Spieler
@@ -92,35 +93,35 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public void addSpieler(String name, String farbe, int anzahlSpieler) throws SpielException {
-		if(name != null && (name.length() < 2 || name.length() > 20)) {
-			SpielException e = new SpielException(14,"Ungueltige laenge des Namen: " + name.length());
+		if (name != null && (name.length() < 2 || name.length() > 20)) {
+			SpielException e = new SpielException(14, "Ungueltige laenge des Namen: " + name.length());
 			log(e);
 			throw e;
 		}
-		
-		if(name != null) {
+
+		if (name != null) {
 			Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
 			if (regex.matcher(name).find()) {
 				SpielException e = new SpielException(18, "Spielername darf keine Sonderzeichen ausser _ enthalten!");
 				log(e);
 				throw e;
 			}
-			if(name.substring(0,2).equals("KI")) {
+			if (name.substring(0, 2).equals("KI")) {
 				SpielException e = new SpielException(19, "Spielername darf nicht mit \"KI\" beginnen!");
 				log(e);
 				throw e;
 			}
 		}
-			
+
 		if (anzahlSpieler == 2) {
 			if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
-				SpielException e = new SpielException(11,"Das Spieler Array ist bereits voll!");
+				SpielException e = new SpielException(11, "Das Spieler Array ist bereits voll!");
 				log(e);
 				throw e;
 			}
-			for(Spieler spieler: spielerImSpiel) {
-				if(spieler != null && spieler.getName().equals(name)) {
-					SpielException e = new SpielException(17,"Spielernamen muessen unterschiedlich sein!");
+			for (Spieler spieler : spielerImSpiel) {
+				if (spieler != null && spieler.getName().equals(name)) {
+					SpielException e = new SpielException(17, "Spielernamen muessen unterschiedlich sein!");
 					log(e);
 					throw e;
 				}
@@ -133,7 +134,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
 				spielerImSpiel[1] = new Spieler(name, spielerFarbe);
 			} else {
-				SpielException e = new SpielException(10,"Unbekannte farbe :" + farbe);
+				SpielException e = new SpielException(10, "Unbekannte farbe :" + farbe);
 				log(e);
 				throw e;
 			}
@@ -160,17 +161,18 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public String getSpielerAmZug() {
-			return spielerAmZug.getName();
+		return spielerAmZug.getName();
 	}
-	
+
 	/**
-	 * Gibt das Spielerobjekt zurueck, welches  am Zug ist
+	 * Gibt das Spielerobjekt zurueck, welches am Zug ist
+	 * 
 	 * @return SpielerAmZug
 	 */
 	private Spieler getSpielerAmZugObj() {
 		return this.spielerAmZug;
 	}
-	
+
 	/**
 	 * Gibt die Farbe des Spielers zurueck, der aktuell am Zug ist.
 	 * 
@@ -179,21 +181,22 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	private FarbEnum getFarbeAmZug() {
 		return this.spielerAmZug.getFarbe();
 	}
-	
+
 	/**
 	 * Ermittelt die Farbe die momentan NICHT am Zug ist
+	 * 
 	 * @return FarbeDieNichtAmZuIst Farbe nicht am Zug
 	 */
 	private FarbEnum getFarbeNichtAmZug() {
-		if(getFarbeAmZug() == FarbEnum.SCHWARZ) {
+		if (getFarbeAmZug() == FarbEnum.SCHWARZ) {
 			return FarbEnum.WEISS;
 		}
 		return FarbEnum.SCHWARZ;
 	}
 
 	/**
-	 * Fragt ab, ob ein Spieler gewonnen hat.
-	 * zi
+	 * Fragt ab, ob ein Spieler gewonnen hat. zi
+	 * 
 	 * @param name Name eines Spielers.
 	 * @return boolean Ob der uebergebene Spieler gewonnen hat.
 	 */
@@ -215,14 +218,15 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	}
 
 	/**
-	 * Diese Methode erstellt und beschreibt eine Datei und wird zum Speichern
-	 * eines Spielstandes als serialisierte Datei verwendet
+	 * Diese Methode erstellt und beschreibt eine Datei und wird zum Speichern eines
+	 * Spielstandes als serialisierte Datei verwendet
+	 * 
 	 * @param Name, der zu speichernden Datei
 	 * @throws DateiIOException
 	 */
 	public void speichernSerialisiert(String dateiName) throws DateiIOException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
-		
+
 		serial.oeffnen(dateiName);
 		Spiel test = this;
 		try {
@@ -236,18 +240,19 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	}
 
 	/**
-	 * Diese Methode oeffnet und liest eine Datei und wird zum Laden
-	 * eines - als serialisierte Datei - gespeicherten Spielstandes verwendet
+	 * Diese Methode oeffnet und liest eine Datei und wird zum Laden eines - als
+	 * serialisierte Datei - gespeicherten Spielstandes verwendet
+	 * 
 	 * @param Name, der zu lesenden Datei
 	 * @throws DateiIOException
 	 */
 	public Object lesenSerialisiert(String dateiName) throws DateiIOException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
-		
+
 		serial.oeffnen(dateiName);
-		
+
 		Spiel saveState = null;
-		
+
 		try {
 			saveState = (Spiel) serial.lesen();
 			serial.schliessen();
@@ -255,17 +260,19 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			DateiIOException ex = new DateiIOException(13, "Datei nicht gefunden!");
 			log(ex);
 			throw ex;
-		} catch (ClassNotFoundException e){
+		} catch (ClassNotFoundException e) {
 			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
 			log(ex);
 			throw ex;
-		};
+		}
+		;
 		return saveState;
 	}
-	
+
 	/**
 	 * Diese Methode fasst alle notwendigen Informationen - zum Speichern als
 	 * CSV-Datei - in einen einzigen langen String ein
+	 * 
 	 * @return String, welcher den zu schreibenden CSV-Inhalt enthaelt
 	 * @param dateiName Name, der zu beschreibenden Datei
 	 * @throws DateiIOException
@@ -273,16 +280,16 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	public void speichernCSV(String dateiName) throws DateiIOException {
 		PersistenzImplCSV pic = new PersistenzImplCSV();
 		String csv = "SPIEL:\n";
-		
-		for (Spieler spieler: spielerImSpiel) {
-			csv +=  spieler.schreibeCSV()+"\n";
+
+		for (Spieler spieler : spielerImSpiel) {
+			csv += spieler.schreibeCSV() + "\n";
 		}
-		
+
 		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
 		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
-		
+
 		pic.oeffnen(dateiName);
-		
+
 		try {
 			pic.schreiben(csv);
 			pic.schliessen();
@@ -292,19 +299,20 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			throw ex;
 		}
 	}
-	
+
 	/**
-	 * Diese Methode oeffnet und liest eine CSV-Datei und wird zum Laden
-	 * eines - als CSV-Datei - gespeicherten Spielstandes verwendet
+	 * Diese Methode oeffnet und liest eine CSV-Datei und wird zum Laden eines - als
+	 * CSV-Datei - gespeicherten Spielstandes verwendet
+	 * 
 	 * @param dateiName Name, der zu lesenden Datei
 	 * @throws DateiIOException
 	 */
 	public void lesenCSV(String dateiName) throws DateiIOException {
 		PersistenzImplCSV pic = new PersistenzImplCSV();
 		String csv = "";
-		
+
 		pic.oeffnen(dateiName);
-		
+
 		try {
 			csv = pic.lesen();
 		} catch (UnsupportedEncodingException e) {
@@ -316,12 +324,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			log(ex);
 			throw ex;
 		}
-		
+
 		String[] array = csv.split("\n");
-		
+
 		this.ladeCSVSpieler(array[2], array[3], array[4]);
 		historie.ladeCSV(array[5]);
-		
+
 		try {
 			spielBrett.ladeCSV(array);
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -333,13 +341,15 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			log(ex);
 			throw ex;
 		}
-		
+
 	}
-	
+
 	/**
-	 * Diese Methode dient zum CSV-Laden der Spieler-Informationen aus uebergebenen Strings
+	 * Diese Methode dient zum CSV-Laden der Spieler-Informationen aus uebergebenen
+	 * Strings
+	 * 
 	 * @param csv String, der die zum CSV-Laden notwendigen Informationen enthaelt
-	 * @throws DateiIOException 
+	 * @throws DateiIOException
 	 */
 	private void ladeCSVSpieler(String spieler1, String spieler2, String amZug) throws DateiIOException {
 		String[] arraySpieler1 = spieler1.split(":");
@@ -347,57 +357,67 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String[] arraySpieler2 = spieler2.split(":");
 		String[] infoSpieler2 = arraySpieler2[1].split(",");
 		String[] infoAmZug = amZug.split(":");
-		
-		try {
-			if (infoSpieler1[0].equals("KI_1")) {
-				this.addSpieler(null, null, 0);
-			} else {
-				if (infoSpieler2[0].equals("KI_1")) {
-					this.addSpieler(infoSpieler1[0], infoSpieler1[1], 1);
-				} else {
-					this.addSpieler(infoSpieler1[0], infoSpieler1[1], 2);
-					this.addSpieler(infoSpieler2[0], infoSpieler2[1], 2);
-				}
-			}
-			
-			if (!(this.getSpielerAmZug().equals(infoAmZug[1])))
-				this.spielerAmZug = spielerImSpiel[1];
-			
-		} catch (SpielException e) {
-			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
-			log(ex);
-			throw ex;
+
+		FarbEnum enum1 = FarbEnum.WEISS;
+		if (infoSpieler1[1].equals("schwarz"))
+			enum1 = FarbEnum.SCHWARZ;
+		FarbEnum enum2 = FarbEnum.SCHWARZ;
+		if (infoSpieler1[1].equals("weiss"))
+			enum2 = FarbEnum.WEISS;
+		if(infoSpieler1[0].substring(0,2).equals("KI")) {
+			KI sp1 =  new KI(infoSpieler1[0], enum2, this.spielBrett);
+			if(infoSpieler1[0].length() > 4)
+				sp1.setDurchziehend(true);
+			spielerImSpiel[0] = sp1;
+		}else {
+			spielerImSpiel[0] = new Spieler(infoSpieler1[0], enum1);
 		}
+		if(infoSpieler2[0].substring(0,2).equals("KI")) {
+			KI sp2 =  new KI(infoSpieler2[0], enum2, this.spielBrett);
+			if(infoSpieler2[0].length() > 4)
+				sp2.setDurchziehend(true);
+			spielerImSpiel[1] = sp2;
+		}else {
+			spielerImSpiel[1] = new Spieler(infoSpieler2[0], enum1);
+		}
+		if (infoAmZug.equals(spielerImSpiel[0].getName())) {
+			spielerAmZug = spielerImSpiel[0];
+		} else {
+			spielerAmZug = spielerImSpiel[1];
+		}
+
 	}
-	
+
 	/**
-	 * Delegiert einen Zug an die ziehe Methode und faengt ggf. Fehler fuer das Logging ab.
-	 * Falls der aktuelle Spieler eine KI ist, wird der passende Zug ermittelt und
-	 * uebergeben.
+	 * Delegiert einen Zug an die ziehe Methode und faengt ggf. Fehler fuer das
+	 * Logging ab. Falls der aktuelle Spieler eine KI ist, wird der passende Zug
+	 * ermittelt und uebergeben.
+	 * 
 	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1]
 	 *            = wohin gezogen wird.
-	 * @throws SpielbrettException Wird geworfen, falls ein aktueller zug für die Spielsituation ungueltig ist.
+	 * @throws SpielbrettException Wird geworfen, falls ein aktueller zug für die
+	 *                             Spielsituation ungueltig ist.
 	 */
 	@Override
 	public void ziehe(String[] zug) throws SpielException {
-		if(spielerAmZug instanceof KI)  {
-			if(zug[0].equals("DURCHZIEHEN")) {
-				((KI)spielerAmZug).setDurchziehend(true);
+		if (spielerAmZug instanceof KI) {
+			if (zug[0].equals("DURCHZIEHEN")) {
+				((KI) spielerAmZug).setDurchziehend(true);
 			}
 			ArrayList<Spielzug> moeglicheZuege = getAlleMoeglichenZuege(getFarbeAmZug());
-			String[] besterZug = new String[2]; 
-			((KI)spielerAmZug).setGegnerFigVorZug(spielBrett.getFelderMitFarbe(getFarbeNichtAmZug()).size());
+			String[] besterZug = new String[2];
+			((KI) spielerAmZug).setGegnerFigVorZug(spielBrett.getFelderMitFarbe(getFarbeNichtAmZug()).size());
 			int max = 0;
-			
-			for(Spielzug simulationszug : moeglicheZuege) {
+
+			for (Spielzug simulationszug : moeglicheZuege) {
 				Spielbrett brettNachZug = getSpielbrett().clone();
 				try {
 					brettNachZug.ziehe(spielzugSplitter(simulationszug));
 				} catch (SpielbrettException e) {
 					log(e);
 				}
-				int zugScore = ((KI)spielerAmZug).calcStaerkeDesBretts(brettNachZug);
-				if(zugScore > max) {
+				int zugScore = ((KI) spielerAmZug).calcStaerkeDesBretts(brettNachZug);
+				if (zugScore > max) {
 					max = zugScore;
 					besterZug[0] = simulationszug.getVon();
 					besterZug[1] = simulationszug.getNach();
@@ -405,24 +425,24 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			}
 			zug = besterZug;
 		}
-		try{
+		try {
 			ziehen(zug);
-		}catch(UngueltigerZugException e) {
+		} catch (UngueltigerZugException e) {
 			log(e);
-			throw new SpielException(0,"UngueltigerZug!");
-		}catch(SpielbrettException e) {
+			throw new SpielException(0, "UngueltigerZug!");
+		} catch (SpielbrettException e) {
 			log(e);
-			throw new SpielException(1,"Irgendwas ist schief gelaufen!");
+			throw new SpielException(1, "Irgendwas ist schief gelaufen!");
 		}
 	}
-	
+
 	/**
 	 * Die ziehe Methode erzeugt aus zwei Strings ein Zug Objekt und uebergibt
 	 * dieses dem Spielbrett.
 	 * 
 	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1]
 	 *            = wohin gezogen wird.
-	 * @throws SpielException 
+	 * @throws SpielException
 	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException wenn
 	 *                                     zugValidieren false zurueck gibt oder ein
 	 *                                     Array Eintrag NULL ist.
@@ -432,10 +452,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		if (koordinatenValidieren(spielzugParser(zug))) {
 			Spielzug spielzug = new Spielzug(zug[0], zug[1]);
 			if (spielzug.getNach() == null) {
-				throw new UngueltigerZugException(7,"Unzulaessiger Zug");
+				throw new UngueltigerZugException(7, "Unzulaessiger Zug");
 			}
 			spielzug.setRichtung(this.bekommeRichtung(spielzug));
-			spielzug.setFarbe(getFarbeAmZug());;
+			spielzug.setFarbe(getFarbeAmZug());
+			;
 			if (zugValidieren(spielzug)) {
 				Spielzug[] spielzuege = spielzugSplitter(spielzug);
 				if (spielzuege[0].getNach() == null) {
@@ -451,7 +472,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 					spielerAmZug = spielerImSpiel[0];
 				}
 			} else {
-				throw new UngueltigerZugException(7,"Unzulaessiger Zug");
+				throw new UngueltigerZugException(7, "Unzulaessiger Zug");
 			}
 		}
 	}
@@ -462,7 +483,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param ausgangsFelder Die Ausgangsfelder, von denen gezogen wird. gesammelt
 	 *                       werden sollen.
 	 * @return ErlaubteZuege Ein String Array mit den erlaubten Zuegen.
-	 * @throws UngueltigerZugException 
+	 * @throws UngueltigerZugException
 	 */
 	public String[] getErlaubteZuege(String[] ausgangsFelder) throws UngueltigerZugException {
 		if (!koordinatenValidieren(spielzugParser(ausgangsFelder))) {
@@ -495,11 +516,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 						String[] nachbarn2 = spielBrett.getNachbarnByIdVonFeld(ausgang2);
 						for (String nachbar : nachbarn1) {
 							if (nachbar != null) {
-								Spielzug zug = new Spielzug(ausgang1 + ausgang2 , nachbar);
+								Spielzug zug = new Spielzug(ausgang1 + ausgang2, nachbar);
 								zug.setRichtung(bekommeRichtung(zug));
-								zug.setFarbe(getFarbeAmZug());;
+								zug.setFarbe(getFarbeAmZug());
+								;
 								if (zugValidieren(zug)) {
-									nachbar = spielBrett.getNachbarByIdInRichtung(ausgang1,zug.getRichtung());
+									nachbar = spielBrett.getNachbarByIdInRichtung(ausgang1, zug.getRichtung());
 									if (nachbar != null)
 										zug.setNach(spielBrett.getFeld(nachbar));
 									else
@@ -510,7 +532,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 						}
 						for (String nachbar : nachbarn2) {
 							if (nachbar != null) {
-								Spielzug zug = new Spielzug(ausgang2+ ausgang1, nachbar);
+								Spielzug zug = new Spielzug(ausgang2 + ausgang1, nachbar);
 								zug.setRichtung(bekommeRichtung(zug));
 								zug.setFarbe(getFarbeAmZug());
 								if (zugValidieren(zug)) {
@@ -550,8 +572,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 	/**
 	 * Gibt den Status des Spiels zurueck. Dieser umfasst: Das Spielbrett; Welcher
-	 * Spieler am Zug ist; Wieviele Steine die jeweiligen Spieler noch im Spiel haben und
-	 * wieviele Steiner Sie jeweils verloren haben
+	 * Spieler am Zug ist; Wieviele Steine die jeweiligen Spieler noch im Spiel
+	 * haben und wieviele Steiner Sie jeweils verloren haben
 	 * 
 	 * @return der Status als String
 	 */
@@ -578,8 +600,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		brettZeilen[7] += amZug;
 
 		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < brettZeilen.length; i++) {
-			sb.append(brettZeilen[i] +"\n");
+		for (int i = 0; i < brettZeilen.length; i++) {
+			sb.append(brettZeilen[i] + "\n");
 		}
 		String brett = sb.toString();
 
@@ -598,20 +620,20 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param zug Ein String Array mit den Werten [0] = von wo gezogen wird, [1] =
 	 *            wohin gezogen wird.
 	 * @return ein zweidimensionales char Array, welches den Zug in chars aufteilt
-	 * @throws UngueltigerZugException 
+	 * @throws UngueltigerZugException
 	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge ungueltig
 	 *                                     ist.
 	 */
 	private char[][] spielzugParser(String[] zug) throws UngueltigerZugException {
 		char[][] geparsterZug = new char[2][];
 		if (zug.length < 2) {
-			throw new UngueltigerZugException(8,"Ungueltige laenge: " + zug.length);
+			throw new UngueltigerZugException(8, "Ungueltige laenge: " + zug.length);
 		}
 		if (zug[0] == null) {
 			throw new UngueltigerZugException(9, "Zug darf nicht null sein!");
 		}
 		if (zug[0].length() % 2 != 0 || zug[0].length() > 4) {
-			throw new UngueltigerZugException(9,"Ungueltige zuglaenge: " + zug[0].length());
+			throw new UngueltigerZugException(9, "Ungueltige zuglaenge: " + zug[0].length());
 		}
 
 		// Ausgangskoordinate(n) anlege(n)
@@ -648,7 +670,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * 
 	 * @param zug mit dem Datentyp String
 	 * @return zweidimensionales Char Array, welches den Zug als Chars enthaelt
-	 * @throws UngueltigerZugException 
+	 * @throws UngueltigerZugException
 	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge ungueltig
 	 *                                     ist.
 	 */
@@ -773,7 +795,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			return false;
 		int richtung = bekommeRichtung(zug);
 		for (int i = 0; i < ausgangsfelder.length; i++) {
-			if (!(spielBrett.istBesetzt(ausgangsfelder[i]))|| zug.getFarbe() != spielBrett.getFarbeDerFigurById(ausgangsfelder[i]))
+			if (!(spielBrett.istBesetzt(ausgangsfelder[i]))
+					|| zug.getFarbe() != spielBrett.getFarbeDerFigurById(ausgangsfelder[i]))
 				return false;
 		}
 		String[] zielfelder = getZielfelder(ausgangsfelder, richtung);
@@ -784,8 +807,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		if (ausgangsfelder.length == 1) { // Ein Stein darf nicht schieben, also nur ueberpruefen, ob Zielfeld
 			// belegt ist
-			if (spielBrett.getNachbarByIdInRichtung(ausgangsfelder[0],richtung) != null
-					&& !(spielBrett.istBesetzt(spielBrett.getNachbarByIdInRichtung(ausgangsfelder[0],richtung)))) {
+			if (spielBrett.getNachbarByIdInRichtung(ausgangsfelder[0], richtung) != null
+					&& !(spielBrett.istBesetzt(spielBrett.getNachbarByIdInRichtung(ausgangsfelder[0], richtung)))) {
 				return true;
 			}
 		}
@@ -795,7 +818,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			if (ausgangsfelder.length == 2) {
 				String vordersterStein = getVorderstenStein(ausgangsfelder, richtung);
 
-				if (spielBrett.istBesetzt(spielBrett.getNachbarByIdInRichtung(vordersterStein,richtung))) {
+				if (spielBrett.istBesetzt(spielBrett.getNachbarByIdInRichtung(vordersterStein, richtung))) {
 					if (isZuEinsSumito(vordersterStein, richtung)) {
 						return true;
 					}
@@ -824,8 +847,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			return true;
 		}
 
-
-
 		return erfolgreich;
 	}
 
@@ -842,7 +863,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String zugNach = zug.getNach();
 		String feldVon = zugVon.substring(0, 2);
 
-
 		return spielBrett.getNachbarIndexById(feldVon, spielBrett.getFeld(zugNach));
 	}
 
@@ -857,7 +877,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String[] zielfelder = new String[ausgangsfelder.length];
 
 		for (int i = 0; i < ausgangsfelder.length; i++) {
-			zielfelder[i] = spielBrett.getNachbarByIdInRichtung(ausgangsfelder[i],richtung);
+			zielfelder[i] = spielBrett.getNachbarByIdInRichtung(ausgangsfelder[i], richtung);
 		}
 
 		return zielfelder;
@@ -876,12 +896,14 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	private boolean isSchiebung(String[] felder, int richtung) {
 		if (felder.length == 3) {
-			if (felder[1].equals(spielBrett.getNachbarByIdInRichtung(felder[0],richtung)) || felder[1].equals(spielBrett.getNachbarByIdInRichtung(felder[2],richtung))) {
+			if (felder[1].equals(spielBrett.getNachbarByIdInRichtung(felder[0], richtung))
+					|| felder[1].equals(spielBrett.getNachbarByIdInRichtung(felder[2], richtung))) {
 				return true;
 			}
 		}
 		if (felder.length == 2) {
-			if (felder[0].equals(spielBrett.getNachbarByIdInRichtung(felder[1],richtung)) || felder[1].equals(spielBrett.getNachbarByIdInRichtung(felder[0],richtung))) {
+			if (felder[0].equals(spielBrett.getNachbarByIdInRichtung(felder[1], richtung))
+					|| felder[1].equals(spielBrett.getNachbarByIdInRichtung(felder[0], richtung))) {
 				return true;
 			}
 		}
@@ -898,8 +920,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	private boolean isZuEinsSumito(String vordersterStein, int richtung) {
 		String nachbarInRichtung = spielBrett.getNachbarByIdInRichtung(vordersterStein, richtung);
-		if (nachbarInRichtung != null && spielBrett.istBesetzt(nachbarInRichtung)
-				&& !spielBrett.getFarbeDerFigurById(nachbarInRichtung).equals(spielBrett.getFarbeDerFigurById(vordersterStein))) {
+		if (nachbarInRichtung != null && spielBrett.istBesetzt(nachbarInRichtung) && !spielBrett
+				.getFarbeDerFigurById(nachbarInRichtung).equals(spielBrett.getFarbeDerFigurById(vordersterStein))) {
 			String nachbarHinterNachbar = spielBrett.getNachbarByIdInRichtung(nachbarInRichtung, richtung);
 			if (nachbarHinterNachbar == null) {
 				return true;
@@ -969,16 +991,18 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String erstesFeldInRichtung = spielBrett.getNachbarByIdInRichtung(vordersterStein, richtung);
 		String zweitesFeldInRichtung = null;
 		String drittesFeldInRichtung = null;
-		if(erstesFeldInRichtung!=null) {
+		if (erstesFeldInRichtung != null) {
 			zweitesFeldInRichtung = spielBrett.getNachbarByIdInRichtung(erstesFeldInRichtung, richtung);
 		}
-		if(zweitesFeldInRichtung!=null) {
+		if (zweitesFeldInRichtung != null) {
 			drittesFeldInRichtung = spielBrett.getNachbarByIdInRichtung(zweitesFeldInRichtung, richtung);
 		}
 
 		if (erstesFeldInRichtung != null && spielBrett.istBesetzt(erstesFeldInRichtung)
-				&& !spielBrett.getFarbeDerFigurById(erstesFeldInRichtung).equals(spielBrett.getFarbeDerFigurById(vordersterStein))
-				&& !spielBrett.getFarbeDerFigurById(zweitesFeldInRichtung).equals(spielBrett.getFarbeDerFigurById(vordersterStein))) {
+				&& !spielBrett.getFarbeDerFigurById(erstesFeldInRichtung)
+						.equals(spielBrett.getFarbeDerFigurById(vordersterStein))
+				&& !spielBrett.getFarbeDerFigurById(zweitesFeldInRichtung)
+						.equals(spielBrett.getFarbeDerFigurById(vordersterStein))) {
 
 			if (drittesFeldInRichtung == null) {
 				return true;
@@ -1021,13 +1045,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				zielFeldZug = new Spielzug(zielfeld, zielNachbar);
 			}
 			if (zielNachbar != null && spielBrett.istDurchGegnerBesetztById(zielNachbar, getFarbeAmZug())) {
-				String zielNachbar2 = spielBrett.getNachbarByIdInRichtung(zielNachbar,richtung);
+				String zielNachbar2 = spielBrett.getNachbarByIdInRichtung(zielNachbar, richtung);
 				if (zielNachbar2 == null) {
 					zielNachbarzug = new Spielzug(zielNachbar, null, zug.getRichtung(), zug.getFarbe());
 
 				} else {
-					zielNachbarzug = new Spielzug(zielNachbar, zielNachbar2, zug.getRichtung(),
-							zug.getFarbe());
+					zielNachbarzug = new Spielzug(zielNachbar, zielNachbar2, zug.getRichtung(), zug.getFarbe());
 				}
 			}
 		}
@@ -1046,7 +1069,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			}
 		}
 
-		return zuege.toArray(new Spielzug[0]); 
+		return zuege.toArray(new Spielzug[0]);
 	}
 
 	/**
@@ -1058,12 +1081,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	private String getHinterstenStein(String[] felder, int richtung) {
 		if (felder.length == 3) {
-			if(spielBrett.getNachbarByIdInRichtung(felder[0], richtung) != null) {
+			if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung) != null) {
 				if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung).equals(felder[1])) {
 					return felder[0];
-				} 
+				}
 			}
-			if(spielBrett.getNachbarByIdInRichtung(felder[2], richtung) != null) {
+			if (spielBrett.getNachbarByIdInRichtung(felder[2], richtung) != null) {
 				if (spielBrett.getNachbarByIdInRichtung(felder[2], richtung).equals(felder[1])) {
 					return felder[2];
 				}
@@ -1071,12 +1094,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 
 		if (felder.length == 2) {
-			if(spielBrett.getNachbarByIdInRichtung(felder[0], richtung) != null) {
+			if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung) != null) {
 				if (spielBrett.getNachbarByIdInRichtung(felder[0], richtung).equals(felder[1])) {
 					return felder[0];
-				} 
+				}
 			}
-			if(spielBrett.getNachbarByIdInRichtung(felder[1], richtung) != null) {
+			if (spielBrett.getNachbarByIdInRichtung(felder[1], richtung) != null) {
 				if (spielBrett.getNachbarByIdInRichtung(felder[1], richtung).equals(felder[0])) {
 					return felder[1];
 				}
@@ -1120,20 +1143,20 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String vonFeld1 = zug.getVon().substring(0, 2);
 		String vonFeld2 = zug.getVon().substring(2, 4);
 		String nachFeld = zug.getNach();
-		if (!(spielBrett.hatNachbarById(vonFeld2,spielBrett.getFeld(nachFeld)))
-				|| (spielBrett.hatNachbarById(vonFeld1,spielBrett.getFeld(vonFeld2))
+		if (!(spielBrett.hatNachbarById(vonFeld2, spielBrett.getFeld(nachFeld)))
+				|| (spielBrett.hatNachbarById(vonFeld1, spielBrett.getFeld(vonFeld2))
 						&& (spielBrett.hatNachbarById(vonFeld1, nachFeld)
 								&& spielBrett.hatNachbarById(vonFeld2, nachFeld)))
-				|| (spielBrett.hatNachbarById(vonFeld1, nachFeld)
-						&& spielBrett.hatNachbarById(vonFeld2, nachFeld))) {
+				|| (spielBrett.hatNachbarById(vonFeld1, nachFeld) && spielBrett.hatNachbarById(vonFeld2, nachFeld))) {
 			int richtung = spielBrett.getNachbarIndexById(vonFeld1, spielBrett.getFeld(nachFeld));
-			//(spielBrett.getFeld(vonFeld1).hatNachbar(nachFeld)&& spielBrett.getFeld(vonFeld2).hatNachbar(nachFeld)))
+			// (spielBrett.getFeld(vonFeld1).hatNachbar(nachFeld)&&
+			// spielBrett.getFeld(vonFeld2).hatNachbar(nachFeld)))
 			if (vonFeld1.charAt(1) > vonFeld2.charAt(1) || vonFeld1.charAt(0) > vonFeld2.charAt(0)) {
 				String halter = vonFeld1;
 				vonFeld1 = vonFeld2;
 				vonFeld2 = halter;
 			}
-			if (spielBrett.getNachbarByIdInRichtung(vonFeld2,richtung) != null) {
+			if (spielBrett.getNachbarByIdInRichtung(vonFeld2, richtung) != null) {
 				nachFeld = spielBrett.getNachbarByIdInRichtung(vonFeld2, richtung);
 			} else {
 				nachFeld = null;
@@ -1318,32 +1341,32 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 	/**
 	 * Gibt fuer eine KI alle auf dem Spielbrett moeglichen Bewegungen zurueck
+	 * 
 	 * @return alleMoeglichenZuege als String
 	 */
 	@Override
 	public String getAlleZuege() {
 		StringBuilder sb = new StringBuilder();
 		ArrayList<Spielzug> alleZuege = getAlleMoeglichenZuege(this.getSpielerAmZugObj().getFarbe());
-		for(Spielzug zug : alleZuege) {
+		for (Spielzug zug : alleZuege) {
 			sb.append(zug.getVon() + "-" + zug.getNach());
 			sb.append("\n");
 		}
-		
+
 		return sb.toString();
-		
+
 	}
 
 	/**
-	 * Gibt einen String mit den Namen im Stil "Name1,Name2" zurück. 
-	 * Angepasst fuer das Interface im Stil, dass nur ein String ueberliefert 
-	 * wird.
+	 * Gibt einen String mit den Namen im Stil "Name1,Name2" zurück. Angepasst fuer
+	 * das Interface im Stil, dass nur ein String ueberliefert wird.
 	 * 
 	 * @return AlleNamenDerSpieler Spielernamen getrennt durch Kommata
 	 */
 	@Override
 	public String getSpielerImSpielInterface() {
 		String spielerString = "";
-		for(Spieler s: getSpielerImSpiel()) {
+		for (Spieler s : getSpielerImSpiel()) {
 			spielerString += s.getName() + ",";
 		}
 
@@ -1354,7 +1377,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Anpassung der getErlaubte-Methode fuer das Interface
 	 * 
 	 * @return erlaubteZuege Als String implementiert
-	 * @throws SpielException 
+	 * @throws SpielException
 	 * 
 	 */
 	@Override
@@ -1362,47 +1385,48 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String zuegeString = "";
 		String[] felder = null;
 		try {
-			felder=getErlaubteZuege(ausgangsfelder);
-		}catch(UngueltigerZugException e) {
+			felder = getErlaubteZuege(ausgangsfelder);
+		} catch (UngueltigerZugException e) {
 			log(e);
-			throw new SpielException(1,"Ungueltiger Zug!");
+			throw new SpielException(1, "Ungueltiger Zug!");
 		}
-		for(String s : felder) {
+		for (String s : felder) {
 			zuegeString += s + ",";
 		}
 
 		return zuegeString;
 	}
-	
+
 	/**
-	 * Ermittelt fuer die uebergebene Farbe alle moeglichen 
-	 * Ausgangsfeldkombinationen in der Notation von links
-	 * nach rechts.  
-	 * @param farbe die Farbe, deren Ausgangsfeldkombinationen
-	 * gefunden werden sollen.
+	 * Ermittelt fuer die uebergebene Farbe alle moeglichen
+	 * Ausgangsfeldkombinationen in der Notation von links nach rechts.
+	 * 
+	 * @param farbe die Farbe, deren Ausgangsfeldkombinationen gefunden werden
+	 *              sollen.
 	 * @return eine ArrayList aus Strings, die alle moeglichen
-	 * Ausgangsfeldkombinationen enthält.
+	 *         Ausgangsfeldkombinationen enthält.
 	 * 
 	 */
 	public ArrayList<String> getMoeglicheAusgangsfelder(FarbEnum farbe) {
 		ArrayList<String> moeglicheAusgangsfelder = new ArrayList<String>();
 		ArrayList<String> felderInFarbe = spielBrett.getFelderMitFarbe(farbe);
 
-		for(String momentanesFeld : felderInFarbe) {
+		for (String momentanesFeld : felderInFarbe) {
 			String betrachtetesEinzelfeld = momentanesFeld;
-			moeglicheAusgangsfelder.add(betrachtetesEinzelfeld);			
+			moeglicheAusgangsfelder.add(betrachtetesEinzelfeld);
 
-			for(int i = 3; i <= 5; i++) {
-				if(spielBrett.getNachbarByIdInRichtung(momentanesFeld, i) != null) {
+			for (int i = 3; i <= 5; i++) {
+				if (spielBrett.getNachbarByIdInRichtung(momentanesFeld, i) != null) {
 					String nachbar = spielBrett.getNachbarByIdInRichtung(momentanesFeld, i);
-					if(spielBrett.istBesetzt(nachbar) && spielBrett.getFarbeDerFigurById(nachbar) == farbe) {
-						String betrachteteZweiFelder = momentanesFeld+ ""+ nachbar;
+					if (spielBrett.istBesetzt(nachbar) && spielBrett.getFarbeDerFigurById(nachbar) == farbe) {
+						String betrachteteZweiFelder = momentanesFeld + "" + nachbar;
 						moeglicheAusgangsfelder.add(betrachteteZweiFelder);
 
-						if(spielBrett.getNachbarByIdInRichtung(nachbar, i) != null) {
+						if (spielBrett.getNachbarByIdInRichtung(nachbar, i) != null) {
 							String nachbarDesNachbars = spielBrett.getNachbarByIdInRichtung(nachbar, i);
-							if(spielBrett.istBesetzt(nachbarDesNachbars) && spielBrett.getFarbeDerFigurById(nachbarDesNachbars) == farbe) {
-								String betrachteteDreiFelder = momentanesFeld + ""+ nachbarDesNachbars;
+							if (spielBrett.istBesetzt(nachbarDesNachbars)
+									&& spielBrett.getFarbeDerFigurById(nachbarDesNachbars) == farbe) {
+								String betrachteteDreiFelder = momentanesFeld + "" + nachbarDesNachbars;
 								moeglicheAusgangsfelder.add(betrachteteDreiFelder);
 							}
 						}
@@ -1410,23 +1434,24 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				}
 			}
 		}
-		
+
 		return moeglicheAusgangsfelder;
 	}
-	
+
 	/**
 	 * Ermittelt fuer die uebergebene Farbe alle moeglichen Zuege.
+	 * 
 	 * @param farbe die Farbe, deren moegliche Zuege gefunden werden sollen.
-	 * @return eine ArrayList aus Spielzuegen mit allen moeglichen 
-	 * Spielzuegen der uebergebenen Farbe.
+	 * @return eine ArrayList aus Spielzuegen mit allen moeglichen Spielzuegen der
+	 *         uebergebenen Farbe.
 	 */
 	public ArrayList<Spielzug> getAlleMoeglichenZuege(FarbEnum farbe) {
 
-		ArrayList<Spielzug> alleMoeglichenZuege = new ArrayList <Spielzug>();
+		ArrayList<Spielzug> alleMoeglichenZuege = new ArrayList<Spielzug>();
 		ArrayList<String> moeglicheAusgangsFelder = getMoeglicheAusgangsfelder(farbe);
 
 		for (String ausgangsFelder : moeglicheAusgangsFelder) {
-			String[] ausgangsFelderFormat = {ausgangsFelder, null};
+			String[] ausgangsFelderFormat = { ausgangsFelder, null };
 			String[] erlaubteZuege = null;
 			try {
 				erlaubteZuege = getErlaubteZuege(ausgangsFelderFormat);
@@ -1451,52 +1476,50 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	}
 
 	/**
-	 * Formatiert einen Spielzug so, dass die
-	 * Ausgangsfelder von links nach rechts angeordnet sind
-	 * und berichtigt die Notation.
+	 * Formatiert einen Spielzug so, dass die Ausgangsfelder von links nach rechts
+	 * angeordnet sind und berichtigt die Notation.
+	 * 
 	 * @param zug der zu formatierende Spielzug
 	 * @return der formatierte Spielzug
 	 */
 	private Spielzug formatiereSpielzug(Spielzug zug) {
-		if(zug == null || zug.getVon().length() < 4) {
+		if (zug == null || zug.getVon().length() < 4) {
 			return zug;
 		}
 		int richtung = zug.getRichtung();
 		String von = zug.getVon();
 		String formatiert = "";
 
-		if(von.charAt(1) == von.charAt(3) && von.charAt(0) > von.charAt(2)  ) {
-			formatiert = von.substring(2,4) + von.substring(0,2);	
-		}
-		else if(von.charAt(1) > von.charAt(3))	{
-			formatiert = von.substring(2,4) + von.substring(0,2);	
-		}
-		else {
+		if (von.charAt(1) == von.charAt(3) && von.charAt(0) > von.charAt(2)) {
+			formatiert = von.substring(2, 4) + von.substring(0, 2);
+		} else if (von.charAt(1) > von.charAt(3)) {
+			formatiert = von.substring(2, 4) + von.substring(0, 2);
+		} else {
 			formatiert = von;
-		}		
+		}
 
-		return new Spielzug(formatiert, 
-				spielBrett.getNachbarByIdInRichtung(formatiert.substring(0,2), richtung), 
+		return new Spielzug(formatiert, spielBrett.getNachbarByIdInRichtung(formatiert.substring(0, 2), richtung),
 				richtung, zug.getFarbe());
-		
+
 	}
-	
+
 	/**
 	 * Schreibt eine Exception in mit Datum & Uhrzeit in die log.txt
+	 * 
 	 * @param e - Die zu loggende Exception
 	 */
-	private void log(Exception e ) {
+	private void log(Exception e) {
 		BufferedWriter logger = null;
 		File file = new File("log.txt");
-		Scanner sc = null; 
+		Scanner sc = null;
 		try {
 			sc = new Scanner(file);
 		} catch (FileNotFoundException e1) {
 		}
 		try {
-			logger = new BufferedWriter(new FileWriter(file,true));
-		}catch(FileNotFoundException e1) {
-		}catch(IOException e1) {
+			logger = new BufferedWriter(new FileWriter(file, true));
+		} catch (FileNotFoundException e1) {
+		} catch (IOException e1) {
 		}
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
@@ -1507,10 +1530,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			logger.write(e.toString());
 			logger.newLine();
 			logger.flush();
-		}catch(FileNotFoundException fehler) {
-			
-		}catch(IOException fehler) {
-			
+		} catch (FileNotFoundException fehler) {
+
+		} catch (IOException fehler) {
+
 		}
 		try {
 			logger.close();
@@ -1518,30 +1541,31 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Falls das Programm bei der letzten Ausfuehrung nicht korrekt beendet wurde, wird dies von dieser Methode notiert.
-	 * Außerdem scheibt diese Methode die Nachrit, wann das Spiel gestartet wurde in die Logdatei.
+	 * Falls das Programm bei der letzten Ausfuehrung nicht korrekt beendet wurde,
+	 * wird dies von dieser Methode notiert. Außerdem scheibt diese Methode die
+	 * Nachrit, wann das Spiel gestartet wurde in die Logdatei.
 	 */
 	private void initLog() {
 		BufferedWriter logger = null;
 		File file = new File("log.txt");
-		Scanner sc = null; 
+		Scanner sc = null;
 		try {
 			sc = new Scanner(file);
 		} catch (FileNotFoundException e1) {
 		}
 		try {
-			logger = new BufferedWriter(new FileWriter(file,true));
-		}catch(FileNotFoundException e) {
-		}catch(IOException e) {
+			logger = new BufferedWriter(new FileWriter(file, true));
+		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 		}
-		if(sc != null) {
+		if (sc != null) {
 			String scanned = "";
-			while(sc.hasNext()) {
+			while (sc.hasNext()) {
 				scanned = sc.nextLine();
 			}
-			if(scanned.length() < 18 || !scanned.substring(0,18).equals("---------- Beendet")) {
+			if (scanned.length() < 18 || !scanned.substring(0, 18).equals("---------- Beendet")) {
 				try {
 					logger.newLine();
 					logger.write("---------- Das Spiel wurde nicht Ordungsgemaeß beendet! ----------");
@@ -1558,33 +1582,33 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			logger.write("---------- Gestartet am " + dateFormat.format(date) + " ----------");
 			logger.newLine();
 			logger.flush();
-		}catch(FileNotFoundException fehler) {
-			
-		}catch(IOException fehler) {
-			
+		} catch (FileNotFoundException fehler) {
+
+		} catch (IOException fehler) {
+
 		}
 		try {
 			logger.close();
 		} catch (IOException e) {
 		}
 	}
-	
+
 	/**
-	 * Wird aufgerufen, wenn das Spiel korrekt beendet wird.
-	 * Schreibt Datum und Uhrzeit des Beendens in die log.txt
+	 * Wird aufgerufen, wenn das Spiel korrekt beendet wird. Schreibt Datum und
+	 * Uhrzeit des Beendens in die log.txt
 	 */
 	private void endLog() {
 		BufferedWriter logger = null;
 		File file = new File("log.txt");
-		Scanner sc = null; 
+		Scanner sc = null;
 		try {
 			sc = new Scanner(file);
 		} catch (FileNotFoundException e1) {
 		}
 		try {
-			logger = new BufferedWriter(new FileWriter(file,true));
-		}catch(FileNotFoundException e) {
-		}catch(IOException e) {
+			logger = new BufferedWriter(new FileWriter(file, true));
+		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 		}
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
@@ -1593,23 +1617,22 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			logger.write("---------- Beendet am " + dateFormat.format(date) + " ----------");
 			logger.flush();
 			logger.close();
-		}catch(FileNotFoundException fehler) {
-		}catch(IOException fehler) {
+		} catch (FileNotFoundException fehler) {
+		} catch (IOException fehler) {
 		}
 		try {
 			logger.close();
 		} catch (IOException e) {
 		}
 	}
-	
+
 	/**
 	 * Gibt das Spielbrett des Spiels zurueck.
+	 * 
 	 * @return das Spielbrett des Spiels.
 	 */
 	private Spielbrett getSpielbrett() {
 		return this.spielBrett;
 	}
-	
-
 
 }
