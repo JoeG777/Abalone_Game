@@ -56,6 +56,14 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 //		setFarbe(null);
 	}
 	
+	/**
+	 * privater Konstruktor zur erstmaligen Initialisierung eines Feldes
+	 * @param id ID des Feldes
+	 * @param farbe Farbe des Feldes
+	 * @param figur die Figur auf diesem Feld
+	 * @param nachbarn die Liste der angrenzenden Felder
+	 * @throws SpielfeldException
+	 */
 	private Spielfeld(String id, FarbEnum farbe, Spielfigur figur, String[] nachbarn) throws SpielfeldException{
 		this(id, farbe, figur);
 		this.setNachbarn(nachbarn);
@@ -81,13 +89,18 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 	
 	/**
 	 * Setter fuer das initilisieren und Setzen einer Figur
-	 * @param farbe
+	 * @param farbe als String, wird im Spielfeldkonstrukto behandelt
 	 * @throws SpielfeldException 
 	 */
 	public void setAndInitFigur(String farbe){
 		this.figur = new Spielfigur(farbe);
 	}
 	
+	/**
+	 * Setter fuer das initilisieren und Setzen einer Figur
+	 * @param farbe Farbe der Figur als Enum 
+	 * @throws SpielfeldException 
+	 */
 	public void setAndInitFigur(FarbEnum farbe) {
 		this.figur = new Spielfigur(farbe);
 	}
@@ -169,6 +182,10 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 		return null;
 	}
 	
+	/**
+	 * Klont ein Spielfeldobjekt
+	 * @return geklontesSpielfeld Klone der Spielfeldobjekts
+	 */
 	@Override 
 	public Spielfeld clone() {
 		Spielfigur figur = null;

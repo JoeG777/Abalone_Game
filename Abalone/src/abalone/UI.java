@@ -59,6 +59,10 @@ public class UI implements java.io.Serializable {
 		}
 	}
 	
+	/**
+	 * UI-Methode fuer das Hinzufuegen eines Spielers
+	 * @param anzahl Anzahl der Spieler
+	 */
 	public static void addWeiss(int anzahl){
 		System.out.println("\nGeben Sie den Namen fuer den Spieler mit der Farbe Weiss ein:");
 		System.out.print("> ");
@@ -76,6 +80,10 @@ public class UI implements java.io.Serializable {
 		System.out.println("Spieler angelegt.");
 	}
 	
+	/**
+	 * UI-Methode fuer das Hinzufuegen eines Spielers
+	 * @param anzahl Anzahl der Spieler
+	 */
 	public static void addSchwarz(int anzahl) {
 		System.out.println("\nGeben Sie den Namen fuer den Spieler mit der Farbe Schwarz ein:");
 		System.out.print("> ");
@@ -112,6 +120,12 @@ public class UI implements java.io.Serializable {
 
 	}
 
+	/**
+	 * Das Hauptmenue der graphischen Oberflaeche
+	 * @throws FileNotFoundException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public static void hauptMenue()
 			throws FileNotFoundException, ClassNotFoundException, IOException {
 		boolean imSpiel = true;

@@ -67,6 +67,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return spielerImSpiel;
 	}
 	
+	/**
+	 * Wird vom GC bei dessen Verenden aufgerufen
+	 */
 	@Override
 	public void finalize() {
 		endLog();
@@ -160,6 +163,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			return spielerAmZug.getName();
 	}
 	
+	/**
+	 * Gibt das Spielerobjekt zurueck, welches  am Zug ist
+	 * @return SpielerAmZug
+	 */
 	private Spieler getSpielerAmZugObj() {
 		return this.spielerAmZug;
 	}
@@ -173,6 +180,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return this.spielerAmZug.getFarbe();
 	}
 	
+	/**
+	 * Ermittelt die Farbe die momentan NICHT am Zug ist
+	 * @return FarbeDieNichtAmZuIst Farbe nicht am Zug
+	 */
 	private FarbEnum getFarbeNichtAmZug() {
 		if(getFarbeAmZug() == FarbEnum.SCHWARZ) {
 			return FarbEnum.WEISS;
@@ -453,7 +464,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @return ErlaubteZuege Ein String Array mit den erlaubten Zuegen.
 	 * @throws UngueltigerZugException 
 	 */
-	
 	public String[] getErlaubteZuege(String[] ausgangsFelder) throws UngueltigerZugException {
 		if (!koordinatenValidieren(spielzugParser(ausgangsFelder))) {
 			throw new UngueltigerZugException(7, "Ungueltige Eingabe");
@@ -864,7 +874,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 *         Steine geschoben werden. false, wenn es sich nicht um einen solchen
 	 *         Zug handelt.
 	 */
-
 	private boolean isSchiebung(String[] felder, int richtung) {
 		if (felder.length == 3) {
 			if (felder[1].equals(spielBrett.getNachbarByIdInRichtung(felder[0],richtung)) || felder[1].equals(spielBrett.getNachbarByIdInRichtung(felder[2],richtung))) {

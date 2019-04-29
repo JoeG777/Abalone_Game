@@ -189,14 +189,11 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 		return brett.get(id);
 	}
 
-
-
 	/** 
 	 * Ordnet die HashMap in Form eines Abalone Spielbretts mit Koordinaten an.
 	 * @return Einen String in Form eines Abalone-Spielbretts.
 	 * 
 	 */
-
 	@Override
 	public String toString() {
 		StringBuilder gesamtesFeld = new StringBuilder();
@@ -213,6 +210,10 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 		return gesamtesFeld.toString();
 		} 
 		
+	/**
+	 * Klont ein Spielbrettobjekt
+	 * @return geklontesSpielbrett Spielbrettklon
+	 */
 	@Override
 	public Spielbrett clone() {
 		HashMap<String, Spielfeld> klon = new HashMap<String, Spielfeld>();
@@ -222,7 +223,6 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 		
 		return new Spielbrett(klon);
 	}
-
 
 	/**
 	 * notwendige Hilfsmethode von getStatus von der Spielklasse.
@@ -256,8 +256,6 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 		return einzelneQuerlinie.toString(); 
 	}
 
-
-
 	/**
 	 * Hilfsmethode von toString.
 	 * Fuegt alle Symbole der Felder einer Zeile mit Zwischenabstaenden zu einem
@@ -286,7 +284,6 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 		return felder.toString(); 
 	}
 
-	
 	/**
 	 * Nimmt Spielzuege an und bewegt Steine vom von-Attribut des Spielzug-
 	 * Objektes auf dessen nach-Attribut. Ist das nach-Attribut gleich 'null'
@@ -296,7 +293,6 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	 * enthaehlt.
 	 * @throws SpielbrettException 
 	 */
-
 	public void ziehe(Spielzug[] zuege) throws SpielbrettException {
 		for(Spielzug zug : zuege) {
 			if(zug != null ) {
@@ -332,7 +328,6 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	private void steinAbraeumen(Spielfeld feld) {
 		feld.setFigur(null);
 	}
-
 
 	/**
 	 * Gibt alle Ausgangsfelder eines Zuges zurueck-
@@ -376,7 +371,6 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 		return ausgangsfelder.toArray(new String[0]); //vorher new Spielfeld[0]
 	}
 	
-
 	/**
 	 * Gibt alle Felder zurueck, die mit einer Figur belegt sind, 
 	 * deren Farbe gleich der uebergebenen Farbe ist.
@@ -406,6 +400,12 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 		return nachbarIds;
 	}
 	
+	/**
+	 * Gibt den Nachbar eines Feldes in der angegebenen Richtung zurück
+	 * @param id anzusprechendes Feld
+	 * @param richtung Index im Nachbararray
+	 * @return IDDesGesuchtenFeldes in der uebergebenen Richtung
+	 */
 	public String getNachbarByIdInRichtung(String id, int richtung) {
 		return this.getFeldById(id).getNachbar(richtung);
 		//Spielbrett holt sich Feld -> Nachbar -> id -> Rueckgabe

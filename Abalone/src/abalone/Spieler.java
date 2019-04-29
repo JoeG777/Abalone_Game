@@ -119,7 +119,10 @@ public class Spieler implements java.io.Serializable {
 		return this.eliminierteKugeln;
 	}
 
-	
+	/**
+	 * Informationen zum Spieler
+	 * @return Infos zum Spieler
+	 */
 	@Override
 	public String toString() {
 		return "Spieler " + this.getSpielerID()
@@ -128,10 +131,11 @@ public class Spieler implements java.io.Serializable {
 		+ " Kugeln eliminiert";
 		}
 	
-	@Override
+	
 	/**
 	 * Gibt einen hashCode fuer den Spieler zurueck.
 	 */
+	@Override
 	public int hashCode() {
 		return this.spielerID;
 	}
@@ -142,7 +146,6 @@ public class Spieler implements java.io.Serializable {
 	 * @return Boolean Ob zwei verglichene Objekte gleich
 	 * in ihren Attributen sind
 	 */
-	
 	@Override
 	public boolean equals(Object o) {
 		
