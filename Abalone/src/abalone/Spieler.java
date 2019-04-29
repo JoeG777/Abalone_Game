@@ -50,7 +50,7 @@ public class Spieler implements java.io.Serializable {
 	 * Setzt das Attribut Name 
 	 * @param name selbstgewaehlter Name
 	 */
-	private void setName(String name) {
+	protected void setName(String name) {
 		this.name = name;
 	}
 	
@@ -164,9 +164,9 @@ public class Spieler implements java.io.Serializable {
 	}
 	
 	/**
-	 * Diese Methode gibt die - zur CSV-Speicherung notwendigen - Informationen in Form
+	 * Diese Methode gibt die zur CSV-Speicherung notwendigen Informationen in Form
 	 * eines Strings zurueck
-	 * @return String, der die - zur CSV-Speicherung notwendigen - Informationen enthaelt
+	 * @return String, der die zur CSV-Speicherung notwendigen Informationen enthaelt
 	 */
 	public String schreibeCSV() {
 		String csv = "SPIELER:";
@@ -186,5 +186,5 @@ public class Spieler implements java.io.Serializable {
 		
 		return csv;
 	}
-
+	
 }

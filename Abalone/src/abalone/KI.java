@@ -11,7 +11,7 @@ public class KI extends Spieler {
 
 	private static final long serialVersionUID = 110L;
 	private static int anzahlKIs = 0;
-	private static final String[] namen = {"KI-1", "KI-2"};
+	private static final String[] namen = {"KI_1", "KI_2"};
 	
 	private String[] besterZug;
 	private HashMap<String, Integer> werteMap;
@@ -143,8 +143,14 @@ public class KI extends Spieler {
 	 * Setzt das durchziehend-Attribut der KI.
 	 * @param durchziehend true, wenn die KI durchziehen soll, false, wenn nicht.
 	 */
-	private void setDurchziehend(boolean durchziehend) {
+	public void setDurchziehend(boolean durchziehend) {
 		this.durchziehend = durchziehend;
+		if(durchziehend == true) {
+			super.setName(this.getName() + "(durchziehend)");
+		}
+		else {
+			super.setName(this.getName().substring(0,4));
+		}
 	}
 	
 	/**

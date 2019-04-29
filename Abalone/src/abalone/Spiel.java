@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import abalone.spielbrett.Spielbrett;
 import abalone.spielbrett.SpielbrettException;
@@ -40,7 +41,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	private Historie historie;
 	private boolean herausgedraengt = false;
 	private Spielzug letzterZug;
-	private BufferedWriter logger;
 
 	/**
 	 * Konstruktor, instanziiert alle anfangs benoetigten Objekte.
@@ -94,6 +94,21 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			log(e);
 			throw e;
 		}
+		
+		if(name != null) {
+			Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
+			if (regex.matcher(name).find()) {
+				SpielException e = new SpielException(18, "Spielername darf keine Sonderzeichen ausser _ enthalten!");
+				log(e);
+				throw e;
+			}
+			if(name.substring(0,2).equals("KI")) {
+				SpielException e = new SpielException(19, "Spielername darf nicht mit \"KI\" beginnen!");
+				log(e);
+				throw e;
+			}
+		}
+			
 		if (anzahlSpieler == 2) {
 			if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
 				SpielException e = new SpielException(11,"Das Spieler Array ist bereits voll!");
@@ -198,11 +213,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
 		
 		serial.oeffnen(dateiName);
-		
-		Object[] spielState = {this.spielerImSpiel,this.spielerAmZug,this.spielBrett,this.historie,this.herausgedraengt,this.letzterZug};
-		
+		Spiel test = this;
 		try {
-			serial.schreiben(spielState);
+			serial.schreiben(test);
 			serial.schliessen();
 		} catch (IOException e) {
 			DateiIOException ex = new DateiIOException(16, "Ungueltiger Dateiname!");
@@ -217,32 +230,26 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param Name, der zu lesenden Datei
 	 * @throws DateiIOException
 	 */
-	public void lesenSerialisiert(String dateiName) throws DateiIOException {
+	public Object lesenSerialisiert(String dateiName) throws DateiIOException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
 		
 		serial.oeffnen(dateiName);
 		
-		Object[] spielState = null;
+		Spiel saveState = null;
 		
 		try {
-			spielState = (Object[]) serial.lesen();
+			saveState = (Spiel) serial.lesen();
 			serial.schliessen();
 		} catch (IOException e) {
-			DateiIOException ex = new DateiIOException(13,"Datei nicht gefunden!");
+			DateiIOException ex = new DateiIOException(13, "Datei nicht gefunden!");
 			log(ex);
 			throw ex;
 		} catch (ClassNotFoundException e){
-			DateiIOException ex = new DateiIOException(15,"Die Datei scheint kaputt zu sein!");
-			log(e);
+			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+			log(ex);
 			throw ex;
 		};
-		
-		this.spielerImSpiel = (Spieler[])spielState[0];
-		this.spielerAmZug = (Spieler)spielState[1];
-		this.spielBrett = (Spielbrett) spielState[2];
-		this.historie = (Historie) spielState[3];
-		this.herausgedraengt = (boolean) spielState[4];
-		this.letzterZug = (Spielzug) spielState[5];;
+		return saveState;
 	}
 	
 	/**
@@ -254,15 +261,24 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	public void speichernCSV(String dateiName) throws DateiIOException {
 		PersistenzImplCSV pic = new PersistenzImplCSV();
+		String csv = "SPIEL:\n";
+		
+		for (Spieler spieler: spielerImSpiel) {
+			csv +=  spieler.schreibeCSV()+"\n";
+		}
+		
+		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
+		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
 		
 		pic.oeffnen(dateiName);
 		
 		try {
-			pic.schreiben(this);
+			pic.schreiben(csv);
 			pic.schliessen();
 		} catch (IOException e) {
 			DateiIOException ex = new DateiIOException(16, "Ungueltiger Dateiname!");
 			log(ex);
+			throw ex;
 		}
 	}
 	
@@ -281,11 +297,66 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		try {
 			csv = pic.lesen();
 		} catch (UnsupportedEncodingException e) {
-			throw new DateiIOException(15,"Die Datei scheint kaputt zu sein!");
+			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+			log(ex);
+			throw ex;
 		} catch (IOException e) {
-			throw new DateiIOException(13, "Datei nicht gefunden!");
+			DateiIOException ex = new DateiIOException(13, "Datei nicht gefunden!");
+			log(ex);
+			throw ex;
 		}
 		
+		String[] array = csv.split("\n");
+		
+		this.ladeCSVSpieler(array[2], array[3], array[4]);
+		historie.ladeCSV(array[5]);
+		
+		try {
+			spielBrett.ladeCSV(array);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+			log(ex);
+			throw ex;
+		} catch (IllegalArgumentException e) {
+			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+			log(ex);
+			throw ex;
+		}
+		
+	}
+	
+	/**
+	 * Diese Methode dient zum CSV-Laden der Spieler-Informationen aus uebergebenen Strings
+	 * @param csv String, der die zum CSV-Laden notwendigen Informationen enthaelt
+	 * @throws DateiIOException 
+	 */
+	private void ladeCSVSpieler(String spieler1, String spieler2, String amZug) throws DateiIOException {
+		String[] arraySpieler1 = spieler1.split(":");
+		String[] infoSpieler1 = arraySpieler1[1].split(",");
+		String[] arraySpieler2 = spieler2.split(":");
+		String[] infoSpieler2 = arraySpieler2[1].split(",");
+		String[] infoAmZug = amZug.split(":");
+		
+		try {
+			if (infoSpieler1[0].equals("KI_1")) {
+				this.addSpieler(null, null, 0);
+			} else {
+				if (infoSpieler2[0].equals("KI_1")) {
+					this.addSpieler(infoSpieler1[0], infoSpieler1[1], 1);
+				} else {
+					this.addSpieler(infoSpieler1[0], infoSpieler1[1], 2);
+					this.addSpieler(infoSpieler2[0], infoSpieler2[1], 2);
+				}
+			}
+			
+			if (!(this.getSpielerAmZug().equals(infoAmZug[1])))
+				this.spielerAmZug = spielerImSpiel[1];
+			
+		} catch (SpielException e) {
+			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+			log(ex);
+			throw ex;
+		}
 	}
 	
 	/**
@@ -299,6 +370,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	@Override
 	public void ziehe(String[] zug) throws SpielException {
 		if(spielerAmZug instanceof KI)  {
+			if(zug[0].equals("DURCHZIEHEN")) {
+				((KI)spielerAmZug).setDurchziehend(true);
+			}
 			ArrayList<Spielzug> moeglicheZuege = getAlleMoeglichenZuege(getFarbeAmZug());
 			String[] besterZug = new String[2]; 
 			((KI)spielerAmZug).setGegnerFigVorZug(spielBrett.getFelderMitFarbe(getFarbeNichtAmZug()).size());
@@ -309,8 +383,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				try {
 					brettNachZug.ziehe(spielzugSplitter(simulationszug));
 				} catch (SpielbrettException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					log(e);
 				}
 				int zugScore = ((KI)spielerAmZug).calcStaerkeDesBretts(brettNachZug);
 				if(zugScore > max) {
@@ -1398,30 +1471,24 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				richtung, zug.getFarbe());
 		
 	}
-
-	/**
-	 * Diese Methode fasst alle notwendigen Informationen - zum Speichern als
-	 * CSV-Datei - in einen einzigen langen String ein
-	 * @return String, welcher den zu schreibenden CSV-Inhalt enthaelt
-	 */
-	public String schreibeCSV() {
-		String csv = "SPIEL:\n";
-				
-		for (Spieler spieler: spielerImSpiel) {
-			csv +=  spieler.schreibeCSV()+"\n";
-		}
-		
-		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
-		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
-		
-		return csv;
-	}
 	
 	/**
 	 * Schreibt eine Exception in mit Datum & Uhrzeit in die log.txt
 	 * @param e - Die zu loggende Exception
 	 */
 	private void log(Exception e ) {
+		BufferedWriter logger = null;
+		File file = new File("log.txt");
+		Scanner sc = null; 
+		try {
+			sc = new Scanner(file);
+		} catch (FileNotFoundException e1) {
+		}
+		try {
+			logger = new BufferedWriter(new FileWriter(file,true));
+		}catch(FileNotFoundException e1) {
+		}catch(IOException e1) {
+		}
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
 		try {
@@ -1436,6 +1503,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}catch(IOException fehler) {
 			
 		}
+		try {
+			logger.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 	/**
@@ -1443,6 +1515,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Auﬂerdem scheibt diese Methode die Nachrit, wann das Spiel gestartet wurde in die Logdatei.
 	 */
 	private void initLog() {
+		BufferedWriter logger = null;
 		File file = new File("log.txt");
 		Scanner sc = null; 
 		try {
@@ -1481,6 +1554,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}catch(IOException fehler) {
 			
 		}
+		try {
+			logger.close();
+		} catch (IOException e) {
+		}
 	}
 	
 	/**
@@ -1488,6 +1565,18 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Schreibt Datum und Uhrzeit des Beendens in die log.txt
 	 */
 	private void endLog() {
+		BufferedWriter logger = null;
+		File file = new File("log.txt");
+		Scanner sc = null; 
+		try {
+			sc = new Scanner(file);
+		} catch (FileNotFoundException e1) {
+		}
+		try {
+			logger = new BufferedWriter(new FileWriter(file,true));
+		}catch(FileNotFoundException e) {
+		}catch(IOException e) {
+		}
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 		Date date = new Date();
 		try {
@@ -1498,7 +1587,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}catch(FileNotFoundException fehler) {
 		}catch(IOException fehler) {
 		}
-		
+		try {
+			logger.close();
+		} catch (IOException e) {
+		}
 	}
 	
 	/**

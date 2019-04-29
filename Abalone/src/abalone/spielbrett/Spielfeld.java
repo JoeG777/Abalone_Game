@@ -319,23 +319,39 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 		return "-";
 	}
 	
-	public String writeCSVString() {
+	/**
+	 * Diese Methode gibt die von Spielfeld notwendigen Informationen zum
+	 * Speichern als CSV in Form eines Strings zurueck
+	 * @return String, welche alle notwendigen Informationen des Spielfeldes enthaelt
+	 */
+	public String schreibeCSV() {
 		String csv = "SPIELFELD:";
 		String figur;
-		if(this.figur == null) {
+		
+		if (this.figur == null)
 			figur = "FIGUR:null";
-		}else {
-			figur = this.figur.writeCSVString();
-		}
-		csv += ","+this.id+","+figur;
+		else
+			figur = this.figur.schreibeCSV();
+		
+		csv += "," + this.id + "," + figur;
+		
 		return csv;
 	}
 	
+	/**
+	 * Diese Methode dient zum Setzen eines Spielfeldes anhand eines Strings
+	 * @param feld String, der Feld-ID und Figurfarbe enthaelt
+	 */
+	public void ladeCSV(String feld) {
+		String[] infoFeld = feld.split(",");
+		this.setId(infoFeld[1]);
+		
+		String[] figur = infoFeld[2].split(":");
+		this.figur.ladeCSV(figur[1]);
+	}
 	
 	
 	//Innere Memberclass Spielfigur
-	
-	
 	
 	
 	
@@ -361,14 +377,13 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 		public Spielfigur(FarbEnum farbe){
 			setFarbe(farbe);
 		}
-		
+
 		/**
 		 * Erzeugt ein neues Spielfigur Objekt mit Farbe als String.
 		 * @param feld Ein Spielfeld Objekt (muss zur Erzeugung existieren).
 		 * @param farbe Die Farbe der Spielfigur.
 		 * @throws SpielfeldException 
 		 */
-
 		public Spielfigur(String farbe) {
 			if(farbe == null|| 
 					(!(farbe.equals("WEISS") || farbe.equals("SCHWARZ")))) {
@@ -412,7 +427,6 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 		}
 		/**
 		 * Gibt einen String mit der Farbe der jeweiligen Figur zurueck.
-		 * 
 		 * @return String toString der Spielfigur
 		 */
 		@Override
@@ -420,21 +434,47 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 			return "Eine Figur der Farbe " + this.getFarbe();
 		}
 		
+		/**
+		 * Diese Methode klont eine uebergebene Spielfigur.
+		 * @return geklonte Spielfigur
+		 */
 		@Override
 		public Spielfigur clone() {
 			return new Spielfigur(this.getFarbe());
 		}
-		public String writeCSVString() {
+		
+		/**
+		 * Diese Methode gibt die von Spielfigur notwendigen Informationen zum
+		 * Speichern als CSV in Form eines Strings zurueck
+		 * @return String, welche alle notwendigen Informationen einer Spielfigur enthaelt
+		 */
+		private String schreibeCSV() {
 			String farbe;
-			if(this.farbe == FarbEnum.SCHWARZ){
+			
+			if (this.farbe == FarbEnum.SCHWARZ)
 				farbe = "schwarz";
-			}else
-			if(this.farbe == FarbEnum.WEISS) {
+			else if (this.farbe == FarbEnum.WEISS)
 				farbe = "weiss";
-			}else {
+			else
 				farbe = "null";
-			}
-			return "FIGUR:"+farbe;
+			
+			return "FIGUR:" + farbe;
+		}
+		
+		/**
+		 * Diese Methode setzt die Farbe einer Figur fuer ein bestimmtes Feld
+		 * oder weist 'null' zu abhaengig von dem uebergebenen String
+		 * @param figur String, welcher die Farbe der Figur oder null enthaelt
+		 */
+		private void ladeCSV(String figur) {
+			if (figur == "null")
+				this.farbe = null;
+			else if (figur == "weiss")
+				this.farbe = FarbEnum.WEISS;
+			else if (figur == "schwarz")
+				this.farbe = FarbEnum.SCHWARZ;
+			else
+				throw new IllegalArgumentException("Farbe ungueltig!");
 		}
 	}
 	

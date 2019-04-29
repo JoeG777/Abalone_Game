@@ -9,6 +9,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.regex.Pattern;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
 /** 
  * <h1>PersistenzImplSerialisiert</h1>
  * Die Klasse PersistenzImplSerialisiert implementiert das
@@ -85,6 +87,7 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 		} catch (FileNotFoundException e) {
 			throw new IOException("Datei nicht gefunden");
 		} catch (IOException e) {
+			System.out.println(e.getMessage());
 			throw new IOException("Irgendwas ist schief gelaufen " + e.getMessage());
 		}
 	}

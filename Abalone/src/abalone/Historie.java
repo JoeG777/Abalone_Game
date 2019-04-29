@@ -110,16 +110,30 @@ public class Historie implements java.io.Serializable {
 	}
 	
 	/**
-	 * Diese Methode gibt die Historie als einzigen String - fuer die
-	 * CSV-Speicherung - zurueck
-	 * @return String, welcher die Historie enthaelt
+	 * Diese Methode gibt die Historie als einzigen String fuer die
+	 * CSV-Speicherung zurueck
+	 * @return String, welcher die zu speichernde Historie enthaelt
 	 */
 	public String schreibeCSV() {
 		String csv = "HISTORIE:";
-		for(String zug: zuege) {
+		for (String zug: zuege) {
 			csv += zug + ",";
 		}
 		return csv;
+	}
+
+	/**
+	 * Diese Methode dient zum CSV-Laden der Historie aus einem
+	 * uebergebenem String
+	 * @param csv String, welcher die zu ladende Historie enthaelt
+	 */
+	public void ladeCSV(String csv) {
+		String[] array = csv.split(":");
+		String[] zuegeArray = array[1].split(",");
+		
+		for (String zug : zuegeArray) {
+			zuege.add(zug);
+		}
 	}
 	
 	
