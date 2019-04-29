@@ -129,8 +129,10 @@ public class Historie implements java.io.Serializable {
 	 */
 	public void ladeCSV(String csv) {
 		String[] array = csv.split(":");
+		if(array.length < 2) {
+			return;
+		}
 		String[] zuegeArray = array[1].split(",");
-		
 		for (String zug : zuegeArray) {
 			zuege.add(zug);
 		}
