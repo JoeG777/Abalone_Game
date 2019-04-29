@@ -2,7 +2,6 @@ package simulation;
 
 import java.util.Scanner;
 
-import abalone.AbaloneException;
 import abalone.Spiel;
 import abalone.spielbrett.SpielfeldException;
 

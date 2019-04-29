@@ -17,7 +17,7 @@ public interface bedienerInterface {
 	void addSpieler(String name, String farbe, int anzahlSpieler) throws SpielException;
 	String getStatus();
 	String getHistorie();
-	String getErlaubteZuegeInterface(String[] ausgangsfelder) throws SpielException;////muss noch ein anderer Returnwert sein
+	String getErlaubteZuegeInterface(String[] ausgangsfelder) throws SpielException;
 	boolean hatGewonnen(String name);
 	void speichernSerialisiert(String dateiName) throws SpielException;
 	Object lesenSerialisiert(String dateiName) throws SpielException;

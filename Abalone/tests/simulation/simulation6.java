@@ -3,9 +3,11 @@ package simulation;
 import java.util.Scanner;
 
 import abalone.Spiel;
+import abalone.SpielException;
+import abalone.spielbrett.SpielfeldException;
 
 public class simulation6 {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SpielfeldException, SpielException {
 		Spiel s = new Spiel();
 		Scanner sc = new Scanner(System.in);
 		String[][] zugSimulation = {
