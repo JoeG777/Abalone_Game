@@ -364,7 +364,11 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 		this.setId(infoFeld[1]);
 		
 		String[] figur = infoFeld[2].split(":");
-		this.figur.ladeCSV(figur[1]);
+		this.setFigur(null);
+		if(!"null".equals(figur[1])) {
+			Spielfigur figurObjekt = new Spielfigur(figur[1]);
+			this.setFigur(figurObjekt);
+		}
 	}
 	
 	
@@ -403,15 +407,15 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 		 */
 		public Spielfigur(String farbe) {
 			if(farbe == null|| 
-					(!(farbe.equals("WEISS") || farbe.equals("SCHWARZ")))) {
+					(!(farbe.equalsIgnoreCase("WEISS") || farbe.equalsIgnoreCase("SCHWARZ")))) {
 				throw new RuntimeException("Farbe muss Schwarz oder Weiss sein");
 			}
 
-			if(farbe.equals("WEISS")) {
+			if(farbe.equalsIgnoreCase("WEISS")) {
 				setFarbe(FarbEnum.WEISS);
 			}
 
-			if(farbe.equals("SCHWARZ")) {
+			if(farbe.equalsIgnoreCase("SCHWARZ")) {
 				setFarbe(FarbEnum.SCHWARZ);
 			}
 		}
