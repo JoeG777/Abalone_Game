@@ -3,10 +3,13 @@ package simulation;
 import java.util.Scanner;
 
 import abalone.Spiel;
+import abalone.SpielException;
+import abalone.spielbrett.SpielbrettException;
+import abalone.spielbrett.SpielfeldException;
 
 public class Simulation3 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SpielbrettException, SpielException {
 		Spiel s = new Spiel();
 		Scanner sc = new Scanner(System.in);
 		String[][] zugSimulation = {
