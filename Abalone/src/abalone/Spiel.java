@@ -404,31 +404,48 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public void ziehe(String[] zug) throws SpielException {
-		if (spielerAmZug instanceof KI) {
-			if (zug[0].equals("DURCHZIEHEN")) {
-				((KI) spielerAmZug).setDurchziehend(true);
+		if(spielerAmZug instanceof KI) {
+			KI kiSpieler = (KI) spielerAmZug;
+			if(zug[0].equals("DURCHZIEHEN")) {
+				kiSpieler.setDurchziehend(true);
 			}
-			ArrayList<Spielzug> moeglicheZuege = getAlleMoeglichenZuege(getFarbeAmZug());
-			String[] besterZug = new String[2];
-			((KI) spielerAmZug).setGegnerFigVorZug(spielBrett.getFelderMitFarbe(getFarbeNichtAmZug()).size());
-			int max = 0;
-
-			for (Spielzug simulationszug : moeglicheZuege) {
-				Spielbrett brettNachZug = getSpielbrett().clone();
-				try {
-					brettNachZug.ziehe(spielzugSplitter(simulationszug));
-				} catch (SpielbrettException e) {
-					log(e);
-				}
-				int zugScore = ((KI) spielerAmZug).calcStaerkeDesBretts(brettNachZug);
-				if (zugScore > max) {
-					max = zugScore;
-					besterZug[0] = simulationszug.getVon();
-					besterZug[1] = simulationszug.getNach();
-				}
+			
+			ArrayList<Spielzug[]> gesplitteteZuege = new ArrayList<Spielzug[]>();
+			
+			for(Spielzug spielzug : getAlleMoeglichenZuege(getFarbeAmZug())) {
+				gesplitteteZuege.add(spielzugSplitter(spielzug));
 			}
-			zug = besterZug;
+			
+			String[] besterZug = kiSpieler.getBesterZug(this.getSpielbrett().clone(), gesplitteteZuege);
+			
+			
 		}
+	
+//		if (spielerAmZug instanceof KI) {
+//			if (zug[0].equals("DURCHZIEHEN")) {
+//				((KI) spielerAmZug).setDurchziehend(true);
+//			}
+//			ArrayList<Spielzug> moeglicheZuege = getAlleMoeglichenZuege(getFarbeAmZug());
+//			String[] besterZug = new String[2];
+//			((KI) spielerAmZug).setGegnerFigVorZug(spielBrett.getFelderMitFarbe(getFarbeNichtAmZug()).size());
+//			int max = 0;
+//
+//			for (Spielzug simulationszug : moeglicheZuege) {
+//				Spielbrett brettNachZug = getSpielbrett().clone();
+//				try {
+//					brettNachZug.ziehe(spielzugSplitter(simulationszug));
+//				} catch (SpielbrettException e) {
+//					log(e);
+//				}
+//				int zugScore = ((KI) spielerAmZug).calcStaerkeDesBretts(brettNachZug);
+//				if (zugScore > max) {
+//					max = zugScore;
+//					besterZug[0] = simulationszug.getVon();
+//					besterZug[1] = simulationszug.getNach();
+//				}
+//			}
+//			zug = besterZug;
+//		}
 		try {
 			ziehen(zug);
 		} catch (UngueltigerZugException e) {
