@@ -20,7 +20,7 @@ public interface bedienerInterface {
 	String getErlaubteZuegeInterface(String[] ausgangsfelder) throws SpielException;
 	boolean hatGewonnen(String name);
 	void speichernSerialisiert(String dateiName) throws SpielException;
-	Object lesenSerialisiert(String dateiName) throws SpielException;
+	void lesenSerialisiert(String dateiName) throws SpielException;
 	void speichernCSV(String dateiName) throws SpielException;
 	void lesenCSV(String dateiName) throws SpielException;
 }

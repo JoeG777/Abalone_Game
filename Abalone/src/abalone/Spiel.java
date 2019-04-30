@@ -246,7 +246,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param dateiName Name, der zu lesenden Datei
 	 * @throws DateiIOException
 	 */
-	public Object lesenSerialisiert(String dateiName) throws DateiIOException {
+	public void lesenSerialisiert(String dateiName) throws DateiIOException {
 		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
 
 		serial.oeffnen(dateiName);
@@ -265,8 +265,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			log(ex);
 			throw ex;
 		}
-		;
-		return saveState;
+		this.spielerAmZug = saveState.spielerAmZug;
+		this.spielerImSpiel = saveState.spielerImSpiel;
+		this.spielBrett = saveState.spielBrett;
+		this.historie = saveState.historie;
+		this.herausgedraengt = saveState.herausgedraengt;
+		this.letzterZug = saveState.letzterZug;
 	}
 
 	/**
