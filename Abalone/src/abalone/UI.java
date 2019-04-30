@@ -44,11 +44,17 @@ public class UI implements java.io.Serializable {
 	public static void spielerAnlegen(int anzahlSpieler) {
 		if (anzahlSpieler == 2) {
 			addWeiss(2);
+			System.out.println("Spieler angelegt.");
+
 			addSchwarz(2);
+			System.out.println("Spieler angelegt.");
+
 			
 		}
 		if (anzahlSpieler == 1) {
 			addWeiss(1);
+			System.out.println("Spieler angelegt.");
+
 		}
 		if (anzahlSpieler == 0) {
 			try {
@@ -77,7 +83,6 @@ public class UI implements java.io.Serializable {
 			if(e.getId() == 19) System.out.println("Spielername darf nicht mit \"KI\" beginnen!");
 			addWeiss(anzahl);
 		}
-		System.out.println("Spieler angelegt.");
 	}
 	
 	/**
