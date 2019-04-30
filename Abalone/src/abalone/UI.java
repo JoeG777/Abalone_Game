@@ -566,7 +566,7 @@ public class UI implements java.io.Serializable {
 							}	
 						}
 						
-						spiel = (bedienerInterface) spiel.lesenSerialisiert(dateiName);
+						spiel.lesenSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich geladen.");
 						b = false;
 					} catch(SpielException e) {
