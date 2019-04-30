@@ -273,9 +273,9 @@ public class UI implements java.io.Serializable {
 						kiLoop = false;
 						zug[0] = "DURCHZIEHEN";
 					}
-					if("menu".equals(eingabe)) {
+					while("menu".equals(eingabe)) {
 						menue();
-						System.out.println("ENTER DRUECKEN ZUM WEITERSPIELEN");
+						System.out.println("ENTER DRÜCKEN------menu EINGEBEN FUER DAS MENUE");
 						eingabe = sc.nextLine();
 					}
 					                          
