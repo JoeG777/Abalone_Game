@@ -213,7 +213,7 @@ public class UI implements java.io.Serializable {
 			} else {
 				System.out.println("");
 				System.out.println(
-						"Bitte halten Sie sich an die schreibweise und geben Sie entweder die Nummer oder den Namen des Artikels ein den Sie lesen moechten. ");
+						"Bitte halten Sie sich an die Schreibweise und geben Sie entweder die Nummer oder den Namen des Artikels ein den Sie lesen moechten. ");
 			}
 
 			System.out.println("");
@@ -261,21 +261,22 @@ public class UI implements java.io.Serializable {
 						"(durchziehend)".equals(spiel.getSpielerAmZug().substring(4, 18))) {
 					kiLoop = false;
 				}
-				if(kiLoop) {
+				if (kiLoop) {
 					System.out.println("ENTER DRÜCKEN------menu EINGEBEN FUER DAS MENUE");
 					String eingabe = sc.nextLine();
-					if("BIS ZUM ENDE".equals(eingabe)) {
+					if ("BIS ZUM ENDE".equals(eingabe)) {
 						kiLoop = false;
 						zug[0] = "DURCHZIEHEN";
 					}
 					if("menu".equals(eingabe))  menue();
 				}
-				if(spiel.getSpielerAmZug().charAt(3) == '1') ki1Loop = kiLoop;
-				if(spiel.getSpielerAmZug().charAt(3) == '2') ki2Loop = kiLoop;
+				
+				if (spiel.getSpielerAmZug().charAt(3) == '1') ki1Loop = kiLoop;
+				if (spiel.getSpielerAmZug().charAt(3) == '2') ki2Loop = kiLoop;
 				
 				try {
 					spiel.ziehe(zug);
-				}catch(SpielException e) {
+				} catch(SpielException e) {
 					System.out.println(e.getMessage());
 				}
 			} else {
@@ -334,29 +335,25 @@ public class UI implements java.io.Serializable {
 			String auswahl = sc.nextLine();
 
 			if (auswahl.equals("1")) {
-				if (spiel.getHistorie().length() == 0) {
+				if (spiel.getHistorie().length() == 0)
 					System.out.println("Es wurden noch nicht gezogen!");
-				}
+
 				System.out.println(spiel.getHistorie());
 			}
-
-			else if (auswahl.equals("2")) {
+			else if (auswahl.equals("2"))
 				hilfsMenu();
-			}
-
-			else if (auswahl.equals("3")) {
+			
+			else if (auswahl.equals("3"))
 				inSchleifeBleiben = false;
-			}
 			
-			else if (auswahl.equals("4")) {
+			else if (auswahl.equals("4"))
 				speichern();
-			}
 			
-			else if (auswahl.equals("5")) {
+			else if (auswahl.equals("5"))
 				laden();
-			}else if(auswahl.equals("6")){
+			
+			else if(auswahl.equals("6"))
 				spielBeenden(null, null);
-			}
 			
 			else {
 				System.out.println("Die Tasten befinden sich oben links auf ihrer Tastatur. + \n"
@@ -451,9 +448,10 @@ public class UI implements java.io.Serializable {
 	 */
 	public static void spielBeenden(String gewinner, String verlierer) {
 		if (gewinner != null && verlierer != null) {
-			System.out.println("Hurraa " + gewinner + " Hat das Spiel gewonnen!");
+			System.out.println("Hurra " + gewinner + " Hat das Spiel gewonnen!");
 			System.out.println("Verlierer der heutigen Runde ist: " + verlierer + "!");
 		}
+		
 		System.out.println();
 		System.out.println();
 		System.out.println("###############################################\r\n"

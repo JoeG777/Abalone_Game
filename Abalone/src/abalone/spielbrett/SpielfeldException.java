@@ -11,7 +11,7 @@ public class SpielfeldException extends SpielbrettException{
 	/**
 	 * Erstellt eine neue Instanz der Klasse SpielbrettException
 	 * @param id ID des Fehlers
-	 * @param meldung Die gesetze Message der Exception
+	 * @param meldung Die gesetzte Message der Exception
 	 */
 	public SpielfeldException(int id, String meldung) {
 		super(id, meldung);

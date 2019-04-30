@@ -221,7 +221,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Diese Methode erstellt und beschreibt eine Datei und wird zum Speichern eines
 	 * Spielstandes als serialisierte Datei verwendet
 	 * 
-	 * @param Name, der zu speichernden Datei
+	 * @param dateiName, Name der zu speichernden Datei
 	 * @throws DateiIOException
 	 */
 	public void speichernSerialisiert(String dateiName) throws DateiIOException {
@@ -240,10 +240,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	}
 
 	/**
-	 * Diese Methode oeffnet und liest eine Datei und wird zum Laden eines - als
-	 * serialisierte Datei - gespeicherten Spielstandes verwendet
+	 * Diese Methode oeffnet und liest eine Datei und wird zum Laden eines als
+	 * serialisierte Datei gespeicherten Spielstandes verwendet
 	 * 
-	 * @param Name, der zu lesenden Datei
+	 * @param dateiName Name, der zu lesenden Datei
 	 * @throws DateiIOException
 	 */
 	public Object lesenSerialisiert(String dateiName) throws DateiIOException {
@@ -1568,7 +1568,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			if (scanned.length() < 18 || !scanned.substring(0, 18).equals("---------- Beendet")) {
 				try {
 					logger.newLine();
-					logger.write("---------- Das Spiel wurde nicht Ordungsgemaeß beendet! ----------");
+					logger.write("---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------");
 					logger.newLine();
 					logger.flush();
 				} catch (IOException e) {

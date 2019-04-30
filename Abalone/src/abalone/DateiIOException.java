@@ -12,7 +12,7 @@ public class DateiIOException extends SpielException{
 	/**
 	 * Erstellt eine neue Instanz der Klasse DateiIOException
 	 * @param id ID des Fehlers
-	 * @param meldung Die gesetze Message der Exception
+	 * @param meldung Die gesetzte Message der Exception
 	 */
 	public DateiIOException(int id, String meldung) {
 		super(id, meldung);

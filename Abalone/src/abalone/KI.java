@@ -7,6 +7,11 @@ import abalone.spielbrett.Spielbrett;
 import abalone.spielbrett.SpielbrettException;
 import abalone.spielbrett.SpielfeldException;
 
+/**
+ * Die Klasse KI bietet Methoden zur Bewertung von Spielbrettern.
+ * @author julia
+ *
+ */
 public class KI extends Spieler {
 
 	private static final long serialVersionUID = 110L;
