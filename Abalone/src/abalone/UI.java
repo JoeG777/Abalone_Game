@@ -273,7 +273,12 @@ public class UI implements java.io.Serializable {
 						kiLoop = false;
 						zug[0] = "DURCHZIEHEN";
 					}
-					if("menu".equals(eingabe))  menue();
+					if("menu".equals(eingabe)) {
+						menue();
+						System.out.println("ENTER DRUECKEN ZUM WEITERSPIELEN");
+						eingabe = sc.nextLine();
+					}
+					                          
 				}
 				
 				if (spiel.getSpielerAmZug().charAt(3) == '1') ki1Loop = kiLoop;
@@ -317,7 +322,12 @@ public class UI implements java.io.Serializable {
 			}
 		}
 		}
-
+	if(gewinner.length() >= 2 && gewinner.substring(0,2).equals("KI")) {
+		gewinner = gewinner.substring(0,4);
+	}
+	if(verlierer.length() >= 2 && verlierer.substring(0,2).equals("KI")) {
+		verlierer = verlierer.substring(0,4);
+	}
 	spielBeenden(gewinner, verlierer);
 	}
 
