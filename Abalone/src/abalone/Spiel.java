@@ -94,35 +94,34 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	@Override
 	public void addSpieler(String name, String farbe, int anzahlSpieler) throws SpielException {
 		if (name != null && (name.length() < 2 || name.length() > 20)) {
-			SpielException e = new SpielException(14, "Ungueltige laenge des Namen: " + name.length());
-			log(e);
+			UngueltigeEingabeException e = new UngueltigeEingabeException(14, "Ungueltige laenge des Namen: " + name.length());
 			throw e;
 		}
 
 		if (name != null) {
 			Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
 			if (regex.matcher(name).find()) {
-				SpielException e = new SpielException(18, "Spielername darf keine Sonderzeichen ausser _ enthalten!");
-				log(e);
+				UngueltigeEingabeException e = new UngueltigeEingabeException(18, "Spielername darf keine Sonderzeichen ausser _ enthalten!");
+				 
 				throw e;
 			}
 			if (name.substring(0, 2).equals("KI")) {
-				SpielException e = new SpielException(19, "Spielername darf nicht mit \"KI\" beginnen!");
-				log(e);
+				UngueltigeEingabeException e = new UngueltigeEingabeException(19, "Spielername darf nicht mit \"KI\" beginnen!");
+				 ;
 				throw e;
 			}
 		}
 
 		if (anzahlSpieler == 2) {
 			if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
-				SpielException e = new SpielException(11, "Das Spieler Array ist bereits voll!");
-				log(e);
+				UngueltigeEingabeException e = new UngueltigeEingabeException(11, "Das Spieler Array ist bereits voll!");
+				 
 				throw e;
 			}
 			for (Spieler spieler : spielerImSpiel) {
 				if (spieler != null && spieler.getName().equals(name)) {
-					SpielException e = new SpielException(17, "Spielernamen muessen unterschiedlich sein!");
-					log(e);
+					UngueltigeEingabeException e = new UngueltigeEingabeException(17, "Spielernamen muessen unterschiedlich sein!");
+					 
 					throw e;
 				}
 			}
@@ -134,8 +133,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
 				spielerImSpiel[1] = new Spieler(name, spielerFarbe);
 			} else {
-				SpielException e = new SpielException(10, "Unbekannte farbe :" + farbe);
-				log(e);
+				UngueltigeEingabeException e = new UngueltigeEingabeException(10, "Unbekannte farbe :" + farbe);
+				 
 				throw e;
 			}
 		} else if (anzahlSpieler == 1) {
@@ -234,7 +233,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			serial.schliessen();
 		} catch (IOException e) {
 			DateiIOException ex = new DateiIOException(16, "Ungueltiger Dateiname!");
-			log(e);
 			throw ex;
 		}
 	}
@@ -258,11 +256,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			serial.schliessen();
 		} catch (IOException e) {
 			DateiIOException ex = new DateiIOException(13, "Datei nicht gefunden!");
-			log(ex);
 			throw ex;
 		} catch (ClassNotFoundException e) {
 			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
-			log(ex);
 			throw ex;
 		}
 		this.spielerAmZug = saveState.spielerAmZug;
@@ -299,7 +295,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			pic.schliessen();
 		} catch (IOException e) {
 			DateiIOException ex = new DateiIOException(16, "Ungueltiger Dateiname!");
-			log(ex);
 			throw ex;
 		}
 	}
@@ -321,11 +316,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			csv = pic.lesen();
 		} catch (UnsupportedEncodingException e) {
 			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
-			log(ex);
 			throw ex;
 		} catch (IOException e) {
 			DateiIOException ex = new DateiIOException(13, "Datei nicht gefunden!");
-			log(ex);
 			throw ex;
 		}
 
@@ -338,11 +331,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			spielBrett.ladeCSV(array);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
-			log(ex);
 			throw ex;
 		} catch (IllegalArgumentException e) {
 			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
-			log(ex);
 			throw ex;
 		}
 
@@ -435,7 +426,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 //				try {
 //					brettNachZug.ziehe(spielzugSplitter(simulationszug));
 //				} catch (SpielbrettException e) {
-//					log(e);
+//					 
 //				}
 //				int zugScore = ((KI) spielerAmZug).calcStaerkeDesBretts(brettNachZug);
 //				if (zugScore > max) {
@@ -449,10 +440,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		try {
 			ziehen(zug);
 		} catch (UngueltigerZugException e) {
-			log(e);
 			throw new SpielException(0, "UngueltigerZug!");
 		} catch (SpielbrettException e) {
-			log(e);
 			throw new SpielException(1, "Irgendwas ist schief gelaufen!");
 		}
 	}
@@ -1408,7 +1397,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		try {
 			felder = getErlaubteZuege(ausgangsfelder);
 		} catch (UngueltigerZugException e) {
-			log(e);
 			throw new SpielException(1, "Ungueltiger Zug!");
 		}
 		for (String s : felder) {
@@ -1522,45 +1510,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		return new Spielzug(formatiert, spielBrett.getNachbarByIdInRichtung(formatiert.substring(0, 2), richtung),
 				richtung, zug.getFarbe());
 
-	}
-
-	/**
-	 * Schreibt eine Exception in mit Datum & Uhrzeit in die log.txt
-	 * 
-	 * @param e - Die zu loggende Exception
-	 */
-	private void log(Exception e) {
-		BufferedWriter logger = null;
-		File file = new File("log.txt");
-		Scanner sc = null;
-		try {
-			sc = new Scanner(file);
-		} catch (FileNotFoundException e1) {
-		}
-		try {
-			logger = new BufferedWriter(new FileWriter(file, true));
-		} catch (FileNotFoundException e1) {
-		} catch (IOException e1) {
-		}
-		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-		Date date = new Date();
-		try {
-			logger.newLine();
-			logger.write("Fehler am " + dateFormat.format(date) + ": ");
-			logger.newLine();
-			logger.write(e.toString());
-			logger.newLine();
-			logger.flush();
-		} catch (FileNotFoundException fehler) {
-
-		} catch (IOException fehler) {
-
-		}
-		try {
-			logger.close();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
 	}
 
 	/**

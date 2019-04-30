@@ -16,5 +16,6 @@ public class DateiIOException extends SpielException{
 	 */
 	public DateiIOException(int id, String meldung) {
 		super(id, meldung);
+		this.log();
 	}
 }
