@@ -416,7 +416,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				gesplitteteZuege.add(spielzugSplitter(spielzug));
 			}
 			
-			String[] besterZug = kiSpieler.getBesterZug(this.getSpielbrett().clone(), gesplitteteZuege);
+			zug = kiSpieler.getBesterZug(this.getSpielbrett().clone(), gesplitteteZuege);
 			
 			
 		}
