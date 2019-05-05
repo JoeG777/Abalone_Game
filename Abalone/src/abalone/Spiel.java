@@ -2,14 +2,10 @@
 package abalone;
 
 import java.io.BufferedWriter;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -224,13 +220,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @throws DateiIOException
 	 */
 	public void speichernSerialisiert(String dateiName) throws DateiIOException {
-		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
-
-		serial.oeffnen(dateiName);
-		Spiel test = this;
+		PersistenzInterface persistenzInterface = new PersistenzImplSerialisiert();
+		
 		try {
-			serial.schreiben(test);
-			serial.schliessen();
+			persistenzInterface.oeffnen(dateiName);
+			persistenzInterface.schreiben(this);
+			persistenzInterface.schliessen();
 		} catch (IOException e) {
 			DateiIOException ex = new DateiIOException(16, "Ungueltiger Dateiname!");
 			throw ex;
@@ -245,15 +240,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @throws DateiIOException
 	 */
 	public void lesenSerialisiert(String dateiName) throws DateiIOException {
-		PersistenzImplSerialisiert serial = new PersistenzImplSerialisiert();
-
-		serial.oeffnen(dateiName);
-
-		Spiel saveState = null;
-
+		PersistenzInterface persistenzInterface = new PersistenzImplSerialisiert();
+		Spiel spiel = null;
+		
 		try {
-			saveState = (Spiel) serial.lesen();
-			serial.schliessen();
+			persistenzInterface.oeffnen(dateiName);
+			spiel = (Spiel) persistenzInterface.lesen();
+			persistenzInterface.schliessen();
 		} catch (IOException e) {
 			DateiIOException ex = new DateiIOException(13, "Datei nicht gefunden!");
 			throw ex;
@@ -261,12 +254,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
 			throw ex;
 		}
-		this.spielerAmZug = saveState.spielerAmZug;
-		this.spielerImSpiel = saveState.spielerImSpiel;
-		this.spielBrett = saveState.spielBrett;
-		this.historie = saveState.historie;
-		this.herausgedraengt = saveState.herausgedraengt;
-		this.letzterZug = saveState.letzterZug;
+		this.spielerAmZug = spiel.spielerAmZug;
+		this.spielerImSpiel = spiel.spielerImSpiel;
+		this.spielBrett = spiel.spielBrett;
+		this.historie = spiel.historie;
+		this.herausgedraengt = spiel.herausgedraengt;
+		this.letzterZug = spiel.letzterZug;
 	}
 
 	/**
@@ -278,7 +271,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @throws DateiIOException
 	 */
 	public void speichernCSV(String dateiName) throws DateiIOException {
-		PersistenzImplCSV pic = new PersistenzImplCSV();
+		PersistenzInterface persistenzInterface = new PersistenzImplCSV();
 		String csv = "SPIEL:\n";
 
 		for (Spieler spieler : spielerImSpiel) {
@@ -288,11 +281,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
 		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
 
-		pic.oeffnen(dateiName);
-
 		try {
-			pic.schreiben(csv);
-			pic.schliessen();
+			persistenzInterface.oeffnen(dateiName);
+			persistenzInterface.schreiben(csv);
+			persistenzInterface.schliessen();
 		} catch (IOException e) {
 			DateiIOException ex = new DateiIOException(16, "Ungueltiger Dateiname!");
 			throw ex;
@@ -307,14 +299,16 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @throws DateiIOException
 	 */
 	public void lesenCSV(String dateiName) throws DateiIOException {
-		PersistenzImplCSV pic = new PersistenzImplCSV();
+		PersistenzInterface persistenzInterface = new PersistenzImplCSV();
 		String csv = "";
 
-		pic.oeffnen(dateiName);
-
 		try {
-			csv = pic.lesen();
+			persistenzInterface.oeffnen(dateiName);
+			csv = (String) persistenzInterface.lesen();
 		} catch (UnsupportedEncodingException e) {
+			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
+			throw ex;
+		} catch (ClassNotFoundException  e) {
 			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
 			throw ex;
 		} catch (IOException e) {
