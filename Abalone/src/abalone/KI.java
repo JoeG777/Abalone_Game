@@ -59,7 +59,7 @@ public class KI extends Spieler {
 		boolean done = false;
 		int schritte = 1;
 		String aktuellesFeld = "E5";
-		int wert = 5;
+		int wert = 4;
 		werteMap.put("E5", 50);
 		
 		while(!done)  {
