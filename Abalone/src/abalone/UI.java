@@ -275,6 +275,7 @@ public class UI implements java.io.Serializable {
 					}
 					while("menu".equals(eingabe)) {
 						menue();
+						System.out.println(spiel.getStatus());
 						System.out.println("ENTER DRÜCKEN------menu EINGEBEN FUER DAS MENUE");
 						eingabe = sc.nextLine();
 					}
