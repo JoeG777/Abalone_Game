@@ -27,20 +27,25 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	/**
 	 * Diese Methode bekommt einen Dateinamen uebergeben,
 	 * ueberprueft dessen Existenz und oeffnet diese gegebenenfalls
+	 * 
 	 * @param dateiName String, welcher den Dateinamen des Spielstandes enthaelt
+	 * @param lesen Info, ob Datei gelesen oder beschrieben werden soll
 	 * @throws FileNotFoundException 
 	 */
 	@Override
-	public void oeffnen(String dateiName) throws FileNotFoundException {
+	public void oeffnen(String dateiName, boolean lesen) throws FileNotFoundException, IOException {
 		this.dateiName = dateiName;
 		
-		File f = new File("sav/" + dateiName + ".ser");
-		if (!(f.exists()))
-			throw new FileNotFoundException("Datei nicht gefunden!");
+		if (lesen)
+			ois = new ObjectInputStream(new FileInputStream("sav/" + dateiName + ".ser"));
+		else
+			oos = new ObjectOutputStream(new FileOutputStream("sav/" + dateiName + ".ser"));
 	}
 
 	/**
 	 * Diese Methode beendet den Speicher- und Ladevorgang vollstaendig
+	 * 
+	 * @throws IOException
 	 */
 	@Override
 	public void schliessen() throws IOException {
@@ -52,13 +57,13 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 
 	/**
 	 * Diese Methode liest die Datei aus und gibt das Resultat als Objekt zurueck
+	 * 
 	 * @return gelesenes Objekt
 	 * @throws ClassNotFoundException
 	 * @throws IOException
 	 */
 	@Override
 	public Object lesen() throws ClassNotFoundException, IOException {
-		ois = new ObjectInputStream(new FileInputStream("sav/" + dateiName + ".ser"));
 		try {
 			Object gelesenesObjekt = ois.readObject();
 			return gelesenesObjekt;
@@ -73,7 +78,9 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 
 	/**
 	 * Diese Methode beschreibt ein uebergebenes Objekt
+	 * 
 	 * @param zuSchreibendesObjekt Das Objekt, welches beschrieben werden soll
+	 * @throws IOException
 	 */
 	@Override
 	public void schreiben(Object zuSchreibendesObjekt) throws IOException {
@@ -84,15 +91,8 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 		File f = new File("sav");
 		if (!f.exists())
 			f.mkdir();
-		
-		oos = new ObjectOutputStream(new FileOutputStream("sav/" + dateiName + ".ser"));
-		try {
-			oos.writeObject(zuSchreibendesObjekt);
-		} catch (FileNotFoundException e) {
-			throw new IOException("Datei nicht gefunden");
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-			throw new IOException("Irgendwas ist schief gelaufen " + e.getMessage());
-		}
+			
+		oos.writeObject(zuSchreibendesObjekt);
+
 	}
 }

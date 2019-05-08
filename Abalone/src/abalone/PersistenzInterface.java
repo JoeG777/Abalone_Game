@@ -2,20 +2,31 @@ package abalone;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
+/**
+ * Schnittstelle zwischen den Persistenz-Implementierungen und dem Spiel mit der Spiellogik.
+ * 
+ * @author Gruppe A4
+ * 
+ */
 public interface PersistenzInterface {
 	
 	/**
 	 * Oeffnet eine Datei.
 	 * 
 	 * @param dateiName Name, der zu oeffnenden Datei
+	 * @param lesen Info, ob Datei gelesen oder beschrieben werden soll
 	 * @throws FileNotFoundException
 	 * @throws IOException
+	 * @throws UnsupportedEncodingException
 	 */
-	public void oeffnen(String dateiName) throws FileNotFoundException, IOException;
+	public void oeffnen(String dateiName, boolean lesen)
+			throws FileNotFoundException, IOException, UnsupportedEncodingException;
 	
 	/**
 	 * Schliesst eine Datei.
+	 * 
 	 * @throws IOException
 	 */
 	public void schliessen() throws IOException;
@@ -31,6 +42,7 @@ public interface PersistenzInterface {
 	
 	/**
 	 * Beschreibt eine Datei.
+	 * 
 	 * @param zuSchreiben Zu schreibendes Objekt
 	 * @throws IOException
 	 */

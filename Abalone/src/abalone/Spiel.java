@@ -223,10 +223,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		PersistenzInterface persistenzInterface = new PersistenzImplSerialisiert();
 		
 		try {
-			persistenzInterface.oeffnen(dateiName);
-		} catch (IOException e) {}
-		
-		try {
+			persistenzInterface.oeffnen(dateiName, false);
 			persistenzInterface.schreiben(this);
 			persistenzInterface.schliessen();
 		} catch (IOException e) {
@@ -247,11 +244,14 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		Spiel spiel = null;
 		
 		try {
-			persistenzInterface.oeffnen(dateiName);
+			persistenzInterface.oeffnen(dateiName, true);
 			spiel = (Spiel) persistenzInterface.lesen();
 			persistenzInterface.schliessen();
-		} catch (IOException e) {
+		} catch (FileNotFoundException e) {
 			DateiIOException ex = new DateiIOException(13, "Datei nicht gefunden!");
+			throw ex;
+		} catch (IOException e) {
+			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
 			throw ex;
 		} catch (ClassNotFoundException e) {
 			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
@@ -283,12 +283,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
 		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
-
-		try {
-			persistenzInterface.oeffnen(dateiName);
-		} catch (IOException e) {}
 		
 		try {
+			persistenzInterface.oeffnen(dateiName, false);
 			persistenzInterface.schreiben(csv);
 			persistenzInterface.schliessen();
 		} catch (IOException e) {
@@ -309,9 +306,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String csv = "";
 
 		try {
-			persistenzInterface.oeffnen(dateiName);
+			persistenzInterface.oeffnen(dateiName, true);
 			csv = (String) persistenzInterface.lesen();
 			persistenzInterface.schliessen();
+		} catch (FileNotFoundException e) {
+			DateiIOException ex = new DateiIOException(13, "Datei nicht gefunden!");
+			throw ex;
 		} catch (UnsupportedEncodingException e) {
 			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
 			throw ex;
@@ -319,7 +319,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
 			throw ex;
 		} catch (IOException e) {
-			DateiIOException ex = new DateiIOException(13, "Datei nicht gefunden!");
+			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
 			throw ex;
 		}
 

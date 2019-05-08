@@ -27,20 +27,27 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 	/**
 	 * Diese Methode bekommt einen Dateinamen uebergeben,
 	 * ueberprueft dessen Existenz und oeffnet diese gegebenenfalls
+	 * 
 	 * @param dateiName String, welcher den Dateinamen des Spielstandes enthaelt
+	 * @param lesen Info, ob Datei gelesen oder beschrieben werden soll
 	 * @throws FileNotFoundException 
+	 * @throws UnsupportedEncodingException 
 	 */
 	@Override
-	public void oeffnen(String dateiName) throws FileNotFoundException {
+	public void oeffnen(String dateiName, boolean lesen) throws FileNotFoundException, UnsupportedEncodingException {
 		this.dateiName = dateiName;
 		
-		File f = new File("sav/" + dateiName + ".csv");
-		if (!(f.exists()))
-			throw new FileNotFoundException("Datei nicht gefunden!");
+		if (lesen)
+			br = new BufferedReader(
+					new InputStreamReader(new FileInputStream("sav/" + dateiName + ".csv"), "utf-8"));
+		else
+			pw = new PrintWriter("sav/" + dateiName + ".csv", "utf-8");
+			
 	}
 
 	/**
 	 * Diese Methode beendet den Speicher- und Ladevorgang vollstaendig
+	 * 
 	 * @throws IOException
 	 */
 	@Override
@@ -53,17 +60,15 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 
 	/**
 	 * Diese Methode liest die Datei aus und gibt das Resultat als Objekt zurueck
+	 * 
 	 * @return String, der alle Informationen enthaelt
 	 * @throws IOException 
 	 * @throws UnsupportedEncodingException
 	 */
 	@Override
-	public String lesen() throws UnsupportedEncodingException, IOException {
+	public String lesen() throws IOException {
 		String datei = "";
 		String zeile;
-		
-		br = new BufferedReader(
-			new InputStreamReader(new FileInputStream("sav/" + dateiName + ".csv"), "utf-8"));
 	
 		while ((zeile = br.readLine()) != null) {
 			datei = datei + "\n" + zeile;
@@ -74,6 +79,7 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 
 	/**
 	 * Diese Methode beschreibt eine CSV-Datei
+	 * 
 	 * @param zuSchreibenderInhalt Information, die beschrieben werden soll
 	 * @throws IOException
 	 */
@@ -90,15 +96,8 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 		File f = new File("sav");
 		if (!f.exists())
 			f.mkdir();
-		
-		try {
-			pw = new PrintWriter("sav/" + dateiName + ".csv", "utf-8");
-			pw.print(string);
-		} catch (FileNotFoundException e) {
-			throw new IOException("Datei nicht gefunden!");
-		} catch (IOException e) {
-			throw new IOException("Irgendwas ist schief gelaufen " + e.getMessage());
-		}
+
+		pw.print(string);
 		
 	}
 
