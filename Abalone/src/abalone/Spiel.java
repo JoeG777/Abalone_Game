@@ -224,6 +224,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 		try {
 			persistenzInterface.oeffnen(dateiName);
+		} catch (IOException e) {}
+		
+		try {
 			persistenzInterface.schreiben(this);
 			persistenzInterface.schliessen();
 		} catch (IOException e) {
@@ -283,6 +286,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 		try {
 			persistenzInterface.oeffnen(dateiName);
+		} catch (IOException e) {}
+		
+		try {
 			persistenzInterface.schreiben(csv);
 			persistenzInterface.schliessen();
 		} catch (IOException e) {
@@ -305,6 +311,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		try {
 			persistenzInterface.oeffnen(dateiName);
 			csv = (String) persistenzInterface.lesen();
+			persistenzInterface.schliessen();
 		} catch (UnsupportedEncodingException e) {
 			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
 			throw ex;

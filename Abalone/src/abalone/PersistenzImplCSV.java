@@ -25,13 +25,18 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 	private PrintWriter pw = null;
 
 	/**
-	 * Diese Methode bekommt einen Spielstand in Form einer Datei
-	 * uebergeben und oeffnet diese
+	 * Diese Methode bekommt einen Dateinamen uebergeben,
+	 * ueberprueft dessen Existenz und oeffnet diese gegebenenfalls
 	 * @param dateiName String, welcher den Dateinamen des Spielstandes enthaelt
+	 * @throws FileNotFoundException 
 	 */
 	@Override
-	public void oeffnen(String dateiName) {
+	public void oeffnen(String dateiName) throws FileNotFoundException {
 		this.dateiName = dateiName;
+		
+		File f = new File("sav/" + dateiName + ".csv");
+		if (!(f.exists()))
+			throw new FileNotFoundException("Datei nicht gefunden!");
 	}
 
 	/**
@@ -49,11 +54,11 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 	/**
 	 * Diese Methode liest die Datei aus und gibt das Resultat als Objekt zurueck
 	 * @return String, der alle Informationen enthaelt
-	 * @throws FileNotFoundException, IOException 
+	 * @throws IOException 
 	 * @throws UnsupportedEncodingException
 	 */
 	@Override
-	public String lesen() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+	public String lesen() throws UnsupportedEncodingException, IOException {
 		String datei = "";
 		String zeile;
 		

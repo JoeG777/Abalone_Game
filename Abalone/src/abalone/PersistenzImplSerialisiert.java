@@ -25,13 +25,18 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	private ObjectOutputStream oos = null;
 	
 	/**
-	 * Diese Methode bekommt einen Spielstand in Form eines Dateinamen
-	 * uebergeben und oeffnet diese
+	 * Diese Methode bekommt einen Dateinamen uebergeben,
+	 * ueberprueft dessen Existenz und oeffnet diese gegebenenfalls
 	 * @param dateiName String, welcher den Dateinamen des Spielstandes enthaelt
+	 * @throws FileNotFoundException 
 	 */
 	@Override
-	public void oeffnen(String dateiName) {
+	public void oeffnen(String dateiName) throws FileNotFoundException {
 		this.dateiName = dateiName;
+		
+		File f = new File("sav/" + dateiName + ".ser");
+		if (!(f.exists()))
+			throw new FileNotFoundException("Datei nicht gefunden!");
 	}
 
 	/**
