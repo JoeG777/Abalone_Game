@@ -278,6 +278,7 @@ public class UI implements java.io.Serializable {
 						System.out.println();
 						System.out.println("Geben Sie 'Menu' ein falls Sie ins Hauptmenu wollen"
 								+ " und 'exit' falls sie das Spiel abbrechen moechten.");
+						System.out.println();
 						System.out.println(spiel.getStatus());
 						System.out.println("ENTER DRÜCKEN");
 						eingabe = sc.nextLine();
