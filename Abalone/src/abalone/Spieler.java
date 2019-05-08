@@ -190,4 +190,8 @@ public class Spieler implements java.io.Serializable {
 		return csv;
 	}
 	
+	public static void nullFarbeZweiterSpieler() {
+		farbeZweiterSpieler = null;
+	}
+	
 }
