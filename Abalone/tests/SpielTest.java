@@ -8,7 +8,7 @@ import abalone.Spiel;
 import abalone.Spieler;
 import abalone.Spielzug;
 import abalone.spielbrett.Spielbrett;
-import abalone.spielbrett.Spielfeld;
+//import abalone.spielbrett.Spielfeld;
 
 public class SpielTest {
 	Spiel spiel;
@@ -18,9 +18,9 @@ public class SpielTest {
 	
 	@Before
 	public void setUp() {
-		spiel = new Spiel();
-		brett = new Spielbrett();
-		spiel.addSpieler("Jens", "weiss", 2);
+//		spiel = new Spiel();
+//		brett = new Spielbrett();
+//		spiel.addSpieler("Jens", "weiss", 2);
 		zug = new Spielzug("C3C5", "D5");
 	
 	}
@@ -37,7 +37,7 @@ public class SpielTest {
 	
 	@Test
 	public void testHatGewonnen() {
-		spiel.addSpieler("Johannes", "schwarz", 2);
+//		spiel.addSpieler("Johannes", "schwarz", 2);
 		assertEquals(false, spiel.hatGewonnen("Jens"));
 	}
 

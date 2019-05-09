@@ -90,49 +90,49 @@ public class SpielbrettTest {
 	}
 	
 	
-	@Test
-	public void testZiehe1() {
-		Spielbrett testBrett = new Spielbrett();
-		Spielzug zug1 = new Spielzug("F2", null);
-		Spielzug[] zuege = {zug1};
-		
-		Spielbrett echtesBrett = new Spielbrett();
-		echtesBrett.getFeld("F2").setFigur(null);
-
-		testBrett.ziehe(zuege);
-		
-		String testBrettString = testBrett.toString();
-		String echtesBrettString = echtesBrett.toString();
-		
-		assertEquals(echtesBrettString, testBrettString);
-	}
+//	@Test
+//	public void testZiehe1() {
+//		Spielbrett testBrett = new Spielbrett();
+//		Spielzug zug1 = new Spielzug("F2", null);
+//		Spielzug[] zuege = {zug1};
+//		
+//		Spielbrett echtesBrett = new Spielbrett();
+//		echtesBrett.getFeld("F2").setFigur(null);
+//
+//		testBrett.ziehe(zuege);
+//		
+//		String testBrettString = testBrett.toString();
+//		String echtesBrettString = echtesBrett.toString();
+//		
+//		assertEquals(echtesBrettString, testBrettString);
+//	}
 	
-	@Test
-	public void testWerfen() {
-		Spielbrett testBrett = new Spielbrett();
-		Spielzug zug3 = new Spielzug("A3", "A2");
-		Spielzug zug2 = new Spielzug("A2", "A1");
-		Spielzug zug1 = new Spielzug("A1", null);
-		Spielzug[] zuege = {zug1, zug2, zug3};
-		
-		Spielbrett echtesBrett = new Spielbrett();
-		
-		testBrett.getFeld("A3").setFigur(echtesBrett.getFeld("A3").getFigur());
-		testBrett.getFeld("A2").setFigur(echtesBrett.getFeld("A2").getFigur());
-		testBrett.getFeld("A1").setFigur(echtesBrett.getFeld("I9").getFigur());
-		
-		echtesBrett.getFeld("A3").setFigur(null);
-		echtesBrett.getFeld("A2").setFigur(echtesBrett.getFeld("C5").getFigur());
-		echtesBrett.getFeld("A1").setFigur(echtesBrett.getFeld("C5").getFigur());
-		
-		testBrett.ziehe(zuege);
-		
-		String testBrettString = testBrett.toString();
-		String echtesBrettString = echtesBrett.toString();
-		
-		assertEquals(echtesBrettString, testBrettString);
-		
-	}
+//	@Test
+//	public void testWerfen() {
+//		Spielbrett testBrett = new Spielbrett();
+//		Spielzug zug3 = new Spielzug("A3", "A2");
+//		Spielzug zug2 = new Spielzug("A2", "A1");
+//		Spielzug zug1 = new Spielzug("A1", null);
+//		Spielzug[] zuege = {zug1, zug2, zug3};
+//		
+//		Spielbrett echtesBrett = new Spielbrett();
+//		
+//		testBrett.getFeld("A3").setFigur(echtesBrett.getFeld("A3").getFigur());
+//		testBrett.getFeld("A2").setFigur(echtesBrett.getFeld("A2").getFigur());
+//		testBrett.getFeld("A1").setFigur(echtesBrett.getFeld("I9").getFigur());
+//		
+//		echtesBrett.getFeld("A3").setFigur(null);
+//		echtesBrett.getFeld("A2").setFigur(echtesBrett.getFeld("C5").getFigur());
+//		echtesBrett.getFeld("A1").setFigur(echtesBrett.getFeld("C5").getFigur());
+//		
+//		testBrett.ziehe(zuege);
+//		
+//		String testBrettString = testBrett.toString();
+//		String echtesBrettString = echtesBrett.toString();
+//		
+//		assertEquals(echtesBrettString, testBrettString);
+//		
+//	}
 	
 	@Test
 	public void zieheFalscheEingabe() throws SpielbrettException {

@@ -27,32 +27,32 @@ public class Simulation1 {
 			{"G6E6", "D6"}, {"A2", "A3"},//{"B1B2", "C1"},
 			{"F6D6", "C6"}};
 				
-		try {
-			s.addSpieler("spieler1", "weiss",2);
-		} catch (AbaloneException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			s.addSpieler("spieler2", "schwarz",2);
-		} catch (AbaloneException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(s.getStatus());
-		
-		for (String zug[] : zugSimulation) {
-			try {
-				s.ziehe(zug);
-			} catch (AbaloneException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println(s.getStatus());
-			
-			System.out.println("Drücke ENTER zum fortfahren...");
-			sc.nextLine();
-		}
+//		try {
+//			s.addSpieler("spieler1", "weiss",2);
+//		} catch (/*AbaloneException e*/) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			s.addSpieler("spieler2", "schwarz",2);
+//		} catch (/*AbaloneException e*/) {
+//			// TODO Auto-generated catch block
+////			e.printStackTrace();
+//		}
+//		System.out.println(s.getStatus());
+//		
+//		for (String zug[] : zugSimulation) {
+//			try {
+//				s.ziehe(zug);
+//			} catch (/*AbaloneException e*/) {
+//				// TODO Auto-generated catch block
+////				e.printStackTrace();
+//			}
+//			System.out.println(s.getStatus());
+//			
+//			System.out.println("Drücke ENTER zum fortfahren...");
+//			sc.nextLine();
+//		}
 		System.out.println("Ende der Simultaion");
 		sc.close();
 	}
