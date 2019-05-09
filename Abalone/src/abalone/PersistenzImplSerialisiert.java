@@ -38,8 +38,13 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 		
 		if (lesen)
 			ois = new ObjectInputStream(new FileInputStream("sav/" + dateiName + ".ser"));
-		else
+		else {
+			File f = new File("sav");
+			if (!f.exists())
+				f.mkdir();
+			
 			oos = new ObjectOutputStream(new FileOutputStream("sav/" + dateiName + ".ser"));
+		}
 	}
 
 	/**
@@ -87,10 +92,6 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
 		if (regex.matcher(dateiName).find())
 			throw new IOException("Ungueltiger Dateiname!");
-		
-		File f = new File("sav");
-		if (!f.exists())
-			f.mkdir();
 			
 		oos.writeObject(zuSchreibendesObjekt);
 
