@@ -515,7 +515,7 @@ public class UI implements java.io.Serializable {
 						System.out.print("Zum Abbrechen 'abbruch' eingeben.\n> ");
 						String dateiName = sc.nextLine();
 						if (dateiName.equalsIgnoreCase("abbruch"))
-							menue();
+							break;
 						
 						spiel.speichernSerialisiert(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
@@ -533,7 +533,7 @@ public class UI implements java.io.Serializable {
 						System.out.print("Zum Abbrechen 'abbruch' eingeben.\n> ");
 						String dateiName = sc.nextLine();
 						if (dateiName.equalsIgnoreCase("abbruch"))
-							menue();
+							break;
 						
 						spiel.speichernCSV(dateiName);
 						System.out.println("\nDie Datei wurde erfolgreich gespeichert.");
@@ -543,7 +543,7 @@ public class UI implements java.io.Serializable {
 					}
 				}
 			} else if (eingabe.equals("3")) {
-				menue();
+				break;
 			} else {
 				System.out.println("Ihre Eingabe ist fehlerhaft.");
 			}
