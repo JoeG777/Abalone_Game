@@ -14,7 +14,6 @@ public class Spieler implements java.io.Serializable {
 	private int spielerID;
 	private int eliminierteKugeln = 0;
 	
-	private static FarbEnum farbeZweiterSpieler;
 	private static int anzahlSpieler = 0;
 	
 	/**
@@ -68,28 +67,9 @@ public class Spieler implements java.io.Serializable {
 	 *  dass beide Farben vergeben sind
 	 * 
 	 * @param farbe Aus der Enumeration FarbEnum
-	 * @exception RuntimeException Fehlermeldung bei ungueltiger Farbe
 	 */
 	private void setFarbe(FarbEnum farbe) {
-		//Fallunterscheidung: Ausschliessen, dass zwei Spieler dieselbe Farbe haben
-		if (farbeZweiterSpieler == null) {
-			
-			switch (farbe) {
-			case SCHWARZ:
-				this.farbe = farbe;
-				farbeZweiterSpieler = FarbEnum.WEISS;
-				break;
-			case WEISS:
-				this.farbe = farbe;
-				farbeZweiterSpieler = FarbEnum.SCHWARZ;
-				break;
-			default:
-				throw new RuntimeException("Ungueltige Farbe");
-			}
-		}else {
-			//2.Spieler nimmt die andere Farbe an egal was
-			this.farbe = farbeZweiterSpieler;
-		}
+		this.farbe = farbe;
 	}
 	
 	/**
@@ -188,10 +168,6 @@ public class Spieler implements java.io.Serializable {
 		csv += ","+farbe+","+spielerID+","+eliminierteKugeln;
 		
 		return csv;
-	}
-	
-	public static void nullFarbeZweiterSpieler() {
-		farbeZweiterSpieler = null;
 	}
 	
 }
