@@ -353,7 +353,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String[] arraySpieler2 = spieler2.split(":");
 		String[] infoSpieler2 = arraySpieler2[1].split(",");
 		String[] infoAmZug = amZug.split(":");
-		Spieler.nullFarbeZweiterSpieler();
 		FarbEnum enum1 = FarbEnum.WEISS;
 		if (infoSpieler1[1].equals("schwarz"))
 			enum1 = FarbEnum.SCHWARZ;
