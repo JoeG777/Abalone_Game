@@ -364,7 +364,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		if (infoSpieler2[1].equals("weiss"))
 			enum2 = FarbEnum.WEISS;
 		if(infoSpieler1[0].substring(0,2).equals("KI")) {
-			KI sp1 =  new KI(infoSpieler1[0], enum2, this.spielBrett);
+			KI sp1 =  new KI(infoSpieler1[0], enum1, this.spielBrett);
 			if(infoSpieler1[0].length() > 4)
 				sp1.setDurchziehend(true);
 			spielerImSpiel[0] = sp1;
