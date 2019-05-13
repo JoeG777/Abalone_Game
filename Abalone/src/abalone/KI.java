@@ -9,7 +9,6 @@ import abalone.spielbrett.SpielfeldException;
 
 /**
  * Die Klasse KI bietet Methoden zur Bewertung von Spielbrettern.
- * @author julia
  *
  */
 public class KI extends Spieler {
@@ -17,12 +16,12 @@ public class KI extends Spieler {
 	private static final long serialVersionUID = 110L;
 	private static int anzahlKIs = 0;
 	private static final String[] namen = {"KI_1", "KI_2"};
-	
+
 	private HashMap<String, Integer> werteMap;
 	private boolean durchziehend;
 	private int zugWiederholungscounter; 
 	private String[] vorherigerZug;
-	
+
 	/**
 	 * Erzeugt eine neu KI mit passenden Namen und
 	 * initialisiert die werteMap der KI.
@@ -44,7 +43,7 @@ public class KI extends Spieler {
 		initWerteMap(brett);
 		anzahlKIs++;
 	}
-	
+
 	/**
 	 * Initialisiert die Werte der WerteMap.
 	 * Diese Methode läuft, ausgehend
@@ -61,7 +60,7 @@ public class KI extends Spieler {
 		String aktuellesFeld = "E5";
 		int wert = 4;
 		werteMap.put("E5", 50);
-		
+
 		while(!done)  {
 			aktuellesFeld = laufeUndBewerte(brett, aktuellesFeld, 4, 1, 50-(wert)*schritte);
 			aktuellesFeld = laufeUndBewerte(brett, aktuellesFeld, 3, schritte-1, 50-(wert)*schritte);
@@ -79,7 +78,7 @@ public class KI extends Spieler {
 
 		}
 	}
-	
+
 	/**
 	 * Hilfsmethode der WerteMap. Laeuft von der uebergebenen
 	 * ID die uebergebene Anzahl an Schritten in die uebergebene Richtung.
@@ -99,7 +98,7 @@ public class KI extends Spieler {
 		}
 		return newID;
 	}
-	
+
 	/**
 	 * Gibt die Anzahl der erzeugten KIs zurueck.
 	 * @return die Anzahl der aktuell existenten KIs.
@@ -107,33 +106,33 @@ public class KI extends Spieler {
 	public int getAnzahlKIs() {
 		return anzahlKIs;
 	}
-	
-//	public void setBesterZug(String[] besterZug) {
-//		this.besterZug = besterZug;
-//	}
-//	
-//	
-//	public String[] getBesterZug() {
-//		return this.besterZug;
-//	}
-	
-//	/**
-//	 * Gibt das GegnerFigVorZug-Attribut der KI zurueck.
-//	 * @return das GegnerFigVorZug-Attribut als int.
-//	 */
-//	public int getGegnerFigVorZug() {
-//		return gegnerFigVorZug;
-//	}
-//	
-//	/**
-//	 * Setzt das GegnerFigVorZug-Attribut der KI.
-//	 * @param gegnerFigVorZug die Anzahl der gegnerischen Figuren
-//	 * bevor moegliche Zuege untersucht werden sollen.
-//	 */
-//	public void setGegnerFigVorZug(int gegnerFigVorZug) {
-//		this.gegnerFigVorZug = gegnerFigVorZug;
-//	}
-	
+
+	//	public void setBesterZug(String[] besterZug) {
+	//		this.besterZug = besterZug;
+	//	}
+	//	
+	//	
+	//	public String[] getBesterZug() {
+	//		return this.besterZug;
+	//	}
+
+	//	/**
+	//	 * Gibt das GegnerFigVorZug-Attribut der KI zurueck.
+	//	 * @return das GegnerFigVorZug-Attribut als int.
+	//	 */
+	//	public int getGegnerFigVorZug() {
+	//		return gegnerFigVorZug;
+	//	}
+	//	
+	//	/**
+	//	 * Setzt das GegnerFigVorZug-Attribut der KI.
+	//	 * @param gegnerFigVorZug die Anzahl der gegnerischen Figuren
+	//	 * bevor moegliche Zuege untersucht werden sollen.
+	//	 */
+	//	public void setGegnerFigVorZug(int gegnerFigVorZug) {
+	//		this.gegnerFigVorZug = gegnerFigVorZug;
+	//	}
+
 	/**
 	 * Gibt für eine uebergebene ID die Bewertung zurueck.
 	 * @param id die ID eines Spielfeldes als String.
@@ -142,7 +141,7 @@ public class KI extends Spieler {
 	private int getFeldStaerkeById(String id) {
 		return werteMap.get(id);
 	}
-	
+
 	/**
 	 * Gibt das durchziehend-Attribut der KI zurück.
 	 * @param durchziehend true, wenn die KI durchziehend soll, false, wenn nicht.
@@ -151,7 +150,7 @@ public class KI extends Spieler {
 	private boolean getDurchziehend(boolean durchziehend) {
 		return this.durchziehend;
 	}
-	
+
 	/**
 	 * Setzt das durchziehend-Attribut der KI.
 	 * @param durchziehend true, wenn die KI durchziehen soll, false, wenn nicht.
@@ -165,21 +164,21 @@ public class KI extends Spieler {
 			super.setName(this.getName().substring(0,4));
 		}
 	}
-	
-//	/**
-//	 * Berechnet die Staerke des uebergebenen Spielbretts.
-//	 * @param spielbrett ein zu bewertendes Spielbrett
-//	 * @return Die Staerke der eigenen Position.
-//	 */
-//	public int calcStaerkeDesBretts(Spielbrett spielbrett) {
-//		int score = bewerteFigurPos(spielbrett);
-//		score += bewerteZusammenhalt(spielbrett);
-//		if(isGegnerGeschlagen(spielbrett, gegnerFarbe)) {
-//			score += 50;
-//		}
-//		return score;
-//	}
-	
+
+	//	/**
+	//	 * Berechnet die Staerke des uebergebenen Spielbretts.
+	//	 * @param spielbrett ein zu bewertendes Spielbrett
+	//	 * @return Die Staerke der eigenen Position.
+	//	 */
+	//	public int calcStaerkeDesBretts(Spielbrett spielbrett) {
+	//		int score = bewerteFigurPos(spielbrett);
+	//		score += bewerteZusammenhalt(spielbrett);
+	//		if(isGegnerGeschlagen(spielbrett, gegnerFarbe)) {
+	//			score += 50;
+	//		}
+	//		return score;
+	//	}
+
 	/**
 	 * Bewertet die aktuelle Position der eigenen Figuren. Dafuer 
 	 * wird die werteMap der KI verwendet. 
@@ -188,13 +187,13 @@ public class KI extends Spieler {
 	 */
 	private int bewerteFigurPos(Spielbrett spielbrett, FarbEnum farbe) {
 		int score = 0;
-		
+
 		for(String id : spielbrett.getFelderMitFarbe(farbe)) {
 			score += getFeldStaerkeById(id);
 		}
 		return score;
 	}
-	
+
 	/**
 	 * Ueberprueft, durch wie viele eigenen Kugeln jede eigene Kugeln
 	 * umgeben ist. Fuer jede Kugel wird +1 gerechnet.
@@ -203,7 +202,7 @@ public class KI extends Spieler {
 	 */
 	private int bewerteZusammenhalt(Spielbrett spielbrett, FarbEnum farbe) {
 		int score = 0;
-		
+
 		for(String id : spielbrett.getFelderMitFarbe(farbe)) {
 			for(String nachbarId : spielbrett.getNachbarnByIdVonFeld(id)) {
 				if((nachbarId != null && spielbrett.istBesetzt(nachbarId)) &&
@@ -213,10 +212,10 @@ public class KI extends Spieler {
 				}
 			}
 		}
-		
+
 		return score;
 	}
-	
+
 	/**
 	 * Ueberprueft, ob der Gegner der KI eine Figur verloren hat, nachdem 
 	 * der Zug ausgefuehrt wurde. Dafuer muss die Instanzvariable gegnerFigVorZug
@@ -226,24 +225,37 @@ public class KI extends Spieler {
 	 */
 	private boolean isGegnerGeschlagen(Spielbrett nachZug, int gegnerFigVorZug, FarbEnum gegnerFarbe) {
 		int gegnerFigNachZug = nachZug.getFelderMitFarbe(gegnerFarbe).size();
-		
+
 		return gegnerFigNachZug < gegnerFigVorZug;
 	}
-	
+
+	/**
+	 * Bewertet das Spielbrett.
+	 * @param spielbrett das zu bewertende Spielbrett
+	 * @param farbe Farbe des Spielers der bewertet werden soll
+	 * @return Eine Score auf Basis des Spielbretts
+	 */
 	private int bewerteBrett(Spielbrett spielbrett, FarbEnum farbe) {
 		int score = 0; 
-		
+
 		score += bewerteFigurPos(spielbrett, farbe);
 		score += bewerteZusammenhalt(spielbrett, farbe);
-		
+
 		return score;
 	}
+	/**
+	 * Findet aus einer Reihe von Zuegen den besten Zug heraus.
+	 * @param klon das aktuelle Spielbrett
+	 * @param gesplitteteZuege Spielzuege, in für das Spielbrett lesbarer 
+	 * Form
+	 * @return der beste mögliche Zug
+	 */
 	public String[] getBesterZug(Spielbrett klon, ArrayList<Spielzug[]> gesplitteteZuege) {
 		FarbEnum gegnerFarbe = (this.getFarbe() == FarbEnum.SCHWARZ)? FarbEnum.WEISS : FarbEnum.SCHWARZ;
 		int gegnerFigVorZug = klon.getFelderMitFarbe(gegnerFarbe).size();
 		int maximaleScore = -4000; 
 		String[] besterZug = new String[2];
-		
+
 		for(Spielzug[] zuege : gesplitteteZuege) {
 			int gesamtScore = 0; 
 			Spielbrett simulationsbrett = klon.clone();
@@ -251,16 +263,16 @@ public class KI extends Spieler {
 				simulationsbrett.ziehe(zuege);
 			} catch (SpielbrettException e) {
 			}
-			
+
 			gesamtScore += bewerteBrett(simulationsbrett, this.getFarbe());
 			gesamtScore -= bewerteBrett(simulationsbrett, gegnerFarbe);
 			if(isGegnerGeschlagen(simulationsbrett, gegnerFigVorZug, gegnerFarbe)) {
 				gesamtScore += 65;
 			}
-			
+
 			if(maximaleScore <= gesamtScore) {
 				String[] momentanerZug = gesplitterZugZuNotation(klon, zuege, this.getFarbe());
-				
+
 				if(vorherigerZug != null && momentanerZug[0].equals(vorherigerZug[0]) &&
 						momentanerZug[1].equals(vorherigerZug[1])) {
 					zugWiederholungscounter++;
@@ -269,7 +281,7 @@ public class KI extends Spieler {
 					zugWiederholungscounter = 0;
 					continue;
 				}
-				
+
 				besterZug = gesplitterZugZuNotation(klon,zuege, this.getFarbe());
 				maximaleScore = gesamtScore;
 			}
@@ -278,36 +290,43 @@ public class KI extends Spieler {
 		vorherigerZug = besterZug;
 		return besterZug;
 	}
-		
-		private String[] gesplitterZugZuNotation(Spielbrett spielbrett, Spielzug[] gesplitteterZug, FarbEnum farbe) {
-			String erstesVonFeld = ""; 
-			String zweitesVonFeld = ""; 
-			String nachFeld = ""; 
-			boolean first = true;
-			String[] zugInNotation = new String[2];
+	
+	/**
+	 * Wandelt einen für das Spielbrett lesbaren Zug zurück in den Notation.
+	 * @param spielbrett ein Spielbrett.
+	 * @param gesplitteterZug der Zug, der umgewandelt werden soll.
+	 * @param farbe Die Farbe des Spielers zu dem der Zug gehört
+	 * @return ein Zug in der Abalone-Notation
+	 */
+	private String[] gesplitterZugZuNotation(Spielbrett spielbrett, Spielzug[] gesplitteterZug, FarbEnum farbe) {
+		String erstesVonFeld = ""; 
+		String zweitesVonFeld = ""; 
+		String nachFeld = ""; 
+		boolean first = true;
+		String[] zugInNotation = new String[2];
 
-			if(gesplitteterZug.length == 1) {
-				zugInNotation[0] = gesplitteterZug[0].getVon();
-				zugInNotation[1] = gesplitteterZug[0].getNach();
-				return zugInNotation;
-			}
-			for(Spielzug zug : gesplitteterZug) {
-				if(spielbrett.istBesetzt(zug.getVon()) &&
-						spielbrett.getFarbeDerFigurById(zug.getVon()) == farbe) {
-					if(first) {
-						erstesVonFeld = zug.getVon();
-						nachFeld = zug.getNach();
-						first = false;
-					}
-					zweitesVonFeld = zug.getVon();
-				}
-			}
-
-			zugInNotation[0] = erstesVonFeld +"" +zweitesVonFeld;
-			zugInNotation[1] = nachFeld;
-
+		if(gesplitteterZug.length == 1) {
+			zugInNotation[0] = gesplitteterZug[0].getVon();
+			zugInNotation[1] = gesplitteterZug[0].getNach();
 			return zugInNotation;
 		}
+		for(Spielzug zug : gesplitteterZug) {
+			if(spielbrett.istBesetzt(zug.getVon()) &&
+					spielbrett.getFarbeDerFigurById(zug.getVon()) == farbe) {
+				if(first) {
+					erstesVonFeld = zug.getVon();
+					nachFeld = zug.getNach();
+					first = false;
+				}
+				zweitesVonFeld = zug.getVon();
+			}
+		}
 
-		
+		zugInNotation[0] = erstesVonFeld +"" +zweitesVonFeld;
+		zugInNotation[1] = nachFeld;
+
+		return zugInNotation;
+	}
+
+
 }
