@@ -344,7 +344,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Diese Methode dient zum CSV-Laden der Spieler-Informationen aus uebergebenen
 	 * Strings
 	 * 
-	 * @param csv String, der die zum CSV-Laden notwendigen Informationen enthaelt
+	 * @param spieler1 String, der die Informationen zu Spieler 1 enthaelt
+	 * @param spieler1 String, der die Informationen zu Spieler 1 enthaelt
+	 * @param spieler1 String, der den Namen des Spielers am Zug enthaelt
 	 * @throws DateiIOException
 	 */
 	private void ladeCSVSpieler(String spieler1, String spieler2, String amZug) throws DateiIOException {
@@ -364,7 +366,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			if(infoSpieler1[0].length() > 4)
 				sp1.setDurchziehend(true);
 			spielerImSpiel[0] = sp1;
-		}else {
+		} else {
 			spielerImSpiel[0] = new Spieler(infoSpieler1[0], enum1);
 		}
 		if(infoSpieler2[0].substring(0,2).equals("KI")) {
@@ -372,7 +374,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			if(infoSpieler2[0].length() > 4)
 				sp2.setDurchziehend(true);
 			spielerImSpiel[1] = sp2;
-		}else {
+		} else {
 			spielerImSpiel[1] = new Spieler(infoSpieler2[0], enum1);
 		}
 		if (infoAmZug[1].equals(spielerImSpiel[0].getName())) {
@@ -411,32 +413,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			
 			
 		}
-	
-//		if (spielerAmZug instanceof KI) {
-//			if (zug[0].equals("DURCHZIEHEN")) {
-//				((KI) spielerAmZug).setDurchziehend(true);
-//			}
-//			ArrayList<Spielzug> moeglicheZuege = getAlleMoeglichenZuege(getFarbeAmZug());
-//			String[] besterZug = new String[2];
-//			((KI) spielerAmZug).setGegnerFigVorZug(spielBrett.getFelderMitFarbe(getFarbeNichtAmZug()).size());
-//			int max = 0;
-//
-//			for (Spielzug simulationszug : moeglicheZuege) {
-//				Spielbrett brettNachZug = getSpielbrett().clone();
-//				try {
-//					brettNachZug.ziehe(spielzugSplitter(simulationszug));
-//				} catch (SpielbrettException e) {
-//					 
-//				}
-//				int zugScore = ((KI) spielerAmZug).calcStaerkeDesBretts(brettNachZug);
-//				if (zugScore > max) {
-//					max = zugScore;
-//					besterZug[0] = simulationszug.getVon();
-//					besterZug[1] = simulationszug.getNach();
-//				}
-//			}
-//			zug = besterZug;
-//		}
+		
 		try {
 			ziehen(zug);
 		} catch (UngueltigerZugException e) {
