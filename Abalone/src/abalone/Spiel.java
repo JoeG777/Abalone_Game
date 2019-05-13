@@ -41,7 +41,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	/**
 	 * Konstruktor, instanziiert alle anfangs benoetigten Objekte.
 	 * 
-	 * @throws SpielfeldException
+	 * @throws SpielfeldException Wenn ein Problem beim Aufstellen der Spielfelder auftritt
 	 */
 	public Spiel() throws SpielfeldException {
 		spielBrett = new Spielbrett();
@@ -79,7 +79,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * 
 	 * @param name  Der fuer den Spieler gewaehlte Name.
 	 * @param farbe Die fuer den Spieler gewaehlte Farbe.
-	 * @throws SpielException
+	 * @throws SpielException Wenn der Spiele rmit den Parametern nicht hinzugefuegt werden kann
 	 * @exception IllegalArgumentException  Wird geworfen, wenn der String farbe
 	 *                                      nicht "schwarz" oder "weiss" entspricht.
 	 * @exception IndexOutOfBoundsException wird geworfen wenn ein Spieler
@@ -217,7 +217,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Spielstandes als serialisierte Datei verwendet
 	 * 
 	 * @param dateiName, Name der zu speichernden Datei
-	 * @throws DateiIOException
+	 * @throws DateiIOException Wenn beim Speichern ein Problem auftritt
 	 */
 	public void speichernSerialisiert(String dateiName) throws DateiIOException {
 		PersistenzInterface persistenzInterface = new PersistenzImplSerialisiert();
@@ -237,7 +237,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * serialisierte Datei gespeicherten Spielstandes verwendet
 	 * 
 	 * @param dateiName Name, der zu lesenden Datei
-	 * @throws DateiIOException
+	 * @throws DateiIOException Wenn beim Laden ein Problem auftritt
 	 */
 	public void lesenSerialisiert(String dateiName) throws DateiIOException {
 		PersistenzInterface persistenzInterface = new PersistenzImplSerialisiert();
@@ -269,9 +269,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Diese Methode fasst alle notwendigen Informationen - zum Speichern als
 	 * CSV-Datei - in einen einzigen langen String ein
 	 * 
-	 * @return String, welcher den zu schreibenden CSV-Inhalt enthaelt
 	 * @param dateiName Name, der zu beschreibenden Datei
-	 * @throws DateiIOException
+	 * @throws DateiIOException Wenn beim Speichern ein Problem auftritt
 	 */
 	public void speichernCSV(String dateiName) throws DateiIOException {
 		PersistenzInterface persistenzInterface = new PersistenzImplCSV();
@@ -299,7 +298,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * CSV-Datei - gespeicherten Spielstandes verwendet
 	 * 
 	 * @param dateiName Name, der zu lesenden Datei
-	 * @throws DateiIOException
+	 * @throws DateiIOException Wenn beim Lesen des Speicherstanded ein Problem auftritt
 	 */
 	public void lesenCSV(String dateiName) throws DateiIOException {
 		PersistenzInterface persistenzInterface = new PersistenzImplCSV();
@@ -336,6 +335,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		} catch (IllegalArgumentException e) {
 			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
 			throw ex;
+		} catch (SpielbrettException e) {
+			DateiIOException ex = new DateiIOException(16, "Irgendwas ist schief gelaufen");
+			throw ex;
 		}
 
 	}
@@ -345,9 +347,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Strings
 	 * 
 	 * @param spieler1 String, der die Informationen zu Spieler 1 enthaelt
-	 * @param spieler1 String, der die Informationen zu Spieler 1 enthaelt
-	 * @param spieler1 String, der den Namen des Spielers am Zug enthaelt
-	 * @throws DateiIOException
+	 * @param spieler2 String, der die Informationen zu Spieler 2 enthaelt
+	 * @param amZug String, der den Namen des Spielers am Zug enthaelt
+	 * @throws DateiIOException Wenn beim Laden der CSV ein Fehler auftritt
 	 */
 	private void ladeCSVSpieler(String spieler1, String spieler2, String amZug) throws DateiIOException {
 		String[] arraySpieler1 = spieler1.split(":");
@@ -392,8 +394,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * 
 	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1]
 	 *            = wohin gezogen wird.
-	 * @throws SpielbrettException Wird geworfen, falls ein aktueller zug für die
-	 *                             Spielsituation ungueltig ist.
 	 */
 	@Override
 	public void ziehe(String[] zug) throws SpielException {
@@ -429,10 +429,8 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * 
 	 * @param zug Ein String Array mit den Werten [0] = von wo aus gezogen wird, [1]
 	 *            = wohin gezogen wird.
-	 * @throws SpielException
-	 * @exception IllegalArgumentException Wirft eine IllegalArgumentException wenn
-	 *                                     zugValidieren false zurueck gibt oder ein
-	 *                                     Array Eintrag NULL ist.
+	 * @throws UngueltigerZugException Wenn der gegebene Zug ungueltig ist.
+	 * @throws SpielbrettException Wenn der gegebene Zug ungueltig ist.
 	 * @since 1.0
 	 */
 	private void ziehen(String[] zug) throws SpielbrettException, UngueltigerZugException {
@@ -470,7 +468,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param ausgangsFelder Die Ausgangsfelder, von denen gezogen wird. gesammelt
 	 *                       werden sollen.
 	 * @return ErlaubteZuege Ein String Array mit den erlaubten Zuegen.
-	 * @throws UngueltigerZugException
+	 * @throws UngueltigerZugException Wenn die ausgangsFelder nicht zusammen ziehen duerfen.
 	 */
 	public String[] getErlaubteZuege(String[] ausgangsFelder) throws UngueltigerZugException {
 		if (!koordinatenValidieren(spielzugParser(ausgangsFelder))) {
@@ -607,7 +605,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param zug Ein String Array mit den Werten [0] = von wo gezogen wird, [1] =
 	 *            wohin gezogen wird.
 	 * @return ein zweidimensionales char Array, welches den Zug in chars aufteilt
-	 * @throws UngueltigerZugException
+	 * @throws UngueltigerZugException Wenn beim Parsen des Zuges ein Problem auftritt
 	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge ungueltig
 	 *                                     ist.
 	 */
@@ -657,9 +655,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * 
 	 * @param zug mit dem Datentyp String
 	 * @return zweidimensionales Char Array, welches den Zug als Chars enthaelt
-	 * @throws UngueltigerZugException
-	 * @exception IllegalArgumentException Wird geworfen, wenn Zuglaenge ungueltig
-	 *                                     ist.
+	 * @throws UngueltigerZugException Wenn beim parsen des Zuges ein Problem auftritt
 	 */
 	private char[][] felderParser(String zug) throws UngueltigerZugException {
 		char[][] geparsterZug = new char[1][];
@@ -771,7 +767,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	/**
 	 * Prueft ob mehrere Zuege abhaengig von der Spielfeldbelegung ausfuehrbar sind.
 	 * 
-	 * @param zuege Array des Typs Spielzug.
+	 * @param zug Array des Typs Spielzug.
 	 * @return boolean True oder False, in Abhaengigkeit der Validitaet der Zuege.
 	 */
 	public boolean zugValidieren(Spielzug zug) {
@@ -841,7 +837,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Checkt, in welche Richtung ein Zug geht. 0 = Links 1 = Oben Links 2 = Unten
 	 * Links 3 = Rechts 4 = Oben Rechts 5 = Unten Rechts.
 	 * 
-	 * @param Zug Objekt des Typs Zug.
+	 * @param zug Objekt des Typs Zug.
 	 * @return SpielzugRichtung Index des Objektes, in dessen Richtung gezogen wird.
 	 * @since 1.3
 	 */
@@ -954,7 +950,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Prueft, ob ein gegnerischer Stein durch Ausfuehrung des Zuges vom Spielbrett
 	 * geworfen wird. Falls dies zutrifft, wird die Figur vom Spielfeld entfernt.
 	 * 
-	 * @param gegnerischerStein Das Feld, auf dem der Stein ist.
+	 * @param gegnerStein Das Feld, auf dem der Stein ist.
 	 * @param richtung          Richtung des Spielzuges.
 	 * @return boolean true, wenn der Stein runtergeworfen wird, false, wenn nicht.
 	 */
@@ -1364,7 +1360,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * Anpassung der getErlaubte-Methode fuer das Interface
 	 * 
 	 * @return erlaubteZuege Als String implementiert
-	 * @throws SpielException
+	 * @throws SpielException Wenn die Ausgangsfelder nicht zusammen ziehen koennen
 	 * 
 	 */
 	@Override

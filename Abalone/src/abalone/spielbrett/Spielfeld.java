@@ -19,12 +19,9 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 	
 	/**
 	 * Erzeugt ein neues Spielfeld-Objekt.
-	 * @param brett Ein Spielbrett-Objekt (muss zur Erzeugung existieren).
 	 * @param id Die ID des Feldes in Abalone-Notation.
 	 * @param farbe Die Farbe des Feldes.
 	 * @param figur Die Figur, die sich auf dem Feld befindet.
-	 * @throws SpielfeldException 
-	 * @exception RuntimeException Wird geworfen, wenn kein Spielbrett 
 	 * existiert.
 	 * 
 	 */
@@ -44,16 +41,12 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 	/**
 	 * Erzeugt ein Spielfeld-Objekt und setzt die Attribute Farbe und Figur auf
 	 * null.
-	 * @param brett Ein Spielbrett-Objekt (muss zur Erzeugung existieren).
-	 * @param id Die ID des Feldes in Abalone-Notation.
-	 * @throws SpielfeldException 
+	 * @param id Die ID des Feldes in Abalone Notation.
 	 * 
 	 */
 	public Spielfeld(String id){
 		setId(id);
 		setFarbe(null);
-//		setAndInitFigur(null);
-//		setFarbe(null);
 	}
 	
 	/**
@@ -62,7 +55,7 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 	 * @param farbe Farbe des Feldes
 	 * @param figur die Figur auf diesem Feld
 	 * @param nachbarn die Liste der angrenzenden Felder
-	 * @throws SpielfeldException
+	 * @throws SpielfeldException Wenn das Spielfeld mit den gegebenen Paramtern nicht erzeugt werden kann
 	 */
 	private Spielfeld(String id, FarbEnum farbe, Spielfigur figur, String[] nachbarn) throws SpielfeldException{
 		this(id, farbe, figur);
@@ -90,22 +83,21 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 	/**
 	 * Setter fuer das initilisieren und Setzen einer Figur
 	 * @param farbe als String, wird im Spielfeldkonstrukto behandelt
-	 * @throws SpielfeldException 
+	 * @throws SpielbrettException Wenn die Farbe der Figur ungueltig ist.
 	 */
-	public void setAndInitFigur(String farbe){
+	public void setAndInitFigur(String farbe) throws SpielbrettException{
 		this.figur = new Spielfigur(farbe);
 	}
 	
 	/**
 	 * Setter fuer das initilisieren und Setzen einer Figur
 	 * @param farbe Farbe der Figur als Enum 
-	 * @throws SpielfeldException 
 	 */
 	public void setAndInitFigur(FarbEnum farbe) {
 		this.figur = new Spielfigur(farbe);
 	}
 	/**
-	 * Gibt die Farbe des Spielfeldes zurück.
+	 * Gibt die Farbe des Spielfeldes zurueck.
 	 * @return Die Farbe des Spielfeldes als Enum.
 	 */
 	public FarbEnum getFarbe() {
@@ -158,7 +150,7 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 	/**
 	 * Setzt das Nachbarn Attribut. 
 	 * @param nachbarn Spielfeld-Array der Laenge 6.
-	 * @throws SpielfeldException 
+	 * @throws SpielfeldException Wenn beim setzen der Nachbarn ein Problem auftritt
 	 * 
 	 */
 	private void setNachbarn(String[] nachbarn) throws SpielfeldException {
@@ -272,7 +264,8 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 	 * Position 2 entspricht unten-links, Position 3 entspricht rechts,
 	 * Position 4 entspricht oben-rechts, Position 5 enstpricht unten-rechts.
 	 * Existiert kein solches Spielfeld, steht im Array null.
-	 * @throws SpielfeldException 
+	 * @param brett Das Brett, auf dem sich die Felder befinden
+	 * @throws SpielfeldException Wenn ein Problem beim setzen der Nachbarn auftritt
 	 */
 	public void setzeNachbarn(Spielbrett brett) throws SpielfeldException {
 		
@@ -358,8 +351,9 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 	/**
 	 * Diese Methode dient zum Setzen eines Spielfeldes anhand eines Strings
 	 * @param feld String, der Feld-ID und Figurfarbe enthaelt
+	 * @throws SpielbrettException Wenn die Farbe der Figur ungueltig ist.
 	 */
-	public void ladeCSV(String feld) {
+	public void ladeCSV(String feld) throws SpielbrettException {
 		String[] infoFeld = feld.split(",");
 		this.setId(infoFeld[1]);
 		
@@ -389,10 +383,7 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 
 		/**
 		 * Erzeugt ein neues Spielfigur Objekt mit Farbe als FarbEnum.
-		 * @param feld Ein Spielfeld Objekt (Muss zur Erzeugung existieren).
 		 * @param farbe Die Farbe der Spielfigur
-		 * @throws SpielfeldException 
-		 * @exception RuntimeException Wird geworfen, wenn kein Spielfeld-Objekt
 		 * existiert.
 		 */
 		public Spielfigur(FarbEnum farbe){
@@ -401,14 +392,13 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 
 		/**
 		 * Erzeugt ein neues Spielfigur Objekt mit Farbe als String.
-		 * @param feld Ein Spielfeld Objekt (muss zur Erzeugung existieren).
 		 * @param farbe Die Farbe der Spielfigur.
-		 * @throws SpielfeldException 
+		 * @throws SpielbrettException Wenn die Farbe nicht "SCHWARZ" oder "WEISS" entspricht
 		 */
-		public Spielfigur(String farbe) {
+		public Spielfigur(String farbe) throws SpielbrettException {
 			if(farbe == null|| 
 					(!(farbe.equalsIgnoreCase("WEISS") || farbe.equalsIgnoreCase("SCHWARZ")))) {
-				throw new RuntimeException("Farbe muss Schwarz oder Weiss sein");
+				throw new SpielbrettException(30,"Farbe muss Schwarz oder Weiss sein");
 			}
 
 			if(farbe.equalsIgnoreCase("WEISS")) {

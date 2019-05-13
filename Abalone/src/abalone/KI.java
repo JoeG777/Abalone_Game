@@ -183,6 +183,7 @@ public class KI extends Spieler {
 	 * Bewertet die aktuelle Position der eigenen Figuren. Dafuer 
 	 * wird die werteMap der KI verwendet. 
 	 * @param spielbrett Ein zu bewertendes Spielbrett.
+	 * @param farbe Farbe der zu bewertenden Figuren
 	 * @return die Bewertung der Positonen der eigenen Figuren.
 	 */
 	private int bewerteFigurPos(Spielbrett spielbrett, FarbEnum farbe) {
@@ -198,6 +199,7 @@ public class KI extends Spieler {
 	 * Ueberprueft, durch wie viele eigenen Kugeln jede eigene Kugeln
 	 * umgeben ist. Fuer jede Kugel wird +1 gerechnet.
 	 * @param spielbrett Ein zu bewertendes Spielbrett.
+	 * @param farbe Farbe der zu bewertenden Figuren
 	 * @return die Bewertung des Zusammenhalts der eigenen Figuren.
 	 */
 	private int bewerteZusammenhalt(Spielbrett spielbrett, FarbEnum farbe) {
@@ -221,6 +223,8 @@ public class KI extends Spieler {
 	 * der Zug ausgefuehrt wurde. Dafuer muss die Instanzvariable gegnerFigVorZug
 	 * korrekt gesetzt sein.
 	 * @param nachZug Das Spielbrett nachdem der Zug ausgeführt wurde.
+	 * @param gegnerFigVorZug Wert der gegnerischen Figuren vor dem Zug
+	 * @param gegnerFarbe Farbe des Gegners
 	 * @return true, wenn Gegner eine Figur verloren hat, false, wenn nicht.
 	 */
 	private boolean isGegnerGeschlagen(Spielbrett nachZug, int gegnerFigVorZug, FarbEnum gegnerFarbe) {

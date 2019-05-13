@@ -27,7 +27,7 @@ public interface bedienerInterface {
 	 * ermittelt und uebergeben.
 	 * 
 	 * @param zugArr Ein String Array, der enthaelt von wo aus, wohin gezogen wird.
-	 * @throws SpielException
+	 * @throws SpielException wenn ein ungueltiger Zug eingegeben wurde.
 	 */
 	void ziehe(String[] zugArr) throws SpielException;
 
@@ -44,7 +44,7 @@ public interface bedienerInterface {
 	 * @param name Name des hinzuzufuegenden Spielers
 	 * @param farbe Farbe des hinzuzufuegenden Spielers
 	 * @param anzahlSpieler Anzahl der Spieler
-	 * @throws SpielException
+	 * @throws SpielException Wenn ungueltige Parameter uebergeben wurden
 	 */
 	void addSpieler(String name, String farbe, int anzahlSpieler) throws SpielException;
 	
@@ -69,7 +69,7 @@ public interface bedienerInterface {
 	 * 
 	 * @param ausgangsfelder Die Ausgangsfelder, von denen gezogen wird.
 	 * @return String, der alle erlaubten Zuege enthaelt
-	 * @throws SpielException
+	 * @throws SpielException Wenn ungueltige Ausgangsfelder uebergeben wurden.
 	 */
 	String getErlaubteZuegeInterface(String[] ausgangsfelder) throws SpielException;
 	
@@ -85,7 +85,7 @@ public interface bedienerInterface {
 	 * Speichert den Spielstand in eine serialisierte Datei.
 	 * 
 	 * @param dateiName Name, der zu speichernden Datei
-	 * @throws SpielException
+	 * @throws SpielException Wenn der Dateiname ungueltig ist.
 	 */
 	void speichernSerialisiert(String dateiName) throws SpielException;
 	
@@ -93,7 +93,7 @@ public interface bedienerInterface {
 	 * Laedt den Spielstand aus einer serialisierte Datei.
 	 * 
 	 * @param dateiName Name, der zu ladenden Datei
-	 * @throws SpielException
+	 * @throws SpielException Wenn der Dateiname ungueltig ist oder die Datei nicht existiert.
 	 */
 	void lesenSerialisiert(String dateiName) throws SpielException;
 	
@@ -101,7 +101,7 @@ public interface bedienerInterface {
 	 * Speichert den Spielstand in eine CSV-Datei.
 	 * 
 	 * @param dateiName Name, der zu speichernden Datei
-	 * @throws SpielException
+	 * @throws SpielException Wenn der Dateiname ungueltig ist.
 	 */
 	void speichernCSV(String dateiName) throws SpielException;
 	
@@ -109,7 +109,7 @@ public interface bedienerInterface {
 	 * Laedt den Spielstand aus einer CSV-Datei.
 	 * 
 	 * @param dateiName Name, der zu ladenden Datei
-	 * @throws SpielException
+	 * @throws SpielException Wenn die Datei mit dem Namen nicht existiert.
 	 */
 	void lesenCSV(String dateiName) throws SpielException;
 }

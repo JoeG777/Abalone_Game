@@ -30,7 +30,7 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	 * 
 	 * @param dateiName String, welcher den Dateinamen des Spielstandes enthaelt
 	 * @param lesen Info, ob Datei gelesen oder beschrieben werden soll
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException Wenn die Datei nicht gefunden werden kann
 	 */
 	@Override
 	public void oeffnen(String dateiName, boolean lesen) throws FileNotFoundException, IOException {
@@ -48,9 +48,9 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	}
 
 	/**
-	 * Diese Methode beendet den Speicher- und Ladevorgang vollstaendig
+	 * Diese Methode beendet den Speicher und Ladevorgang vollstaendig
 	 * 
-	 * @throws IOException
+	 * @throws IOException Wenn ein Problem beim schliessen auftritt
 	 */
 	@Override
 	public void schliessen() throws IOException {
@@ -64,8 +64,8 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	 * Diese Methode liest die Datei aus und gibt das Resultat als Objekt zurueck
 	 * 
 	 * @return gelesenes Objekt
-	 * @throws ClassNotFoundException
-	 * @throws IOException
+	 * @throws ClassNotFoundException Wenn eine Klasse nicht gefunden werden kann
+	 * @throws IOException Wenn ein Problem beim Lesevorgang auftritt
 	 */
 	@Override
 	public Object lesen() throws ClassNotFoundException, IOException {
@@ -85,7 +85,7 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	 * Diese Methode beschreibt ein uebergebenes Objekt
 	 * 
 	 * @param zuSchreibendesObjekt Das Objekt, welches beschrieben werden soll
-	 * @throws IOException
+	 * @throws IOException Wenn ein Problem beim Schreibvorgang auftritt
 	 */
 	@Override
 	public void schreiben(Object zuSchreibendesObjekt) throws IOException {

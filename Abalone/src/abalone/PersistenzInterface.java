@@ -17,9 +17,9 @@ public interface PersistenzInterface {
 	 * 
 	 * @param dateiName Name, der zu oeffnenden Datei
 	 * @param lesen Info, ob Datei gelesen oder beschrieben werden soll
-	 * @throws FileNotFoundException
-	 * @throws IOException
-	 * @throws UnsupportedEncodingException
+	 * @throws FileNotFoundException Wenn die Datei nicht gefunden werden kann
+	 * @throws IOException Wenn es einen Fehler beim oeffnen der Datei gibt
+	 * @throws UnsupportedEncodingException Wenn das Encoding der Datei nicht unterstuetzt wird
 	 */
 	public void oeffnen(String dateiName, boolean lesen)
 			throws FileNotFoundException, IOException, UnsupportedEncodingException;
@@ -27,7 +27,7 @@ public interface PersistenzInterface {
 	/**
 	 * Schliesst eine Datei.
 	 * 
-	 * @throws IOException
+	 * @throws IOException Wenn eine Datei nicht geschlossen werden kann
 	 */
 	public void schliessen() throws IOException;
 	
@@ -35,8 +35,8 @@ public interface PersistenzInterface {
 	 * Liest eine Datei aus.
 	 * 
 	 * @return Gelesenes Objekt
-	 * @throws ClassNotFoundException
-	 * @throws IOException
+	 * @throws ClassNotFoundException Wenn die Klasse eines Objektes nicht existiert
+	 * @throws IOException Wenn die Datei nicht gelesen werden kann
 	 */
 	public Object lesen() throws ClassNotFoundException, IOException;
 	
@@ -44,7 +44,7 @@ public interface PersistenzInterface {
 	 * Beschreibt eine Datei.
 	 * 
 	 * @param zuSchreiben Zu schreibendes Objekt
-	 * @throws IOException
+	 * @throws IOException Wenn die Datei nicht beschrieben werden kann
 	 */
 	public void schreiben(Object zuSchreiben) throws IOException;
 	

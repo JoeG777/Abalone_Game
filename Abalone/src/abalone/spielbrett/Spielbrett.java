@@ -34,7 +34,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 
 	/**
 	 * Konstruktor fuer Abalone Spielbrett
-	 * @throws SpielfeldException 
+	 * @throws SpielfeldException wenn die Felder nicht generiert werden können
 	 */
 	public Spielbrett() throws SpielfeldException {
 		setBrett(new HashMap<String, Spielfeld>());
@@ -52,7 +52,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	/**
 	 * Verknuepft alle Feldbezeichnungen
 	 * eines Abalone-Bretts mit Spielfeld-Objekten.
-	 * @throws SpielfeldException 
+	 * @throws SpielfeldException wenn beim generieren der Felder Probleme auftreten
 	 * 
 	 */
 	private void schaffeMapping() throws SpielfeldException {
@@ -80,7 +80,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	/**
 	 * Weist dem uebergebenem Key ein Spielfeld zu.
 	 * @param key Feldbezeichnung in Form eines Strings.
-	 * @throws SpielfeldException 
+	 * @throws SpielfeldException Wenn beim zuweisen eines Feldes ein Problem auftritt
 	 * 
 	 */
 	private void weiseKeyFeldZu(String key) throws SpielfeldException {
@@ -91,7 +91,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 
 	/**
 	 * Stellt die Abalone Standard-Startposition auf.
-	 * @throws SpielfeldException 
+	 * @throws SpielfeldException Wenn beim Aufstellen der Ausgangsposition ein Fehler auftritt
 	 * 
 	 */
 	private void stelleStartpositionAuf() throws SpielfeldException {
@@ -104,7 +104,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	/**
 	 * Stellt auf jedem Spielfeld in Querzeile A, B, H, I
 	 * eine Figur auf. 
-	 * @throws SpielfeldException 
+	 * @throws SpielfeldException Wenn beim Aufstellen der Grundlinien Fehler auftreten
 	 * 
 	 */
 	private void stelleGrundlinienAuf() throws SpielfeldException {
@@ -117,13 +117,22 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 				String idWeiss = buchstabeWeiss + zahl;
 				if(brett.containsKey(idWeiss)) {
 					Spielfeld feld = brett.get(idWeiss);
-					feld.setAndInitFigur("WEISS");
+					try {
+						feld.setAndInitFigur("WEISS");
+					}
+					catch(SpielbrettException e) {
+						throw new SpielfeldException(35, "Beim aufstellen der Figuren ist ein Fehler entstanden!");
+					}
 				}
 				String idSchwarz = buchstabeSchwarz + zahl;
 
 				if(brett.containsKey(idSchwarz)) {
 					Spielfeld feld = brett.get(idSchwarz);
-					feld.setAndInitFigur("SCHWARZ");
+					try {
+						feld.setAndInitFigur("SCHWARZ");
+					} catch(SpielbrettException e) {
+						throw new SpielfeldException(35, "Beim aufstellen der Figuren ist ein Fehler entstanden!");
+					}
 				}
 			}
 		}
@@ -134,7 +143,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	/**
 	 * Stellt die vorderen drei Steine (der Startposition)
 	 * beider Seiten auf.
-	 * @throws SpielfeldException 
+	 * @throws SpielfeldException Wenn beim Aufstellen der vorderen Steine ein Fehler auftritt
 	 * 
 	 */
 	private void stelleVordereSteineAuf() throws SpielfeldException {
@@ -143,9 +152,17 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 			String idSchwarz = "C" + i;
 
 			Spielfeld weiss = brett.get(idWeiss);
-			weiss.setAndInitFigur("WEISS");
+			try {
+				weiss.setAndInitFigur("WEISS");
+			} catch (SpielbrettException e) {
+				throw new SpielfeldException(35, "Beim aufstellen der Figuren ist ein Fehler entstanden!");
+			}
 			Spielfeld schwarz = brett.get(idSchwarz);
-			schwarz.setAndInitFigur("SCHWARZ");
+			try {
+				schwarz.setAndInitFigur("SCHWARZ");
+			} catch (SpielbrettException e) {
+				throw new SpielfeldException(35, "Beim aufstellen der Figuren ist ein Fehler entstanden!");
+			}
 		}
 	}
 
@@ -164,7 +181,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 
 	/**
 	 * Setzt das Brettattribut des Spielbretts.
-	 * @param brett Eine HashMap<String, Spielfeld>, die das Brett modelliert
+	 * @param brett Eine HashMap mit den Typen String, Spielfeld, die das Brett modelliert
 	 * 
 	 */
 	private void setBrett(HashMap<String, Spielfeld> brett) {
@@ -182,8 +199,8 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 
 	/**
 	 * Zur internen Verwaltung von Spielfeldern
-	 * @param id
-	 * @return
+	 * @param id Id des gesuchten Feldes
+	 * @return Das Spielfeld Objekt mit der gesuchten ID
 	 */
 	private Spielfeld getFeldById(String id) {
 		return brett.get(id);
@@ -291,7 +308,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	 * wird auf null gesetzt).
 	 * @param zuege ein Spielzug-Array das einzelne Zuege aus einem Stein 
 	 * enthaehlt.
-	 * @throws SpielbrettException 
+	 * @throws SpielbrettException Wenn einer der angegebenen Zuege nicht durchfuerbar ist.
 	 */
 	public void ziehe(Spielzug[] zuege) throws SpielbrettException {
 		for(Spielzug zug : zuege) {
@@ -311,7 +328,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	 * ohne dabei zu ueberpruefen, ob dies "logisch" moeglich ist. 
 	 * @param von das Feld auf dem sich die Figur befindet.
 	 * @param auf das Feld auf das die Figur bewegt werden soll. 
-	 * @throws SpielbrettException 
+	 * @throws SpielbrettException Wenn die Figur so nicht gezogen werden darf.
 	 */
 	private void bewegeFigur(String von, String auf) throws SpielbrettException {
 		if(brett.get(auf) != null && brett.get(von) != null) {
@@ -391,7 +408,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	
 	/**
 	 * Methode zum Herausfinden der Ids der Nachbarfelder
-	 * @param id
+	 * @param id Die id des Feldes, dessen Nachbarn gesucht werden sollen
 	 * @return NachbarFelderIds Nachbar Ids
 	 */
 	public String[] getNachbarnByIdVonFeld(String id) {
@@ -413,6 +430,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	
 	/**
 	 * Ermittelt, ob ein Spielfeld von einer Figur besetzt ist
+	 * @param id des Feldes, das geprueft werden soll
 	 * @return Wahrheitswert Ob besetzt oder nicht
 	 */
 	public boolean istBesetzt(String id) {
@@ -424,7 +442,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 
 	/**
 	 * Zugriff auf die Farbe einer Figur.
-	 * @param id
+	 * @param id des Feldes, dessen Figurfarbe gesucht ist
 	 * @return FarbeDerFigurAufDemFeld
 	 */
 	public FarbEnum getFarbeDerFigurById(String id) {
@@ -483,8 +501,9 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 	 * Diese Methode dient zum CSV-Laden der Spielbrett-Informationen aus einem
 	 * uebergebenen Array
 	 * @param array Array, welches alle notwendigen Informationen des Spielbrettes enthaelt
+	 * @throws SpielbrettException Wenn beim Erstellen des geladenen Brettes ein Fehler auftritt
 	 */
-	public void ladeCSV(String[] array) {
+	public void ladeCSV(String[] array) throws SpielbrettException {
 		int zaehler = 7;
 		
 		for (String key: brett.keySet()) {		

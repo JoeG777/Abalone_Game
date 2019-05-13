@@ -30,8 +30,8 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 	 * 
 	 * @param dateiName String, welcher den Dateinamen des Spielstandes enthaelt
 	 * @param lesen Info, ob Datei gelesen oder beschrieben werden soll
-	 * @throws FileNotFoundException 
-	 * @throws UnsupportedEncodingException 
+	 * @throws FileNotFoundException Wenn die Datei mit dem Namen nicht existiert
+	 * @throws UnsupportedEncodingException Wenn das Encoding der Datei nicht unterstuetzt wird
 	 */
 	@Override
 	public void oeffnen(String dateiName, boolean lesen) throws FileNotFoundException, UnsupportedEncodingException {
@@ -52,7 +52,7 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 	/**
 	 * Diese Methode beendet den Speicher- und Ladevorgang vollstaendig
 	 * 
-	 * @throws IOException
+	 * @throws IOException Wenn der Reader oder der Writer nicht geschlossen werden kann
 	 */
 	@Override
 	public void schliessen() throws IOException {
@@ -66,8 +66,8 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 	 * Diese Methode liest die Datei aus und gibt das Resultat als Objekt zurueck
 	 * 
 	 * @return String, der alle Informationen enthaelt
-	 * @throws IOException 
-	 * @throws UnsupportedEncodingException
+	 * @throws IOException Wenn eine Datei nicht gelesen werden kann
+	 * @throws UnsupportedEncodingException Wenn das Encoding einer Datei nicht unterstuetzt wird
 	 */
 	@Override
 	public String lesen() throws IOException {
@@ -85,7 +85,7 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 	 * Diese Methode beschreibt eine CSV-Datei
 	 * 
 	 * @param zuSchreibenderInhalt Information, die beschrieben werden soll
-	 * @throws IOException
+	 * @throws IOException Wenn ein Problem beim Schreiben der Datei auftritt
 	 */
 	@Override
 	public void schreiben(Object zuSchreibenderInhalt) throws IOException {

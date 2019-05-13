@@ -54,9 +54,8 @@ public class SpielException extends Exception{
 	}
 	
 	/**
-	 * Schreibt eine Exception in mit Datum & Uhrzeit in die log.txt
+	 * Schreibt eine Exception in mit Datum und Uhrzeit in die log.txt
 	 * 
-	 * @param e - Die zu loggende Exception
 	 */
 	protected void log() {
 		BufferedWriter logger = null;

@@ -23,10 +23,11 @@ public class UI implements java.io.Serializable {
 	 * Die Main Methode legt ein neues Spiel und und fuehrt alle notwendigen
 	 * Methoden aus um eine Partie Abalone zu spielen
 	 * 
-	 * @throws IOException
-	 * @throws ClassNotFoundException
-	 * @throws FileNotFoundException
-	 * @throws SpielfeldException 
+	 * @throws IOException Wenn beim Laden oder Speichern ein Problem auftritt
+	 * @throws ClassNotFoundException Wenn beim Laden oder Speichern ein Problem auftritt
+	 * @throws FileNotFoundException Wenn beim Laden oder Speichern ein Problem auftritt
+	 * @throws SpielfeldException Wenn beim Laden oder Speichern ein Problem auftritt
+	 * @param args Das Default Parameter der Main Methode
 	 */
 	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException, SpielfeldException {
 		spiel = new Spiel();
@@ -39,7 +40,7 @@ public class UI implements java.io.Serializable {
 	 * Diese Methode fragt den Namen und die Farbe der Spieler ab, um diese
 	 * Parameter an die addSpieler Methode zu Uebergeben.
 	 * 
-	 * @param spiel Das Spielobjekt
+	 * @param anzahlSpieler Die Anzahl der menschlichen Spieler
 	 */
 	public static void spielerAnlegen(int anzahlSpieler) {
 		if (anzahlSpieler == 2) {
@@ -127,9 +128,9 @@ public class UI implements java.io.Serializable {
 
 	/**
 	 * Das Hauptmenue der graphischen Oberflaeche
-	 * @throws FileNotFoundException
-	 * @throws ClassNotFoundException
-	 * @throws IOException
+	 * @throws FileNotFoundException Wenn ein Problem beim Speichern oder Laden auftritt
+	 * @throws ClassNotFoundException Wenn ein Problem beim Speichern oder Laden auftritt
+	 * @throws IOException Wenn ein Problem beim Speichern oder Laden auftritt
 	 */
 	public static void hauptMenue()
 			throws FileNotFoundException, ClassNotFoundException, IOException {
@@ -168,7 +169,6 @@ public class UI implements java.io.Serializable {
 	 * Diese Methode ist ein Hilfsmenue fuer das Regelwerk und die Bedienung von
 	 * Abalone.
 	 * 
-	 * @param spiel Das erstelle Spiel Objekt.
 	 */
 	public static void hilfsMenu() {
 		boolean inSchleifeBleiben = true;
@@ -239,10 +239,9 @@ public class UI implements java.io.Serializable {
 	 * den vom Benutzer eingegebenen Zug bis einer der Spieler das Spiel gewonnen
 	 * hat.
 	 * 
-	 * @param spiel Das Spiel Objekt
-	 * @throws IOException
-	 * @throws ClassNotFoundException
-	 * @throws FileNotFoundException
+	 * @throws IOException Wenn beim Speichern oder Laden ein Fehler auftritt
+	 * @throws ClassNotFoundException Wenn beim Speichern oder Laden ein Fehler auftritt
+	 * @throws FileNotFoundException Wenn beim Speichern oder Laden ein Fehler auftritt
 	 */
 	public static void spielen()
 			throws FileNotFoundException, ClassNotFoundException, IOException {
@@ -340,10 +339,9 @@ public class UI implements java.io.Serializable {
 	 * Gibt das Hauptmenue aus, wartet auf eine Eingabe: 1 fuer getHistorie() 2 fuer
 	 * hilfsMenue 3 fuer weiter spielen
 	 * 
-	 * @param spiel Das erstellte Spiel Objekt.
-	 * @throws IOException
-	 * @throws FileNotFoundException 
-	 * @throws ClassNotFoundException 
+	 * @throws IOException Wenn beim Speichern oder Laden ein Fehler auftritt
+	 * @throws FileNotFoundException  Wenn beim Speichern oder Laden ein Fehler auftritt
+	 * @throws ClassNotFoundException  Wenn beim Speichern oder Laden ein Fehler auftritt
 	 */
 	public static void menue() throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean inSchleifeBleiben = true;
@@ -389,7 +387,6 @@ public class UI implements java.io.Serializable {
 	 * den Zug dann an die ziehe Methode weiter.
 	 * 
 	 * @param zug   Der vom Benutzer eingegebene Zug.
-	 * @param spiel Das Spielobjekt.
 	 * @return boolean Ob der Zug korrekt war.
 	 */
 	public static boolean ziehen(String zug) {
@@ -439,8 +436,7 @@ public class UI implements java.io.Serializable {
 	/**
 	 * Gibt die erlaubten Zuege auf der Konsole aus.
 	 * 
-	 * @param zug   Ein Spielzug-Objekt mit Nach-Attribut auf null.
-	 * @param spiel ein Spiel-Objekt.
+	 * @param zug   Ein Spielzug Objekt mit Nach-Attribut auf null.
 	 */
 	public static void printErlaubteZuege(String[] zug) {
 		try {
@@ -490,10 +486,9 @@ public class UI implements java.io.Serializable {
 	
 	/**
 	 * Diese Methode dient zum Abspeichern eines Spielstandes.
-	 * @param spiel
-	 * @throws IOException 
-	 * @throws ClassNotFoundException 
-	 * @throws FileNotFoundException 
+	 * @throws IOException  Wenn beim Speichern ein Fehler auftritt
+	 * @throws ClassNotFoundException  Wenn beim Speichern ein Fehler auftritt
+	 * @throws FileNotFoundException Wenn beim Speichern ein Fehler auftritt
 	 */
 	public static void speichern() throws FileNotFoundException, ClassNotFoundException, IOException {
 		boolean a = true;
@@ -552,10 +547,9 @@ public class UI implements java.io.Serializable {
 
 	/**
 	 * Diese Methode dient zum Laden eines bereits gespeicherten Spielstandes.
-	 * @param spiel
-	 * @throws IOException 
-	 * @throws ClassNotFoundException 
-	 * @throws FileNotFoundException 
+	 * @throws IOException  Wenn beim Laden ein Fehler auftritt
+	 * @throws ClassNotFoundException  Wenn beim Laden ein Fehler auftritt
+	 * @throws FileNotFoundException  Wenn beim Laden ein Fehler auftritt
 	 */
 	public static void laden() throws FileNotFoundException, ClassNotFoundException, IOException {
 		boolean a = true;
