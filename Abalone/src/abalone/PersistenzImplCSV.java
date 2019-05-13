@@ -40,9 +40,13 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 		if (lesen)
 			br = new BufferedReader(
 					new InputStreamReader(new FileInputStream("sav/" + dateiName + ".csv"), "utf-8"));
-		else
-			pw = new PrintWriter("sav/" + dateiName + ".csv", "utf-8");
+		else {
+			File f = new File("sav");
+			if (!f.exists())
+				f.mkdir();
 			
+			pw = new PrintWriter("sav/" + dateiName + ".csv", "utf-8");
+		}	
 	}
 
 	/**
@@ -92,10 +96,6 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
 		if (regex.matcher(dateiName).find())
 			throw new IOException("Ungueltiger Dateiname!");
-		
-		File f = new File("sav");
-		if (!f.exists())
-			f.mkdir();
 
 		pw.print(string);
 		
