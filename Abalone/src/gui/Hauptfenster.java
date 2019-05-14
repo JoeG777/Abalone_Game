@@ -48,14 +48,18 @@ public class Hauptfenster {
 		c.fill = GridBagConstraints.HORIZONTAL;
 
 		c.weightx = 1;
-		addToGridBag(menubar, 0, 0);
+		addToGridBag(menubar, 0, 0,1,1);
 		
 		
 		
 		spielfeldPanel = new JPanel();
 		spielfeldPanel.setSize(400,400);
 		spielfeldPanel.add(new JLabel("TEST"));
-		addToGridBag(spielfeldPanel, 0,1);
+		JPanel spielfeldPane2 = new JPanel();
+		spielfeldPane2.setSize(400,400);
+		spielfeldPane2.add(new JLabel("TEST2"));
+		addToGridBag(spielfeldPanel, 0,1,0.5,1);
+		addToGridBag(spielfeldPane2, 1,1,0.5,1);
 		
 		
 		mainframe.add(mainpanel, BorderLayout.PAGE_START);
@@ -66,9 +70,12 @@ public class Hauptfenster {
 		mainframe.setVisible(true);
 	}
 	
-	public void addToGridBag(Component component, int x, int y) {
+	public void addToGridBag(Component component, int x, int y, double xWeight, double yWeight) {
 		c.gridx = x; 
 		c.gridy = y; 
+		c.weightx = xWeight;
+		c.weighty = yWeight;
+		
 		mainpanel.add(component, c);
 	}
 	
