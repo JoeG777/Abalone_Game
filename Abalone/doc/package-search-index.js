@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"abalone.spielbrett"},{"l":"All Packages","url":"allpackages-index.html"},{"l":"simulation"}]
+packageSearchIndex = [{"l":"abalone"},{"l":"abalone.spielbrett"},{"l":"All Packages","url":"allpackages-index.html"},{"l":"simulation"}]
