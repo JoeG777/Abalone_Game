@@ -54,13 +54,15 @@ public class Hauptfenster {
 		
 		spielfeldPanel = new JPanel();
 		spielfeldPanel.setSize(400,400);
-		spielfeldPanel.add(new JLabel("TEST"));
+		spielfeldPanel.setLayout(new BorderLayout());
+		spielfeldPanel.add(new BrettPanel(), BorderLayout.PAGE_START);
 		JPanel spielfeldPane2 = new JPanel();
 		spielfeldPane2.setSize(400,400);
 		spielfeldPane2.add(new JLabel("TEST2"));
 		addToGridBag(spielfeldPanel, 0,1,0.5,1);
 		addToGridBag(spielfeldPane2, 1,1,0.5,1);
 		
+
 		
 		mainframe.add(mainpanel, BorderLayout.PAGE_START);
 		// Default 
@@ -79,6 +81,7 @@ public class Hauptfenster {
 		mainpanel.add(component, c);
 	}
 	
+
 	public static void main(String[] args) {
 		Hauptfenster hf = new Hauptfenster();
 	}
