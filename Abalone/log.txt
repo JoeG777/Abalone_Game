@@ -5,3 +5,38 @@
 ---------- Gestartet am 29.04.2019 19:59:28 ----------
 
 ---------- Beendet am 29.04.2019 19:59:46 ----------
+---------- Gestartet am 13.05.2019 21:49:19 ----------
+
+Fehler am 13.05.2019 21:49:27: 
+Fehler ID 19 aufgetreten: Spielername darf nicht mit "KI" beginnen!
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 13.05.2019 21:49:42 ----------
+
+---------- Beendet am 13.05.2019 21:49:58 ----------
+---------- Gestartet am 13.05.2019 21:50:01 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 13.05.2019 21:51:04 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 13.05.2019 21:53:19 ----------
+
+---------- Beendet am 13.05.2019 21:55:46 ----------
+---------- Gestartet am 13.05.2019 21:55:49 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 14.05.2019 08:03:17 ----------
+
+---------- Beendet am 14.05.2019 08:03:48 ----------
+---------- Gestartet am 14.05.2019 08:03:50 ----------
+
+---------- Beendet am 14.05.2019 08:04:04 ----------
+---------- Gestartet am 14.05.2019 08:54:13 ----------
+
+---------- Beendet am 14.05.2019 08:55:18 ----------
+---------- Gestartet am 14.05.2019 09:47:47 ----------

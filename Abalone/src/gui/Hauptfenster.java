@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +23,7 @@ public class Hauptfenster {
 	
 	
 	public Hauptfenster() {
-		
+		GridLayout experimentLayout = new GridLayout(0,1);
 		// Default-Werte
 		mainframe = new JFrame();
 		mainframe.setSize(960,640);
@@ -56,8 +57,10 @@ public class Hauptfenster {
 		spielfeldPanel.setSize(400,400);
 		spielfeldPanel.add(new JLabel("TEST"));
 		JPanel spielfeldPane2 = new JPanel();
-		spielfeldPane2.setSize(400,400);
-		spielfeldPane2.add(new JLabel("TEST2"));
+		spielfeldPane2.setLayout(experimentLayout);
+		spielfeldPane2.add(new StatusPanel());
+		spielfeldPane2.add(new HistoriePanel());
+		spielfeldPane2.add(new FeldPanel("A1"));
 		addToGridBag(spielfeldPanel, 0,1,0.5,1);
 		addToGridBag(spielfeldPane2, 1,1,0.5,1);
 		
