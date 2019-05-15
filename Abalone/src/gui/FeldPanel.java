@@ -10,12 +10,25 @@ import javax.swing.JPanel;
 
 public class FeldPanel extends JPanel{
 	private String id;
+	private int figur;
 	public FeldPanel(String id, int figur) {
 		this.id = id;
+		this.figur = figur;
 		JButton button = new JButton();
 		  try {
-		    Image img = ImageIO.read(getClass().getResource("./assets/figurSchwarzG.png"));
-		   button.setIcon(new ImageIcon(img));
+			  Image img = null;
+			  if(figur == 1) {
+				   img = ImageIO.read(getClass().getResource("./assets/figurSchwarzG.png"));
+				 
+
+			  } else if(figur == 2){
+				   img = ImageIO.read(getClass().getResource("./assets/figurWeissG.png"));
+				   
+
+			  }else {
+				  img = ImageIO.read(getClass().getResource("./assets/empty.png"));
+			  }
+			  button.setIcon(new ImageIcon(img));
 		  } catch (Exception ex) {
 		    System.out.println(ex);
 		  }
@@ -26,5 +39,6 @@ public class FeldPanel extends JPanel{
 		  this.add(button);
 		  this.setSize(24, 24);
 		  this.setVisible(true);
+		  this.setBackground(Color.white);
 	}
 }
