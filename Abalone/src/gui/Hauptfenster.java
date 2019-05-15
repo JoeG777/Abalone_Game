@@ -69,7 +69,8 @@ public class Hauptfenster {
 	}
 	private void initSpielbrettPanel() {
 		GridBagConstraints c = new GridBagConstraints();
-		spielfeldPanel = new JPanel();
+		c.anchor = GridBagConstraints.WEST;
+		spielfeldPanel = new BrettPanel();
 		c.gridwidth = 7;
 		c.fill = GridBagConstraints.BOTH;
 		addToGridBag(c,spielfeldPanel, 0, 1, 0, 0);
