@@ -51,7 +51,7 @@ public class Hauptfenster {
 		spielfeldPane2.setSize(400,400);
 		spielfeldPane2.add(new JLabel("TEST2"));
 		addToGridBag(c,spielfeldPanel, 0,1,0.5,1);
-		addToGridBag(c,spielfeldPane2, 1,1,0.5,1); */
+		addToGridBag(c,spielfeldPane2, 1,1,0.5,1);*/
 		
 
 		

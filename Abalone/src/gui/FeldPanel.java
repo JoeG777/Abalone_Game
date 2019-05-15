@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 public class FeldPanel extends JPanel{
 	private String id;
-	public FeldPanel(String id) {
+	public FeldPanel(String id, int figur) {
 		this.id = id;
 		JButton button = new JButton();
 		  try {
