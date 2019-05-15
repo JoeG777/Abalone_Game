@@ -9,24 +9,37 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class FeldPanel extends JPanel{
+	private static final String figurSchwarz="./assets/figurSchwarzG.png";
+	private static final String figurWeiss="./assets/figurWeissG.png";
+	private static final String figurLeer="./assets/empty.png";
+	
+	private static Controller controller;
 	private String id;
-	private int figur;
-	public FeldPanel(String id, int figur) {
+	private Spielfeld subscribedFeld;
+	public FeldPanel(String id, Controller c) {
 		this.id = id;
-		this.figur = figur;
+		if(controller == null) {
+			controller = c;
+		}
+		this.subscribedFeld = controller.getSpielfeldMitId(id);
+		subscribedFeld.subscribe(this);
+		aktualisiere();
+	}
+	
+	public void aktualisiere() {
 		JButton button = new JButton();
 		  try {
 			  Image img = null;
-			  if(figur == 1) {
-				   img = ImageIO.read(getClass().getResource("./assets/figurSchwarzG.png"));
+			  if(subscribedFeld.getFigurFarbe() == null) {
+				   img = ImageIO.read(getClass().getResource(figurLeer));
 				 
 
-			  } else if(figur == 2){
-				   img = ImageIO.read(getClass().getResource("./assets/figurWeissG.png"));
+			  } else if(subscribedFeld.getFigurFarbe() == FarbEnum.WEISS){
+				   img = ImageIO.read(getClass().getResource(figurWeiss));
 				   
 
 			  }else {
-				  img = ImageIO.read(getClass().getResource("./assets/empty.png"));
+				  img = ImageIO.read(getClass().getResource(figurSchwarz));
 			  }
 			  button.setIcon(new ImageIcon(img));
 		  } catch (Exception ex) {
@@ -40,5 +53,6 @@ public class FeldPanel extends JPanel{
 		  this.setSize(24, 24);
 		  this.setVisible(true);
 		  this.setBackground(Color.white);
+		
 	}
 }

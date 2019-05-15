@@ -19,10 +19,13 @@ public class Hauptfenster {
 	private JPanel mainpanel;
 	private JMenuBar menubar;
 	private JPanel spielfeldPanel, historiePanel, statusPanel;
-
+	private static Controller controller;
 	
 	
-	public Hauptfenster() {
+	public Hauptfenster(Controller c) {
+		if(controller == null) {
+			controller = c;
+		}
 		GridLayout experimentLayout = new GridLayout(0,1);
 		// Default-Werte
 		mainframe = new JFrame();
@@ -72,7 +75,7 @@ public class Hauptfenster {
 	private void initSpielbrettPanel() {
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.WEST;
-		spielfeldPanel = new BrettPanel();
+		spielfeldPanel = new BrettPanel(controller);
 		c.gridheight = 2;
 		c.gridwidth = 7;
 		c.fill = GridBagConstraints.BOTH;
@@ -111,6 +114,6 @@ public class Hauptfenster {
 	
 
 	public static void main(String[] args) {
-		Hauptfenster hf = new Hauptfenster();
+		Hauptfenster hf = new Hauptfenster(controller);
 	}
 }

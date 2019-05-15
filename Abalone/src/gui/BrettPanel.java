@@ -9,20 +9,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class BrettPanel extends JPanel{
+	private static Controller controller;
 	int counter = 0;
-	public BrettPanel() {
+	public BrettPanel(Controller c) {
+		if(controller == null) {
+			controller = c;
+		}
 		setSize(350, 350);
 		setLayout(new GridBagLayout());
 		
-		addToGridBag(new LinienPanel(1),1,1,0,0);
-		addToGridBag(new LinienPanel(2),1,2,0,0);
-		addToGridBag(new LinienPanel(3),1,3,0,0);
-		addToGridBag(new LinienPanel(4),1,4,0,0);
-		addToGridBag(new LinienPanel(5),1,5,0,0);
-		addToGridBag(new LinienPanel(6),1,6,0,0);
-		addToGridBag(new LinienPanel(7),1,7,0,0);
-		addToGridBag(new LinienPanel(8),1,8,0,0);
-		addToGridBag(new LinienPanel(9),1,9,0,0);
+		addToGridBag(new LinienPanel(controller,1),1,1,0,0);
+		addToGridBag(new LinienPanel(controller,2),1,2,0,0);
+		addToGridBag(new LinienPanel(controller,3),1,3,0,0);
+		addToGridBag(new LinienPanel(controller,4),1,4,0,0);
+		addToGridBag(new LinienPanel(controller,5),1,5,0,0);
+		addToGridBag(new LinienPanel(controller,6),1,6,0,0);
+		addToGridBag(new LinienPanel(controller,7),1,7,0,0);
+		addToGridBag(new LinienPanel(controller,8),1,8,0,0);
+		addToGridBag(new LinienPanel(controller,9),1,9,0,0);
 		
 		this.setBackground(Color.WHITE);
 	}
