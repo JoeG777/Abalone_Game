@@ -37,11 +37,6 @@ public class BrettPanel extends JPanel{
 		c.gridy = y; 
 		c.weightx = xWeight;
 		c.weighty = yWeight;
-		/*if(counter%2 == 1) {
-			c.ipadx = 25;
-		}else {
-			c.ipadx =0;
-		}*/
 		counter++;
 		this.add(component,c);
 	}

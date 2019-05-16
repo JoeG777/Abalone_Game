@@ -11,7 +11,6 @@ public class Spielbrett {
 	}
 	
 	public Spielfeld getFeld(String id) {
-		System.out.println(id);
 		return feld.get(id);
 	}
 	
@@ -19,13 +18,10 @@ public class Spielbrett {
 		for(String feldDaten : felder) {
 			String[] data = feldDaten.split(",");
 			String id = data[0];
-			System.out.println(id);
-			System.out.println(id.length());
 			String farbe = data[1].split(":")[1];
 			Spielfeld spielFeld = new Spielfeld(id, farbe);
 			feld.put(id, spielFeld);
 		}
-		System.out.println("Done");
 	}
 	
 	

@@ -43,7 +43,6 @@ public class FeldPanel extends JPanel{
 			  }
 			  button.setIcon(new ImageIcon(img));
 		  } catch (Exception ex) {
-		    System.out.println(ex);
 		  }
 		  Color bg = Color.WHITE;
 		  button.setBackground(bg);
