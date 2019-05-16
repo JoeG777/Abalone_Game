@@ -34,24 +34,22 @@ public class Controller {
 		spiel.ziehe(zug);
 		System.out.println(spiel.getStatus());
 		this.aktualisiereSpielStatus();
-		System.out.println(spiel.getStatus());
 		brett.aktualisieren(filtereFeldDaten(spielStatus));
+		System.out.println("-----------Aktualisere Mainframe.....");
 		gameFrame.aktualisiere();
-		gameFrame = new Hauptfenster(this);
 		
 		
 	}
 	
 	private void aktualisiereSpielStatus() {
-		spielStatus = spiel.getStatus().split(",");
+		spielStatus = spiel.getStatus().split("\\n");
 	}
 	
 	private String[] filtereFeldDaten(String[] daten) {
-		int counter = 0;
 		String[] felder = new String[61];
-		for(int i = 7; i <= 128; i+=2 ) {
-			felder[counter] = daten[i] +","+ daten[i+1];
-			counter ++;
+		for(int i = 6; i <= 66; i++ ) {
+			felder[i-6] = daten[i];
+			System.out.println(felder[i-6]);
 		}
 		return felder;
 	}

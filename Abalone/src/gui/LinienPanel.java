@@ -66,6 +66,8 @@ public class LinienPanel extends JPanel{
 	public void aktualisiere() {
 		for(FeldPanel p : panels) {
 			p.aktualisiere();
+			p.validate();
+			p.repaint();
 		}
 		this.validate();
 	}

@@ -17,14 +17,9 @@ public class FeldPanel extends JPanel{
 	private String id;
 	private Spielfeld subscribedFeld;
 	private JButton button;
+	private String imgStr;
+	private FarbEnum farbe;
 	public FeldPanel(String id, Controller c) {
-		
-		button = new JButton();
-		Color bg = Color.WHITE;
-		  button.setBackground(bg);
-		  button.setBorder(null);
-		  button.setSize(24, 24);
-		  this.add(button);
 		  this.setSize(24, 24);
 		  this.setVisible(true);
 		  this.setBackground(Color.white);
@@ -32,30 +27,48 @@ public class FeldPanel extends JPanel{
 		if(controller == null) {
 			controller = c;
 		}
-		this.subscribedFeld = controller.getSpielfeldMitId(id);
-		subscribedFeld.subscribe(this);
 		aktualisiere();
 	}
 	
 	public void aktualisiere() {
+		this.subscribedFeld = controller.getSpielfeldMitId(id);
+		subscribedFeld.subscribe(this);
+		Image img = null;
+		this.farbe = subscribedFeld.getFigurFarbe();
 		  try {
-			  Image img = null;
-			  if(subscribedFeld.getFigurFarbe() == null) {
+			  
+			  if(farbe == null) {
 				   img = ImageIO.read(getClass().getResource(figurLeer));
+				   imgStr = figurLeer;
 				 
 
-			  } else if(subscribedFeld.getFigurFarbe() == FarbEnum.WEISS){
+			  } else if(farbe == FarbEnum.WEISS){
 				   img = ImageIO.read(getClass().getResource(figurWeiss));
-				   
+				   imgStr = figurWeiss;
 
 			  }else {
 				  img = ImageIO.read(getClass().getResource(figurSchwarz));
+				  imgStr = figurSchwarz;
 			  }
-			  button.setIcon(new ImageIcon(img));
+			  
 		  } catch (Exception ex) {
 		  }
-		  button.validate();
-		  this.validate();
-		
+		  if(button != null)
+			  this.remove(button);
+		  button = createButton(img);
+		  this.add(button);
+		  this.repaint();
+		  this.revalidate();
+		  System.out.println(this.id + " AKTUALISIERT: " + imgStr + " " + farbe);
+	}
+	
+	private JButton createButton(Image img) {
+		button = new JButton();
+		Color bg = Color.WHITE;
+		button.setBackground(bg);
+		button.setBorder(null);
+		button.setSize(24, 24);
+		button.setIcon(new ImageIcon(img));
+		return button;
 	}
 }

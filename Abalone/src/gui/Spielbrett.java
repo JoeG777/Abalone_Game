@@ -17,16 +17,20 @@ public class Spielbrett {
 	public void aktualisieren(String[] felder) {
 		String[] dataRaw = null;
 		for(String feldDaten : felder) {
-			dataRaw = feldDaten.split("\n");
-			for(String s : dataRaw) {
-				System.out.println(s);
-				/*String[] data = s.split(",");
-				String id = data[0];
-				String farbe = data[1].split(":")[1];
-				Spielfeld spielFeld = new Spielfeld(id, farbe);
-				feld.put(id, spielFeld);*/
+			dataRaw = feldDaten.split(",");
+			for(int i = 0; i < dataRaw.length; i++) {
+				String id = dataRaw[1];
+				String besetzung = dataRaw[2].split(":")[1];
+				Spielfeld f = new Spielfeld(id, besetzung);
+				feld.put(id, f);
 			}
 		}
+	}
+	
+	@Override
+	public String toString() {
+		System.out.println(feld);
+		return null;
 	}
 }	
 
