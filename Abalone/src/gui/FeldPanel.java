@@ -16,7 +16,18 @@ public class FeldPanel extends JPanel{
 	private static Controller controller;
 	private String id;
 	private Spielfeld subscribedFeld;
+	private JButton button;
 	public FeldPanel(String id, Controller c) {
+		
+		button = new JButton();
+		Color bg = Color.WHITE;
+		  button.setBackground(bg);
+		  button.setBorder(null);
+		  button.setSize(24, 24);
+		  this.add(button);
+		  this.setSize(24, 24);
+		  this.setVisible(true);
+		  this.setBackground(Color.white);
 		this.id = id;
 		if(controller == null) {
 			controller = c;
@@ -27,7 +38,6 @@ public class FeldPanel extends JPanel{
 	}
 	
 	public void aktualisiere() {
-		JButton button = new JButton();
 		  try {
 			  Image img = null;
 			  if(subscribedFeld.getFigurFarbe() == null) {
@@ -44,14 +54,8 @@ public class FeldPanel extends JPanel{
 			  button.setIcon(new ImageIcon(img));
 		  } catch (Exception ex) {
 		  }
-		  Color bg = Color.WHITE;
-		  button.setBackground(bg);
-		  button.setBorder(null);
-		  button.setSize(24, 24);
-		  this.add(button);
-		  this.setSize(24, 24);
-		  this.setVisible(true);
-		  this.setBackground(Color.white);
+		  button.validate();
+		  this.validate();
 		
 	}
 }

@@ -161,4 +161,9 @@ public class Hauptfenster {
 	public static void main(String[] args) {
 		Hauptfenster hf = new Hauptfenster(controller);
 	}
+	
+	public void aktualisiere() {
+		((BrettPanel) spielfeldPanel).aktualisiere();
+		mainframe.validate();
+	}
 }

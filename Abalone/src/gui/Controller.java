@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.JFrame;
 
 import abalone.Spiel;
@@ -22,6 +24,22 @@ public class Controller {
 		this.aktualisiereSpielStatus();
 		brett = new Spielbrett(this.filtereFeldDaten(spielStatus));
 		gameFrame = new Hauptfenster(this);
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String[] zug = {"G5","G4"};
+		spiel.ziehe(zug);
+		System.out.println(spiel.getStatus());
+		this.aktualisiereSpielStatus();
+		System.out.println(spiel.getStatus());
+		brett.aktualisieren(filtereFeldDaten(spielStatus));
+		gameFrame.aktualisiere();
+		gameFrame = new Hauptfenster(this);
+		
+		
 	}
 	
 	private void aktualisiereSpielStatus() {
@@ -34,7 +52,6 @@ public class Controller {
 		for(int i = 7; i <= 128; i+=2 ) {
 			felder[counter] = daten[i] +","+ daten[i+1];
 			counter ++;
-			
 		}
 		return felder;
 	}

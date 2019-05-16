@@ -15,14 +15,18 @@ public class Spielbrett {
 	}
 	
 	public void aktualisieren(String[] felder) {
+		String[] dataRaw = null;
 		for(String feldDaten : felder) {
-			String[] data = feldDaten.split(",");
-			String id = data[0];
-			String farbe = data[1].split(":")[1];
-			Spielfeld spielFeld = new Spielfeld(id, farbe);
-			feld.put(id, spielFeld);
+			dataRaw = feldDaten.split("\n");
+			for(String s : dataRaw) {
+				System.out.println(s);
+				/*String[] data = s.split(",");
+				String id = data[0];
+				String farbe = data[1].split(":")[1];
+				Spielfeld spielFeld = new Spielfeld(id, farbe);
+				feld.put(id, spielFeld);*/
+			}
 		}
 	}
-	
-	
-}
+}	
+
