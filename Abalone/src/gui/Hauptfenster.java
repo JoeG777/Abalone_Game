@@ -164,6 +164,9 @@ public class Hauptfenster {
 	
 	public void aktualisiere() {
 		((BrettPanel) spielfeldPanel).aktualisiere();
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAA");
+	}
+	
+	public void aktualisiereSpielbrett(String[] ids) {
+		((BrettPanel)spielfeldPanel).aktualisiere(ids);
 	}
 }

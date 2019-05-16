@@ -27,7 +27,7 @@ public class Spieler {
 	}
 	
 	public void naechsterSpieler() {
-		if(this.equals(spielerAmZug)) {
+		if(!this.equals(spielerAmZug)) {
 			spielerAmZug = this;
 		}else if(!this.equals(spieler2)){
 			spielerAmZug = spieler2;
@@ -46,5 +46,17 @@ public class Spieler {
 			return this.getName() == spieler.getName();
 		}
 		return false;
+	}
+	
+	public static FarbEnum getSpielerAmZugFarbe() {
+		return spielerAmZug.getFarbe();
+	}
+	
+	public void setSpieler() {
+		if(spieler1 == null) {
+			spieler1 = this;
+		}else {
+			spieler2 = this;
+		}
 	}
 }

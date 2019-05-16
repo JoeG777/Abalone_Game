@@ -66,4 +66,12 @@ public class BrettPanel extends JPanel{
 		}
 		this.validate();
 	}
+	
+	public void aktualisiere(String ids[]) {
+		for(LinienPanel p : panels) {
+			p.aktualisiere(ids);
+		}
+		this.validate();
+	}
 }
+

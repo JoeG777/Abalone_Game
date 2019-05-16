@@ -27,10 +27,5 @@ public class Spielbrett {
 		}
 	}
 	
-	@Override
-	public String toString() {
-		System.out.println(feld);
-		return null;
-	}
 }	
 

@@ -19,6 +19,8 @@ public class FeldPanel extends JPanel{
 	private JButton button;
 	private String imgStr;
 	private FarbEnum farbe;
+	private Color backgroundColor;
+	private boolean auswaehlbar;
 	public FeldPanel(String id, Controller c) {
 		  this.setSize(24, 24);
 		  this.setVisible(true);
@@ -30,8 +32,17 @@ public class FeldPanel extends JPanel{
 		aktualisiere();
 	}
 	
+	public String getId() {
+		return this.id;
+	}
 	public void aktualisiere() {
+		this.backgroundColor=Color.WHITE;
+		if(auswaehlbar) {
+			this.backgroundColor=Color.blue;
+			System.out.println("WÄHL MICH!" + id + "!" + subscribedFeld.getId());
+		}
 		this.subscribedFeld = controller.getSpielfeldMitId(id);
+		if(subscribedFeld.istAuswaehlbar())
 		subscribedFeld.subscribe(this);
 		Image img = null;
 		this.farbe = subscribedFeld.getFigurFarbe();
@@ -59,7 +70,9 @@ public class FeldPanel extends JPanel{
 		  this.add(button);
 		  this.repaint();
 		  this.revalidate();
-		  System.out.println(this.id + " AKTUALISIERT: " + imgStr + " " + farbe);
+		  if(auswaehlbar) {
+				System.out.println("WÄHL MICH!" + id + "!" + subscribedFeld.getId());
+			}
 	}
 	
 	private JButton createButton(Image img) {
@@ -71,4 +84,6 @@ public class FeldPanel extends JPanel{
 		button.setIcon(new ImageIcon(img));
 		return button;
 	}
+	
+	
 }

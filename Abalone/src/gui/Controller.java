@@ -14,6 +14,7 @@ public class Controller {
 	private Hauptfenster gameFrame;
 	private String[] spielStatus;
 	private Spielbrett brett;
+	private String erlaubteZuege;
 	public Controller() throws SpielException {
 		try {
 			spiel = new Spiel();
@@ -21,6 +22,11 @@ public class Controller {
 		}
 		spiel.addSpieler("Hans", "weiss", 2);
 		spiel.addSpieler("JOCHEN", "schwarz", 2);
+		Spieler spieler1 = new Spieler("Hans", FarbEnum.WEISS);
+		spieler1.setSpielerAmZug(spieler1);
+		Spieler spieler2 = new Spieler("JOCHEN", FarbEnum.SCHWARZ);
+		spieler1.setSpieler();
+		spieler2.setSpieler();
 		this.aktualisiereSpielStatus();
 		brett = new Spielbrett(this.filtereFeldDaten(spielStatus));
 		gameFrame = new Hauptfenster(this);
@@ -32,11 +38,18 @@ public class Controller {
 		}
 		String[] zug = {"G5","G4"};
 		spiel.ziehe(zug);
-		System.out.println(spiel.getStatus());
+		spieler1.naechsterSpieler();
 		this.aktualisiereSpielStatus();
 		brett.aktualisieren(filtereFeldDaten(spielStatus));
-		System.out.println("-----------Aktualisere Mainframe.....");
+		Spielzug.subscribe(this);
+		System.out.println("______ERLAUBTEZUEGE_____");
+		Spielzug.toggleString(FarbEnum.SCHWARZ, "C3");
+		
+		gameFrame.aktualisiereSpielbrett(Spielzug.getMoeglicheZuege());
 		gameFrame.aktualisiere();
+		for(int i = 0; i < spielStatus.length; i++) {
+			System.out.println(spielStatus[i]);
+		}
 		
 		
 	}
@@ -57,5 +70,16 @@ public class Controller {
 	public Spielfeld getSpielfeldMitId(String id) {
 		return brett.getFeld(id);
 	}
+	
+	public String setEraubteZuege(String[] ausgangsfelder) {
+		try {
+			erlaubteZuege = spiel.getErlaubteZuegeInterface(ausgangsfelder);
+		} catch (SpielException e) {
+		}
+		System.out.println(erlaubteZuege);
+		return erlaubteZuege;
+	}
+	
+	//public String getErlaubteZuege(String[] )
 }
 

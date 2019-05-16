@@ -71,4 +71,18 @@ public class LinienPanel extends JPanel{
 		}
 		this.validate();
 	}
+	
+	public void aktualisiere(String[] ids) {
+		FeldPanel[] alsArray = panels.toArray(new FeldPanel[0]);
+		for(FeldPanel p : alsArray) {
+			for(String id : ids) {
+				if(p.getId().equals(id)) {
+					panels.remove(p);
+					this.remove(p);
+					p = new FeldPanel(id,controller);
+					this.add(p);
+				}
+			}
+		}
+	}
 }
