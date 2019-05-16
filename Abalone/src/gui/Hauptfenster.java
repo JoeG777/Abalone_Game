@@ -80,7 +80,7 @@ public class Hauptfenster {
 
 	private void initSpielbrettPanel() {
 		GridBagConstraints c = new GridBagConstraints();
-		c.anchor = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.WEST;
 		spielfeldPanel = new BrettPanel(controller);
 		c.gridheight = 2;
 		c.gridwidth = 5;
