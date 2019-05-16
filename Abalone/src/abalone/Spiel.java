@@ -564,6 +564,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public String getStatus() {
+		/*
 		String[] verloreneSteineArray = { "", " *", " * *", " * * *", " * * * *", " * * * * *", " * * * * * *" };
 		String amZug = "        Am zug ist: " + spielerAmZug.getName();
 		String verbleibendeSteineO = "             Spieler " + this.spielerImSpiel[0].getName() + "(O) hat noch "
@@ -594,7 +595,17 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			brett = this.addSternchen(brett, letzterZug);
 			herausgedraengt = false;///
 		}
-		return brett;
+		*/
+		
+		String csv = "SPIEL:\n";
+
+		for (Spieler spieler : spielerImSpiel) {
+			csv += spieler.schreibeCSV() + "\n";
+		}
+
+		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
+		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
+		return csv;
 
 	}
 
