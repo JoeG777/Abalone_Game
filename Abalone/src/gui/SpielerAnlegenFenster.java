@@ -24,9 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import abalone.SpielException;
-import abalone.UngueltigeEingabeException;
-
 public class SpielerAnlegenFenster implements ActionListener{
 
 	private JFrame fenster;
@@ -132,14 +129,11 @@ public class SpielerAnlegenFenster implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == los) {
-			try {
+			
 				if (eingabenRichtig()) {
 					fenster.setVisible(false);
 					fenster.dispose();
 				}
-			} catch (SpielException e1) {
-				e1.printStackTrace();
-			}
 		}
 
 		if (ki1.isSelected()) {
@@ -155,34 +149,39 @@ public class SpielerAnlegenFenster implements ActionListener{
 		}
 	}
 
-	private boolean eingabenRichtig() throws UngueltigeEingabeException {
-		
+	private boolean eingabenRichtig() {
+
 		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()~%!-]");
-		
-		if (regex.matcher(tf1.getText()).find()) {
-			UngueltigeEingabeException e = new UngueltigeEingabeException(18, "Spielername darf keine Sonderzeichen ausser _ enthalten!");
-			 
-			throw e;
-		}
-		if (regex.matcher(tf2.getText()).find()) {
-			UngueltigeEingabeException e = new UngueltigeEingabeException(18, "Spielername darf keine Sonderzeichen ausser _ enthalten!");
-			 
-			throw e;
-		}
 
 		if (ki1.isSelected() && ki2.isSelected()) {
 			return true;
 		}
-		if (ki1.isSelected() && tf2.getText().length() >= 2) {
-			return true;
-		}
-		if (ki2.isSelected() && tf1.getText().length() >= 2) {
-			return true;
-		}
-		if (tf1.getText().length() >= 2 && tf2.getText().length() >= 2 && !tf1.getText().equals(tf2.getText())) {
-			return true;
+		
+		if (ki1.isSelected()) {
+			if (tf2.getText().length() < 2 || tf2.getText().length() > 20) {
+				return false;
+			} else if (regex.matcher(tf2.getText()).find()) {
+				return false;
+			} else {
+				return true;
+			}
 		}
 		
+		if (ki2.isSelected()) {
+			if (tf1.getText().length() < 2 || tf1.getText().length() > 20) {
+				return false;
+			} else if (regex.matcher(tf1.getText()).find()) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
+		if (tf1.getText().length() >= 2 && tf1.getText().length() <= 20 && tf2.getText().length() >= 2 &&
+				tf2.getText().length() <= 20 && !tf1.getText().equals(tf2.getText()) && 
+				!regex.matcher(tf1.getText()).find() && !regex.matcher(tf2.getText()).find()) {
+			return true;
+		}
 		return false;
 	}
 }
