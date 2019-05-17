@@ -137,11 +137,13 @@ public class SpielerAnlegenFenster implements ActionListener{
 		}
 
 		if (ki1.isSelected()) {
+			tf1.setText(null);
 			tf1.setEnabled(false);
 		} else {
 			tf1.setEnabled(true);
 		}
 		if (ki2.isSelected()) {
+			tf2.setText(null);
 			tf2.setEnabled(false);
 		} else {
 			tf2.setEnabled(true);
