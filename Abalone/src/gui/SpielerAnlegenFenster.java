@@ -12,6 +12,8 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.regex.Pattern;
+
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -22,6 +24,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import abalone.SpielException;
+import abalone.UngueltigeEingabeException;
+
 public class SpielerAnlegenFenster implements ActionListener{
 
 	private JFrame fenster;
@@ -29,8 +34,8 @@ public class SpielerAnlegenFenster implements ActionListener{
 	private JLabel weiss;
 	private JPanel jp;
 	//	private JPanel jp2;
-	private JRadioButton KI;
-	private JRadioButton KI2;
+	private JRadioButton ki1;
+	private JRadioButton ki2;
 	private JTextField tf1;
 	private JTextField tf2;
 	private JButton los;
@@ -70,12 +75,12 @@ public class SpielerAnlegenFenster implements ActionListener{
 		c.gridy = 0;
 		jp.add(tf1,c);
 
-		KI = new JRadioButton("KI");
+		ki1 = new JRadioButton("KI");
 		c.gridx = 1;
 		c.gridy = 2;
 		c.ipady = 55;
-		jp.add(KI,c);
-		KI.addActionListener(this);
+		jp.add(ki1,c);
+		ki1.addActionListener(this);
 
 
 
@@ -90,12 +95,12 @@ public class SpielerAnlegenFenster implements ActionListener{
 		c.gridy = 3;
 		jp.add(tf2,c);
 
-		KI2 = new JRadioButton("KI2");
+		ki2 = new JRadioButton("KI2");
 		c.gridx = 1;
 		c.gridy = 4;
 		c.ipady = 55;	
-		jp.add(KI2,c);
-		KI2.addActionListener(this);
+		jp.add(ki2,c);
+		ki2.addActionListener(this);
 
 
 		los = new JButton();
@@ -108,7 +113,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		c.ipady = 0;
 		c.insets = new Insets(40,0,0,0);
 		jp.add(los,c);
-		//		los.addActionListener(this);
+		los.addActionListener(this);
 
 
 
@@ -125,19 +130,59 @@ public class SpielerAnlegenFenster implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("KI gewaehlt");
 
+		if (e.getSource() == los) {
+			try {
+				if (eingabenRichtig()) {
+					fenster.setVisible(false);
+					fenster.dispose();
+				}
+			} catch (SpielException e1) {
+				e1.printStackTrace();
+			}
+		}
+
+		if (ki1.isSelected()) {
+			tf1.setEnabled(false);
+		} else {
+			tf1.setEnabled(true);
+		}
+		if (ki2.isSelected()) {
+			tf2.setEnabled(false);
+		} else {
+			tf2.setEnabled(true);
+
+		}
+	}
+
+	private boolean eingabenRichtig() throws UngueltigeEingabeException {
 		
-		if (KI.isSelected()) {
-				tf1.setEnabled(false);
-			} else {
-				tf1.setEnabled(true);
+		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()~%!-]");
+		
+		if (regex.matcher(tf1.getText()).find()) {
+			UngueltigeEingabeException e = new UngueltigeEingabeException(18, "Spielername darf keine Sonderzeichen ausser _ enthalten!");
+			 
+			throw e;
 		}
-		if (KI2.isSelected()) {
-				tf2.setEnabled(false);
-			} else {
-				tf2.setEnabled(true);
-				
+		if (regex.matcher(tf2.getText()).find()) {
+			UngueltigeEingabeException e = new UngueltigeEingabeException(18, "Spielername darf keine Sonderzeichen ausser _ enthalten!");
+			 
+			throw e;
 		}
+
+		if (ki1.isSelected() && ki2.isSelected()) {
+			return true;
+		}
+		if (ki1.isSelected() && tf2.getText().length() >= 2) {
+			return true;
+		}
+		if (ki2.isSelected() && tf1.getText().length() >= 2) {
+			return true;
+		}
+		if (tf1.getText().length() >= 2 && tf2.getText().length() >= 2 && !tf1.getText().equals(tf2.getText())) {
+			return true;
+		}
+		
+		return false;
 	}
 }
