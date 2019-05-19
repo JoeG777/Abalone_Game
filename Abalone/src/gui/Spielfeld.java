@@ -36,9 +36,11 @@ public class Spielfeld {
 	}
 	
 	public void setAuswaehlbar() {
-
-		System.out.println("WÄHL MICH!!");
 		this.istAuswaehlbar = true;
+	}
+	
+	public void unsetAuswaehlbar() {
+		this.istAuswaehlbar = false;
 	}
 	
 	public boolean istAuswaehlbar() {

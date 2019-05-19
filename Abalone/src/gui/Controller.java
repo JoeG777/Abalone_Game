@@ -42,11 +42,6 @@ public class Controller {
 		this.aktualisiereSpielStatus();
 		brett.aktualisieren(filtereFeldDaten(spielStatus));
 		Spielzug.subscribe(this);
-		System.out.println("______ERLAUBTEZUEGE_____");
-		Spielzug.toggleString(FarbEnum.SCHWARZ, "C5");
-		Spielzug.toggleString(FarbEnum.SCHWARZ, "C3");
-		Spielzug.getMoeglicheZuege();
-		gameFrame.aktualisiere();
 		for(int i = 0; i < spielStatus.length; i++) {
 			System.out.println(spielStatus[i]);
 		}
@@ -71,6 +66,10 @@ public class Controller {
 		return brett.getFeld(id);
 	}
 	
+	public void resetAuswaehlbar() {
+		brett.resetAuswaehlbar();
+	}
+	
 	public String setEraubteZuege(String[] ausgangsfelder) {
 		try {
 			erlaubteZuege = spiel.getErlaubteZuegeInterface(ausgangsfelder);
@@ -78,6 +77,9 @@ public class Controller {
 		}
 		System.out.println(erlaubteZuege);
 		return erlaubteZuege;
+	}
+	public void aktualisiereBrett() {
+		gameFrame.aktualisiere();
 	}
 	
 	//public String getErlaubteZuege(String[] )

@@ -3,11 +3,11 @@ package gui;
 import java.util.ArrayList;
 
 public class Spielzug {
-	private static Controller subscribedC;
+	private static Controller controller;
 	private static String[] zug = {"",""};
 	private static String moeglZuege;
 	public static void subscribe(Controller c) {
-		subscribedC = c;
+		controller = c;
 	}
 	
 	public static void toggleString(FarbEnum farbe,String id) {
@@ -31,7 +31,7 @@ public class Spielzug {
 	}
 	
 	public static void filterMoeglicheZuege() {
-		String rohDaten = subscribedC.setEraubteZuege(parseFuerErlaubteZuege());
+		String rohDaten = controller.setEraubteZuege(parseFuerErlaubteZuege());
 	}
 	
 	private static String[] parseFuerErlaubteZuege() {
@@ -43,13 +43,15 @@ public class Spielzug {
 	
 	public static String[] getMoeglicheZuege() {
 		ArrayList<String> ids = new ArrayList<String>();
-		String rohDaten = subscribedC.setEraubteZuege(parseFuerErlaubteZuege());
+		controller.resetAuswaehlbar();
+		String rohDaten = controller.setEraubteZuege(parseFuerErlaubteZuege());
 		String[] einzelnZuege = rohDaten.split(",");
 		for(String zug : einzelnZuege) {
 			String felder[] = zug.split("-");
-			subscribedC.getSpielfeldMitId(felder[1]).setAuswaehlbar();
+			controller.getSpielfeldMitId(felder[1]).setAuswaehlbar();
 			ids.add(felder[1]);
 		}
+		controller.aktualisiereBrett();
 		return ids.toArray(new String[0]);
 	}
 }

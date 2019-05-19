@@ -71,6 +71,8 @@ public class FeldPanel extends JPanel{
 		  if(button != null)
 			  this.remove(button);
 		  button = createButton(img);
+		  FeldButtonListener fbl = new FeldButtonListener();
+		  button.addActionListener(fbl);
 		  this.add(button);
 		  this.repaint();
 		  this.revalidate();
