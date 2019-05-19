@@ -52,7 +52,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		fenster.setLocationRelativeTo(null);
 		fenster.setResizable(false);
 
-		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenster.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		jp = new JPanel();
 		//		jp2 = new JPanel();
 		jp.setSize(800, 500);
