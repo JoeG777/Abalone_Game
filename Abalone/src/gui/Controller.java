@@ -42,10 +42,9 @@ public class Controller {
 		this.aktualisiereSpielStatus();
 		brett.aktualisieren(filtereFeldDaten(spielStatus));
 		Spielzug.subscribe(this);
-		System.out.println("______ERLAUBTEZUEGE_____");
-		Spielzug.toggleString(FarbEnum.SCHWARZ, "C3");
-		
-		gameFrame.aktualisiereSpielbrett(Spielzug.getMoeglicheZuege());
+		//System.out.println("______ERLAUBTEZUEGE_____");
+		Spielzug.toggleString(FarbEnum.SCHWARZ, "C5");
+		Spielzug.getMoeglicheZuege();
 		gameFrame.aktualisiere();
 		for(int i = 0; i < spielStatus.length; i++) {
 			System.out.println(spielStatus[i]);

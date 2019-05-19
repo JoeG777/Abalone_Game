@@ -64,10 +64,16 @@ public class LinienPanel extends JPanel{
 	}
 	
 	public void aktualisiere() {
+		ArrayList <String> ids = new ArrayList<String>();
 		for(FeldPanel p : panels) {
-			p.aktualisiere();
-			p.validate();
-			p.repaint();
+			ids.add(p.getId());
+			this.remove(p);
+		}
+		panels.clear();
+		for(String id : ids) {
+			FeldPanel p = new FeldPanel(id, controller);
+			this.add(p);
+			panels.add(p);
 		}
 		this.validate();
 	}

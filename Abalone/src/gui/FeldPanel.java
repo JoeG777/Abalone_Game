@@ -6,6 +6,7 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class FeldPanel extends JPanel{
@@ -22,6 +23,7 @@ public class FeldPanel extends JPanel{
 	private Color backgroundColor;
 	private boolean auswaehlbar;
 	public FeldPanel(String id, Controller c) {
+		  subscribedFeld = c.getSpielfeldMitId(id);
 		  this.setSize(24, 24);
 		  this.setVisible(true);
 		  this.setBackground(Color.white);
@@ -36,10 +38,12 @@ public class FeldPanel extends JPanel{
 		return this.id;
 	}
 	public void aktualisiere() {
+		if(subscribedFeld != null)
+			auswaehlbar = subscribedFeld.istAuswaehlbar();
 		this.backgroundColor=Color.WHITE;
 		if(auswaehlbar) {
-			this.backgroundColor=Color.blue;
-			System.out.println("WÄHL MICH!" + id + "!" + subscribedFeld.getId());
+			this.backgroundColor=Color.BLUE;
+			
 		}
 		this.subscribedFeld = controller.getSpielfeldMitId(id);
 		if(subscribedFeld.istAuswaehlbar())
@@ -78,12 +82,14 @@ public class FeldPanel extends JPanel{
 	private JButton createButton(Image img) {
 		button = new JButton();
 		Color bg = Color.WHITE;
+		if(this.auswaehlbar) {
+			bg = Color.BLUE;
+		}
 		button.setBackground(bg);
 		button.setBorder(null);
 		button.setSize(24, 24);
 		button.setIcon(new ImageIcon(img));
 		return button;
 	}
-	
 	
 }
