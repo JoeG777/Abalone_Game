@@ -4,17 +4,13 @@ import java.util.ArrayList;
 
 public class Spielzug {
 	private static Controller subscribedC;
-	private static String[] zug;
+	private static String[] zug = {"",""};
 	private static String moeglZuege;
 	public static void subscribe(Controller c) {
 		subscribedC = c;
 	}
 	
 	public static void toggleString(FarbEnum farbe,String id) {
-		if(zug == null)
-			zug = new String[2];
-			zug[0] = "";
-			zug[1] = "";
 		if(Spieler.getSpielerAmZugFarbe() == farbe) {
 			if(zug[0].contains(id)) {
 				if(zug[0].length() == 4) {
