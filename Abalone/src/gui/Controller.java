@@ -71,13 +71,17 @@ public class Controller {
 	}
 	
 	public String setEraubteZuege(String[] ausgangsfelder) {
+		if(!ausgangsfelder[0].equals("")) {
 		try {
 			erlaubteZuege = spiel.getErlaubteZuegeInterface(ausgangsfelder);
 		} catch (SpielException e) {
 		}
 		System.out.println(erlaubteZuege);
 		return erlaubteZuege;
+		}
+		return null;
 	}
+		
 	public void aktualisiereBrett() {
 		gameFrame.aktualisiere();
 	}

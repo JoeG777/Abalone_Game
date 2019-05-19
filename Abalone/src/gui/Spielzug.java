@@ -45,13 +45,16 @@ public class Spielzug {
 		ArrayList<String> ids = new ArrayList<String>();
 		controller.resetAuswaehlbar();
 		String rohDaten = controller.setEraubteZuege(parseFuerErlaubteZuege());
-		String[] einzelnZuege = rohDaten.split(",");
-		for(String zug : einzelnZuege) {
-			String felder[] = zug.split("-");
-			controller.getSpielfeldMitId(felder[1]).setAuswaehlbar();
-			ids.add(felder[1]);
-		}
+		if(rohDaten != null) {
+			String[] einzelnZuege = rohDaten.split(",");
+			for(String zug : einzelnZuege) {
+				String felder[] = zug.split("-");
+				controller.getSpielfeldMitId(felder[1]).setAuswaehlbar();
+				ids.add(felder[1]);
+			}
 		controller.aktualisiereBrett();
 		return ids.toArray(new String[0]);
+		}
+		return null;
 	}
 }
