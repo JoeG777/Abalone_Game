@@ -45,10 +45,11 @@ public class Hauptfenster {
 		mainpanel = new JPanel();
 		mainpanel.setLayout(new GridBagLayout());
 			
-		initMenuBar();
-		initSpielbrettPanel();
-		initStatusPanel();
-		initHistorie();
+//		initMenuBar();
+//		initSpielbrettPanel();
+//		initStatusPanel();
+//		initHistorie();
+		initHauptmenue();
 		
 		
 
@@ -77,6 +78,16 @@ public class Hauptfenster {
 		mainframe.setVisible(true);
 	}
 	
+
+	private void initHauptmenue() {
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		Component hM =new Hauptmenue();
+		c.gridheight = 5;
+		c.gridwidth = 5;
+		addToGridBag(c, hM, 1, 1, 0, 0);
+	}
+
 
 	private void initSpielbrettPanel() {
 		GridBagConstraints c = new GridBagConstraints();
