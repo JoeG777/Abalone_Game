@@ -1,10 +1,12 @@
 
 package gui;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -12,7 +14,12 @@ import javax.swing.JTextArea;
 
 public class StatusPanel extends JPanel{
 	private static final long serialVersionUID = 3L;
+	private JLabel spieler1, spieler2; 
+	private JPanel spieler1Geschlagen, spieler2Geschlagen;
 	
+	
+	
+
 	public StatusPanel() {
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

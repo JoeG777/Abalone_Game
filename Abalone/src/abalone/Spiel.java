@@ -95,7 +95,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 
 		if (name != null) {
-			Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
+			Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()~%!-]");
 			if (regex.matcher(name).find()) {
 				UngueltigeEingabeException e = new UngueltigeEingabeException(18, "Spielername darf keine Sonderzeichen ausser _ enthalten!");
 				 

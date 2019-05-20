@@ -1,97 +1,94 @@
 package gui;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 public class LinienPanel extends JPanel{
 	int linienZahl;
 	private static Controller controller;
+	private ArrayList<FeldPanel> panels;
 	public LinienPanel(Controller c,int linienZahl) {
 		if(controller == null)
 			controller = c;
+		panels = new ArrayList<FeldPanel>();
 		this.linienZahl = linienZahl;
+		FeldPanel p;
+		int off =0;
+		int max = 9;
+		String letter = "";
 		switch(linienZahl) {
 		case 1: 
-			this.add((new FeldPanel("I5",controller)));
-			this.add((new FeldPanel("I6",controller)));
-			this.add((new FeldPanel("I7",controller)));
-			this.add((new FeldPanel("I8",controller)));
-			this.add((new FeldPanel("I9",controller)));
+			letter = "I";
+			off = 4;
 			break;
 		case 2: 
-			this.add((new FeldPanel("H4",controller)));
-			this.add((new FeldPanel("H5",controller)));
-			this.add((new FeldPanel("H6",controller)));
-			this.add((new FeldPanel("H7",controller)));
-			this.add((new FeldPanel("H8",controller)));
-			this.add((new FeldPanel("H9",controller)));
+			letter = "H";
+			off = 3;
 			break;
 		case 3:
-			this.add((new FeldPanel("G3",controller)));
-			this.add((new FeldPanel("G4",controller)));
-			this.add((new FeldPanel("G5",controller)));
-			this.add((new FeldPanel("G6",controller)));
-			this.add((new FeldPanel("G7",controller)));
-			this.add((new FeldPanel("G8",controller)));
-			this.add((new FeldPanel("G9",controller)));
+			letter = "G";
+			off = 2;
 			break;
 		case 4:
-			this.add((new FeldPanel("F2",controller)));
-			this.add((new FeldPanel("F3",controller)));
-			this.add((new FeldPanel("F4",controller)));
-			this.add((new FeldPanel("F5",controller)));
-			this.add((new FeldPanel("F6",controller)));
-			this.add((new FeldPanel("F7",controller)));
-			this.add((new FeldPanel("F8",controller)));
-			this.add((new FeldPanel("F9",controller)));
+			letter = "F";
+			off = 1;
 			break;
 		case 5:
-			this.add((new FeldPanel("E1",controller)));
-			this.add((new FeldPanel("E2",controller)));
-			this.add((new FeldPanel("E3",controller)));
-			this.add((new FeldPanel("E4",controller)));
-			this.add((new FeldPanel("E5",controller)));
-			this.add((new FeldPanel("E6",controller)));
-			this.add((new FeldPanel("E7",controller)));
-			this.add((new FeldPanel("E8",controller)));
-			this.add((new FeldPanel("E9",controller)));
+			letter = "E";
 			break;
 		case 6:
-			this.add((new FeldPanel("D1",controller)));
-			this.add((new FeldPanel("D2",controller)));
-			this.add((new FeldPanel("D3",controller)));
-			this.add((new FeldPanel("D4",controller)));
-			this.add((new FeldPanel("D5",controller)));
-			this.add((new FeldPanel("D6",controller)));
-			this.add((new FeldPanel("D7",controller)));
-			this.add((new FeldPanel("D8",controller)));
+			letter = "D";
+			max = 8;
 			break;
 		case 7:
-			this.add((new FeldPanel("C1",controller)));
-			this.add((new FeldPanel("C2",controller)));
-			this.add((new FeldPanel("C3",controller)));
-			this.add((new FeldPanel("C4",controller)));
-			this.add((new FeldPanel("C5",controller)));
-			this.add((new FeldPanel("C6",controller)));
-			this.add((new FeldPanel("C6",controller)));
+			letter = "C";
+			max = 7;
 			break;
 		case 8:
-			this.add((new FeldPanel("B1",controller)));
-			this.add((new FeldPanel("B2",controller)));
-			this.add((new FeldPanel("B3",controller)));
-			this.add((new FeldPanel("B4",controller)));
-			this.add((new FeldPanel("B5",controller)));
-			this.add((new FeldPanel("B6",controller)));
+			letter = "B";
+			max = 6;
 			break;
 		case 9:
-			this.add((new FeldPanel("A1",controller)));
-			this.add((new FeldPanel("A2",controller)));
-			this.add((new FeldPanel("A3",controller)));
-			this.add((new FeldPanel("A4",controller)));
-			this.add((new FeldPanel("A5",controller)));
+			max = 5;
+			letter = "A";
 			break;
 		}
+		for (int i = 1 + off; i <= max; i++) {
+			p = new FeldPanel(letter + i, controller);
+			panels.add(p);
+			this.add(p);
+		}
 		this.setBackground(Color.WHITE);
+	}
+	
+	public void aktualisiere() {
+		ArrayList <String> ids = new ArrayList<String>();
+		for(FeldPanel p : panels) {
+			ids.add(p.getId());
+			this.remove(p);
+		}
+		panels.clear();
+		for(String id : ids) {
+			FeldPanel p = new FeldPanel(id, controller);
+			this.add(p);
+			panels.add(p);
+		}
+		this.validate();
+	}
+	
+	public void aktualisiere(String[] ids) {
+		FeldPanel[] alsArray = panels.toArray(new FeldPanel[0]);
+		for(FeldPanel p : alsArray) {
+			for(String id : ids) {
+				if(p.getId().equals(id)) {
+					panels.remove(p);
+					this.remove(p);
+					p = new FeldPanel(id,controller);
+					this.add(p);
+				}
+			}
+		}
 	}
 }
