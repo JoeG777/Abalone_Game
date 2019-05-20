@@ -24,6 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import abalone.SpielException;
+
 public class SpielerAnlegenFenster implements ActionListener{
 
 	private JFrame fenster;
@@ -37,9 +39,13 @@ public class SpielerAnlegenFenster implements ActionListener{
 	private JTextField tf2;
 	private JButton los;
 	private Image bild;
+	private String name1;
+	private String name2;
+	private static Controller controller;
+	private int anzahlSpieler;
 
-	public SpielerAnlegenFenster() {
-
+	public SpielerAnlegenFenster(Controller controller) {
+		this.controller = controller;
 		try {
 			bild = ImageIO.read(getClass().getResource("./assets/los.png"));
 		} catch (IOException e) {
@@ -120,9 +126,13 @@ public class SpielerAnlegenFenster implements ActionListener{
 	}
 
 
-	public static void main(String[] args) {
-		SpielerAnlegenFenster fenster = new SpielerAnlegenFenster();
-	}
+//	public static void main(String[] args) {
+//		try {
+//			SpielerAnlegenFenster fenster = new SpielerAnlegenFenster(new Controller());
+//		} catch (SpielException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 
 	@Override
@@ -131,6 +141,14 @@ public class SpielerAnlegenFenster implements ActionListener{
 		if (e.getSource() == los) {
 			
 				if (eingabenRichtig()) {
+					
+					try {
+						controller.spielerAnlegen(name1,name2,anzahlSpieler);
+						controller.hauptFensterStarten();
+					} catch (SpielException e1) {
+						e1.printStackTrace();
+					}
+					
 					fenster.setVisible(false);
 					fenster.dispose();
 				}
@@ -156,23 +174,28 @@ public class SpielerAnlegenFenster implements ActionListener{
 		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()~%!-]");
 
 		if (ki1.isSelected() && ki2.isSelected()) {
+			name1 = "KI_1";
+			name2 = "KI_2";
+			anzahlSpieler = 0;
 			return true;
 		}
 		
 		if (ki1.isSelected()) {
-			if (tf2.getText().length() < 2 || tf2.getText().length() > 20) {
-				return false;
-			} else if (regex.matcher(tf2.getText()).find()) {
+			name1 = "KI_1";
+			anzahlSpieler = 1;
+			if (tf2.getText().length() < 2 || tf2.getText().length() > 20 || regex.matcher(tf2.getText()).find()) {
 				return false;
 			} else {
-				return true;
+				name2 = tf2.getText();
+;				return true;
 			}
 		}
 		
 		if (ki2.isSelected()) {
-			if (tf1.getText().length() < 2 || tf1.getText().length() > 20) {
-				return false;
-			} else if (regex.matcher(tf1.getText()).find()) {
+			name2 = "KI_1";
+			anzahlSpieler = 1;
+			if (tf1.getText().length() < 2 || tf1.getText().length() > 20 || regex.matcher(tf1.getText()).find()) {
+				name1 = tf1.getText();
 				return false;
 			} else {
 				return true;
@@ -182,6 +205,9 @@ public class SpielerAnlegenFenster implements ActionListener{
 		if (tf1.getText().length() >= 2 && tf1.getText().length() <= 20 && tf2.getText().length() >= 2 &&
 				tf2.getText().length() <= 20 && !tf1.getText().equals(tf2.getText()) && 
 				!regex.matcher(tf1.getText()).find() && !regex.matcher(tf2.getText()).find()) {
+			name1 = tf1.getText();
+			name2 = tf2.getText();
+			anzahlSpieler = 2;
 			return true;
 		}
 		return false;

@@ -29,15 +29,12 @@ public class Hauptfenster {
 	private JMenuBar menubar;
 	private JPanel spielfeldPanel, historiePanel, statusPanel;
 	private static Controller controller;
-	private EventHandlerHauptfenster eventHandlerMenu; 
-	private JMenuItem menuNeuesSpiel, menuSpeichern, menuLaden, menuLog, menuBeenden;
 	
 	
 	public Hauptfenster(Controller c) {
 		if(controller == null) {
 			controller = c;
 		}
-		eventHandlerMenu = new EventHandlerHauptfenster(this);
 		GridLayout experimentLayout = new GridLayout(0,1);
 		// Default-Werte
 		mainframe = new JFrame();
@@ -93,12 +90,11 @@ public class Hauptfenster {
 	}
 	private void initStatusPanel() {
 		GridBagConstraints c = new GridBagConstraints();
-		c.anchor = GridBagConstraints.WEST;
-		c.fill = 1; 
+		c.anchor = GridBagConstraints.EAST;
 		statusPanel = new StatusPanel();
 		statusPanel.setBorder(BorderFactory.createEtchedBorder());
 		c.gridwidth = 1;
-		addToGridBag(c,statusPanel, 5,1,0,1);
+		addToGridBag(c,statusPanel, 5,1,0,0);
 	}
 	private void initHistorie() {
 		GridBagConstraints c = new GridBagConstraints();
@@ -116,30 +112,30 @@ public class Hauptfenster {
 		
 		menubar = new JMenuBar();
 
-		menuNeuesSpiel = new JMenuItem("Neues Spiel");
-		menuNeuesSpiel.addActionListener(eventHandlerMenu);
+		JMenuItem menuNeuesSpiel = new JMenuItem("Neues Spiel");
+		menuNeuesSpiel.addActionListener(null);
 		menuNeuesSpiel.setBorder(BorderFactory.createEtchedBorder());
 		menubar.add(menuNeuesSpiel);
 
 		
-		menuSpeichern = new JMenuItem("Speichern");
-		menuSpeichern.addActionListener(eventHandlerMenu);
+		JMenuItem menuSpeichern = new JMenuItem("Speichern");
+		menuSpeichern.addActionListener(null);
 		menuSpeichern.setBorder(BorderFactory.createEtchedBorder());
 		menubar.add(menuSpeichern);
 		
 		
-		menuLaden = new JMenuItem("Laden");
-		menuLaden.addActionListener(eventHandlerMenu);
+		JMenuItem menuLaden = new JMenuItem("Laden");
+		menuLaden.addActionListener(null);
 		menuLaden.setBorder(BorderFactory.createEtchedBorder());
 		menubar.add(menuLaden);
 		
-		menuLog = new JMenuItem("Log");
-		menuLog.addActionListener(eventHandlerMenu);
+		JMenuItem menuLog = new JMenuItem("Log");
+		menuLog.addActionListener(null);
 		menuLog.setBorder(BorderFactory.createEtchedBorder());
 		menubar.add(menuLog);
 		
-		menuBeenden = new JMenuItem("Spiel beenden");
-		menuBeenden.addActionListener(eventHandlerMenu);
+		JMenuItem menuBeenden = new JMenuItem("Spiel beenden");
+		menuBeenden.addActionListener(null);
 		menuBeenden.setBorder(BorderFactory.createEtchedBorder());
 		menubar.add(menuBeenden);
 	
@@ -162,8 +158,8 @@ public class Hauptfenster {
 	}
 	
 
-	public void beendeSpiel() {
-		System.exit(0);
+	public static void main(String[] args) {
+		Hauptfenster hf = new Hauptfenster(controller);
 	}
 	
 	public void aktualisiere() {
@@ -173,136 +169,4 @@ public class Hauptfenster {
 	public void aktualisiereSpielbrett(String[] ids) {
 		((BrettPanel)spielfeldPanel).aktualisiere(ids);
 	}
-
-
-	public JFrame getMainframe() {
-		return mainframe;
-	}
-
-
-	public void setMainframe(JFrame mainframe) {
-		this.mainframe = mainframe;
-	}
-
-
-	public JPanel getMainpanel() {
-		return mainpanel;
-	}
-
-
-	public void setMainpanel(JPanel mainpanel) {
-		this.mainpanel = mainpanel;
-	}
-
-
-	public JMenuBar getMenubar() {
-		return menubar;
-	}
-
-
-	public void setMenubar(JMenuBar menubar) {
-		this.menubar = menubar;
-	}
-
-
-	public JPanel getSpielfeldPanel() {
-		return spielfeldPanel;
-	}
-
-
-	public void setSpielfeldPanel(JPanel spielfeldPanel) {
-		this.spielfeldPanel = spielfeldPanel;
-	}
-
-
-	public JPanel getHistoriePanel() {
-		return historiePanel;
-	}
-
-
-	public void setHistoriePanel(JPanel historiePanel) {
-		this.historiePanel = historiePanel;
-	}
-
-
-	public JPanel getStatusPanel() {
-		return statusPanel;
-	}
-
-
-	public void setStatusPanel(JPanel statusPanel) {
-		this.statusPanel = statusPanel;
-	}
-
-
-	public static Controller getController() {
-		return controller;
-	}
-
-
-	public static void setController(Controller controller) {
-		Hauptfenster.controller = controller;
-	}
-
-
-	public EventHandlerHauptfenster getEventHandlerMenu() {
-		return eventHandlerMenu;
-	}
-
-
-	public void setEventHandlerMenu(EventHandlerHauptfenster eventHandlerMenu) {
-		this.eventHandlerMenu = eventHandlerMenu;
-	}
-
-
-	public JMenuItem getMenuNeuesSpiel() {
-		return menuNeuesSpiel;
-	}
-
-
-	public void setMenuNeuesSpiel(JMenuItem menuNeuesSpiel) {
-		this.menuNeuesSpiel = menuNeuesSpiel;
-	}
-
-
-	public JMenuItem getMenuSpeichern() {
-		return menuSpeichern;
-	}
-
-
-	public void setMenuSpeichern(JMenuItem menuSpeichern) {
-		this.menuSpeichern = menuSpeichern;
-	}
-
-
-	public JMenuItem getMenuLaden() {
-		return menuLaden;
-	}
-
-
-	public void setMenuLaden(JMenuItem menuLaden) {
-		this.menuLaden = menuLaden;
-	}
-
-
-	public JMenuItem getMenuLog() {
-		return menuLog;
-	}
-
-
-	public void setMenuLog(JMenuItem menuLog) {
-		this.menuLog = menuLog;
-	}
-
-
-	public JMenuItem getMenuBeenden() {
-		return menuBeenden;
-	}
-
-
-	public void setMenuBeenden(JMenuItem menuBeenden) {
-		this.menuBeenden = menuBeenden;
-	}
-	
-	
 }
