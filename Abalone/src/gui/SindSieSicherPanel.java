@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -34,6 +35,7 @@ public class SindSieSicherPanel implements ActionListener{
 		this.controller = c;
 		this.abfrage = abfrage;
 		fensterAnlegen();
+		fenster.setModal(true);
 		
 		oberesPanel();
 		
@@ -42,11 +44,14 @@ public class SindSieSicherPanel implements ActionListener{
 		fenster.validate();
 		fenster.add(jp, BorderLayout.NORTH);
 		fenster.add(jp2);
+		
+		fenster.setModalityType(Dialog.ModalityType.TOOLKIT_MODAL);
 
 	}
 	
 	public void fensterAnlegen() {
 		fenster = new JDialog();
+//		fenster.setAlwaysOnTop(true);
 		fenster.setVisible(true);
 		fenster.setSize(400,250);
 		fenster.setLocationRelativeTo(null);
@@ -108,16 +113,15 @@ public class SindSieSicherPanel implements ActionListener{
 		
 		if (abfrage.equals("Wollen Sie wirklich Neu starten?")) {
 			if (e.getSource() == jaButton) {
+				
 				fenster.setVisible(false);
 				fenster.dispose();
+				
 				mainframe.setVisible(false);
 				mainframe.dispose();
-				try {
-					Controller neuerController = new Controller();
-					new SpielerAnlegenFenster(neuerController);
-				} catch (SpielException e1) {
-					e1.printStackTrace();
-				}
+				
+				controller.spielNeuStarten();
+				new SpielerAnlegenFenster(controller);
 			}
 			if (e.getSource() == neinButton) {
 				fenster.setVisible(false);

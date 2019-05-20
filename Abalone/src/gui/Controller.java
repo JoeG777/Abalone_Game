@@ -22,33 +22,7 @@ public class Controller {
 			spiel = new Spiel();
 		} catch (SpielfeldException e) {
 		}
-//		spiel.addSpieler("Hans", "weiss", 2);
-//		spiel.addSpieler("JOCHEN", "schwarz", 2);
-//		Spieler spieler1 = new Spieler("Hans", FarbEnum.WEISS);
-//		spieler1.setSpielerAmZug(spieler1);
-//		Spieler spieler2 = new Spieler("JOCHEN", FarbEnum.SCHWARZ);
-//		spieler1.setSpieler();
-//		spieler2.setSpieler();
-//		this.aktualisiereSpielStatus();
-//		brett = new Spielbrett(this.filtereFeldDaten(spielStatus));
-//		gameFrame = new Hauptfenster(this);
-//		try {
-//			TimeUnit.SECONDS.sleep(1);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		String[] zug = {"G5","G4"};
-//		spiel.ziehe(zug);
-//		spieler1.naechsterSpieler();
-//		this.aktualisiereSpielStatus();
-//		brett.aktualisieren(filtereFeldDaten(spielStatus));
-//		Spielzug.subscribe(this);
-//		for(int i = 0; i < spielStatus.length; i++) {
-//			System.out.println(spielStatus[i]);
-//		}
-		
-		
+
 	}
 	
 	private void aktualisiereSpielStatus() {
@@ -86,6 +60,14 @@ public class Controller {
 		
 	public void aktualisiereBrett() {
 		gameFrame.aktualisiere();
+	}
+	
+	public void spielNeuStarten() {
+		try {
+			spiel = new Spiel();
+		} catch (SpielfeldException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void spielerAnlegen(String name1, String name2, int anzahlSpieler) throws SpielException {
