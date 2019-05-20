@@ -13,20 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import abalone.SpielException;
-
 public class Hauptmenue extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = -3874636578097053073L;
-	private static Controller controller;
-	JPanel jp;
-	JLabel jl;
-	JButton jbl;
-	JButton neuesSpiel;
-	JButton spielLaden;
-	JButton beenden;
-	
-	//	private LayoutManager lM;
+	private JPanel jp;
+	private JLabel jl;
+	private JButton neuesSpiel;
+	private JButton spielLaden;
+	private JButton beenden;
 
 	public Hauptmenue (Controller controller){
 		Hauptmenue.controller = controller;
@@ -36,7 +30,7 @@ public class Hauptmenue extends JFrame implements ActionListener{
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		
+
 		jl = new JLabel("Abalone", SwingConstants.CENTER);
 		jl.setFont(new Font("Times New Roman", Font.BOLD, 36));
 		gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -71,22 +65,22 @@ public class Hauptmenue extends JFrame implements ActionListener{
 		this.add(jp);
 		this.setVisible(true);
 	}
-@Override
-public void actionPerformed(ActionEvent e) {
-	if(e.getSource() == neuesSpiel) {
-		SpielerAnlegenFenster saf = new SpielerAnlegenFenster(controller);
-		this.dispose();
-	}else if(e.getSource() == spielLaden){
-		
-	}else if(e.getSource() == beenden) {
-		System.exit(0);
-	}
-	
-}
 
-//	private void setLayoutManager(LayoutManager lM) {
-//		if (lM == null)
-//			throw new RuntimeException("kein LayoutManager uebergeben");
-//		this.lM = lM;
-//	}
+	/** 
+	 * Implementierung der actionPerformed 
+	 * @param ActionEvent 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == neuesSpiel) {
+			SpielerAnlegenFenster saf = new SpielerAnlegenFenster(controller);
+			this.dispose();
+		}else if(e.getSource() == spielLaden){
+
+		}else if(e.getSource() == beenden) {
+			System.exit(0);
+		}
+
+	}
+
 }
