@@ -71,11 +71,11 @@ public class Controller {
 	}
 	
 	public void spielerAnlegen(String name1, String name2, int anzahlSpieler) throws SpielException {
-		spiel.addSpieler("Hans", "weiss", 2);
-		spiel.addSpieler("JOCHEN", "schwarz", 2);
-		spieler1 = new Spieler("Hans", FarbEnum.WEISS);
+		spiel.addSpieler(name1, "weiss", anzahlSpieler);
+		spiel.addSpieler(name2, "schwarz", anzahlSpieler);
+		spieler1 = new Spieler(name1, FarbEnum.WEISS);
 		spieler1.setSpielerAmZug(spieler1);
-		spieler2 = new Spieler("JOCHEN", FarbEnum.SCHWARZ);
+		spieler2 = new Spieler(name2, FarbEnum.SCHWARZ);
 		spieler1.setSpieler();
 		spieler2.setSpieler();
 		this.aktualisiereSpielStatus();
