@@ -34,28 +34,27 @@ public class SindSieSicherPanel implements ActionListener{
 		this.mainframe = mf;
 		this.controller = c;
 		this.abfrage = abfrage;
+		
 		fensterAnlegen();
-		fenster.setModal(true);
 		
 		oberesPanel();
 		
 		unteresPanel();
 	
-		fenster.validate();
+//		fenster.validate();
 		fenster.add(jp, BorderLayout.NORTH);
 		fenster.add(jp2);
 		
 		fenster.setModalityType(Dialog.ModalityType.TOOLKIT_MODAL);
-
+		fenster.setVisible(true);
 	}
 	
 	public void fensterAnlegen() {
 		fenster = new JDialog();
-		fenster.setAlwaysOnTop(true);
-		fenster.setVisible(true);
 		fenster.setSize(400,250);
 		fenster.setLocationRelativeTo(null);
 		fenster.setResizable(false);
+		fenster.setModal(true);
 		fenster.setLayout(new BorderLayout());
 		fenster.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 	}

@@ -26,10 +26,10 @@ public class FehlerPanel {
 	private void playSound() {
 		try{
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("abalone/src/gui/assets/Bang.wav"));
-			AudioFormat af     = audioInputStream.getFormat();
-			int size      = (int) (af.getFrameSize() * audioInputStream.getFrameLength());
-			byte[] audio       = new byte[size];
-			DataLine.Info info      = new DataLine.Info(Clip.class, af, size);
+			AudioFormat af = audioInputStream.getFormat();
+			int size = (int) (af.getFrameSize() * audioInputStream.getFrameLength());
+			byte[] audio = new byte[size];
+			DataLine.Info info = new DataLine.Info(Clip.class, af, size);
 			audioInputStream.read(audio, 0, size);
 
 			Clip clip = (Clip) AudioSystem.getLine(info);
