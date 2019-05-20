@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 public class Hauptmenue extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = -3874636578097053073L;
-	private Controller controller;
+	private static Controller controller;
 	private JPanel jp;
 	private JLabel jl;
 	private JButton neuesSpiel;
@@ -24,6 +24,7 @@ public class Hauptmenue extends JFrame implements ActionListener{
 	private JButton beenden;
 
 	public Hauptmenue (Controller controller){
+		Hauptmenue.controller =controller;
 		jp = new JPanel(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		this.setSize(800,500);
