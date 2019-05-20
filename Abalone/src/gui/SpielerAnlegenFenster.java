@@ -57,10 +57,10 @@ public class SpielerAnlegenFenster implements ActionListener{
 		fenster.setSize(800,500);
 		fenster.setLocationRelativeTo(null);
 		fenster.setResizable(false);
-		fenster.setBackground(Color.WHITE);
 
 		fenster.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		jp = new JPanel();
+		jp.setBackground(Color.WHITE);
 		//		jp2 = new JPanel();
 		jp.setSize(800, 500);
 		jp.setLayout(new GridBagLayout());
@@ -83,6 +83,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		c.gridx = 1;
 		c.gridy = 2;
 		c.ipady = 55;
+		ki1.setBackground(Color.WHITE);
 		jp.add(ki1,c);
 		ki1.addActionListener(this);
 
@@ -103,6 +104,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		c.gridx = 1;
 		c.gridy = 4;
 		c.ipady = 55;	
+		ki2.setBackground(Color.WHITE);
 		jp.add(ki2,c);
 		ki2.addActionListener(this);
 
@@ -116,6 +118,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		c.gridwidth = 2;
 		c.ipady = 0;
 		c.insets = new Insets(40,0,0,0);
+		los.setBackground(Color.WHITE);
 		jp.add(los,c);
 		los.addActionListener(this);
 
@@ -125,16 +128,6 @@ public class SpielerAnlegenFenster implements ActionListener{
 		fenster.setVisible(true);
 		//		fenster.validate();
 	}
-
-
-//	public static void main(String[] args) {
-//		try {
-//			SpielerAnlegenFenster fenster = new SpielerAnlegenFenster(new Controller());
-//		} catch (SpielException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
