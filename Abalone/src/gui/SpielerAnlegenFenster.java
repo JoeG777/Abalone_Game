@@ -32,7 +32,6 @@ public class SpielerAnlegenFenster implements ActionListener{
 	private JLabel schwarz;
 	private JLabel weiss;
 	private JPanel jp;
-	//	private JPanel jp2;
 	private JRadioButton ki1;
 	private JRadioButton ki2;
 	private JTextField tf1;
@@ -53,7 +52,6 @@ public class SpielerAnlegenFenster implements ActionListener{
 		}
 
 		fenster = new JFrame("Abalone");
-		//		fenster.setLayout(new BorderLayout());
 		fenster.setSize(800,500);
 		fenster.setLocationRelativeTo(null);
 		fenster.setResizable(false);
@@ -61,11 +59,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		fenster.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		jp = new JPanel();
 		jp.setBackground(Color.WHITE);
-		//		jp2 = new JPanel();
-//		jp.setSize(800, 500);
 		jp.setLayout(new GridBagLayout());
-		//		jp2.setSize(800, 500);
-		//		jp2.setLayout(new GridBagLayout());
 
 		GridBagConstraints c = new GridBagConstraints();
 
@@ -87,8 +81,6 @@ public class SpielerAnlegenFenster implements ActionListener{
 		jp.add(ki1,c);
 		ki1.addActionListener(this);
 
-
-
 		weiss = new JLabel("Weiss:");
 		c.gridx = 1;
 		c.gridy = 3;
@@ -108,7 +100,6 @@ public class SpielerAnlegenFenster implements ActionListener{
 		jp.add(ki2,c);
 		ki2.addActionListener(this);
 
-
 		los = new JButton();
 		los.setIcon(new ImageIcon(bild));
 		los.setPreferredSize(new Dimension(217,60));
@@ -121,8 +112,6 @@ public class SpielerAnlegenFenster implements ActionListener{
 		los.setBackground(Color.WHITE);
 		jp.add(los,c);
 		los.addActionListener(this);
-
-
 
 		fenster.add(jp);
 		fenster.setVisible(true);
@@ -183,7 +172,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 				return false;
 			} else {
 				name2 = tf2.getText();
-;				return true;
+				return true;
 			}
 		}
 		
