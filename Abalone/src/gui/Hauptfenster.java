@@ -87,7 +87,7 @@ public class Hauptfenster {
 	private void initHauptmenue() {
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
-		Component hM =new Hauptmenue();
+		Component hM =new Hauptmenue(controller);
 		c.gridheight = 5;
 		c.gridwidth = 5;
 		addToGridBag(c, hM, 1, 1, 0, 0);
