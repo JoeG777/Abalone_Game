@@ -54,7 +54,7 @@ public class Hauptfenster {
 		initSpielbrettPanel();
 		initStatusPanel();
 		initHistorie();
-		initHauptmenue();
+//		initHauptmenue();
 		
 		
 
