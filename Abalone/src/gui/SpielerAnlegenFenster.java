@@ -100,7 +100,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		c.gridy = 3;
 		jp.add(tf2,c);
 
-		ki2 = new JRadioButton("KI2");
+		ki2 = new JRadioButton("KI");
 		c.gridx = 1;
 		c.gridy = 4;
 		c.ipady = 55;	
