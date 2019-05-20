@@ -136,6 +136,9 @@ public class SpielerAnlegenFenster implements ActionListener{
 					
 					fenster.setVisible(false);
 					fenster.dispose();
+				} 
+				else {
+					new FehlerPanel("Falsche Eingabe!");
 				}
 		}
 

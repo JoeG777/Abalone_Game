@@ -51,7 +51,7 @@ public class SindSieSicherPanel implements ActionListener{
 	
 	public void fensterAnlegen() {
 		fenster = new JDialog();
-//		fenster.setAlwaysOnTop(true);
+		fenster.setAlwaysOnTop(true);
 		fenster.setVisible(true);
 		fenster.setSize(400,250);
 		fenster.setLocationRelativeTo(null);
