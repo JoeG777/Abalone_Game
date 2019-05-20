@@ -163,11 +163,11 @@ public class Hauptfenster {
 	
 
 	public void beendeSpiel() {
-		new SindSieSicherPanel("Wollen Sie wirklich das Spiel beenden?", controller);
+		new SindSieSicherPanel("Wollen Sie wirklich das Spiel beenden?", controller,mainframe);
 	}
 	
 	public void neuesSpiel() {
-		new SindSieSicherPanel("Wollen Sie wirklich Neu starten?", controller);
+		new SindSieSicherPanel("Wollen Sie wirklich Neu starten?", controller,mainframe);
 	}
 	
 	public void aktualisiere() {
