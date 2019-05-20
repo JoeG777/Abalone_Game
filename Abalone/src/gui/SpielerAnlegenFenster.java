@@ -57,6 +57,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		fenster.setSize(800,500);
 		fenster.setLocationRelativeTo(null);
 		fenster.setResizable(false);
+		fenster.setBackground(Color.WHITE);
 
 		fenster.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		jp = new JPanel();
