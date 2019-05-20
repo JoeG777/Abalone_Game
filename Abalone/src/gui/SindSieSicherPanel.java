@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import abalone.SpielException;
+
 public class SindSieSicherPanel implements ActionListener{
 	private JDialog fenster;
 	private JPanel jp;
@@ -110,7 +112,12 @@ public class SindSieSicherPanel implements ActionListener{
 				fenster.dispose();
 				mainframe.setVisible(false);
 				mainframe.dispose();
-				new SpielerAnlegenFenster(controller);
+				try {
+					Controller neuerController = new Controller();
+					new SpielerAnlegenFenster(neuerController);
+				} catch (SpielException e1) {
+					e1.printStackTrace();
+				}
 			}
 			if (e.getSource() == neinButton) {
 				fenster.setVisible(false);
