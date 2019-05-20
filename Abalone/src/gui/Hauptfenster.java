@@ -37,7 +37,7 @@ public class Hauptfenster {
 		if(controller == null) {
 			controller = c;
 		}
-		eventHandlerMenu = new EventHandlerHauptfenster(this);
+		eventHandlerMenu = new EventHandlerHauptfenster(this,controller);
 		GridLayout experimentLayout = new GridLayout(0,1);
 		// Default-Werte
 		mainframe = new JFrame();

@@ -5,14 +5,15 @@ import java.awt.event.ActionListener;
 
 public class EventHandlerHauptfenster implements ActionListener{
 	private Hauptfenster hauptfenster;
+	private Controller controller;
 	
-	public EventHandlerHauptfenster(Hauptfenster hauptfenster) {
+	public EventHandlerHauptfenster(Hauptfenster hauptfenster, Controller c) {
 		this.hauptfenster = hauptfenster;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == hauptfenster.getMenuNeuesSpiel()) {
-			SpielerAnlegenFenster spielerAnlegen= new SpielerAnlegenFenster();
+			SpielerAnlegenFenster spielerAnlegen= new SpielerAnlegenFenster(controller);
 		}
 		if(e.getSource() == hauptfenster.getMenuSpeichern()) {
 			
