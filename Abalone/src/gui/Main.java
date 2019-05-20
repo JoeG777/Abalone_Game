@@ -10,7 +10,8 @@ public class Main {
 	public static void main(String[] args) throws SpielfeldException {
 		try {
 			Controller c = new Controller();
-			SpielerAnlegenFenster SAF = new SpielerAnlegenFenster(c);
+			Hauptmenue hM = new Hauptmenue(c);
+//			SpielerAnlegenFenster SAF = new SpielerAnlegenFenster(c);
 		} catch (SpielException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

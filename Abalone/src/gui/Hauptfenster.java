@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
+import abalone.SpielException;
+
 public class Hauptfenster {
 	private JFrame mainframe;
 	private JPanel mainpanel;
@@ -48,10 +50,10 @@ public class Hauptfenster {
 		mainpanel = new JPanel();
 		mainpanel.setLayout(new GridBagLayout());
 			
-//		initMenuBar();
-//		initSpielbrettPanel();
-//		initStatusPanel();
-//		initHistorie();
+		initMenuBar();
+		initSpielbrettPanel();
+		initStatusPanel();
+		initHistorie();
 		initHauptmenue();
 		
 		
