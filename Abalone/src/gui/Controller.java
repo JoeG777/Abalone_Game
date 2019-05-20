@@ -36,11 +36,11 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String[] zug = {"G5","G4"};
+		/*String[] zug = {"G5","G4"};
 		spiel.ziehe(zug);
 		spieler1.naechsterSpieler();
 		this.aktualisiereSpielStatus();
-		brett.aktualisieren(filtereFeldDaten(spielStatus));
+		brett.aktualisieren(filtereFeldDaten(spielStatus)); */
 		Spielzug.subscribe(this);
 		for(int i = 0; i < spielStatus.length; i++) {
 			System.out.println(spielStatus[i]);
