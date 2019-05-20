@@ -45,7 +45,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 	private int anzahlSpieler;
 
 	public SpielerAnlegenFenster(Controller controller) {
-		this.controller = controller;
+		SpielerAnlegenFenster.controller = controller;
 		try {
 			bild = ImageIO.read(getClass().getResource("./assets/los.png"));
 		} catch (IOException e) {
@@ -62,7 +62,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		jp = new JPanel();
 		jp.setBackground(Color.WHITE);
 		//		jp2 = new JPanel();
-		jp.setSize(800, 500);
+//		jp.setSize(800, 500);
 		jp.setLayout(new GridBagLayout());
 		//		jp2.setSize(800, 500);
 		//		jp2.setLayout(new GridBagLayout());
@@ -138,6 +138,8 @@ public class SpielerAnlegenFenster implements ActionListener{
 					
 					try {
 						controller.spielerAnlegen(name1,name2,anzahlSpieler);
+						fenster.setVisible(false);
+						fenster.dispose();
 						controller.hauptFensterStarten();
 					} catch (SpielException e1) {
 						e1.printStackTrace();

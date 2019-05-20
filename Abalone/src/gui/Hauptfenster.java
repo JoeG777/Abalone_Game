@@ -163,7 +163,11 @@ public class Hauptfenster {
 	
 
 	public void beendeSpiel() {
-		System.exit(0);
+		new SindSieSicherPanel("Wollen Sie wirklich das Spiel beenden?", controller);
+	}
+	
+	public void neuesSpiel() {
+		new SindSieSicherPanel("Wollen Sie wirklich Neu starten?", controller);
 	}
 	
 	public void aktualisiere() {

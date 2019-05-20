@@ -13,7 +13,9 @@ public class EventHandlerHauptfenster implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == hauptfenster.getMenuNeuesSpiel()) {
-			SpielerAnlegenFenster spielerAnlegen= new SpielerAnlegenFenster(controller);
+//			new SindSieSicherPanel("Wollen Sie wirklich Neu starten?");
+//			SpielerAnlegenFenster spielerAnlegen= new SpielerAnlegenFenster(controller);
+			hauptfenster.neuesSpiel();
 		}
 		if(e.getSource() == hauptfenster.getMenuSpeichern()) {
 			
