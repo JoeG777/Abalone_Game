@@ -47,7 +47,7 @@ public class FeldPanel extends JPanel{
 		}
 		this.subscribedFeld = controller.getSpielfeldMitId(id);
 		if(subscribedFeld.istAuswaehlbar())
-		subscribedFeld.subscribe(this);
+			subscribedFeld.subscribe(this);
 		Image img = null;
 		this.farbe = subscribedFeld.getFigurFarbe();
 		  try {
