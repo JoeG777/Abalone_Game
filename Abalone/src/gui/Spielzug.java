@@ -2,6 +2,8 @@ package gui;
 
 import java.util.ArrayList;
 
+import abalone.SpielException;
+
 public class Spielzug {
 	private static Controller controller;
 	private static String[] zug = {"",""};
@@ -11,7 +13,7 @@ public class Spielzug {
 	}
 	
 	public static void toggleString(FarbEnum farbe,String id) {
-		if(Spieler.getSpielerAmZugFarbe() == farbe) {
+		if(Spieler.getSpielerAmZugFarbe() == controller.getSpielfeldMitId(id).getFigurFarbe()) {
 			if(zug[0].contains(id)) {
 				if(zug[0].length() == 4) {
 					if(zug[0].substring(0,3).equals(id)) {
@@ -25,8 +27,22 @@ public class Spielzug {
 			}else {
 				zug[0] += id;
 			}
-		}else {
+		}else if(!zug[0].equals("")){
 			zug[1] = id;
+			try {
+				controller.ziehe();
+				
+			} catch (SpielException e) {
+				if(zug[0].length() ==4 ) {
+					swapFields();
+					try {
+						controller.ziehe();
+					} catch (SpielException e1) {
+					}
+				}
+			}
+			zug[0] = "";
+			zug[1] = "";
 		}
 	}
 	
@@ -49,7 +65,7 @@ public class Spielzug {
 			String[] einzelnZuege = rohDaten.split(",");
 			for(String zug : einzelnZuege) {
 				String felder[] = zug.split("-");
-				if(felder != null && felder[1] != null) {
+				if(felder != null && felder.length >= 2 && felder[1] != null) {
 					controller.getSpielfeldMitId(felder[1]).setAuswaehlbar();
 					ids.add(felder[1]);
 				}
@@ -58,5 +74,18 @@ public class Spielzug {
 		return ids.toArray(new String[0]);
 		}
 		return null;
+	}
+	
+	public static String[] getZug() {
+		return zug;
+	}
+	
+	private static void swapFields() {
+		String f1 = zug[0].substring(0,2);
+		String f2 = zug[0].substring(2,4);
+		zug[0] = "";
+		zug[0] = f2+f1;
+		
+		
 	}
 }
