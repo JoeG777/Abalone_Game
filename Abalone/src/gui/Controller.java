@@ -13,7 +13,6 @@ public class Controller {
 	private bedienerInterface spiel;
 	private Hauptfenster gameFrame;
 	private String[] spielStatus;
-	private Spielbrett brett;
 	private String erlaubteZuege;
 	private Spieler spieler1;
 	private Spieler spieler2;
@@ -28,20 +27,12 @@ public class Controller {
 		spielStatus = spiel.getStatus().split("\\n");
 	}
 	
-	private String[] filtereFeldDaten(String[] daten) {
-		String[] felder = new String[61];
+	private String[][] filtereFeldDaten(String[] daten) {
+		String[][] felder = new String[61][];
 		for(int i = 6; i <= 66; i++ ) {
-			felder[i-6] = daten[i];
+			felder[i-6] = daten[i].split(",");
 		}
 		return felder;
-	}
-	
-	public Spielfeld getSpielfeldMitId(String id) {
-		return brett.getFeld(id);
-	}
-	
-	public void resetAuswaehlbar() {
-		brett.resetAuswaehlbar();
 	}
 	
 	public String setEraubteZuege(String[] ausgangsfelder) {
@@ -76,7 +67,10 @@ public class Controller {
 		spieler1.setSpieler();
 		spieler2.setSpieler();
 		this.aktualisiereSpielStatus();
-		brett = new Spielbrett(this.filtereFeldDaten(spielStatus));
+		for(int i = 0; i< spielStatus.length; i++) {
+			System.out.println(spielStatus[i]);
+		}
+		
 	}
 	
 	public void hauptFensterStarten() throws SpielException {
@@ -90,23 +84,6 @@ public class Controller {
 		Spielzug.subscribe(this);
 
 	}
-	
-
-	//public String getErlaubteZuege(String[] )
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public void speichernCSV(String dateipfad) {
 		try {
@@ -150,9 +127,21 @@ public class Controller {
 		spiel.ziehe(Spielzug.getZug());
 		spieler1.naechsterSpieler();
 		this.aktualisiereSpielStatus();
-		brett.aktualisieren(this.filtereFeldDaten(spielStatus));
 		gameFrame.aktualisiere();
 
+	}
+	
+	public String[][] getFeldDaten() {
+		this.aktualisiereSpielStatus();
+		return this.filtereFeldDaten(spielStatus);
+	}
+	
+	public FeldPanel getSpielfeldMitId(String id) {
+		return gameFrame.getSpielfeldPanel().getFeld(id);
+	}
+	
+	public void resetAuswaehlbar() {
+		gameFrame.resetFelderAuswaehlbar();
 	}
 }
 

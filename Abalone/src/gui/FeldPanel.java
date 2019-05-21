@@ -16,14 +16,13 @@ public class FeldPanel extends JPanel{
 	
 	private static Controller controller;
 	private String id;
-	private Spielfeld subscribedFeld;
 	private JButton button;
 	private String imgStr;
-	private FarbEnum farbe;
+	private String farbe;
 	private Color backgroundColor;
+	private FarbEnum figurFarbe;
 	private boolean auswaehlbar;
-	public FeldPanel(String id, Controller c) {
-		  subscribedFeld = c.getSpielfeldMitId(id);
+	public FeldPanel(String id, Controller c, String[] daten) {
 		  this.setSize(24, 24);
 		  this.setVisible(true);
 		  this.setBackground(Color.white);
@@ -31,39 +30,42 @@ public class FeldPanel extends JPanel{
 		if(controller == null) {
 			controller = c;
 		}
-		aktualisiere();
+		aktualisiere(daten);
 	}
 	
 	public String getId() {
 		return this.id;
 	}
-	public void aktualisiere() {
-		if(subscribedFeld != null)
-			auswaehlbar = subscribedFeld.istAuswaehlbar();
+	public void aktualisiere(String[] daten) {
+		this.farbe = daten[2];
+		/*if(subscribedFeld != null)
+			auswaehlbar = subscribedFeld.istAuswaehlbar(); */
 		this.backgroundColor=Color.WHITE;
 		if(auswaehlbar) {
 			this.backgroundColor=Color.BLUE;
 			
 		}
-		this.subscribedFeld = controller.getSpielfeldMitId(id);
+		/*this.subscribedFeld = controller.getSpielfeldMitId(id);
 		if(subscribedFeld.istAuswaehlbar())
-			subscribedFeld.subscribe(this);
+			subscribedFeld.subscribe(this); */
 		Image img = null;
-		this.farbe = subscribedFeld.getFigurFarbe();
 		  try {
 			  
-			  if(farbe == null) {
+			  if(farbe.equals("FIGUR:null")) {
 				   img = ImageIO.read(getClass().getResource(figurLeer));
 				   imgStr = figurLeer;
+				   figurFarbe = null;
 				 
 
-			  } else if(farbe == FarbEnum.WEISS){
+			  } else if(farbe.equals("FIGUR:weiss")){
 				   img = ImageIO.read(getClass().getResource(figurWeiss));
 				   imgStr = figurWeiss;
+				   figurFarbe = FarbEnum.WEISS;
 
 			  }else {
 				  img = ImageIO.read(getClass().getResource(figurSchwarz));
 				  imgStr = figurSchwarz;
+				  figurFarbe = FarbEnum.SCHWARZ;
 			  }
 			  
 		  } catch (Exception ex) {
@@ -89,6 +91,18 @@ public class FeldPanel extends JPanel{
 		button.setSize(24, 24);
 		button.setIcon(new ImageIcon(img));
 		return button;
+	}
+	
+	public void setAuswaehlbar() {
+		this.auswaehlbar = true;
+	}
+	
+	public FarbEnum getFigurFarbe() {
+		return this.figurFarbe;
+	}
+	
+	public void resetAuswaehlbar() {
+		this.auswaehlbar = false;
 	}
 	
 }

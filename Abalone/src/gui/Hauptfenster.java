@@ -102,7 +102,7 @@ public class Hauptfenster {
 	private void initSpielbrettPanel() {
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
-		spielfeldPanel = new BrettPanel(controller);
+		spielfeldPanel = new BrettPanel(controller,controller.getFeldDaten());
 		c.gridheight = 3;
 		c.gridwidth = 5;
 		spielfeldPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -202,11 +202,11 @@ public class Hauptfenster {
 	}
 	
 	public void aktualisiere() {
-		((BrettPanel) spielfeldPanel).aktualisiere();
+		this.aktualisiereSpielbrett(controller.getFeldDaten());
 	}
 	
-	public void aktualisiereSpielbrett(String[] ids) {
-		((BrettPanel)spielfeldPanel).aktualisiere(ids);
+	public void aktualisiereSpielbrett(String[][] ids) {
+		((BrettPanel) spielfeldPanel).aktualisiere(ids);
 	}
 
 
@@ -340,6 +340,10 @@ public class Hauptfenster {
 
 	public void setMenuBeenden(JMenuItem menuBeenden) {
 		this.menuBeenden = menuBeenden;
+	}
+	
+	public void resetFelderAuswaehlbar() {
+		spielfeldPanel.resetAuswaehlbar();
 	}
 	
 }

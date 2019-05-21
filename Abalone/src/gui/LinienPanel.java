@@ -9,7 +9,7 @@ public class LinienPanel extends JPanel{
 	int linienZahl;
 	private static Controller controller;
 	private ArrayList<FeldPanel> panels;
-	public LinienPanel(Controller c,int linienZahl) {
+	public LinienPanel(Controller c,int linienZahl,String[][] feldDaten) {
 		if(controller == null)
 			controller = c;
 		panels = new ArrayList<FeldPanel>();
@@ -56,39 +56,40 @@ public class LinienPanel extends JPanel{
 			break;
 		}
 		for (int i = 1 + off; i <= max; i++) {
-			p = new FeldPanel(letter + i, controller);
+			String[] daten = null;
+			for(String[] datenArr : feldDaten) {
+				if(datenArr[1].equals(letter + i))
+					daten = datenArr;
+			}
+			p = new FeldPanel(letter + i, controller, daten);
 			panels.add(p);
 			this.add(p);
 		}
 		this.setBackground(Color.WHITE);
 	}
 	
-	public void aktualisiere() {
+	public void aktualisiere(String[][] daten) {
 		ArrayList <String> ids = new ArrayList<String>();
 		for(FeldPanel p : panels) {
-			ids.add(p.getId());
-			this.remove(p);
-		}
-		panels.clear();
-		for(String id : ids) {
-			FeldPanel p = new FeldPanel(id, controller);
-			this.add(p);
-			panels.add(p);
-		}
-		this.validate();
-	}
-	
-	public void aktualisiere(String[] ids) {
-		FeldPanel[] alsArray = panels.toArray(new FeldPanel[0]);
-		for(FeldPanel p : alsArray) {
-			for(String id : ids) {
-				if(p.getId().equals(id)) {
-					panels.remove(p);
-					this.remove(p);
-					p = new FeldPanel(id,controller);
-					this.add(p);
-				}
+			for(String[] datenArr : daten) {
+				if(datenArr[1].equals(p.getId()))
+					p.aktualisiere(datenArr);
 			}
 		}
 	}
+	
+	public FeldPanel getFeld(String id) {
+		for(FeldPanel panel : panels) {
+			if(panel.getId().equals(id))
+				return panel;
+		}
+		return null;
+	}
+	
+	public void resetAuswaehlbar() {
+		for(FeldPanel f : panels) {
+			f.resetAuswaehlbar();
+		}
+	}
+
 }

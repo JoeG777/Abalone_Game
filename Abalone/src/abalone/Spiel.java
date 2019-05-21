@@ -136,10 +136,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			
 			if (name.substring(0, 2).equals("KI") && spielerImSpiel[0] == null) {
 				FarbEnum KIFarbe = FarbEnum.WEISS;
-				spielerImSpiel[0] = new KI(KIFarbe, getSpielbrett());
+				spielerImSpiel[0] = new KI(name, KIFarbe, getSpielbrett());
 			} else if (name.substring(0,2).equals("KI")){
 				FarbEnum KIFarbe = FarbEnum.SCHWARZ;
-				spielerImSpiel[1] = new KI(KIFarbe, getSpielbrett());
+				spielerImSpiel[1] = new KI(name, KIFarbe, getSpielbrett());
 			} else {
 				if(spielerImSpiel[0] == null) {
 					FarbEnum spielerFarbe = FarbEnum.WEISS;
@@ -150,19 +150,32 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				}
 			}
 			
+			for(Spieler s : spielerImSpiel) {
+				if (s instanceof KI) {
+					if(s.getName().substring(3, s.getName().length()).equals("(durchziehend)")) {
+						((KI) s).setDurchziehend(true);
+					}
+				}
+			}
+			
 		} else if (anzahlSpieler == 0) {
 			
 			if(spielerImSpiel[0] == null) {
 				FarbEnum KIFarbe = FarbEnum.WEISS;
-				spielerImSpiel[0] = new KI(KIFarbe, getSpielbrett());
+				spielerImSpiel[0] = new KI(name, KIFarbe, getSpielbrett());
 			} else {
 				FarbEnum KIFarbe = FarbEnum.SCHWARZ;
-				spielerImSpiel[1] = new KI(KIFarbe, getSpielbrett());
+				spielerImSpiel[1] = new KI(name, KIFarbe, getSpielbrett());
 			}
-			
+			for(Spieler s : spielerImSpiel) {
+				if (s instanceof KI) {
+					if(s.getName().substring(5, s.getName().length()).equals("(durchziehend)")) {
+						((KI) s).setDurchziehend(true);
+					}
+				}
+			}
 		}
 		this.spielerAmZug = spielerImSpiel[0];
-
 	}
 
 	/**

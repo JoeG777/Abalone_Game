@@ -85,7 +85,12 @@ public class SpielerAnlegenFenster implements ActionListener{
 		ki1.addActionListener(this);
 		
 		ki1_durchziehen = new JRadioButton("durchziehen");
-		c.gridx = 1;
+		c.gridx = 2;
+		c.gridy = 2;
+		ki1_durchziehen.setBackground(Color.WHITE);
+		ki1_durchziehen.setEnabled(false);
+		jp.add(ki1_durchziehen, c);
+		ki1_durchziehen.addActionListener(this);
 
 		weiss = new JLabel("Weiss:");
 		c.gridx = 1;
@@ -105,6 +110,15 @@ public class SpielerAnlegenFenster implements ActionListener{
 		ki2.setBackground(Color.WHITE);
 		jp.add(ki2,c);
 		ki2.addActionListener(this);
+		
+		ki2_durchziehen = new JRadioButton("durchziehen");
+		c.gridx = 2;
+		c.gridy = 4;
+		ki2_durchziehen.setBackground(Color.WHITE);
+		ki2_durchziehen.setEnabled(false);
+		jp.add(ki2_durchziehen, c);
+		ki2_durchziehen.addActionListener(this);
+
 
 		los = new JButton();
 		los.setIcon(new ImageIcon(bild));
@@ -141,36 +155,57 @@ public class SpielerAnlegenFenster implements ActionListener{
 			}
 		}
 
-
 		if (ki1.isSelected()) {
 			tf1.setText(null);
 			tf1.setEnabled(false);
+			ki1_durchziehen.setEnabled(true);
 		} else {
 			tf1.setEnabled(true);
+			ki1_durchziehen.setSelected(false);
+			ki1_durchziehen.setEnabled(false);
 		}
 		if (ki2.isSelected()) {
 			tf2.setText(null);
 			tf2.setEnabled(false);
+			ki2_durchziehen.setEnabled(true);
 		} else {
 			tf2.setEnabled(true);
-
+			ki2_durchziehen.setSelected(false);
+			ki2_durchziehen.setEnabled(false);
 		}
 	}
 
 	private void vorbereiten() {
-		
+
 		if (ki1.isSelected() && ki2.isSelected()) {
-			name1 = "KI";
-			name2 = "KI";
 			anzahlSpieler = 0;
+			if (ki1_durchziehen.isSelected()) {
+				name1 = "KI(durchziehend)";
+			} else {
+				name1 = "KI";
+			}
+			if (ki2_durchziehen.isSelected()) {
+				name2 = "KI(durchziehend)";
+			} else {
+				name2 = "KI";
+			}
+
 		} else if (ki1.isSelected() || ki2.isSelected()) {
 			anzahlSpieler = 1;
 			if (ki1.isSelected()) {
-				name1 = "KI";
 				name2 = tf2.getText();
+				if(ki1_durchziehen.isSelected()) {
+					name1 = "KI(durchziehend)";
+				} else {
+					name1 = "KI";
+				}
 			} else {
 				name1 = tf1.getText();
-				name2 = "KI";
+				if(ki2_durchziehen.isSelected()) {
+					name2 = "KI(durchziehend)";
+				} else {
+					name2 = "KI";
+				}
 			}
 		} else {
 			name1 = tf1.getText();

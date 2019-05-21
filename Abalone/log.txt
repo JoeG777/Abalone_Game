@@ -15,3 +15,83 @@
 
 ---------- Beendet am 21.05.2019 14:07:44 ----------
 ---------- Gestartet am 21.05.2019 16:12:30 ----------
+
+---------- Beendet am 21.05.2019 16:14:44 ----------
+---------- Gestartet am 21.05.2019 16:14:47 ----------
+
+Fehler am 21.05.2019 16:21:00: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+---------- Beendet am 21.05.2019 16:21:06 ----------
+---------- Gestartet am 21.05.2019 16:28:46 ----------
+
+---------- Beendet am 21.05.2019 16:28:55 ----------
+---------- Gestartet am 21.05.2019 16:29:11 ----------
+
+---------- Beendet am 21.05.2019 16:29:25 ----------
+---------- Gestartet am 21.05.2019 16:54:09 ----------
+
+Fehler am 21.05.2019 16:54:19: 
+Fehler ID 14 aufgetreten: Ungueltige laenge des Namen: 1
+
+---------- Beendet am 21.05.2019 16:54:26 ----------
+---------- Gestartet am 21.05.2019 16:54:40 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 21.05.2019 17:26:42 ----------
+
+---------- Beendet am 21.05.2019 17:26:45 ----------
+---------- Gestartet am 21.05.2019 17:38:05 ----------
+
+---------- Beendet am 21.05.2019 17:38:21 ----------
+---------- Gestartet am 21.05.2019 17:38:38 ----------
+
+---------- Beendet am 21.05.2019 17:38:42 ----------
+---------- Gestartet am 21.05.2019 17:38:46 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 21.05.2019 17:40:02 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 21.05.2019 17:44:18 ----------
+
+---------- Beendet am 21.05.2019 17:44:24 ----------
+---------- Gestartet am 21.05.2019 17:44:54 ----------
+
+---------- Beendet am 21.05.2019 17:45:01 ----------
+---------- Gestartet am 21.05.2019 17:45:17 ----------
+
+---------- Beendet am 21.05.2019 17:46:23 ----------
+---------- Gestartet am 21.05.2019 17:46:49 ----------
+
+---------- Beendet am 21.05.2019 17:46:57 ----------
+---------- Gestartet am 21.05.2019 17:49:15 ----------
+
+---------- Beendet am 21.05.2019 17:49:44 ----------
+---------- Gestartet am 21.05.2019 17:49:48 ----------
+
+---------- Beendet am 21.05.2019 17:49:51 ----------
+---------- Gestartet am 21.05.2019 17:49:51 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 21.05.2019 17:50:31 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 21.05.2019 18:02:37 ----------
+
+---------- Beendet am 21.05.2019 18:02:39 ----------
+Fehler am 21.05.2019 18:03:00: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 21.05.2019 18:03:03: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 21.05.2019 18:03:06: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+---------- Beendet am 21.05.2019 18:03:12 ----------
