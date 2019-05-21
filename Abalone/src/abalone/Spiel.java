@@ -32,7 +32,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 	private static final long serialVersionUID = 109L;
 	private Spieler[] spielerImSpiel;
-	private Spieler spielerAmZug = spielerImSpiel[0];
+	private Spieler spielerAmZug;
 	private Spielbrett spielBrett;
 	private Historie historie;
 	private boolean herausgedraengt = false;
@@ -161,7 +161,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			}
 			
 		}
-
+		this.spielerAmZug = spielerImSpiel[0];
 	}
 
 	/**
@@ -254,12 +254,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param dateiName Name, der zu lesenden Datei
 	 * @throws DateiIOException Wenn beim Laden ein Problem auftritt
 	 */
-	public void lesenSerialisiert(String dateiPfad) throws DateiIOException {
+	public void lesenSerialisiert(String dateiName) throws DateiIOException {
 		PersistenzInterface persistenzInterface = new PersistenzImplSerialisiert();
 		Spiel spiel = null;
 		
 		try {
-			persistenzInterface.oeffnen(dateiPfad, true);
+			persistenzInterface.oeffnen(dateiName, true);
 			spiel = (Spiel) persistenzInterface.lesen();
 			persistenzInterface.schliessen();
 		} catch (FileNotFoundException e) {
@@ -287,7 +287,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param dateiName Name, der zu beschreibenden Datei
 	 * @throws DateiIOException Wenn beim Speichern ein Problem auftritt
 	 */
-	public void speichernCSV(String dateiPfad) throws DateiIOException {
+	public void speichernCSV(String dateiName) throws DateiIOException {
 		PersistenzInterface persistenzInterface = new PersistenzImplCSV();
 		String csv = "SPIEL:\n";
 
@@ -299,7 +299,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
 		
 		try {
-			persistenzInterface.oeffnen(dateiPfad, false);
+			persistenzInterface.oeffnen(dateiName, false);
 			persistenzInterface.schreiben(csv);
 			persistenzInterface.schliessen();
 		} catch (IOException e) {
@@ -315,12 +315,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @param dateiName Name, der zu lesenden Datei
 	 * @throws DateiIOException Wenn beim Lesen des Speicherstanded ein Problem auftritt
 	 */
-	public void lesenCSV(String dateiPfad) throws DateiIOException {
+	public void lesenCSV(String dateiName) throws DateiIOException {
 		PersistenzInterface persistenzInterface = new PersistenzImplCSV();
 		String csv = "";
 
 		try {
-			persistenzInterface.oeffnen(dateiPfad, true);
+			persistenzInterface.oeffnen(dateiName, true);
 			csv = (String) persistenzInterface.lesen();
 			persistenzInterface.schliessen();
 		} catch (FileNotFoundException e) {
