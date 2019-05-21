@@ -28,7 +28,7 @@ public class StatusPanel extends JPanel{
 		JLabel label = new JLabel("Status");
 		this.add(label,c);
 		
-		statusText = new JTextArea(4, 27);
+		statusText = new JTextArea("Hier steht bald der Spiel-Status.",4, 27);
 
 		statusText.setEditable(false);
 		statusText.setLineWrap(true);
@@ -49,9 +49,9 @@ public class StatusPanel extends JPanel{
 		this.statusText = statusText;
 	}
 	
-	public void aktualisiereStatus(String[] status) {
-		String string = "Spieler 1:\nMuss noch " + status[0] + " Kugeln schlagen"
-				+ "\nSpieler 2:\nMuss noch " + status[1] + " Kugeln schlagen";
+	public void aktualisiereStatus(String spieler1name, String spieler2name, String[] status) {
+		String string = spieler1name+"(Weiss)\nMuss noch " + status[1] + " Kugeln schlagen"
+				+ "\n" + spieler2name + "(Schwarz)\nMuss noch " + status[0] + " Kugeln schlagen";
 		statusText.setText(string);
 	}
 	

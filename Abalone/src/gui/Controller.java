@@ -31,8 +31,9 @@ public class Controller {
 	private void aktualisiereStatus() {
 		String statusArray[] = spielStatus[67].split(":");
 		String status[] = statusArray[1].split(",");
+		String[] spieler = spiel.getSpielerImSpielInterface().split(",");
 		
-		gameFrame.getStatusPanel().aktualisiereStatus(status);
+		gameFrame.getStatusPanel().aktualisiereStatus(spieler[1], spieler[0], status);
 	}
 	
 	private void aktualisiereHistorie() {
