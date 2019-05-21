@@ -686,3 +686,18 @@ Fehler ID 9 aufgetreten: Ungueltige zuglaenge: 6
 ---------- Gestartet am 20.05.2019 20:07:59 ----------
 
 ---------- Beendet am 20.05.2019 20:09:38 ----------
+---------- Gestartet am 21.05.2019 07:48:07 ----------
+
+---------- Gestartet am 21.05.2019 07:48:07 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 21.05.2019 07:48:25 ----------
+
+---------- Beendet am 21.05.2019 07:48:37 ----------
+---------- Gestartet am 21.05.2019 07:48:39 ----------
+
+Fehler am 21.05.2019 07:49:39: 
+Fehler ID 9 aufgetreten: Ungueltige zuglaenge: 6
+
+---------- Beendet am 21.05.2019 07:49:46 ----------
