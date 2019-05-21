@@ -11,9 +11,7 @@ public class Main {
 		try {
 			Controller c = new Controller();
 			Hauptmenue hM = new Hauptmenue(c);
-//			SpielerAnlegenFenster SAF = new SpielerAnlegenFenster(c);
 		} catch (SpielException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -138,8 +138,12 @@ public class Hauptfenster {
 		c.gridwidth = 1; 
 		historiePanel = new HistoriePanel();
 		historiePanel.setBorder(BorderFactory.createEtchedBorder());
-		addToGridBag(c,historiePanel, 5,3,0,1);
+
+
 		
+
+		addToGridBag(c,historiePanel, 5,3,0,0);
+
 	}
 	
 

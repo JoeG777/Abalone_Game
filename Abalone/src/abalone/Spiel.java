@@ -312,6 +312,9 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
 		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
 		
+		csv += "SPIELER AUF FELD:" + this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())
+		+ "," + this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe());
+		
 		try {
 			persistenzInterface.oeffnen(dateiName, false);
 			persistenzInterface.schreiben(csv);
@@ -634,6 +637,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
 		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
+		
+		csv += "SPIELER AUF FELD:" + this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())
+			+ "," + this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe());
+		
 		return csv;
 
 	}

@@ -33,11 +33,6 @@ public class StatusPanel extends JPanel{
 		statusText.setEditable(false);
 		statusText.setLineWrap(true);
 		
-		statusText.append("Spieler 1:\n");
-		statusText.append("Muss noch XX Kugeln schlagen.\n");
-		statusText.append("Spieler 2:\n");
-		statusText.append("Muss noch XX Kugeln schlagen.\n");
-		
 		c.gridx = 0;
 		c.gridy = 1;
 		this.add(statusText,c);
@@ -52,6 +47,12 @@ public class StatusPanel extends JPanel{
 
 	public void setStatusText(JTextArea statusText) {
 		this.statusText = statusText;
+	}
+	
+	public void aktualisiereStatus(String[] status) {
+		String string = "Spieler 1:\nMuss noch " + status[0] + " Kugeln schlagen"
+				+ "\nSpieler 2:\nMuss noch " + status[1] + " Kugeln schlagen";
+		statusText.setText(string);
 	}
 	
 	
