@@ -28,7 +28,7 @@ public class StatusPanel extends JPanel{
 		JLabel label = new JLabel("Status");
 		this.add(label,c);
 		
-		statusText = new JTextArea(4, 25);
+		statusText = new JTextArea(4, 27);
 
 		statusText.setEditable(false);
 		statusText.setLineWrap(true);
