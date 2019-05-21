@@ -93,9 +93,9 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 			throw new IOException("Kein String!");
 		String string = (String) zuSchreibenderInhalt;
 		
-		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
-		if (regex.matcher(dateiPfad).find())
-			throw new IOException("Ungueltiger Dateiname!");
+//		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
+//		if (regex.matcher(dateiPfad).find())
+//			throw new IOException("Ungueltiger Dateiname!");
 
 		pw.print(string);
 		

@@ -89,9 +89,9 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	 */
 	@Override
 	public void schreiben(Object zuSchreibendesObjekt) throws IOException {
-		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
-		if (regex.matcher(dateiPfad).find())
-			throw new IOException("Ungueltiger Dateiname!");
+//		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
+//		if (regex.matcher(dateiPfad).find())
+//			throw new IOException("Ungueltiger Dateiname!");
 			
 		oos.writeObject(zuSchreibendesObjekt);
 
