@@ -76,9 +76,6 @@ public class FeldPanel extends JPanel{
 		  this.add(button);
 		  this.repaint();
 		  this.revalidate();
-		  if(auswaehlbar) {
-				System.out.println("WÄHL MICH!" + id + "!" + subscribedFeld.getId());
-			}
 	}
 	
 	private JButton createButton(Image img) {
