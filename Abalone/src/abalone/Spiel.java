@@ -32,7 +32,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 	private static final long serialVersionUID = 109L;
 	private Spieler[] spielerImSpiel;
-	private Spieler spielerAmZug = spielerImSpiel[0];
+	private Spieler spielerAmZug;
 	private Spielbrett spielBrett;
 	private Historie historie;
 	private boolean herausgedraengt = false;
@@ -161,7 +161,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			}
 			
 		}
-
 	}
 
 	/**
