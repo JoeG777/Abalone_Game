@@ -50,8 +50,8 @@ public class StatusPanel extends JPanel{
 	}
 	
 	public void aktualisiereStatus(String spieler1name, String spieler2name, String[] status) {
-		String string = spieler1name+"(Weiss)\nHat noch " + status[0] + " Kugeln." + "Noch " + (Integer.parseInt(status[1]) - 8) + " zum Sieg."
-				+ "\n" + spieler2name + "(Schwarz)\nHat noch " + status[1] + " Kugeln." + "Noch "+  (Integer.parseInt(status[0]) - 8) + " zum Sieg.";
+		String string = spieler1name+"(Weiss)\n" + status[0] + "/14 Kugeln " + "(Muss " + (Integer.parseInt(status[1]) - 8) + " Kugeln schlagen für Sieg)"
+				+ "\n" + spieler2name + "(Schwarz)\n" + status[1] + "/14 Kugeln" + "(Muss " + (Integer.parseInt(status[0]) - 8) + " Kugeln schlagen für Sieg)";
 		statusText.setText(string);
 	}
 	
