@@ -31,8 +31,8 @@ import abalone.spielbrett.SpielfeldException;
 public class Spiel implements bedienerInterface, java.io.Serializable {
 
 	private static final long serialVersionUID = 109L;
-	private Spieler spielerAmZug;
 	private Spieler[] spielerImSpiel;
+	private Spieler spielerAmZug = spielerImSpiel[0];
 	private Spielbrett spielBrett;
 	private Historie historie;
 	private boolean herausgedraengt = false;
@@ -101,11 +101,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				 
 				throw e;
 			}
-			if (name.substring(0, 2).equals("KI")) {
+			/*if (name.substring(0, 2).equals("KI")) {
 				UngueltigeEingabeException e = new UngueltigeEingabeException(19, "Spielername darf nicht mit \"KI\" beginnen!");
 				 ;
 				throw e;
-			}
+			}*/
 		}
 
 		if (anzahlSpieler == 2) {
@@ -124,7 +124,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			if (farbe.equals("weiss") && spielerImSpiel[0] == null) {
 				FarbEnum spielerFarbe = FarbEnum.WEISS;
 				spielerImSpiel[0] = new Spieler(name, spielerFarbe);
-				this.spielerAmZug = spielerImSpiel[0];
 			} else if (farbe.equals("schwarz") && spielerImSpiel[0] != null) {
 				FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
 				spielerImSpiel[1] = new Spieler(name, spielerFarbe);
@@ -134,17 +133,33 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				throw e;
 			}
 		} else if (anzahlSpieler == 1) {
-			FarbEnum spielerFarbe = FarbEnum.WEISS;
-			spielerImSpiel[0] = new Spieler(name, spielerFarbe);
-			this.spielerAmZug = spielerImSpiel[0];
-			FarbEnum KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KI(KIFarbe, getSpielbrett());
+			
+			if (name.substring(0, 2).equals("KI") && spielerImSpiel[0] == null) {
+				FarbEnum KIFarbe = FarbEnum.WEISS;
+				spielerImSpiel[0] = new KI(KIFarbe, getSpielbrett());
+			} else if (name.substring(0,2).equals("KI")){
+				FarbEnum KIFarbe = FarbEnum.SCHWARZ;
+				spielerImSpiel[1] = new KI(KIFarbe, getSpielbrett());
+			} else {
+				if(spielerImSpiel[0] == null) {
+					FarbEnum spielerFarbe = FarbEnum.WEISS;
+					spielerImSpiel[0] = new Spieler(name, spielerFarbe);
+				} else {
+					FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
+					spielerImSpiel[1] = new Spieler(name, spielerFarbe);
+				}
+			}
+			
 		} else if (anzahlSpieler == 0) {
-			FarbEnum KIFarbe = FarbEnum.WEISS;
-			spielerImSpiel[0] = new KI(KIFarbe, getSpielbrett());
-			this.spielerAmZug = spielerImSpiel[0];
-			KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KI(KIFarbe, getSpielbrett());
+			
+			if(spielerImSpiel[0] == null) {
+				FarbEnum KIFarbe = FarbEnum.WEISS;
+				spielerImSpiel[0] = new KI(KIFarbe, getSpielbrett());
+			} else {
+				FarbEnum KIFarbe = FarbEnum.SCHWARZ;
+				spielerImSpiel[1] = new KI(KIFarbe, getSpielbrett());
+			}
+			
 		}
 
 	}

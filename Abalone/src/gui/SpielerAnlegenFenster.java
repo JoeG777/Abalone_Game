@@ -34,14 +34,17 @@ public class SpielerAnlegenFenster implements ActionListener{
 	private JPanel jp;
 	private JRadioButton ki1;
 	private JRadioButton ki2;
+	private JRadioButton ki1_durchziehen;
+	private JRadioButton ki2_durchziehen;
 	private JTextField tf1;
 	private JTextField tf2;
 	private JButton los;
 	private Image bild;
 	private String name1;
 	private String name2;
+	private int anzahlSpieler = 0;
 	private static Controller controller;
-	private int anzahlSpieler;
+	
 
 	public SpielerAnlegenFenster(Controller controller) {
 		SpielerAnlegenFenster.controller = controller;
@@ -80,6 +83,9 @@ public class SpielerAnlegenFenster implements ActionListener{
 		ki1.setBackground(Color.WHITE);
 		jp.add(ki1,c);
 		ki1.addActionListener(this);
+		
+		ki1_durchziehen = new JRadioButton("durchziehen");
+		c.gridx = 1;
 
 		weiss = new JLabel("Weiss:");
 		c.gridx = 1;
@@ -120,27 +126,21 @@ public class SpielerAnlegenFenster implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		if (e.getSource() == los) {
-			
-				if (eingabenRichtig()) {
-					
-					try {
-						controller.spielerAnlegen(name1,name2,anzahlSpieler);
-						fenster.setVisible(false);
-						fenster.dispose();
-						controller.hauptFensterStarten();
-					} catch (SpielException e1) {
-						e1.printStackTrace();
-					}
-					
-					fenster.setVisible(false);
-					fenster.dispose();
-				} 
-				else {
-					new FehlerPanel("Falsche Eingabe!");
-				}
+
+
+			try {
+				vorbereiten();
+				controller.spielerAnlegen(name1,name2,anzahlSpieler);
+				fenster.setVisible(false);
+				fenster.dispose();
+				controller.hauptFensterStarten();
+			} catch (SpielException e1) {
+				new FehlerPanel(e1.getMessage());
+
+			}
 		}
+
 
 		if (ki1.isSelected()) {
 			tf1.setText(null);
@@ -157,47 +157,23 @@ public class SpielerAnlegenFenster implements ActionListener{
 		}
 	}
 
-	private boolean eingabenRichtig() {
-
-		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()~%!-]");
-
+	private void vorbereiten() {
+		
 		if (ki1.isSelected() && ki2.isSelected()) {
 			name1 = "KI_1";
 			name2 = "KI_2";
 			anzahlSpieler = 0;
-			return true;
-		}
-		
-		if (ki1.isSelected()) {
-			name1 = "KI_1";
+		} else if (ki1.isSelected() || ki2.isSelected()) {
 			anzahlSpieler = 1;
-			if (tf2.getText().length() < 2 || tf2.getText().length() > 20 || regex.matcher(tf2.getText()).find()) {
-				return false;
+			if (ki1.isSelected()) {
+				name1 = "KI_1";
 			} else {
-				name2 = tf2.getText();
-				return true;
+				name2 = "KI_1";
 			}
-		}
-		
-		if (ki2.isSelected()) {
-			name2 = "KI_1";
-			anzahlSpieler = 1;
-			if (tf1.getText().length() < 2 || tf1.getText().length() > 20 || regex.matcher(tf1.getText()).find()) {
-				name1 = tf1.getText();
-				return false;
-			} else {
-				return true;
-			}
-		}
-		
-		if (tf1.getText().length() >= 2 && tf1.getText().length() <= 20 && tf2.getText().length() >= 2 &&
-				tf2.getText().length() <= 20 && !tf1.getText().equals(tf2.getText()) && 
-				!regex.matcher(tf1.getText()).find() && !regex.matcher(tf2.getText()).find()) {
+		} else {
 			name1 = tf1.getText();
 			name2 = tf2.getText();
 			anzahlSpieler = 2;
-			return true;
 		}
-		return false;
 	}
 }
