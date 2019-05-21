@@ -11,6 +11,7 @@ import javax.swing.JTextArea;
 
 public class HistoriePanel extends JPanel{
 	private static final long serialVersionUID = 1L;
+	private JTextArea historieText;
 	
 	public HistoriePanel() {
 		setLayout(new GridBagLayout());
@@ -21,13 +22,24 @@ public class HistoriePanel extends JPanel{
 		JLabel label = new JLabel("Historie");
 		this.add(label,c);
 		
-		JTextArea textArea = new JTextArea(25, 25);
-		JScrollPane scrollPane = new JScrollPane(textArea); 
-		textArea.setEditable(false);
-		textArea.setLineWrap(true);
+		historieText = new JTextArea(25, 25);
+		JScrollPane scrollPane = new JScrollPane(historieText); 
+		historieText.setEditable(false);
+		historieText.setLineWrap(true);
 		
 		c.gridx = 0;
 		c.gridy = 1;
-		this.add(textArea,c);
+		this.add(historieText,c);
 	}
+
+	public JTextArea getHistorieText() {
+		return historieText;
+	}
+
+	public void setHistorieText(JTextArea historieText) {
+		this.historieText = historieText;
+	}
+	
+	
+	
 }

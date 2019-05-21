@@ -14,8 +14,7 @@ import javax.swing.JTextArea;
 
 public class StatusPanel extends JPanel{
 	private static final long serialVersionUID = 3L;
-	private JLabel spieler1, spieler2; 
-	private JPanel spieler1Geschlagen, spieler2Geschlagen;
+	private JTextArea statusText;
 	
 	
 	
@@ -29,13 +28,33 @@ public class StatusPanel extends JPanel{
 		JLabel label = new JLabel("Status");
 		this.add(label,c);
 		
-		JTextArea textArea = new JTextArea(8, 25);
-		JScrollPane scrollPane = new JScrollPane(textArea); 
-		textArea.setEditable(false);
-		textArea.setLineWrap(true);
+		statusText = new JTextArea(4, 25);
+
+		statusText.setEditable(false);
+		statusText.setLineWrap(true);
+		
+		statusText.append("Spieler 1:\n");
+		statusText.append("Muss noch XX Kugeln schlagen.\n");
+		statusText.append("Spieler 2:\n");
+		statusText.append("Muss noch XX Kugeln schlagen.\n");
 		
 		c.gridx = 0;
 		c.gridy = 1;
-		this.add(textArea,c);
+		this.add(statusText,c);
 	}
+
+
+
+
+	public JTextArea getStatusText() {
+		return statusText;
+	}
+
+	public void setStatusText(JTextArea statusText) {
+		this.statusText = statusText;
+	}
+	
+	
+	
+	
 }
