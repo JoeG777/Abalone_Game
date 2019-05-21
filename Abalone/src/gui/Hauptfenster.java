@@ -134,9 +134,11 @@ public class Hauptfenster {
 	private void initHistorie() {
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.EAST;
+		c.fill = 1; 
+		c.gridwidth = 1; 
 		historiePanel = new HistoriePanel();
 		historiePanel.setBorder(BorderFactory.createEtchedBorder());
-		addToGridBag(c,historiePanel, 5,3,0,0);
+		addToGridBag(c,historiePanel, 5,3,0,1);
 		
 	}
 	
