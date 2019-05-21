@@ -67,9 +67,6 @@ public class Controller {
 		spieler1.setSpieler();
 		spieler2.setSpieler();
 		this.aktualisiereSpielStatus();
-		for(int i = 0; i< spielStatus.length; i++) {
-			System.out.println(spielStatus[i]);
-		}
 		
 	}
 	

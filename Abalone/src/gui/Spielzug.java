@@ -44,8 +44,6 @@ public class Spielzug {
 			zug[0] = "";
 			zug[1] = "";
 		}
-		System.out.println(zug[0]);
-		System.out.println(zug[1]);
 	}
 	
 	public static void filterMoeglicheZuege() {

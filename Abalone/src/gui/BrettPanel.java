@@ -99,7 +99,6 @@ public class BrettPanel extends JPanel{
 		}
 		for(String[] feld : feldDaten) {
 			String feldId = feld[1];
-			System.out.println("ICH BIN:" + feldId);
 			char feldBuchstabe = feldId.charAt(0);
 			char feldZahl = feldId.charAt(1);
 			int buchstabenIndex = getIndexByBuchstabe(feldBuchstabe);
