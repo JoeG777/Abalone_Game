@@ -17,22 +17,17 @@ public class Spielzug {
 			if(zug[0].contains(id)) {
 				if(zug[0].length() == 4) {
 					if(zug[0].substring(0,3).equals(id)) {
-						System.out.println("1");
 						zug[0] = "";
 					}else {
-						System.out.println("2");
 						zug[0] = zug[0].substring(2,4);
 					}
 				}else {
-					System.out.println("3");
 					zug[0] = "";
 				}
 			}else {
-				System.out.println("4");
 				zug[0] += id;
 			}
 		}else if(!zug[0].equals("")){
-			System.out.println("5");
 			zug[1] = id;
 			try {
 				controller.ziehe();

@@ -92,18 +92,11 @@ public class Controller {
 	}
 	
 	public void ziehe() throws SpielException {
-		System.out.println("ICH ZIEHE" + Spielzug.getZug());
 		spiel.ziehe(Spielzug.getZug());
 		spieler1.naechsterSpieler();
 		this.aktualisiereSpielStatus();
 		brett.aktualisieren(this.filtereFeldDaten(spielStatus));
 		gameFrame.aktualisiere();
-		for(String eintrag : spielStatus){
-			System.out.println(eintrag);
-		}
-		
 	}
-	
-	//public String getErlaubteZuege(String[] )
 }
 
