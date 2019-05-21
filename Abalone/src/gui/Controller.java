@@ -94,5 +94,57 @@ public class Controller {
 	}
 	
 	//public String getErlaubteZuege(String[] )
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void speichernCSV(String dateipfad) {
+		try {
+			spiel.speichernCSV(dateipfad);
+		} catch (SpielException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void speichernSer(String dateipfad) {
+		try {
+			spiel.speichernSerialisiert(dateipfad);
+		} catch (SpielException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void ladenCSV(String dateipfad) {
+		try {
+			spiel.lesenCSV(dateipfad);
+		} catch (SpielException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.aktualisiereBrett();
+		
+	}
+	
+	public void ladenSer(String dateipfad) {
+		try {
+			spiel.lesenSerialisiert(dateipfad);
+		} catch (SpielException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
 

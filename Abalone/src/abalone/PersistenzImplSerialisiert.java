@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.Serializable {
 	
 	private static final long serialVersionUID = 100L;
-	private String dateiName;
+	private String dateiPfad;
 	private ObjectInputStream ois = null;
 	private ObjectOutputStream oos = null;
 	
@@ -33,17 +33,17 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	 * @throws FileNotFoundException Wenn die Datei nicht gefunden werden kann
 	 */
 	@Override
-	public void oeffnen(String dateiName, boolean lesen) throws FileNotFoundException, IOException {
-		this.dateiName = dateiName;
+	public void oeffnen(String dateiPfad, boolean lesen) throws FileNotFoundException, IOException {
+		this.dateiPfad = dateiPfad;
 		
 		if (lesen)
-			ois = new ObjectInputStream(new FileInputStream("sav/" + dateiName + ".ser"));
+			ois = new ObjectInputStream(new FileInputStream(dateiPfad));
 		else {
 			File f = new File("sav");
 			if (!f.exists())
 				f.mkdir();
 			
-			oos = new ObjectOutputStream(new FileOutputStream("sav/" + dateiName + ".ser"));
+			oos = new ObjectOutputStream(new FileOutputStream(dateiPfad));
 		}
 	}
 
@@ -90,7 +90,7 @@ public class PersistenzImplSerialisiert implements PersistenzInterface, java.io.
 	@Override
 	public void schreiben(Object zuSchreibendesObjekt) throws IOException {
 		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
-		if (regex.matcher(dateiName).find())
+		if (regex.matcher(dateiPfad).find())
 			throw new IOException("Ungueltiger Dateiname!");
 			
 		oos.writeObject(zuSchreibendesObjekt);

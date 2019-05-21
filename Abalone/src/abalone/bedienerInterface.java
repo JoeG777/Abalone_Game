@@ -87,7 +87,7 @@ public interface bedienerInterface {
 	 * @param dateiName Name, der zu speichernden Datei
 	 * @throws SpielException Wenn der Dateiname ungueltig ist.
 	 */
-	void speichernSerialisiert(String dateiName) throws SpielException;
+	void speichernSerialisiert(String dateiPfad) throws SpielException;
 	
 	/**
 	 * Laedt den Spielstand aus einer serialisierte Datei.
@@ -95,7 +95,7 @@ public interface bedienerInterface {
 	 * @param dateiName Name, der zu ladenden Datei
 	 * @throws SpielException Wenn der Dateiname ungueltig ist oder die Datei nicht existiert.
 	 */
-	void lesenSerialisiert(String dateiName) throws SpielException;
+	void lesenSerialisiert(String dateiPfad) throws SpielException;
 	
 	/**
 	 * Speichert den Spielstand in eine CSV-Datei.
@@ -103,7 +103,7 @@ public interface bedienerInterface {
 	 * @param dateiName Name, der zu speichernden Datei
 	 * @throws SpielException Wenn der Dateiname ungueltig ist.
 	 */
-	void speichernCSV(String dateiName) throws SpielException;
+	void speichernCSV(String dateiPfad) throws SpielException;
 	
 	/**
 	 * Laedt den Spielstand aus einer CSV-Datei.
@@ -111,5 +111,5 @@ public interface bedienerInterface {
 	 * @param dateiName Name, der zu ladenden Datei
 	 * @throws SpielException Wenn die Datei mit dem Namen nicht existiert.
 	 */
-	void lesenCSV(String dateiName) throws SpielException;
+	void lesenCSV(String dateiPfad) throws SpielException;
 }

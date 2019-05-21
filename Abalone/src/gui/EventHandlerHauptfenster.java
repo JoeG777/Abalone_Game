@@ -18,6 +18,7 @@ public class EventHandlerHauptfenster implements ActionListener{
 	
 	public EventHandlerHauptfenster(Hauptfenster hauptfenster, Controller c) {
 		this.hauptfenster = hauptfenster;
+		controller = c; 
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -28,10 +29,25 @@ public class EventHandlerHauptfenster implements ActionListener{
 		}
 		if(e.getSource() == hauptfenster.getMenuSpeichern()) {
 			File selected = generateFileChooser(true);
-			
+			String ending = selected.toString().substring(selected.toString().lastIndexOf('.'));
+			System.out.println(selected.toString());
+			if(ending.equals(".csv")) {
+				controller.speichernCSV(selected.toString());
+			}
+			else if(ending.equals(".ser")) {
+				controller.speichernSer(selected.toString());
+			}
 		}
 		if(e.getSource() == hauptfenster.getMenuLaden()) {
 			File selected = generateFileChooser(false);
+			String ending = selected.toString().substring(selected.toString().lastIndexOf('.'));
+			
+			if(ending.equals(".csv")) {
+				controller.ladenCSV(selected.toString());
+			}
+			else if(ending.equals(".ser")) {
+				controller.ladenSer(selected.toString());
+			}
 		}
 		if(e.getSource() == hauptfenster.getMenuLog()) {
 			LogFenster logFenster = new LogFenster();
