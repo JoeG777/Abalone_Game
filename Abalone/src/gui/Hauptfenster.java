@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
+import abalone.SpielException;
+
 public class Hauptfenster {
 	private JFrame mainframe;
 	private JPanel mainpanel;
@@ -37,7 +39,7 @@ public class Hauptfenster {
 		if(controller == null) {
 			controller = c;
 		}
-		eventHandlerMenu = new EventHandlerHauptfenster(this);
+		eventHandlerMenu = new EventHandlerHauptfenster(this,controller);
 		GridLayout experimentLayout = new GridLayout(0,1);
 		// Default-Werte
 		mainframe = new JFrame();
@@ -52,6 +54,7 @@ public class Hauptfenster {
 		initSpielbrettPanel();
 		initStatusPanel();
 		initHistorie();
+//		initHauptmenue();
 		
 		
 
@@ -80,6 +83,16 @@ public class Hauptfenster {
 		mainframe.setVisible(true);
 	}
 	
+
+	private void initHauptmenue() {
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		Component hM =new Hauptmenue(controller);
+		c.gridheight = 5;
+		c.gridwidth = 5;
+		addToGridBag(c, hM, 1, 1, 0, 0);
+	}
+
 
 	private void initSpielbrettPanel() {
 		GridBagConstraints c = new GridBagConstraints();
@@ -163,7 +176,11 @@ public class Hauptfenster {
 	
 
 	public void beendeSpiel() {
-		System.exit(0);
+		new SindSieSicherPanel("Wollen Sie wirklich das Spiel beenden?", controller,mainframe);
+	}
+	
+	public void neuesSpiel() {
+		new SindSieSicherPanel("Wollen Sie wirklich Neu starten?", controller,mainframe);
 	}
 	
 	public void aktualisiere() {
@@ -173,136 +190,108 @@ public class Hauptfenster {
 	public void aktualisiereSpielbrett(String[] ids) {
 		((BrettPanel)spielfeldPanel).aktualisiere(ids);
 	}
-
-
+	
 	public JFrame getMainframe() {
 		return mainframe;
 	}
-
-
+	
 	public void setMainframe(JFrame mainframe) {
 		this.mainframe = mainframe;
 	}
-
-
+	
 	public JPanel getMainpanel() {
 		return mainpanel;
 	}
-
-
+	
 	public void setMainpanel(JPanel mainpanel) {
 		this.mainpanel = mainpanel;
 	}
-
-
+	
 	public JMenuBar getMenubar() {
 		return menubar;
 	}
-
-
+	
 	public void setMenubar(JMenuBar menubar) {
 		this.menubar = menubar;
 	}
-
-
+	
 	public JPanel getSpielfeldPanel() {
 		return spielfeldPanel;
 	}
-
-
+	
 	public void setSpielfeldPanel(JPanel spielfeldPanel) {
 		this.spielfeldPanel = spielfeldPanel;
 	}
-
 
 	public JPanel getHistoriePanel() {
 		return historiePanel;
 	}
 
-
 	public void setHistoriePanel(JPanel historiePanel) {
 		this.historiePanel = historiePanel;
 	}
-
 
 	public JPanel getStatusPanel() {
 		return statusPanel;
 	}
 
-
 	public void setStatusPanel(JPanel statusPanel) {
 		this.statusPanel = statusPanel;
 	}
 
-
 	public static Controller getController() {
 		return controller;
 	}
-
-
+	
 	public static void setController(Controller controller) {
 		Hauptfenster.controller = controller;
 	}
-
 
 	public EventHandlerHauptfenster getEventHandlerMenu() {
 		return eventHandlerMenu;
 	}
 
-
 	public void setEventHandlerMenu(EventHandlerHauptfenster eventHandlerMenu) {
 		this.eventHandlerMenu = eventHandlerMenu;
 	}
-
 
 	public JMenuItem getMenuNeuesSpiel() {
 		return menuNeuesSpiel;
 	}
 
-
 	public void setMenuNeuesSpiel(JMenuItem menuNeuesSpiel) {
 		this.menuNeuesSpiel = menuNeuesSpiel;
 	}
 
-
 	public JMenuItem getMenuSpeichern() {
 		return menuSpeichern;
 	}
-
-
+	
 	public void setMenuSpeichern(JMenuItem menuSpeichern) {
 		this.menuSpeichern = menuSpeichern;
 	}
-
 
 	public JMenuItem getMenuLaden() {
 		return menuLaden;
 	}
 
-
 	public void setMenuLaden(JMenuItem menuLaden) {
 		this.menuLaden = menuLaden;
 	}
-
 
 	public JMenuItem getMenuLog() {
 		return menuLog;
 	}
 
-
 	public void setMenuLog(JMenuItem menuLog) {
 		this.menuLog = menuLog;
 	}
 
-
 	public JMenuItem getMenuBeenden() {
 		return menuBeenden;
 	}
-
-
+	
 	public void setMenuBeenden(JMenuItem menuBeenden) {
 		this.menuBeenden = menuBeenden;
 	}
-	
-	
 }

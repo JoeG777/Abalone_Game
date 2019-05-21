@@ -15,38 +15,13 @@ public class Controller {
 	private String[] spielStatus;
 	private Spielbrett brett;
 	private String erlaubteZuege;
+	private Spieler spieler1;
+	private Spieler spieler2;
 	public Controller() throws SpielException {
 		try {
 			spiel = new Spiel();
 		} catch (SpielfeldException e) {
 		}
-		spiel.addSpieler("Hans", "weiss", 2);
-		spiel.addSpieler("JOCHEN", "schwarz", 2);
-		Spieler spieler1 = new Spieler("Hans", FarbEnum.WEISS);
-		spieler1.setSpielerAmZug(spieler1);
-		Spieler spieler2 = new Spieler("JOCHEN", FarbEnum.SCHWARZ);
-		spieler1.setSpieler();
-		spieler2.setSpieler();
-		this.aktualisiereSpielStatus();
-		brett = new Spielbrett(this.filtereFeldDaten(spielStatus));
-		gameFrame = new Hauptfenster(this);
-		try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		/*String[] zug = {"G5","G4"};
-		spiel.ziehe(zug);
-		spieler1.naechsterSpieler();
-		this.aktualisiereSpielStatus();
-		brett.aktualisieren(filtereFeldDaten(spielStatus)); */
-		Spielzug.subscribe(this);
-		for(int i = 0; i < spielStatus.length; i++) {
-			System.out.println(spielStatus[i]);
-		}
-		
-		
 	}
 	
 	private void aktualisiereSpielStatus() {
@@ -84,6 +59,38 @@ public class Controller {
 		
 	public void aktualisiereBrett() {
 		gameFrame.aktualisiere();
+	}
+	
+	public void spielNeuStarten() {
+		try {
+			spiel = new Spiel();
+		} catch (SpielfeldException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void spielerAnlegen(String name1, String name2, int anzahlSpieler) throws SpielException {
+		spiel.addSpieler(name1, "weiss", anzahlSpieler);
+		spiel.addSpieler(name2, "schwarz", anzahlSpieler);
+		spieler1 = new Spieler(name1, FarbEnum.WEISS);
+		spieler1.setSpielerAmZug(spieler1);
+		spieler2 = new Spieler(name2, FarbEnum.SCHWARZ);
+		spieler1.setSpieler();
+		spieler2.setSpieler();
+		this.aktualisiereSpielStatus();
+		brett = new Spielbrett(this.filtereFeldDaten(spielStatus));
+	}
+	
+	public void hauptFensterStarten() throws SpielException {
+		gameFrame = new Hauptfenster(this);
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Spielzug.subscribe(this);
+
 	}
 	
 	//public String getErlaubteZuege(String[] )
