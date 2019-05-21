@@ -3,12 +3,15 @@ package gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.Locale;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import abalone.DateiIOException;
 
 
 
@@ -18,6 +21,7 @@ public class EventHandlerHauptfenster implements ActionListener{
 	
 	public EventHandlerHauptfenster(Hauptfenster hauptfenster, Controller c) {
 		this.hauptfenster = hauptfenster;
+		controller = c; 
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -28,10 +32,32 @@ public class EventHandlerHauptfenster implements ActionListener{
 		}
 		if(e.getSource() == hauptfenster.getMenuSpeichern()) {
 			File selected = generateFileChooser(true);
-			
+			if(selected == null) {
+				return;
+			}
+			String ending = selected.toString().substring(selected.toString().lastIndexOf('.'));
+			if(ending.equals(".csv")) {
+				controller.speichernCSV(selected.toString());
+			}
+			else if(ending.equals(".ser")) {
+				controller.speichernSer(selected.toString());
+			}
 		}
 		if(e.getSource() == hauptfenster.getMenuLaden()) {
 			File selected = generateFileChooser(false);
+			
+			if(selected == null) {
+				return; 
+			}
+			
+			String ending = selected.toString().substring(selected.toString().lastIndexOf('.'));
+			
+			if(ending.equals(".csv")) {
+				controller.ladenCSV(selected.toString());
+			}
+			else if(ending.equals(".ser")) {
+				controller.ladenSer(selected.toString());
+			}
 		}
 		if(e.getSource() == hauptfenster.getMenuLog()) {
 			LogFenster logFenster = new LogFenster();
@@ -56,7 +82,27 @@ public class EventHandlerHauptfenster implements ActionListener{
 			jfc.showOpenDialog(hauptfenster.getMainframe());
 		}
 		File selected = jfc.getSelectedFile();
+		FileFilter filter = jfc.getFileFilter();
+		
+		if(selected == null) {
+			return null;
+		}
+		
+		if(save) {
+			if(!(selected.toString().endsWith(".csv") || 
+					selected.toString().endsWith(".ser"))) {
+				selected = new File(selected.toString()+filter.getDescription());
+			}
+		}
+		else {
+			if(!selected.exists()) {
+				new FehlerPanel("Datei existiert nicht!");
+				return null;
+			}
+		}
 		return selected;
 	}
+	
+
 
 }

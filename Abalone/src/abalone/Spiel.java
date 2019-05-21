@@ -161,6 +161,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			}
 			
 		}
+		this.spielerAmZug = spielerImSpiel[0];
 
 	}
 

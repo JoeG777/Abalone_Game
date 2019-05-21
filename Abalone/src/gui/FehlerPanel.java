@@ -14,7 +14,7 @@ public class FehlerPanel {
 	private String fehlertext;
 	
 	public FehlerPanel(String ft) {
-		playSound();
+//		playSound();
 		this.fehlertext = ft;
 		fenster = new JOptionPane();
 		JOptionPane.showMessageDialog(null,

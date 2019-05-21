@@ -160,15 +160,17 @@ public class SpielerAnlegenFenster implements ActionListener{
 	private void vorbereiten() {
 		
 		if (ki1.isSelected() && ki2.isSelected()) {
-			name1 = "KI_1";
-			name2 = "KI_2";
+			name1 = "KI";
+			name2 = "KI";
 			anzahlSpieler = 0;
 		} else if (ki1.isSelected() || ki2.isSelected()) {
 			anzahlSpieler = 1;
 			if (ki1.isSelected()) {
-				name1 = "KI_1";
+				name1 = "KI";
+				name2 = tf2.getText();
 			} else {
-				name2 = "KI_1";
+				name1 = tf1.getText();
+				name2 = "KI";
 			}
 		} else {
 			name1 = tf1.getText();

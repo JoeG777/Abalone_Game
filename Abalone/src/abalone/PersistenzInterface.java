@@ -21,7 +21,7 @@ public interface PersistenzInterface {
 	 * @throws IOException Wenn es einen Fehler beim oeffnen der Datei gibt
 	 * @throws UnsupportedEncodingException Wenn das Encoding der Datei nicht unterstuetzt wird
 	 */
-	public void oeffnen(String dateiName, boolean lesen)
+	public void oeffnen(String dateiPfad, boolean lesen)
 			throws FileNotFoundException, IOException, UnsupportedEncodingException;
 	
 	/**

@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializable {
 
 	private static final long serialVersionUID = 101L;
-	private String dateiName;
+	private String dateiPfad;
 	private BufferedReader br = null;
 	private PrintWriter pw = null;
 
@@ -34,18 +34,18 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 	 * @throws UnsupportedEncodingException Wenn das Encoding der Datei nicht unterstuetzt wird
 	 */
 	@Override
-	public void oeffnen(String dateiName, boolean lesen) throws FileNotFoundException, UnsupportedEncodingException {
-		this.dateiName = dateiName;
+	public void oeffnen(String dateiPfad, boolean lesen) throws FileNotFoundException, UnsupportedEncodingException {
+		this.dateiPfad = dateiPfad;
 		
 		if (lesen)
 			br = new BufferedReader(
-					new InputStreamReader(new FileInputStream("sav/" + dateiName + ".csv"), "utf-8"));
+					new InputStreamReader(new FileInputStream(dateiPfad), "utf-8"));
 		else {
 			File f = new File("sav");
 			if (!f.exists())
 				f.mkdir();
 			
-			pw = new PrintWriter("sav/" + dateiName + ".csv", "utf-8");
+			pw = new PrintWriter(dateiPfad, "utf-8");
 		}	
 	}
 
@@ -93,9 +93,9 @@ public class PersistenzImplCSV implements PersistenzInterface, java.io.Serializa
 			throw new IOException("Kein String!");
 		String string = (String) zuSchreibenderInhalt;
 		
-		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
-		if (regex.matcher(dateiName).find())
-			throw new IOException("Ungueltiger Dateiname!");
+//		Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
+//		if (regex.matcher(dateiPfad).find())
+//			throw new IOException("Ungueltiger Dateiname!");
 
 		pw.print(string);
 		
