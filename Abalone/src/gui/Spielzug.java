@@ -44,6 +44,8 @@ public class Spielzug {
 			zug[0] = "";
 			zug[1] = "";
 		}
+		System.out.println(zug[0]);
+		System.out.println(zug[1]);
 	}
 	
 	public static void filterMoeglicheZuege() {
@@ -73,6 +75,7 @@ public class Spielzug {
 		controller.aktualisiereBrett();
 		return ids.toArray(new String[0]);
 		}
+		controller.aktualisiereBrett();
 		return null;
 	}
 	
