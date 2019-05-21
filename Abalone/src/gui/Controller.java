@@ -32,7 +32,6 @@ public class Controller {
 		String[] felder = new String[61];
 		for(int i = 6; i <= 66; i++ ) {
 			felder[i-6] = daten[i];
-			System.out.println(felder[i-6]);
 		}
 		return felder;
 	}
@@ -51,7 +50,6 @@ public class Controller {
 			erlaubteZuege = spiel.getErlaubteZuegeInterface(ausgangsfelder);
 		} catch (SpielException e) {
 		}
-		System.out.println(erlaubteZuege);
 		return erlaubteZuege;
 		}
 		return null;
@@ -93,6 +91,7 @@ public class Controller {
 
 	}
 	
+
 	//public String getErlaubteZuege(String[] )
 	
 	
@@ -145,6 +144,15 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void ziehe() throws SpielException {
+		spiel.ziehe(Spielzug.getZug());
+		spieler1.naechsterSpieler();
+		this.aktualisiereSpielStatus();
+		brett.aktualisieren(this.filtereFeldDaten(spielStatus));
+		gameFrame.aktualisiere();
+
 	}
 }
 
