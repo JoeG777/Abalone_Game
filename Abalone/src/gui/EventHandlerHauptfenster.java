@@ -68,36 +68,44 @@ public class EventHandlerHauptfenster implements ActionListener{
 	}
 	
 	public File generateFileChooser(boolean save) {
-		final JFileChooser jfc = new JFileChooser("./sav");
-		jfc.setAcceptAllFileFilterUsed(false);
-		FileFilter filterCSV = new FileNameExtensionFilter(".csv", "csv");
-		FileFilter filterSER = new FileNameExtensionFilter(".ser", "ser");
-		jfc.addChoosableFileFilter(filterCSV);
-		jfc.addChoosableFileFilter(filterSER);
+		File selected = null;
+		boolean loop = true; 
 		
-		if(save) {
-			jfc.showSaveDialog(hauptfenster.getMainframe());
-		}
-		else {
-			jfc.showOpenDialog(hauptfenster.getMainframe());
-		}
-		File selected = jfc.getSelectedFile();
-		FileFilter filter = jfc.getFileFilter();
-		
-		if(selected == null) {
-			return null;
-		}
-		
-		if(save) {
-			if(!(selected.toString().endsWith(".csv") || 
-					selected.toString().endsWith(".ser"))) {
-				selected = new File(selected.toString()+filter.getDescription());
+		while(loop) {
+			loop = false;
+			final JFileChooser jfc = new JFileChooser("./sav");
+			jfc.setAcceptAllFileFilterUsed(false);
+			FileFilter filterCSV = new FileNameExtensionFilter(".csv", "csv");
+			FileFilter filterSER = new FileNameExtensionFilter(".ser", "ser");
+			jfc.addChoosableFileFilter(filterCSV);
+			jfc.addChoosableFileFilter(filterSER);
+
+			int option = 0; 
+			if(save) {
+				option = jfc.showSaveDialog(hauptfenster.getMainframe());
 			}
-		}
-		else {
-			if(!selected.exists()) {
-				new FehlerPanel("Datei existiert nicht!");
+			else {
+				option = jfc.showOpenDialog(hauptfenster.getMainframe());
+			}
+
+			selected = jfc.getSelectedFile();
+			FileFilter filter = jfc.getFileFilter();
+
+			if(option == JFileChooser.CANCEL_OPTION) {
 				return null;
+			}
+
+			if(save) {
+				if(!(selected.toString().endsWith(".csv") || 
+						selected.toString().endsWith(".ser"))) {
+					selected = new File(selected.toString()+filter.getDescription());
+				}
+			}
+			else {
+				if(!selected.exists()) {
+					loop = true; 
+					new FehlerPanel("Bitte gueltige Datei waehlen oder abbrechen!");
+				}
 			}
 		}
 		return selected;
