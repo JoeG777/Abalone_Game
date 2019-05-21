@@ -149,13 +149,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 					spielerImSpiel[1] = new Spieler(name, spielerFarbe);
 				}
 			}
-			/*
-			FarbEnum spielerFarbe = FarbEnum.WEISS;
-			spielerImSpiel[0] = new Spieler(name, spielerFarbe);
-			this.spielerAmZug = spielerImSpiel[0];
-			FarbEnum KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KI(KIFarbe, getSpielbrett());
-			*/
+			
 		} else if (anzahlSpieler == 0) {
 			
 			if(spielerImSpiel[0] == null) {
@@ -165,13 +159,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				FarbEnum KIFarbe = FarbEnum.SCHWARZ;
 				spielerImSpiel[1] = new KI(KIFarbe, getSpielbrett());
 			}
-			/*
-			FarbEnum KIFarbe = FarbEnum.WEISS;
-			spielerImSpiel[0] = new KI(KIFarbe, getSpielbrett());
-			this.spielerAmZug = spielerImSpiel[0];
-			KIFarbe = FarbEnum.SCHWARZ;
-			spielerImSpiel[1] = new KI(KIFarbe, getSpielbrett());
-			*/
+			
 		}
 
 	}
