@@ -16,6 +16,7 @@ public class Controller {
 	private String erlaubteZuege;
 	private Spieler spieler1;
 	private Spieler spieler2;
+	
 	public Controller() throws SpielException {
 		try {
 			spiel = new Spiel();
@@ -25,6 +26,13 @@ public class Controller {
 	
 	private void aktualisiereSpielStatus() {
 		spielStatus = spiel.getStatus().split("\\n");
+	}
+	
+	private void aktualisiereStatus() {
+		String statusArray[] = spielStatus[67].split(":");
+		String status[] = statusArray[1].split(",");
+		
+		gameFrame.getStatusPanel().aktualisiereStatus(status);
 	}
 	
 	private void aktualisiereHistorie() {
@@ -112,9 +120,10 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.aktualisiereBrett();
-		this.aktualisiereHistorie();
 		
+		this.aktualisiereBrett();
+		this.aktualisiereStatus();
+		this.aktualisiereHistorie();
 	}
 	
 	public void ladenSer(String dateipfad) {
@@ -124,6 +133,8 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		this.aktualisiereStatus();
 		this.aktualisiereHistorie();
 	}
 
@@ -131,6 +142,7 @@ public class Controller {
 		spiel.ziehe(Spielzug.getZug());
 		spieler1.naechsterSpieler();
 		this.aktualisiereSpielStatus();
+		this.aktualisiereStatus();
 		this.aktualisiereHistorie();
 		gameFrame.aktualisiere();
 
