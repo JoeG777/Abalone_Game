@@ -1,11 +1,8 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
 
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -75,10 +72,6 @@ public class LogFenster {
 		text.append(log);
 		scrollPane.setSize(720, 480);
 		dialog.add(scrollPane);
-	}
-	
-	public static void main(String[] args) {
-		LogFenster lf = new LogFenster();
 	}
 
 }

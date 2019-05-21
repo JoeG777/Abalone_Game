@@ -27,6 +27,11 @@ public class Controller {
 		spielStatus = spiel.getStatus().split("\\n");
 	}
 	
+	private void aktualisiereHistorie() {
+		String historie = spiel.getHistorie();
+		gameFrame.getHistoriePanel().aktualisiereHistorie(historie);
+	}
+	
 	private String[][] filtereFeldDaten(String[] daten) {
 		String[][] felder = new String[61][];
 		for(int i = 6; i <= 66; i++ ) {
@@ -108,6 +113,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 		this.aktualisiereBrett();
+		this.aktualisiereHistorie();
 		
 	}
 	
@@ -118,12 +124,14 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.aktualisiereHistorie();
 	}
 
 	public void ziehe() throws SpielException {
 		spiel.ziehe(Spielzug.getZug());
 		spieler1.naechsterSpieler();
 		this.aktualisiereSpielStatus();
+		this.aktualisiereHistorie();
 		gameFrame.aktualisiere();
 
 	}
