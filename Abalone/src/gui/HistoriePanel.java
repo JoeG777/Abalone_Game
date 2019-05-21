@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 public class HistoriePanel extends JPanel{
 	private static final long serialVersionUID = 1L;
@@ -24,12 +25,14 @@ public class HistoriePanel extends JPanel{
 		
 		historieText = new JTextArea(25, 25);
 		JScrollPane scrollPane = new JScrollPane(historieText); 
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		
 		historieText.setEditable(false);
 		historieText.setLineWrap(true);
 		
 		c.gridx = 0;
 		c.gridy = 1;
-		this.add(historieText,c);
+		this.add(scrollPane,c);
 	}
 
 	public JTextArea getHistorieText() {
