@@ -180,12 +180,12 @@ public class SpielerAnlegenFenster implements ActionListener{
 		if (ki1.isSelected() && ki2.isSelected()) {
 			anzahlSpieler = 0;
 			if (ki1_durchziehen.isSelected()) {
-				name1 = "KI(durchziehend)";
+				name1 = "KI_1durchziehend";
 			} else {
 				name1 = "KI";
 			}
 			if (ki2_durchziehen.isSelected()) {
-				name2 = "KI(durchziehend)";
+				name2 = "KI_2durchziehend";
 			} else {
 				name2 = "KI";
 			}
@@ -195,14 +195,14 @@ public class SpielerAnlegenFenster implements ActionListener{
 			if (ki1.isSelected()) {
 				name2 = tf2.getText();
 				if(ki1_durchziehen.isSelected()) {
-					name1 = "KI(durchziehend)";
+					name1 = "KI_durchziehend";
 				} else {
 					name1 = "KI";
 				}
 			} else {
 				name1 = tf1.getText();
 				if(ki2_durchziehen.isSelected()) {
-					name2 = "KI(durchziehend)";
+					name2 = "KI_durchziehend";
 				} else {
 					name2 = "KI";
 				}

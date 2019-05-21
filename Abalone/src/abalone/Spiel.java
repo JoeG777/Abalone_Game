@@ -152,7 +152,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			
 			for(Spieler s : spielerImSpiel) {
 				if (s instanceof KI) {
-					if(s.getName().substring(3, s.getName().length()).equals("(durchziehend)")) {
+					if(s.getName().substring(4, s.getName().length()).equals("durchziehend")) {
 						((KI) s).setDurchziehend(true);
 					}
 				}
@@ -169,7 +169,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			}
 			for(Spieler s : spielerImSpiel) {
 				if (s instanceof KI) {
-					if(s.getName().substring(5, s.getName().length()).equals("(durchziehend)")) {
+					if(s.getName().substring(5, s.getName().length()).equals("durchziehend")) {
 						((KI) s).setDurchziehend(true);
 					}
 				}
