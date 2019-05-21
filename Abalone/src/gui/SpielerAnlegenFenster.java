@@ -151,7 +151,6 @@ public class SpielerAnlegenFenster implements ActionListener{
 				controller.hauptFensterStarten();
 			} catch (SpielException e1) {
 				new FehlerPanel(e1.getMessage());
-
 			}
 		}
 

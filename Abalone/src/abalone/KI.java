@@ -170,7 +170,7 @@ public class KI extends Spieler {
 			}
 		}
 		else {
-			super.setName(this.getName().substring(0,4));
+			super.setName(this.getName().substring(0,2));
 		}
 	}
 
