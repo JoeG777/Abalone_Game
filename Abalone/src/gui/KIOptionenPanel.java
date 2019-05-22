@@ -18,14 +18,17 @@ public class KIOptionenPanel extends JPanel {
 	public KIOptionenPanel() {
 		this.setLayout(new GridBagLayout());
 		eventHandlerKIOptionen = new EventHandlerKIOptionen(this);
+		initLabel();
+		initKI1();
+		initKI2();
 	}
 	
-	public void aktivierePanel() {
+	private void initLabel() {
 		infoLabel = new JLabel("KI-Optionen");
 		addToGridBag(infoLabel, 0, 0, 2 ,1, GridBagConstraints.REMAINDER);
 	}
 	
-	public void aktiviereKI1() {
+	private void initKI1() {
 		ki1Label = new JLabel("KI-1                       ");
 		ki1Label.setBackground(Color.white);
 		ki1Label.setOpaque(true);
@@ -44,7 +47,7 @@ public class KIOptionenPanel extends JPanel {
 		addToGridBag(ki1Durchziehend, 2, 1);
 	}
 	
-	public void aktiviereKI2() {
+	private void initKI2() {
 		ki2Label = new JLabel("KI-2                       ");
 		ki2Label.setOpaque(true);
 		ki2Label.setBackground(Color.WHITE);
@@ -65,14 +68,40 @@ public class KIOptionenPanel extends JPanel {
 		addToGridBag(ki2Durchziehend, 2, 2);
 	}
 	
+	public void aktiviereKI1() {
+		ki1Label.setText("KI-1                       ");
+		ki1Weiter.setText("Weiter");
+		ki1Weiter.setEnabled(true);
+		ki1Durchziehend.setText("Ziehe durch");
+		ki1Durchziehend.setEnabled(true);
+	}
+	
+	public void aktiviereKI2() {
+		ki2Label.setText("KI-2                       ");
+		ki2Weiter.setText("Weiter");
+		ki2Weiter.setEnabled(true);
+		ki2Durchziehend.setText("Ziehe durch");
+		ki2Durchziehend.setEnabled(true);
+	}
+	public void deaktiviereKI1() {
+		ki1Label.setText("deaktiviert      ");
+		ki1Weiter.setText("deaktiviert");
+		ki1Weiter.setEnabled(false);
+		ki1Durchziehend.setText("deaktiviert");
+		ki1Durchziehend.setEnabled(false);
+	}
+	public void deaktiviereKI2() {
+		ki2Label.setText("deaktiviert      ");
+		ki2Weiter.setText("deaktiviert");
+		ki2Weiter.setEnabled(false);
+		ki2Durchziehend.setText("deaktiviert");
+		ki2Durchziehend.setEnabled(false);
+	}
 	public void aktualisiere() {
-		if(ki1Weiter != null || ki2Weiter != null) {
-			this.setBorder(BorderFactory.createEtchedBorder());
-		}
-		
 		this.repaint();
 		this.revalidate();
 	}
+	
 	private void addToGridBag(Component comp, int x, int y) {
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx= x;

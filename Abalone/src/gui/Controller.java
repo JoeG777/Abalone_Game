@@ -165,21 +165,26 @@ public class Controller {
 		this.aktualisiereBrett();
 		this.aktualisiereStatus();
 		this.aktualisiereHistorie();
+		this.kiMitspielerPruefen();
 		
 	}
 	
 
 	private void kiMitspielerPruefen() {
-		if(spieler1.getName()!= null && spieler1.getName().startsWith("KI")) {
-			gameFrame.getKiOptionenPanel().aktivierePanel();
+		String[] spieler = spiel.getSpielerImSpielInterface().split(",");
+		if(spieler[0]!= null && spieler[0].startsWith("KI")) {
 			gameFrame.getKiOptionenPanel().aktiviereKI1();
+			System.out.println("hey");
 		}
-		if(spieler2.getName() != null && spieler2.getName().startsWith("KI")) {
-			gameFrame.getKiOptionenPanel().aktivierePanel();
+		else {
+			gameFrame.getKiOptionenPanel().deaktiviereKI1();
+		}
+		if(spieler[1] != null && spieler[1].startsWith("KI")) {
 			gameFrame.getKiOptionenPanel().aktiviereKI2();
 		}
-		
-		gameFrame.getKiOptionenPanel().aktualisiere();
+		else {
+			gameFrame.getKiOptionenPanel().deaktiviereKI2();
+		}
 	}
 	public Hauptfenster getGameFrame() {
 		return this.gameFrame;
