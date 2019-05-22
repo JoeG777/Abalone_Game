@@ -1,17 +1,20 @@
 package gui;
 
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class Hauptmenue extends JFrame implements ActionListener{
 
@@ -22,6 +25,7 @@ public class Hauptmenue extends JFrame implements ActionListener{
 	private JButton neuesSpiel;
 	private JButton spielLaden;
 	private JButton beenden;
+	private Image bild;
 
 	public Hauptmenue (Controller controller){
 		Hauptmenue.controller =controller;
@@ -32,13 +36,15 @@ public class Hauptmenue extends JFrame implements ActionListener{
 		this.setResizable(false);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-		jl = new JLabel("Abalone", SwingConstants.CENTER);
-		jl.setFont(new Font("Times New Roman", Font.BOLD, 36));
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+//		jl = new JLabel("Abalone", SwingConstants.CENTER);
+//		jl.setFont(new Font("Times New Roman", Font.BOLD, 36));
+//		gbc.fill = GridBagConstraints.HORIZONTAL;
+		ImageIcon iI =  new ImageIcon(getClass().getResource("./assets/Abalone.gif"));
 		gbc.weightx = 1.0;
 		gbc.ipady = 40;
 		gbc.ipadx = 40;
 		gbc.insets = new Insets(70,0,0,0);
+		jl = new JLabel(iI);
 		jp.add(jl, gbc);
 
 		neuesSpiel = new JButton("Neues Spiel");
