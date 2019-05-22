@@ -337,17 +337,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	public void speichernCSV(String dateiName) throws DateiIOException {
 		PersistenzInterface persistenzInterface = new PersistenzImplCSV();
-		String csv = "SPIEL:\n";
-
-		for (Spieler spieler : spielerImSpiel) {
-			csv += spieler.schreibeCSV() + "\n";
-		}
-
-		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
-		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
-		
-		csv += "SPIELER AUF FELD:" + this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())
-		+ "," + this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe());
+		String csv = this.getStatus();
 		
 		try {
 			persistenzInterface.oeffnen(dateiName, false);
@@ -665,15 +655,15 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 		String csv = "SPIEL:\n";
 
+		int i = 0;
 		for (Spieler spieler : spielerImSpiel) {
-			csv += spieler.schreibeCSV() + "\n";
+			csv += spieler.schreibeCSV() + "," +
+					this.zaehleKugelnMitFarbe(spielerImSpiel[i].getFarbe()) + "\n";
+			i++;
 		}
 
 		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
 		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
-		
-		csv += "SPIELER AUF FELD:" + this.zaehleKugelnMitFarbe(spielerImSpiel[0].getFarbe())
-			+ "," + this.zaehleKugelnMitFarbe(spielerImSpiel[1].getFarbe());
 		
 		return csv;
 

@@ -49,9 +49,11 @@ public class StatusPanel extends JPanel{
 		this.statusText = statusText;
 	}
 	
-	public void aktualisiereStatus(String spieler1name, String spieler2name, String[] status) {
-		String string = spieler1name+"(Weiss)\n" + status[0] + "/14 Kugeln " + "(Muss " + (Integer.parseInt(status[1]) - 8) + " Kugeln schlagen für Sieg)"
-				+ "\n" + spieler2name + "(Schwarz)\n" + status[1] + "/14 Kugeln" + "(Muss " + (Integer.parseInt(status[0]) - 8) + " Kugeln schlagen für Sieg)";
+	public void aktualisiereStatus(String[] spieler1, String spieler2[]) {
+		String string = spieler1[0] + " (Weiss)\n" + spieler1[4] + " / 14 Kugeln "
+				+ "(Muss " + (Integer.parseInt(spieler2[4]) - 8) + " Kugeln schlagen für Sieg)\n"
+				+ spieler2[0] + " (Schwarz)\n" + spieler2[4] + " / 14 Kugeln "
+				+ "(Muss " + (Integer.parseInt(spieler1[4]) - 8) + " Kugeln schlagen für Sieg)";
 		statusText.setText(string);
 	}
 	
