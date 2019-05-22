@@ -122,9 +122,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 		
-		this.aktualisiereBrett();
-		this.aktualisiereStatus();
-		this.aktualisiereHistorie();
+		aktualisiereAlles();
 	}
 	
 	public void ladenSer(String dateipfad) {
@@ -135,8 +133,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 		
-		this.aktualisiereStatus();
-		this.aktualisiereHistorie();
+		aktualisiereAlles();
 	}
 
 	public void ziehe() throws SpielException {
@@ -160,6 +157,14 @@ public class Controller {
 	
 	public void resetAuswaehlbar() {
 		gameFrame.resetFelderAuswaehlbar();
+	}
+	
+	public void aktualisiereAlles() {
+		this.aktualisiereSpielStatus();
+		this.aktualisiereBrett();
+		this.aktualisiereStatus();
+		this.aktualisiereHistorie();
+		
 	}
 }
 
