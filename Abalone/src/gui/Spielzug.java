@@ -19,6 +19,7 @@ public class Spielzug {
 					if(zug[0].substring(0,3).equals(id)) {
 						zug[0] = "";
 					}else {
+						controller.getSpielfeldMitId(zug[0].substring(2,4)).toggleAusgewaehlt();
 						zug[0] = zug[0].substring(2,4);
 					}
 				}else {
@@ -31,6 +32,9 @@ public class Spielzug {
 			if(zug[1].equals(id)) {
 				zug[1] = "";
 			}else {
+				if(!zug[1].equals("")) {
+					controller.getSpielfeldMitId(zug[1]).toggleAusgewaehlt();
+				}
 				zug[1] = id;
 			}
 		}
