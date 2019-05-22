@@ -43,28 +43,28 @@ public class Hauptmenue extends JFrame implements ActionListener{
 		gbc.weightx = 1.0;
 		gbc.ipady = 40;
 		gbc.ipadx = 40;
-		gbc.insets = new Insets(70,0,0,0);
+		gbc.insets = new Insets(40,0,0,0);
 		jl = new JLabel(iI);
 		jp.add(jl, gbc);
 
 		neuesSpiel = new JButton("Neues Spiel");
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+//		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridy = 1;
 		gbc.gridwidth = 2;
 		gbc.ipady = 30;
 		gbc.ipadx = 80;
-		gbc.insets = new Insets(40,0,0,0);
+		gbc.insets = new Insets(20,0,0,0);
 		neuesSpiel.addActionListener(this);
 		jp.add(neuesSpiel, gbc);
 
-		spielLaden = new JButton ("Spiel laden");
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		spielLaden = new JButton ("Spiel laden ");
+//		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridy = 2;
 		spielLaden.addActionListener(this);
 		jp.add(spielLaden,gbc);
 
-		beenden = new JButton ("Beenden");
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		beenden = new JButton ("Beenden     ");
+//		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridy = 3;
 		beenden.addActionListener(this);
 		jp.add(beenden, gbc);
