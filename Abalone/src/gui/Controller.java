@@ -33,8 +33,8 @@ public class Controller {
 		String[] spieler2Array = spielStatus[2].split(":");
 		String[] spieler1 = spieler1Array[1].split(",");
 		String[] spieler2 = spieler2Array[1].split(",");
-		
-		gameFrame.getStatusPanel().aktualisiereStatus(spieler1, spieler2);
+		String amZug = spiel.getSpielerAmZug();
+		gameFrame.getStatusPanel().aktualisiereStatus(amZug, spieler1, spieler2);
 	}
 	
 	private void aktualisiereHistorie() {
@@ -139,8 +139,10 @@ public class Controller {
 		aktualisiereAlles();
 	}
 
-	public void ziehe() throws SpielException {
-		spiel.ziehe(Spielzug.getZug());
+	public void ziehe() throws SpielException{
+
+			spiel.ziehe(Spielzug.getZug());
+
 		spieler1.naechsterSpieler();
 		this.aktualisiereSpielStatus();
 		this.aktualisiereStatus();
@@ -176,13 +178,17 @@ public class Controller {
 		String[] spieler = spiel.getSpielerImSpielInterface().split(",");
 		System.out.println(spieler[0]);
 		if(spieler[0]!= null && spieler[0].startsWith("KI")) {
+			if(spieler[0].length() < 4) {
 			gameFrame.getKiOptionenPanel().aktiviereKI1();
+			}
 		}
 		else {
 			gameFrame.getKiOptionenPanel().deaktiviereKI1();
 		}
 		if(spieler[1] != null && spieler[1].startsWith("KI")) {
+			if(spieler[0].length() < 4) {
 			gameFrame.getKiOptionenPanel().aktiviereKI2();
+			}
 		}
 		else {
 			gameFrame.getKiOptionenPanel().deaktiviereKI2();
@@ -199,6 +205,10 @@ public class Controller {
 	public Hauptfenster getGameFrame() {
 		return this.gameFrame;
 
+	}
+	
+	public bedienerInterface getBedienerInterface() {
+		return this.spiel;
 	}
 }
 

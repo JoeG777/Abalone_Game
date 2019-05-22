@@ -116,7 +116,7 @@ public class Hauptfenster {
 		c.fill = 1; 
 		c.gridwidth=1;
 		
-		kiOptionenPanel = new KIOptionenPanel();
+		kiOptionenPanel = new KIOptionenPanel(controller);
 		kiOptionenPanel.setBorder(BorderFactory.createEtchedBorder());
 		kiOptionenPanel.aktiviereKI1();
 		kiOptionenPanel.aktiviereKI2();

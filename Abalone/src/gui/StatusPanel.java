@@ -28,7 +28,7 @@ public class StatusPanel extends JPanel{
 		JLabel label = new JLabel("Status");
 		this.add(label,c);
 		
-		statusText = new JTextArea("Hier steht bald der Spiel-Status.",4, 27);
+		statusText = new JTextArea("Hier steht bald der Spiel-Status.",5, 27);
 
 		statusText.setEditable(false);
 		statusText.setLineWrap(true);
@@ -49,7 +49,7 @@ public class StatusPanel extends JPanel{
 		this.statusText = statusText;
 	}
 	
-	public void aktualisiereStatus(String[] spieler1, String spieler2[]) {
+	public void aktualisiereStatus(String amZug, String[] spieler1, String spieler2[]) {
 		if(spieler1[0] != null && spieler1[0].startsWith("KI_")) {
 			String durchziehend = ""; 
 			if(spieler1[0].endsWith("(durchziehend)")) {
@@ -68,6 +68,9 @@ public class StatusPanel extends JPanel{
 				+ "(Muss " + (Integer.parseInt(spieler2[4]) - 8) + " Kugeln schlagen für Sieg)\n"
 				+ spieler2[0] + " (Schwarz)\n" + spieler2[4] + " / 14 Kugeln "
 				+ "(Muss " + (Integer.parseInt(spieler1[4]) - 8) + " Kugeln schlagen für Sieg)";
+		if(amZug != null) {
+			string += "\n Am Zug ist " + amZug + ".";
+		}
 		statusText.setText(string);
 	}
 	

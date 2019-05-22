@@ -102,6 +102,9 @@ public class Spielzug {
 		return zug;
 	}
 	
+	public static void setZug(String[] zug) {
+		
+	}
 	private static void swapFields() {
 		String f1 = zug[0].substring(0,2);
 		String f2 = zug[0].substring(2,4);

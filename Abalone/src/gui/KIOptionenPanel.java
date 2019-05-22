@@ -15,9 +15,9 @@ public class KIOptionenPanel extends JPanel {
 	private JLabel infoLabel, ki1Label, ki2Label;
 	private JButton ki1Weiter, ki2Weiter, ki1Durchziehend, ki2Durchziehend;
 	private EventHandlerKIOptionen eventHandlerKIOptionen;
-	public KIOptionenPanel() {
+	public KIOptionenPanel(Controller c) {
 		this.setLayout(new GridBagLayout());
-		eventHandlerKIOptionen = new EventHandlerKIOptionen(this);
+		eventHandlerKIOptionen = new EventHandlerKIOptionen(c,this);
 		initLabel();
 		initKI1();
 		initKI2();
