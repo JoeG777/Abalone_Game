@@ -117,6 +117,9 @@ public class Hauptfenster {
 		c.gridwidth=1;
 		
 		kiOptionenPanel = new KIOptionenPanel();
+		kiOptionenPanel.setBorder(BorderFactory.createEtchedBorder());
+		kiOptionenPanel.aktiviereKI1();
+		kiOptionenPanel.aktiviereKI2();
 
 		addToGridBag(c,kiOptionenPanel,5,2,0,1);
 		
@@ -209,6 +212,7 @@ public class Hauptfenster {
 	
 	public void aktualisiereKIOptionen() {
 		kiOptionenPanel.aktualisiere();
+		
 	}
 	
 	public void aktualisiere() {
