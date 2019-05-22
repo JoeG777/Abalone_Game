@@ -91,5 +91,10 @@ public class LinienPanel extends JPanel{
 			f.resetAuswaehlbar();
 		}
 	}
-
+	
+	public void resetAusgewaehlt() {
+		for(FeldPanel f : panels) {
+			f.resetAusgewaehlt();
+		}
+	}
 }

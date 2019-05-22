@@ -160,5 +160,11 @@ public class BrettPanel extends JPanel{
 			p.resetAuswaehlbar();
 		}
 	}
+	
+	public void resetAusgewaehlt() {
+		for(LinienPanel p : panels) {
+			p.resetAusgewaehlt();
+		}
+	}
 }
 

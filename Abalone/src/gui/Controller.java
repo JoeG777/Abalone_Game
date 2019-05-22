@@ -168,6 +168,7 @@ public class Controller {
 		
 	}
 	
+
 	private void kiMitspielerPruefen() {
 		if(spieler1.getName()!= null && spieler1.getName().startsWith("KI")) {
 			gameFrame.getKiOptionenPanel().aktivierePanel();
@@ -179,6 +180,10 @@ public class Controller {
 		}
 		
 		gameFrame.getKiOptionenPanel().aktualisiere();
+	}
+	public Hauptfenster getGameFrame() {
+		return this.gameFrame;
+
 	}
 }
 
