@@ -33,7 +33,7 @@ public class Hauptfenster {
 	private BrettPanel spielfeldPanel;
 	private HistoriePanel historiePanel;
 	private StatusPanel statusPanel; 
-	private JButton kiOptionen;
+	private KIOptionenPanel kiOptionenPanel;
 	private static Controller controller;
 	private EventHandlerHauptfenster eventHandlerMenu; 
 	private JMenuItem menuNeuesSpiel, menuSpeichern, menuLaden, menuLog, menuBeenden;
@@ -112,13 +112,13 @@ public class Hauptfenster {
 	
 	private void initKIOptionen() {
 		GridBagConstraints c = new GridBagConstraints();
-		kiOptionen = new JButton("KI-Optionen");
-		kiOptionen.setBackground(UIManager.getColor("Panel.background"));
-		kiOptionen.setOpaque(false);
-		kiOptionen.setContentAreaFilled(false);
 		c.anchor = GridBagConstraints.EAST;
 		c.fill = 1; 
-		addToGridBag(c,kiOptionen,5,2,0,1);
+		c.gridwidth=1;
+		
+		kiOptionenPanel = new KIOptionenPanel();
+		kiOptionenPanel.setBorder(BorderFactory.createEtchedBorder());
+		addToGridBag(c,kiOptionenPanel,5,2,0,1);
 		
 		
 	}
@@ -142,7 +142,7 @@ public class Hauptfenster {
 
 		
 
-		addToGridBag(c,historiePanel, 5,3,0,0);
+		addToGridBag(c,historiePanel, 5,3,0,1);
 
 	}
 	
