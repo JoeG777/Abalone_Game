@@ -89,6 +89,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public void addSpieler(String name, String farbe, int anzahlSpieler) throws SpielException {
+		if (spielerImSpiel[0] != null && farbe.equals("weiss")) {
+			spielerImSpiel[0] = null;
+		}
+		if (spielerImSpiel[1] != null && farbe.equals("schwarz")) {
+			spielerImSpiel[1] = null;
+		}
 		if (name != null && (name.length() < 2 || name.length() > 20)) {
 			UngueltigeEingabeException e = new UngueltigeEingabeException(14, "Ungueltige laenge des Namen: " + name.length());
 			throw e;
@@ -101,11 +107,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				 
 				throw e;
 			}
-			/*if (name.substring(0, 2).equals("KI")) {
-				UngueltigeEingabeException e = new UngueltigeEingabeException(19, "Spielername darf nicht mit \"KI\" beginnen!");
-				 ;
-				throw e;
-			}*/
+//			if (name.substring(0, 2).equals("KI")) {
+//				UngueltigeEingabeException e = new UngueltigeEingabeException(19, "Spielername darf nicht mit \"KI\" beginnen!");
+//				 ;
+//				throw e;
+//			}
 		}
 
 		if (anzahlSpieler == 2) {
@@ -129,6 +135,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				spielerImSpiel[1] = new Spieler(name, spielerFarbe);
 			} else {
 				UngueltigeEingabeException e = new UngueltigeEingabeException(10, "Unbekannte farbe :" + farbe);
+				 
+				throw e;
+			}
+			if (name.substring(0, 2).equals("KI")) {
+				UngueltigeEingabeException e = new UngueltigeEingabeException(19, "Spielername darf nicht mit \"KI\" beginnen!");
 				 
 				throw e;
 			}
@@ -157,7 +168,13 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 							((KI) s).setDurchziehend(true);
 						}
 					}
-				}
+//				} else if (s != null && !(s instanceof KI)){
+//					if (name.substring(0, 2).equals("KI")) {
+//						UngueltigeEingabeException e = new UngueltigeEingabeException(19, "Spielername darf nicht mit \"KI\" beginnen!");
+//
+//						throw e;
+//					}
+			}
 			}
 			
 		} else if (anzahlSpieler == 0) {
@@ -177,6 +194,21 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				}
 			}
 		}
+//		for (Spieler spieler : spielerImSpiel) {
+//			if (spieler != null && spieler.getName().equals(name)) {
+//				UngueltigeEingabeException e = new UngueltigeEingabeException(17, "Spielernamen muessen unterschiedlich sein!");
+//				 
+//				throw e;
+//			}
+//		}
+//		if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
+//			if (spielerImSpiel[0].getName().equals(spielerImSpiel[1].getName())) {
+//				UngueltigeEingabeException e = new UngueltigeEingabeException(17, "Spielernamen muessen unterschiedlich sein!");
+//				
+//				throw e;
+//			}
+//		}
+
 		this.spielerAmZug = spielerImSpiel[0];
 	}
 
