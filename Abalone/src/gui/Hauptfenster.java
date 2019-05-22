@@ -79,7 +79,7 @@ public class Hauptfenster {
 		addToGridBag(c,spielfeldPane2, 1,1,0.5,1);*/
 		
 
-		
+
 		mainframe.add(mainpanel, BorderLayout.PAGE_START);
 		// Default 
 		mainframe.setResizable(false);
@@ -117,7 +117,7 @@ public class Hauptfenster {
 		c.gridwidth=1;
 		
 		kiOptionenPanel = new KIOptionenPanel();
-		kiOptionenPanel.setBorder(BorderFactory.createEtchedBorder());
+
 		addToGridBag(c,kiOptionenPanel,5,2,0,1);
 		
 		
@@ -205,6 +205,10 @@ public class Hauptfenster {
 	
 	public void neuesSpiel() {
 		new SindSieSicherPanel("Wollen Sie wirklich Neu starten?", controller,mainframe);
+	}
+	
+	public void aktualisiereKIOptionen() {
+		kiOptionenPanel.aktualisiere();
 	}
 	
 	public void aktualisiere() {
@@ -351,5 +355,17 @@ public class Hauptfenster {
 	public void resetFelderAuswaehlbar() {
 		spielfeldPanel.resetAuswaehlbar();
 	}
+
+
+	public KIOptionenPanel getKiOptionenPanel() {
+		return kiOptionenPanel;
+	}
+
+
+	public void setKiOptionenPanel(KIOptionenPanel kiOptionenPanel) {
+		this.kiOptionenPanel = kiOptionenPanel;
+	}
+	
+	
 	
 }

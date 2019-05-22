@@ -29,11 +29,12 @@ public class Controller {
 	}
 	
 	private void aktualisiereStatus() {
-		String statusArray[] = spielStatus[67].split(":");
-		String status[] = statusArray[1].split(",");
-		String[] spieler = spiel.getSpielerImSpielInterface().split(",");
+		String[] spieler1Array = spielStatus[1].split(":");
+		String[] spieler2Array = spielStatus[2].split(":");
+		String[] spieler1 = spieler1Array[1].split(",");
+		String[] spieler2 = spieler2Array[1].split(",");
 		
-		gameFrame.getStatusPanel().aktualisiereStatus(spieler[1], spieler[0], status);
+		gameFrame.getStatusPanel().aktualisiereStatus(spieler1, spieler2);
 	}
 	
 	private void aktualisiereHistorie() {
@@ -86,6 +87,7 @@ public class Controller {
 	
 	public void hauptFensterStarten() throws SpielException {
 		gameFrame = new Hauptfenster(this);
+		kiMitspielerPruefen();
 		try {
 			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
@@ -167,8 +169,22 @@ public class Controller {
 		
 	}
 	
+
+	private void kiMitspielerPruefen() {
+		if(spieler1.getName()!= null && spieler1.getName().startsWith("KI")) {
+			gameFrame.getKiOptionenPanel().aktivierePanel();
+			gameFrame.getKiOptionenPanel().aktiviereKI1();
+		}
+		if(spieler2.getName() != null && spieler2.getName().startsWith("KI")) {
+			gameFrame.getKiOptionenPanel().aktivierePanel();
+			gameFrame.getKiOptionenPanel().aktiviereKI2();
+		}
+		
+		gameFrame.getKiOptionenPanel().aktualisiere();
+	}
 	public Hauptfenster getGameFrame() {
 		return this.gameFrame;
+
 	}
 }
 
