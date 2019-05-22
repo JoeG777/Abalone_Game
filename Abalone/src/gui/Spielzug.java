@@ -34,7 +34,7 @@ public class Spielzug {
 				zug[1] = id;
 			}
 		}
-		
+		controller.getSpielfeldMitId(id).toggleAusgewaehlt();
 		if(!zug[0].equals("") && !zug[1].equals("")){
 			
 			try {
@@ -49,11 +49,17 @@ public class Spielzug {
 					}
 				}
 			}
+			controller.getSpielfeldMitId(zug[1]).toggleAusgewaehlt();
+			if(zug[0].length() >= 2) {
+				controller.getSpielfeldMitId(zug[0].substring(0,2)).toggleAusgewaehlt();
+			}
+			if(zug[0].length() >= 4) {
+				controller.getSpielfeldMitId(zug[0].substring(2,4)).toggleAusgewaehlt();
+			}
 			zug[0] = "";
 			zug[1] = "";
 		}
-		System.out.println(zug[0] + "-" + zug[1]);
-		controller.getSpielfeldMitId(id).toggleAusgewaehlt();
+		
 	}
 	
 	public static void filterMoeglicheZuege() {

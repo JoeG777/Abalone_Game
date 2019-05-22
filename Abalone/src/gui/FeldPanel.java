@@ -11,13 +11,14 @@ import javax.swing.JPanel;
 
 public class FeldPanel extends JPanel{
 	private static final String figurSchwarz="./assets/figurSchwarzG.png";
-	private static final String figurSchwarzGewaehlt="./assets/figurSchwarzG.png";
-	private static final String figurSchwarzWaehlbar="./assets/figurSchwarzG.png";
+	private static final String figurSchwarzGewaehlt="./assets/figurSchwarzGewaehlt.png";
+	private static final String figurSchwarzWaehlbar="./assets/figurSchwarzWaehlbar.png";
 	private static final String figurWeiss="./assets/figurWeissG.png";
-	private static final String figurWeissGewaehlt="./assets/figurWeissG.png";
-	private static final String figurWeissWaehlbar="./assets/figurWeissG.png";
+	private static final String figurWeissGewaehlt="./assets/figurWeissGewaehlt.png";
+	private static final String figurWeissWaehlbar="./assets/figurWeissWaehlbar.png";
 	private static final String figurLeer="./assets/empty.png";
-	private static final String figurLeerWaehlbar="./assets/empty.png";
+	private static final String figurLeerWaehlbar="./assets/emptyWaehlbar.png";
+	private static final String figurLeerGewaehlt="./assets/emptyGewaehlt.png";
 	
 	
 	
@@ -61,7 +62,7 @@ public class FeldPanel extends JPanel{
 			  
 			  if(farbe.equals("FIGUR:null")) {
 				  if(istAusgewaehlt) {
-					  img = ImageIO.read(getClass().getResource(figurLeer));
+					  img = ImageIO.read(getClass().getResource(figurLeerGewaehlt));
 				  }else if(auswaehlbar){
 					  img = ImageIO.read(getClass().getResource(figurLeerWaehlbar));
 				  }
@@ -111,9 +112,6 @@ public class FeldPanel extends JPanel{
 	private JButton createButton(Image img) {
 		button = new JButton();
 		Color bg = Color.WHITE;
-		if(this.auswaehlbar) {
-			bg = Color.BLUE;
-		}
 		button.setBackground(bg);
 		button.setBorder(null);
 		button.setSize(24, 24);
