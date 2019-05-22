@@ -38,7 +38,10 @@ public class KI extends Spieler {
 	}
 	public KI(String name, FarbEnum farbe, Spielbrett brett) {
 		super(name, farbe);
-		setDurchziehend(false);
+		if(name.length() > 4) {
+			durchziehend = true;
+		}
+		durchziehend = false;
 		this.werteMap = new HashMap<String, Integer>();
 		initWerteMap(brett);
 		anzahlKIs++;
@@ -158,19 +161,10 @@ public class KI extends Spieler {
 	public void setDurchziehend(boolean durchziehend) {
 		this.durchziehend = durchziehend;
 		if(durchziehend == true) {
-			if (this.getName().equals("KI_durchziehend") || this.getName().equals("KI_1durchziehend") 
-					|| this.getName().equals("KI_2durchziehend")) {
-				if (this.getName().substring(0, 4).equals("KI_1") || this.getName().substring(0, 4).equals("KI_2")) {
-					super.setName(this.getName().substring(0,4) + "(durchziehend)");
-				} else {
-					super.setName(this.getName().substring(0, 2) + "(durchziehend)");
-				}
-			} else {
-				super.setName(this.getName() + "(durchziehend)");
-			}
+			super.setName(this.getName() + "(durchziehend)");
 		}
 		else {
-			super.setName(this.getName().substring(0,2));
+			super.setName(this.getName().substring(0,4));
 		}
 	}
 

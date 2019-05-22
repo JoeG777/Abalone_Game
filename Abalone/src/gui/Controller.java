@@ -74,6 +74,7 @@ public class Controller {
 	}
 	
 	public void spielerAnlegen(String name1, String name2, int anzahlSpieler) throws SpielException {
+		
 		spiel.addSpieler(name1, "weiss", anzahlSpieler);
 		spiel.addSpieler(name2, "schwarz", anzahlSpieler);
 		spieler1 = new Spieler(name1, FarbEnum.WEISS);
@@ -87,7 +88,7 @@ public class Controller {
 	
 	public void hauptFensterStarten() throws SpielException {
 		gameFrame = new Hauptfenster(this);
-		kiMitspielerPruefen();
+		aktualisiereAlles();
 		try {
 			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
@@ -173,9 +174,9 @@ public class Controller {
 
 	private void kiMitspielerPruefen() {
 		String[] spieler = spiel.getSpielerImSpielInterface().split(",");
+		System.out.println(spieler[0]);
 		if(spieler[0]!= null && spieler[0].startsWith("KI")) {
 			gameFrame.getKiOptionenPanel().aktiviereKI1();
-			System.out.println("hey");
 		}
 		else {
 			gameFrame.getKiOptionenPanel().deaktiviereKI1();
@@ -185,6 +186,14 @@ public class Controller {
 		}
 		else {
 			gameFrame.getKiOptionenPanel().deaktiviereKI2();
+		}
+		
+		if(spieler[0] != null && spieler[0].startsWith("KI") && spieler[0].length() > 4) {
+			gameFrame.getKiOptionenPanel().aktiviereDurchziehendKI1();
+		}
+		
+		if(spieler[1] != null && spieler[1].startsWith("KI") &&spieler[1].length() > 4) {
+			gameFrame.getKiOptionenPanel().aktiviereDurchziehendKI2();
 		}
 	}
 	public Hauptfenster getGameFrame() {

@@ -97,6 +97,25 @@ public class KIOptionenPanel extends JPanel {
 		ki2Durchziehend.setText("deaktiviert");
 		ki2Durchziehend.setEnabled(false);
 	}
+	
+	public void aktiviereDurchziehendKI1() {
+		ki1Label.setText("KI-1          ");
+		ki2Label.setText("KI-2          ");
+		ki1Weiter.setText("durchziehend");
+		ki1Weiter.setEnabled(false);
+		ki1Durchziehend.setText("durchziehend");
+		ki1Durchziehend.setEnabled(false);
+	}
+	
+	public void aktiviereDurchziehendKI2() {
+		ki2Label.setText("KI-2         ");
+		ki1Label.setText("KI-1         ");
+		ki2Weiter.setText("durchziehend");
+		ki2Weiter.setEnabled(false);
+		ki2Durchziehend.setText("durchziehend");
+		ki2Durchziehend.setEnabled(false);
+	}
+	
 	public void aktualisiere() {
 		this.repaint();
 		this.revalidate();

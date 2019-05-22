@@ -148,9 +148,15 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			if (name.substring(0, 2).equals("KI") && spielerImSpiel[0] == null) {
 				FarbEnum KIFarbe = FarbEnum.WEISS;
 				spielerImSpiel[0] = new KI(name, KIFarbe, getSpielbrett());
+				if(spielerImSpiel[0].getName().length() > 4) {
+					((KI)spielerImSpiel[0]).setDurchziehend(true);
+				}
 			} else if (name.substring(0,2).equals("KI")){
 				FarbEnum KIFarbe = FarbEnum.SCHWARZ;
 				spielerImSpiel[1] = new KI(name, KIFarbe, getSpielbrett());
+				if(spielerImSpiel[1].getName().length() > 4) {
+					((KI)spielerImSpiel[1]).setDurchziehend(true);
+				}
 			} else {
 				if(spielerImSpiel[0] == null) {
 					FarbEnum spielerFarbe = FarbEnum.WEISS;
@@ -161,30 +167,36 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				}
 			}
 			
-			for(Spieler s : spielerImSpiel) {
-				if (s instanceof KI) {
-					if (s.getName().length() > 8) {
-						if(s.getName().equals("KI_durchziehend")) {
-							((KI) s).setDurchziehend(true);
-						}
-					}
+//			for(Spieler s : spielerImSpiel) {
+//				if (s instanceof KI) {
+//					if (s.getName().length() > 8) {
+//						if(s.getName().equals("KI_durchziehend")) {
+//							((KI) s).setDurchziehend(true);
+//						}
+//					}
 //				} else if (s != null && !(s instanceof KI)){
 //					if (name.substring(0, 2).equals("KI")) {
 //						UngueltigeEingabeException e = new UngueltigeEingabeException(19, "Spielername darf nicht mit \"KI\" beginnen!");
 //
 //						throw e;
 //					}
-			}
-			}
+//			}
+//			}
 			
 		} else if (anzahlSpieler == 0) {
 			
 			if(spielerImSpiel[0] == null) {
 				FarbEnum KIFarbe = FarbEnum.WEISS;
 				spielerImSpiel[0] = new KI(name, KIFarbe, getSpielbrett());
+				if(spielerImSpiel[0].getName().length() > 4) {
+					((KI)spielerImSpiel[0]).setDurchziehend(true);
+				}
 			} else {
 				FarbEnum KIFarbe = FarbEnum.SCHWARZ;
 				spielerImSpiel[1] = new KI(name, KIFarbe, getSpielbrett());
+				if(spielerImSpiel[1].getName().length() > 4) {
+					((KI)spielerImSpiel[1]).setDurchziehend(true);
+				}
 			}
 			for(Spieler s : spielerImSpiel) {
 				if (s instanceof KI) {
