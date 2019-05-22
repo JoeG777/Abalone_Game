@@ -62,6 +62,7 @@ public class Spielzug {
 			}
 			zug[0] = "";
 			zug[1] = "";
+			controller.getGameFrame().getSpielfeldPanel().resetAusgewaehlt();
 		}
 		
 	}

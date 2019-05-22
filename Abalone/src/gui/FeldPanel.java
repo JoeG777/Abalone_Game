@@ -138,4 +138,8 @@ public class FeldPanel extends JPanel{
 		}
 	}
 	
+	public void resetAusgewaehlt() {
+		this.auswaehlbar = false;
+	}
+	
 }

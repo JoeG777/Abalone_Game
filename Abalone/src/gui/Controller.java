@@ -166,5 +166,9 @@ public class Controller {
 		this.aktualisiereHistorie();
 		
 	}
+	
+	public Hauptfenster getGameFrame() {
+		return this.gameFrame;
+	}
 }
 
