@@ -24,9 +24,10 @@ public class HistoriePanel extends JPanel{
 		this.add(label,c);
 		
 		historieText = new JTextArea(25, 25);
-		JScrollPane scrollPane = new JScrollPane(historieText); 
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(historieText);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		
+
 		historieText.setEditable(false);
 		historieText.setLineWrap(true);
 		
