@@ -87,6 +87,7 @@ public class Controller {
 	
 	public void hauptFensterStarten() throws SpielException {
 		gameFrame = new Hauptfenster(this);
+		kiMitspielerPruefen();
 		try {
 			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
@@ -168,8 +169,22 @@ public class Controller {
 		
 	}
 	
+
+	private void kiMitspielerPruefen() {
+		if(spieler1.getName()!= null && spieler1.getName().startsWith("KI")) {
+			gameFrame.getKiOptionenPanel().aktivierePanel();
+			gameFrame.getKiOptionenPanel().aktiviereKI1();
+		}
+		if(spieler2.getName() != null && spieler2.getName().startsWith("KI")) {
+			gameFrame.getKiOptionenPanel().aktivierePanel();
+			gameFrame.getKiOptionenPanel().aktiviereKI2();
+		}
+		
+		gameFrame.getKiOptionenPanel().aktualisiere();
+	}
 	public Hauptfenster getGameFrame() {
 		return this.gameFrame;
+
 	}
 }
 
