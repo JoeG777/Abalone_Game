@@ -11,8 +11,15 @@ import javax.swing.JPanel;
 
 public class FeldPanel extends JPanel{
 	private static final String figurSchwarz="./assets/figurSchwarzG.png";
+	private static final String figurSchwarzGewaehlt="./assets/figurSchwarzG.png";
+	private static final String figurSchwarzWaehlbar="./assets/figurSchwarzG.png";
 	private static final String figurWeiss="./assets/figurWeissG.png";
+	private static final String figurWeissGewaehlt="./assets/figurWeissG.png";
+	private static final String figurWeissWaehlbar="./assets/figurWeissG.png";
 	private static final String figurLeer="./assets/empty.png";
+	private static final String figurLeerWaehlbar="./assets/empty.png";
+	
+	
 	
 	private static Controller controller;
 	private String id;
@@ -20,6 +27,7 @@ public class FeldPanel extends JPanel{
 	private String imgStr;
 	private String farbe;
 	private Color backgroundColor;
+	private boolean istAusgewaehlt = false;
 	private FarbEnum figurFarbe;
 	private boolean auswaehlbar;
 	public FeldPanel(String id, Controller c, String[] daten) {
@@ -52,18 +60,38 @@ public class FeldPanel extends JPanel{
 		  try {
 			  
 			  if(farbe.equals("FIGUR:null")) {
-				   img = ImageIO.read(getClass().getResource(figurLeer));
+				  if(istAusgewaehlt) {
+					  img = ImageIO.read(getClass().getResource(figurLeer));
+				  }else if(auswaehlbar){
+					  img = ImageIO.read(getClass().getResource(figurLeerWaehlbar));
+				  }
+				  else {
+					  img = ImageIO.read(getClass().getResource(figurLeer));
+				  }
+				   
 				   imgStr = figurLeer;
 				   figurFarbe = null;
 				 
 
 			  } else if(farbe.equals("FIGUR:weiss")){
-				   img = ImageIO.read(getClass().getResource(figurWeiss));
+				  if(istAusgewaehlt) {
+					  img = ImageIO.read(getClass().getResource(figurWeissGewaehlt));
+				  }else if(auswaehlbar){
+					  img = ImageIO.read(getClass().getResource(figurWeissWaehlbar));
+				  }else {
+					  img = ImageIO.read(getClass().getResource(figurWeiss));
+				  }
 				   imgStr = figurWeiss;
 				   figurFarbe = FarbEnum.WEISS;
 
 			  }else {
-				  img = ImageIO.read(getClass().getResource(figurSchwarz));
+				  if(istAusgewaehlt) {
+					  img = ImageIO.read(getClass().getResource(figurSchwarzGewaehlt));
+				  }else if(auswaehlbar){
+					  img = ImageIO.read(getClass().getResource(figurSchwarzWaehlbar));
+				  }else {
+					  img = ImageIO.read(getClass().getResource(figurSchwarz));
+				  }
 				  imgStr = figurSchwarz;
 				  figurFarbe = FarbEnum.SCHWARZ;
 			  }
@@ -103,6 +131,13 @@ public class FeldPanel extends JPanel{
 	
 	public void resetAuswaehlbar() {
 		this.auswaehlbar = false;
+	}
+	
+	public void toggleAusgewaehlt() {
+		istAusgewaehlt = !istAusgewaehlt;
+		if(istAusgewaehlt) {
+			auswaehlbar = false;
+		}
 	}
 	
 }

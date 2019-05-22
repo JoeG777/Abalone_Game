@@ -27,8 +27,16 @@ public class Spielzug {
 			}else {
 				zug[0] += id;
 			}
-		}else if(!zug[0].equals("")){
-			zug[1] = id;
+		}else {
+			if(zug[1].equals(id)) {
+				zug[1] = "";
+			}else {
+				zug[1] = id;
+			}
+		}
+		
+		if(!zug[0].equals("") && !zug[1].equals("")){
+			
 			try {
 				controller.ziehe();
 				
@@ -44,6 +52,8 @@ public class Spielzug {
 			zug[0] = "";
 			zug[1] = "";
 		}
+		System.out.println(zug[0] + "-" + zug[1]);
+		controller.getSpielfeldMitId(id).toggleAusgewaehlt();
 	}
 	
 	public static void filterMoeglicheZuege() {
@@ -86,7 +96,5 @@ public class Spielzug {
 		String f2 = zug[0].substring(2,4);
 		zug[0] = "";
 		zug[0] = f2+f1;
-		
-		
 	}
 }
