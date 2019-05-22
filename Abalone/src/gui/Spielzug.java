@@ -13,20 +13,30 @@ public class Spielzug {
 	}
 	
 	public static void toggleString(FarbEnum farbe,String id) {
+		String spielerName = controller.getSpielerAmZug();
+		if(!spielerName.substring(0,2).equals("KI")) {
+			 
 		if(Spieler.getSpielerAmZugFarbe() == controller.getSpielfeldMitId(id).getFigurFarbe()) {
 			if(zug[0].contains(id)) {
 				if(zug[0].length() == 4) {
-					if(zug[0].substring(0,3).equals(id)) {
-						zug[0] = "";
-					}else {
-						controller.getSpielfeldMitId(zug[0].substring(2,4)).toggleAusgewaehlt();
+					if(zug[0].substring(0,2).equals(id)) {
 						zug[0] = zug[0].substring(2,4);
+					}else {
+						
+						zug[0] = zug[0].substring(0,2);
+						
 					}
 				}else {
 					zug[0] = "";
 				}
 			}else {
-				zug[0] += id;
+				if(zug[0].length() == 4) {
+					controller.getSpielfeldMitId(zug[0].substring(2,4)).toggleAusgewaehlt();
+					zug[0] = zug[0].substring(0,2);
+					zug[0] += id;
+				}else {
+					zug[0] += id;
+				}
 			}
 		}else {
 			if(zug[1].equals(id)) {
@@ -65,6 +75,7 @@ public class Spielzug {
 			controller.getGameFrame().getSpielfeldPanel().resetAusgewaehlt();
 		}
 		
+	}
 	}
 	
 	public static void filterMoeglicheZuege() {

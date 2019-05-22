@@ -210,5 +210,9 @@ public class Controller {
 	public bedienerInterface getBedienerInterface() {
 		return this.spiel;
 	}
+	
+	public String getSpielerAmZug() {
+		return spiel.getSpielerAmZug();
+	}
 }
 

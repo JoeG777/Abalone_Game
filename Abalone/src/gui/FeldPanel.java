@@ -46,6 +46,7 @@ public class FeldPanel extends JPanel{
 		return this.id;
 	}
 	public void aktualisiere(String[] daten) {
+		
 		this.farbe = daten[2];
 		/*if(subscribedFeld != null)
 			auswaehlbar = subscribedFeld.istAuswaehlbar(); */
@@ -105,6 +106,7 @@ public class FeldPanel extends JPanel{
 		  FeldButtonListener fbl = new FeldButtonListener();
 		  button.addActionListener(fbl);
 		  this.add(button);
+		  
 		  this.repaint();
 		  this.revalidate();
 	}
@@ -139,7 +141,7 @@ public class FeldPanel extends JPanel{
 	}
 	
 	public void resetAusgewaehlt() {
-		this.auswaehlbar = false;
+		this.istAusgewaehlt = false;
 	}
 	
 }

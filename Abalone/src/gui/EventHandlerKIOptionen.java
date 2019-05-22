@@ -47,7 +47,7 @@ public class EventHandlerKIOptionen implements ActionListener{
 		}
 		if(e.getSource() == kiPanel.getKi2Weiter()) {
 			if(c.getBedienerInterface().getSpielerAmZug().equals("KI_2")) {
-				String[] kiZug = {""};
+				String[] kiZug = {"",""};
 				Spielzug.setZug(kiZug);
 				try {
 					c.ziehe();
