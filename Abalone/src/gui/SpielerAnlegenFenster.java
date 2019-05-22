@@ -50,7 +50,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 	public SpielerAnlegenFenster(Controller controller) {
 		SpielerAnlegenFenster.controller = controller;
 		try {
-			bild = ImageIO.read(getClass().getResource("./assets/los.png"));
+			bild = ImageIO.read(getClass().getResource("./assets/Los Gehts.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -67,7 +67,9 @@ public class SpielerAnlegenFenster implements ActionListener{
 
 		GridBagConstraints c = new GridBagConstraints();
 
+//		Font font = new Font("Coalition", Font.PLAIN, 12);
 		weiss = new JLabel("Weiss: ");
+//		weiss.setFont(font);
 		c.gridx = 1;
 		c.gridy = 0;
 		jp.add(weiss,c);
@@ -123,7 +125,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 
 		los = new JButton();
 		los.setIcon(new ImageIcon(bild));
-		los.setPreferredSize(new Dimension(217,60));
+		los.setPreferredSize(new Dimension(227,72));
 		c.gridwidth = 10;
 		c.gridx = 1;
 		c.gridy = 5;	
