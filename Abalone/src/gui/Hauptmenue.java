@@ -39,7 +39,7 @@ public class Hauptmenue extends JFrame implements ActionListener{
 //		jl = new JLabel("Abalone", SwingConstants.CENTER);
 //		jl.setFont(new Font("Times New Roman", Font.BOLD, 36));
 //		gbc.fill = GridBagConstraints.HORIZONTAL;
-		ImageIcon iI =  new ImageIcon(getClass().getResource("./assets/Kugel2.gif"));
+		ImageIcon iI =  new ImageIcon(getClass().getResource("./assets/burn-in.gif"));
 		gbc.weightx = 1.0;
 		gbc.ipady = 40;
 		gbc.ipadx = 40;
