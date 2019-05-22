@@ -183,12 +183,12 @@ public class SpielerAnlegenFenster implements ActionListener{
 			if (ki1_durchziehen.isSelected()) {
 				name1 = "KI_1durchziehend";
 			} else {
-				name1 = "KI";
+				name1 = "KI_1";
 			}
 			if (ki2_durchziehen.isSelected()) {
 				name2 = "KI_2durchziehend";
 			} else {
-				name2 = "KI";
+				name2 = "KI_2";
 			}
 
 		} else if (ki1.isSelected() || ki2.isSelected()) {
