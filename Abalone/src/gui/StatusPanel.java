@@ -50,11 +50,19 @@ public class StatusPanel extends JPanel{
 	}
 	
 	public void aktualisiereStatus(String[] spieler1, String spieler2[]) {
-		if(spieler1[0] != null && spieler1[0].startsWith("KI-")) {
-			spieler1[0] = spieler1[0].substring(0, 4);
+		if(spieler1[0] != null && spieler1[0].startsWith("KI_")) {
+			String durchziehend = ""; 
+			if(spieler1[0].endsWith("(durchziehend)")) {
+				durchziehend += "(durchziehend)";
+			}
+			spieler1[0] = spieler1[0].substring(0, 4) + durchziehend;
 		}
-		if(spieler2[0] != null && spieler2[0].startsWith("KI-")) {
-			spieler2[0] = spieler2[0].substring(0, 4);
+		if(spieler2[0] != null && spieler2[0].startsWith("KI_")) {
+			String durchziehend = "";
+			if(spieler2[0].endsWith("(durchziehend)")) {
+				durchziehend += "(durchziehend)";
+			}
+			spieler2[0] = spieler2[0].substring(0, 4) +durchziehend;
 		}
 		String string = spieler1[0] + " (Weiss)\n" + spieler1[4] + " / 14 Kugeln "
 				+ "(Muss " + (Integer.parseInt(spieler2[4]) - 8) + " Kugeln schlagen für Sieg)\n"
