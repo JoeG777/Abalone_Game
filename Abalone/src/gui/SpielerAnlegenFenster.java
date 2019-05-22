@@ -195,7 +195,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 			anzahlSpieler = 1;
 			if (ki1.isSelected()) {
 				name2 = tf2.getText();
-				if(name2.substring(0,2).equals("KI")) {
+				if(name2.length() > 1 && name2.substring(0,2).equals("KI")) {
 					new FehlerPanel("Spielername darf nicht mit \"KI\" beginnen!");
 					return false;
 				}
@@ -206,7 +206,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 				}
 			} else {
 				name1 = tf1.getText();
-				if(name1.substring(0,2).equals("KI")) {
+				if(name1.length() > 1 && name1.substring(0,2).equals("KI")) {
 					new FehlerPanel("Spielername darf nicht mit \"KI\" beginnen!");
 					return false;
 				}
@@ -218,12 +218,12 @@ public class SpielerAnlegenFenster implements ActionListener{
 			}
 		} else {
 			name1 = tf1.getText();
-			if(name1.substring(0,2).equals("KI")) {
+			if(name1.length() > 1 && name1.substring(0,2).equals("KI")) {
 				new FehlerPanel("Spielername darf nicht mit \"KI\" beginnen!");
 				return false;
 			}
 			name2 = tf2.getText();
-			if(name2.substring(0,2).equals("KI")) {
+			if(name2.length() > 1 && name2.substring(0,2).equals("KI")) {
 				new FehlerPanel("Spielername darf nicht mit \"KI\" beginnen!");
 				return false;
 			}
