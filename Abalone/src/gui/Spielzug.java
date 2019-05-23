@@ -13,8 +13,7 @@ public class Spielzug {
 	}
 	
 	public static void toggleString(FarbEnum farbe,String id) {
-		String spielerName = controller.getSpielerAmZug();
-		if(!spielerName.substring(0,2).equals("KI")) {
+		
 			 
 		if(Spieler.getSpielerAmZugFarbe() == controller.getSpielfeldMitId(id).getFigurFarbe()) {
 			if(zug[0].contains(id)) {
@@ -74,8 +73,6 @@ public class Spielzug {
 			zug[1] = "";
 			controller.getGameFrame().getSpielfeldPanel().resetAusgewaehlt();
 		}
-		
-	}
 	}
 	
 	public static void filterMoeglicheZuege() {

@@ -106,7 +106,10 @@ public class FeldPanel extends JPanel{
 		  FeldButtonListener fbl = new FeldButtonListener();
 		  button.addActionListener(fbl);
 		  this.add(button);
-		  
+		  button.setEnabled(true);
+		  String spielerName = controller.getSpielerAmZug();
+		  if(spielerName.substring(0,2).equals("KI")) 
+			button.setEnabled(false);
 		  this.repaint();
 		  this.revalidate();
 	}
@@ -118,6 +121,7 @@ public class FeldPanel extends JPanel{
 		button.setBorder(null);
 		button.setSize(24, 24);
 		button.setIcon(new ImageIcon(img));
+		button.setDisabledIcon(new ImageIcon(img));
 		return button;
 	}
 	
