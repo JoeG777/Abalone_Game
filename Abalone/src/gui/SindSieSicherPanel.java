@@ -3,19 +3,25 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import abalone.SpielException;
 
 public class SindSieSicherPanel implements ActionListener{
 	private JDialog fenster;
@@ -28,12 +34,30 @@ public class SindSieSicherPanel implements ActionListener{
 	private String abfrage;
 	private Controller controller;
 	private JFrame mainframe;
+	private Font coalition;
+	private Image ja, nein;
 
 	
 	public SindSieSicherPanel(String abfrage, Controller c, JFrame mf) {
 		this.mainframe = mf;
 		this.controller = c;
 		this.abfrage = abfrage;
+		
+		try {
+			coalition = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("AbaloneSchrift.ttf"));
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(coalition);
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			ja = ImageIO.read(getClass().getResource("./assets/JABUTTON.png"));
+			nein = ImageIO.read(getClass().getResource("./assets/NeinButton.png"));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		coalition = new Font("Coalition", Font.PLAIN, 20);
 		
 		fensterAnlegen();
 		
@@ -61,11 +85,14 @@ public class SindSieSicherPanel implements ActionListener{
 	
 	public void oberesPanel() {
 		jp = new JPanel();
-//		jp.setBackground(Color.WHITE);
+		jp.setBackground(Color.DARK_GRAY);
 		jp.setLayout(new GridBagLayout());	
 		GridBagConstraints c = new GridBagConstraints();
 		
 		label = new JLabel(abfrage);
+		label.setBackground(Color.DARK_GRAY);
+		label.setForeground(Color.WHITE);
+		label.setFont(coalition);
 		c.insets = new Insets(30,0,20,0);
 		jp.add(label, c);
 	}
@@ -73,17 +100,26 @@ public class SindSieSicherPanel implements ActionListener{
 	public void unteresPanel() {
 		jp2 = new JPanel();
 		jp2.setLayout(new GridBagLayout());	
-		jp2.setBackground(Color.WHITE);
+		jp2.setBackground(Color.DARK_GRAY);
 		GridBagConstraints c = new GridBagConstraints();
 		
-		jaButton = new JButton("JA  ");
-		c.ipady = 20;
-		c.ipadx = 40;
+		jaButton = new JButton();
+		jaButton.setPreferredSize(new Dimension(100,50));
+
+		jaButton.setIcon(new ImageIcon(ja));
+//		jaButton.setBackground(Color.DARK_GRAY);
+//		jaButton.setForeground(Color.WHITE);
+//		c.ipady = 20;
+//		c.ipadx = 40;
 		c.insets = new Insets(0,20,0,20);
 		jp2.add(jaButton,c);
 		jaButton.addActionListener(this);
 		
-		neinButton = new JButton("NEIN");
+		neinButton = new JButton();
+		neinButton.setPreferredSize(new Dimension(100,50));
+		neinButton.setIcon(new ImageIcon(nein));
+//		neinButton.setBackground(Color.DARK_GRAY);
+//		neinButton.setForeground(Color.WHITE);
 		jp2.add(neinButton,c);
 		neinButton.addActionListener(this);
 		
@@ -100,7 +136,7 @@ public class SindSieSicherPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if (abfrage.equals("Wollen Sie wirklich das Spiel beenden?")) {
+		if (abfrage.equals("Spiel beenden?")) {
 			if (e.getSource() == jaButton) {
 				System.exit(0);
 			}
@@ -110,7 +146,7 @@ public class SindSieSicherPanel implements ActionListener{
 			}
 		}
 		
-		if (abfrage.equals("Wollen Sie wirklich Neu starten?")) {
+		if (abfrage.equals("Spiel Neustarten?")) {
 			if (e.getSource() == jaButton) {
 				
 				fenster.setVisible(false);

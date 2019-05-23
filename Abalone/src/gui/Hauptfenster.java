@@ -233,11 +233,11 @@ public class Hauptfenster {
 	
 
 	public void beendeSpiel() {
-		new SindSieSicherPanel("Wollen Sie wirklich das Spiel beenden?", controller,mainframe);
+		new SindSieSicherPanel("Spiel beenden?", controller, mainframe);
 	}
 	
 	public void neuesSpiel() {
-		new SindSieSicherPanel("Wollen Sie wirklich Neu starten?", controller,mainframe);
+		new SindSieSicherPanel("Spiel Neustarten?", controller, mainframe);
 	}
 	
 	public void aktualisiereKIOptionen() {

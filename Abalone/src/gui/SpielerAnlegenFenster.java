@@ -92,10 +92,10 @@ public class SpielerAnlegenFenster implements ActionListener{
 		ki1 = new JRadioButton("KI");
 		ki1.setFont(coalition);
 		ki1.setForeground(Color.WHITE);
+		ki1.setBackground(Color.DARK_GRAY);
 		c.gridx = 1;
 		c.gridy = 2;
 		c.ipady = 55;
-		ki1.setBackground(Color.DARK_GRAY);
 		jp.add(ki1,c);
 		ki1.addActionListener(this);
 		
