@@ -13,22 +13,43 @@ public class Spielzug {
 	}
 	
 	public static void toggleString(FarbEnum farbe,String id) {
+		
+			 
 		if(Spieler.getSpielerAmZugFarbe() == controller.getSpielfeldMitId(id).getFigurFarbe()) {
 			if(zug[0].contains(id)) {
 				if(zug[0].length() == 4) {
-					if(zug[0].substring(0,3).equals(id)) {
-						zug[0] = "";
-					}else {
+					if(zug[0].substring(0,2).equals(id)) {
 						zug[0] = zug[0].substring(2,4);
+					}else {
+						
+						zug[0] = zug[0].substring(0,2);
+						
 					}
 				}else {
 					zug[0] = "";
 				}
 			}else {
-				zug[0] += id;
+				if(zug[0].length() == 4) {
+					controller.getSpielfeldMitId(zug[0].substring(2,4)).toggleAusgewaehlt();
+					zug[0] = zug[0].substring(0,2);
+					zug[0] += id;
+				}else {
+					zug[0] += id;
+				}
 			}
-		}else if(!zug[0].equals("")){
-			zug[1] = id;
+		}else {
+			if(zug[1].equals(id)) {
+				zug[1] = "";
+			}else {
+				if(!zug[1].equals("")) {
+					controller.getSpielfeldMitId(zug[1]).toggleAusgewaehlt();
+				}
+				zug[1] = id;
+			}
+		}
+		controller.getSpielfeldMitId(id).toggleAusgewaehlt();
+		if(!zug[0].equals("") && !zug[1].equals("")){
+			
 			try {
 				controller.ziehe();
 				
@@ -41,11 +62,17 @@ public class Spielzug {
 					}
 				}
 			}
+			controller.getSpielfeldMitId(zug[1]).toggleAusgewaehlt();
+			if(zug[0].length() >= 2) {
+				controller.getSpielfeldMitId(zug[0].substring(0,2)).toggleAusgewaehlt();
+			}
+			if(zug[0].length() >= 4) {
+				controller.getSpielfeldMitId(zug[0].substring(2,4)).toggleAusgewaehlt();
+			}
 			zug[0] = "";
 			zug[1] = "";
+			controller.getGameFrame().getSpielfeldPanel().resetAusgewaehlt();
 		}
-		System.out.println(zug[0]);
-		System.out.println(zug[1]);
 	}
 	
 	public static void filterMoeglicheZuege() {
@@ -83,12 +110,13 @@ public class Spielzug {
 		return zug;
 	}
 	
+	public static void setZug(String[] zuge) {
+		zug = zuge;
+	}
 	private static void swapFields() {
 		String f1 = zug[0].substring(0,2);
 		String f2 = zug[0].substring(2,4);
 		zug[0] = "";
 		zug[0] = f2+f1;
-		
-		
 	}
 }

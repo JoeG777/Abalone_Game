@@ -32,7 +32,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 	private static final long serialVersionUID = 109L;
 	private Spieler[] spielerImSpiel;
-	private Spieler spielerAmZug = spielerImSpiel[0];
+	private Spieler spielerAmZug;
 	private Spielbrett spielBrett;
 	private Historie historie;
 	private boolean herausgedraengt = false;
@@ -89,6 +89,12 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	@Override
 	public void addSpieler(String name, String farbe, int anzahlSpieler) throws SpielException {
+		if (spielerImSpiel[0] != null && farbe.equals("weiss")) {
+			spielerImSpiel[0] = null;
+		}
+		if (spielerImSpiel[1] != null && farbe.equals("schwarz")) {
+			spielerImSpiel[1] = null;
+		}
 		if (name != null && (name.length() < 2 || name.length() > 20)) {
 			UngueltigeEingabeException e = new UngueltigeEingabeException(14, "Ungueltige laenge des Namen: " + name.length());
 			throw e;
@@ -101,11 +107,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				 
 				throw e;
 			}
-			/*if (name.substring(0, 2).equals("KI")) {
-				UngueltigeEingabeException e = new UngueltigeEingabeException(19, "Spielername darf nicht mit \"KI\" beginnen!");
-				 ;
-				throw e;
-			}*/
+//			if (name.substring(0, 2).equals("KI")) {
+//				UngueltigeEingabeException e = new UngueltigeEingabeException(19, "Spielername darf nicht mit \"KI\" beginnen!");
+//				 ;
+//				throw e;
+//			}
 		}
 
 		if (anzahlSpieler == 2) {
@@ -121,10 +127,10 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 					throw e;
 				}
 			}
-			if (farbe.equals("weiss") && spielerImSpiel[0] == null) {
+			if (farbe.equals("weiss") /* && spielerImSpiel[0] == null */) {
 				FarbEnum spielerFarbe = FarbEnum.WEISS;
 				spielerImSpiel[0] = new Spieler(name, spielerFarbe);
-			} else if (farbe.equals("schwarz") && spielerImSpiel[0] != null) {
+			} else if (farbe.equals("schwarz") /* && spielerImSpiel[0] != null */) {
 				FarbEnum spielerFarbe = FarbEnum.SCHWARZ;
 				spielerImSpiel[1] = new Spieler(name, spielerFarbe);
 			} else {
@@ -132,14 +138,25 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				 
 				throw e;
 			}
+			if (name.substring(0, 2).equals("KI")) {
+				UngueltigeEingabeException e = new UngueltigeEingabeException(19, "Spielername darf nicht mit \"KI\" beginnen!");
+				 
+				throw e;
+			}
 		} else if (anzahlSpieler == 1) {
 			
 			if (name.substring(0, 2).equals("KI") && spielerImSpiel[0] == null) {
 				FarbEnum KIFarbe = FarbEnum.WEISS;
-				spielerImSpiel[0] = new KI(KIFarbe, getSpielbrett());
+				spielerImSpiel[0] = new KI(name, KIFarbe, getSpielbrett());
+				if(spielerImSpiel[0].getName().length() > 4) {
+					((KI)spielerImSpiel[0]).setDurchziehend(true);
+				}
 			} else if (name.substring(0,2).equals("KI")){
 				FarbEnum KIFarbe = FarbEnum.SCHWARZ;
-				spielerImSpiel[1] = new KI(KIFarbe, getSpielbrett());
+				spielerImSpiel[1] = new KI(name, KIFarbe, getSpielbrett());
+				if(spielerImSpiel[1].getName().length() > 4) {
+					((KI)spielerImSpiel[1]).setDurchziehend(true);
+				}
 			} else {
 				if(spielerImSpiel[0] == null) {
 					FarbEnum spielerFarbe = FarbEnum.WEISS;
@@ -150,18 +167,61 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				}
 			}
 			
+//			for(Spieler s : spielerImSpiel) {
+//				if (s instanceof KI) {
+//					if (s.getName().length() > 8) {
+//						if(s.getName().equals("KI_durchziehend")) {
+//							((KI) s).setDurchziehend(true);
+//						}
+//					}
+//				} else if (s != null && !(s instanceof KI)){
+//					if (name.substring(0, 2).equals("KI")) {
+//						UngueltigeEingabeException e = new UngueltigeEingabeException(19, "Spielername darf nicht mit \"KI\" beginnen!");
+//
+//						throw e;
+//					}
+//			}
+//			}
+			
 		} else if (anzahlSpieler == 0) {
 			
 			if(spielerImSpiel[0] == null) {
 				FarbEnum KIFarbe = FarbEnum.WEISS;
-				spielerImSpiel[0] = new KI(KIFarbe, getSpielbrett());
+				spielerImSpiel[0] = new KI(name, KIFarbe, getSpielbrett());
+				if(spielerImSpiel[0].getName().length() > 4) {
+					((KI)spielerImSpiel[0]).setDurchziehend(true);
+				}
 			} else {
 				FarbEnum KIFarbe = FarbEnum.SCHWARZ;
-				spielerImSpiel[1] = new KI(KIFarbe, getSpielbrett());
+				spielerImSpiel[1] = new KI(name, KIFarbe, getSpielbrett());
+				if(spielerImSpiel[1].getName().length() > 4) {
+					((KI)spielerImSpiel[1]).setDurchziehend(true);
+				}
 			}
-			
+			for(Spieler s : spielerImSpiel) {
+				if (s instanceof KI) {
+					if(s.getName().equals("KI_1durchziehend") || s.getName().equals("KI_2durchziehend")) {
+						((KI) s).setDurchziehend(true);
+					}
+				}
+			}
 		}
+//		for (Spieler spieler : spielerImSpiel) {
+//			if (spieler != null && spieler.getName().equals(name)) {
+//				UngueltigeEingabeException e = new UngueltigeEingabeException(17, "Spielernamen muessen unterschiedlich sein!");
+//				 
+//				throw e;
+//			}
+//		}
+//		if (spielerImSpiel[0] != null && spielerImSpiel[1] != null) {
+//			if (spielerImSpiel[0].getName().equals(spielerImSpiel[1].getName())) {
+//				UngueltigeEingabeException e = new UngueltigeEingabeException(17, "Spielernamen muessen unterschiedlich sein!");
+//				
+//				throw e;
+//			}
+//		}
 
+		this.spielerAmZug = spielerImSpiel[0];
 	}
 
 	/**
@@ -289,14 +349,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 */
 	public void speichernCSV(String dateiName) throws DateiIOException {
 		PersistenzInterface persistenzInterface = new PersistenzImplCSV();
-		String csv = "SPIEL:\n";
-
-		for (Spieler spieler : spielerImSpiel) {
-			csv += spieler.schreibeCSV() + "\n";
-		}
-
-		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
-		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
+		String csv = this.getStatus();
 		
 		try {
 			persistenzInterface.oeffnen(dateiName, false);
@@ -373,11 +426,16 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String[] infoSpieler2 = arraySpieler2[1].split(",");
 		String[] infoAmZug = amZug.split(":");
 		FarbEnum enum1 = FarbEnum.WEISS;
-		if (infoSpieler1[1].equals("schwarz"))
+		if (infoSpieler1[1].equals("schwarz")) {
 			enum1 = FarbEnum.SCHWARZ;
+		}
+
 		FarbEnum enum2 = FarbEnum.SCHWARZ;
-		if (infoSpieler2[1].equals("weiss"))
+		
+		if (infoSpieler2[1].equals("weiss")) {
 			enum2 = FarbEnum.WEISS;
+		}
+			
 		if(infoSpieler1[0].substring(0,2).equals("KI")) {
 			KI sp1 =  new KI(infoSpieler1[0], enum1, this.spielBrett);
 			if(infoSpieler1[0].length() > 4)
@@ -392,7 +450,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				sp2.setDurchziehend(true);
 			spielerImSpiel[1] = sp2;
 		} else {
-			spielerImSpiel[1] = new Spieler(infoSpieler2[0], enum1);
+			spielerImSpiel[1] = new Spieler(infoSpieler2[0], enum2);
 		}
 		if (infoAmZug[1].equals(spielerImSpiel[0].getName())) {
 			spielerAmZug = spielerImSpiel[0];
@@ -614,12 +672,16 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		
 		String csv = "SPIEL:\n";
 
+		int i = 0;
 		for (Spieler spieler : spielerImSpiel) {
-			csv += spieler.schreibeCSV() + "\n";
+			csv += spieler.schreibeCSV() + "," +
+					this.zaehleKugelnMitFarbe(spielerImSpiel[i].getFarbe()) + "\n";
+			i++;
 		}
 
 		csv += "AM ZUG:" + this.getSpielerAmZug() + "\n";
 		csv += historie.schreibeCSV() + "\n" + spielBrett.schreibeCSV();
+		
 		return csv;
 
 	}

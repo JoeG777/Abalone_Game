@@ -22,6 +22,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 import abalone.SpielException;
 
@@ -29,7 +30,10 @@ public class Hauptfenster {
 	private JFrame mainframe;
 	private JPanel mainpanel;
 	private JMenuBar menubar;
-	private JPanel spielfeldPanel, historiePanel, statusPanel;
+	private BrettPanel spielfeldPanel;
+	private HistoriePanel historiePanel;
+	private StatusPanel statusPanel; 
+	private KIOptionenPanel kiOptionenPanel;
 	private static Controller controller;
 	private EventHandlerHauptfenster eventHandlerMenu; 
 	private JMenuItem menuNeuesSpiel, menuSpeichern, menuLaden, menuLog, menuBeenden;
@@ -52,6 +56,7 @@ public class Hauptfenster {
 			
 		initMenuBar();
 		initSpielbrettPanel();
+		initKIOptionen();
 		initStatusPanel();
 		initHistorie();
 //		initHauptmenue();
@@ -74,7 +79,7 @@ public class Hauptfenster {
 		addToGridBag(c,spielfeldPane2, 1,1,0.5,1);*/
 		
 
-		
+
 		mainframe.add(mainpanel, BorderLayout.PAGE_START);
 		// Default 
 		mainframe.setResizable(false);
@@ -97,16 +102,31 @@ public class Hauptfenster {
 	private void initSpielbrettPanel() {
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
-		spielfeldPanel = new BrettPanel(controller);
-		c.gridheight = 2;
+		spielfeldPanel = new BrettPanel(controller,controller.getFeldDaten());
+		c.gridheight = 3;
 		c.gridwidth = 5;
 		spielfeldPanel.setBorder(BorderFactory.createEtchedBorder());
 		addToGridBag(c,spielfeldPanel,0, 1, 1, 0);
 
 	}
+	
+	private void initKIOptionen() {
+		GridBagConstraints c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.EAST;
+		c.fill = 1; 
+		c.gridwidth=1;
+		
+		kiOptionenPanel = new KIOptionenPanel(controller);
+		kiOptionenPanel.setBorder(BorderFactory.createEtchedBorder());
+		kiOptionenPanel.steuereKIPanel(null, false);
+
+		addToGridBag(c,kiOptionenPanel,5,2,0,1);
+		
+		
+	}
 	private void initStatusPanel() {
 		GridBagConstraints c = new GridBagConstraints();
-		c.anchor = GridBagConstraints.WEST;
+		c.anchor = GridBagConstraints.EAST;
 		c.fill = 1; 
 		statusPanel = new StatusPanel();
 		statusPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -116,10 +136,16 @@ public class Hauptfenster {
 	private void initHistorie() {
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.EAST;
+		c.fill = 1; 
+		c.gridwidth = 1; 
 		historiePanel = new HistoriePanel();
 		historiePanel.setBorder(BorderFactory.createEtchedBorder());
-		addToGridBag(c,historiePanel, 5,2,0,0);
+
+
 		
+
+		addToGridBag(c,historiePanel, 5,3,0,1);
+
 	}
 	
 
@@ -183,115 +209,166 @@ public class Hauptfenster {
 		new SindSieSicherPanel("Wollen Sie wirklich Neu starten?", controller,mainframe);
 	}
 	
+	public void aktualisiereKIOptionen() {
+		kiOptionenPanel.aktualisiere();
+		
+	}
+	
 	public void aktualisiere() {
-		((BrettPanel) spielfeldPanel).aktualisiere();
+		this.aktualisiereSpielbrett(controller.getFeldDaten());
 	}
 	
-	public void aktualisiereSpielbrett(String[] ids) {
-		((BrettPanel)spielfeldPanel).aktualisiere(ids);
+	public void aktualisiereSpielbrett(String[][] ids) {
+		((BrettPanel) spielfeldPanel).aktualisiere(ids);
 	}
-	
+
+
 	public JFrame getMainframe() {
 		return mainframe;
 	}
-	
+
+
 	public void setMainframe(JFrame mainframe) {
 		this.mainframe = mainframe;
 	}
-	
+
+
 	public JPanel getMainpanel() {
 		return mainpanel;
 	}
-	
+
+
 	public void setMainpanel(JPanel mainpanel) {
 		this.mainpanel = mainpanel;
 	}
-	
+
+
 	public JMenuBar getMenubar() {
 		return menubar;
 	}
-	
+
+
 	public void setMenubar(JMenuBar menubar) {
 		this.menubar = menubar;
 	}
-	
-	public JPanel getSpielfeldPanel() {
+
+
+	public BrettPanel getSpielfeldPanel() {
 		return spielfeldPanel;
 	}
-	
-	public void setSpielfeldPanel(JPanel spielfeldPanel) {
+
+
+	public void setSpielfeldPanel(BrettPanel spielfeldPanel) {
 		this.spielfeldPanel = spielfeldPanel;
 	}
 
-	public JPanel getHistoriePanel() {
+
+	public HistoriePanel getHistoriePanel() {
 		return historiePanel;
 	}
 
-	public void setHistoriePanel(JPanel historiePanel) {
+
+	public void setHistoriePanel(HistoriePanel historiePanel) {
 		this.historiePanel = historiePanel;
 	}
 
-	public JPanel getStatusPanel() {
+
+	public StatusPanel getStatusPanel() {
 		return statusPanel;
 	}
 
-	public void setStatusPanel(JPanel statusPanel) {
+
+	public void setStatusPanel(StatusPanel statusPanel) {
 		this.statusPanel = statusPanel;
 	}
+
+
+
+
 
 	public static Controller getController() {
 		return controller;
 	}
-	
+
+
 	public static void setController(Controller controller) {
 		Hauptfenster.controller = controller;
 	}
+
 
 	public EventHandlerHauptfenster getEventHandlerMenu() {
 		return eventHandlerMenu;
 	}
 
+
 	public void setEventHandlerMenu(EventHandlerHauptfenster eventHandlerMenu) {
 		this.eventHandlerMenu = eventHandlerMenu;
 	}
+
 
 	public JMenuItem getMenuNeuesSpiel() {
 		return menuNeuesSpiel;
 	}
 
+
 	public void setMenuNeuesSpiel(JMenuItem menuNeuesSpiel) {
 		this.menuNeuesSpiel = menuNeuesSpiel;
 	}
 
+
 	public JMenuItem getMenuSpeichern() {
 		return menuSpeichern;
 	}
-	
+
+
 	public void setMenuSpeichern(JMenuItem menuSpeichern) {
 		this.menuSpeichern = menuSpeichern;
 	}
+
 
 	public JMenuItem getMenuLaden() {
 		return menuLaden;
 	}
 
+
 	public void setMenuLaden(JMenuItem menuLaden) {
 		this.menuLaden = menuLaden;
 	}
+
 
 	public JMenuItem getMenuLog() {
 		return menuLog;
 	}
 
+
 	public void setMenuLog(JMenuItem menuLog) {
 		this.menuLog = menuLog;
 	}
 
+
 	public JMenuItem getMenuBeenden() {
 		return menuBeenden;
 	}
-	
+
+
 	public void setMenuBeenden(JMenuItem menuBeenden) {
 		this.menuBeenden = menuBeenden;
 	}
+	
+	public void resetFelderAuswaehlbar() {
+		spielfeldPanel.resetAuswaehlbar();
+	}
+
+
+	public KIOptionenPanel getKiOptionenPanel() {
+		return kiOptionenPanel;
+	}
+
+
+	public void setKiOptionenPanel(KIOptionenPanel kiOptionenPanel) {
+		this.kiOptionenPanel = kiOptionenPanel;
+	}
+	
+	
+	
 }

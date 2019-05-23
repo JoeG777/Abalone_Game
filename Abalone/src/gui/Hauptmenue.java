@@ -1,17 +1,22 @@
 package gui;
 
-import java.awt.Font;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 /**
  * Startmenue, dass den Einstieg in die graphische Oberflaeche bietet.
@@ -31,42 +36,64 @@ public class Hauptmenue extends JFrame implements ActionListener{
  * Konstruktor, der das Fenster auf dem Bildschirm aufleuchten lässt
  * @param controller Wird speater den folgenden Fenstern uebergeben
  */
+	private ImageIcon ueberschrift;
+	private ImageIcon neuesSpielIcon;
+	private ImageIcon spielLadenIcon;
+	private ImageIcon beendenIcon;
+
 	public Hauptmenue (Controller controller){
 		Hauptmenue.controller =controller;
 		jp = new JPanel(new GridBagLayout());
+		jp.setBackground(Color.DARK_GRAY);
 		GridBagConstraints gbc = new GridBagConstraints();
 		this.setSize(800,500);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+//		jl = new JLabel("Abalone", SwingConstants.CENTER);
+//		jl.setFont(new Font("Times New Roman", Font.BOLD, 36));
+//		gbc.fill = GridBagConstraints.HORIZONTAL;
+		ueberschrift =  new ImageIcon(getClass().getResource("./assets/burn-in.gif"));
+		neuesSpielIcon = new ImageIcon(getClass().getResource("./assets/Neues Spiel.png"));
+		spielLadenIcon =  new ImageIcon(getClass().getResource("./assets/Spiel Laden.png"));
+		beendenIcon =  new ImageIcon(getClass().getResource("./assets/Beenden.png"));
 
-		jl = new JLabel("Abalone", SwingConstants.CENTER);
-		jl.setFont(new Font("Times New Roman", Font.BOLD, 36));
-		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.weightx = 1.0;
-		gbc.ipady = 40;
-		gbc.ipadx = 40;
-		gbc.insets = new Insets(70,0,0,0);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+//		gbc.ipady = 40;
+//		gbc.ipadx = 40;
+		gbc.insets = new Insets(10,0,0,0);
+		jl = new JLabel(ueberschrift);
 		jp.add(jl, gbc);
 
-		neuesSpiel = new JButton("Neues Spiel");
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		neuesSpiel = new JButton();
+		neuesSpiel.setIcon(neuesSpielIcon);
+		neuesSpiel.setPreferredSize(new Dimension(227,72));
+		gbc.ipady = 0;
+		gbc.ipadx = 0;
 		gbc.gridy = 1;
-		gbc.gridwidth = 2;
-		gbc.ipady = 30;
-		gbc.ipadx = 80;
-		gbc.insets = new Insets(40,0,0,0);
+//		gbc.fill = GridBagConstraints.HORIZONTAL;
+//		gbc.gridy = 1;
+//		gbc.gridwidth = 2;
+//		gbc.ipady = 30;
+//		gbc.ipadx = 80;
+//		gbc.insets = new Insets(20,0,0,0);
 		neuesSpiel.addActionListener(this);
 		jp.add(neuesSpiel, gbc);
 
-		spielLaden = new JButton ("Spiel laden");
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		spielLaden = new JButton ();
+		spielLaden.setIcon(spielLadenIcon);
+		spielLaden.setPreferredSize(new Dimension(227,72));
+//		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridy = 2;
 		spielLaden.addActionListener(this);
 		jp.add(spielLaden,gbc);
 
-		beenden = new JButton ("Beenden");
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		beenden = new JButton ();
+		beenden.setIcon(beendenIcon);
+		beenden.setPreferredSize(new Dimension(227,72));
+//		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridy = 3;
 		beenden.addActionListener(this);
 		jp.add(beenden, gbc);

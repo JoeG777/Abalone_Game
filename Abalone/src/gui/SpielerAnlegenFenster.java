@@ -25,6 +25,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import abalone.SpielException;
+import abalone.UngueltigeEingabeException;
 
 public class SpielerAnlegenFenster implements ActionListener{
 
@@ -49,7 +50,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 	public SpielerAnlegenFenster(Controller controller) {
 		SpielerAnlegenFenster.controller = controller;
 		try {
-			bild = ImageIO.read(getClass().getResource("./assets/los.png"));
+			bild = ImageIO.read(getClass().getResource("./assets/Los Gehts.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -66,10 +67,12 @@ public class SpielerAnlegenFenster implements ActionListener{
 
 		GridBagConstraints c = new GridBagConstraints();
 
-		schwarz = new JLabel("Schwarz: ");
+//		Font font = new Font("Coalition", Font.PLAIN, 12);
+		weiss = new JLabel("Weiss: ");
+//		weiss.setFont(font);
 		c.gridx = 1;
 		c.gridy = 0;
-		jp.add(schwarz,c);
+		jp.add(weiss,c);
 
 		tf1 = new JTextField(15);
 		c.gridx = 2;
@@ -85,13 +88,18 @@ public class SpielerAnlegenFenster implements ActionListener{
 		ki1.addActionListener(this);
 		
 		ki1_durchziehen = new JRadioButton("durchziehen");
-		c.gridx = 1;
+		c.gridx = 2;
+		c.gridy = 2;
+		ki1_durchziehen.setBackground(Color.WHITE);
+		ki1_durchziehen.setEnabled(false);
+		jp.add(ki1_durchziehen, c);
+		ki1_durchziehen.addActionListener(this);
 
-		weiss = new JLabel("Weiss:");
+		schwarz = new JLabel("Schwarz:");
 		c.gridx = 1;
 		c.gridy = 3;
 		c.ipady = 0;
-		jp.add(weiss,c);
+		jp.add(schwarz,c);
 
 		tf2 = new JTextField(15);
 		c.gridx = 2;
@@ -105,10 +113,19 @@ public class SpielerAnlegenFenster implements ActionListener{
 		ki2.setBackground(Color.WHITE);
 		jp.add(ki2,c);
 		ki2.addActionListener(this);
+		
+		ki2_durchziehen = new JRadioButton("durchziehen");
+		c.gridx = 2;
+		c.gridy = 4;
+		ki2_durchziehen.setBackground(Color.WHITE);
+		ki2_durchziehen.setEnabled(false);
+		jp.add(ki2_durchziehen, c);
+		ki2_durchziehen.addActionListener(this);
+
 
 		los = new JButton();
 		los.setIcon(new ImageIcon(bild));
-		los.setPreferredSize(new Dimension(217,60));
+		los.setPreferredSize(new Dimension(227,72));
 		c.gridwidth = 10;
 		c.gridx = 1;
 		c.gridy = 5;	
@@ -130,50 +147,90 @@ public class SpielerAnlegenFenster implements ActionListener{
 
 
 			try {
-				vorbereiten();
-				controller.spielerAnlegen(name1,name2,anzahlSpieler);
-				fenster.setVisible(false);
-				fenster.dispose();
-				controller.hauptFensterStarten();
+				if(vorbereiten()) {
+					controller.spielerAnlegen(name1,name2,anzahlSpieler);
+					fenster.setVisible(false);
+					fenster.dispose();
+					controller.hauptFensterStarten();
+				}
 			} catch (SpielException e1) {
 				new FehlerPanel(e1.getMessage());
-
 			}
 		}
-
 
 		if (ki1.isSelected()) {
 			tf1.setText(null);
 			tf1.setEnabled(false);
+			ki1_durchziehen.setEnabled(true);
 		} else {
 			tf1.setEnabled(true);
+			ki1_durchziehen.setSelected(false);
+			ki1_durchziehen.setEnabled(false);
 		}
 		if (ki2.isSelected()) {
 			tf2.setText(null);
 			tf2.setEnabled(false);
+			ki2_durchziehen.setEnabled(true);
 		} else {
 			tf2.setEnabled(true);
-
+			ki2_durchziehen.setSelected(false);
+			ki2_durchziehen.setEnabled(false);
 		}
 	}
 
-	private void vorbereiten() {
-		
+	private boolean vorbereiten() {
+
 		if (ki1.isSelected() && ki2.isSelected()) {
-			name1 = "KI_1";
-			name2 = "KI_2";
 			anzahlSpieler = 0;
+			if (ki1_durchziehen.isSelected()) {
+				name1 = "KI_1durchziehend";
+			} else {
+				name1 = "KI_1";
+			}
+			if (ki2_durchziehen.isSelected()) {
+				name2 = "KI_2durchziehend";
+			} else {
+				name2 = "KI_2";
+			}
+
 		} else if (ki1.isSelected() || ki2.isSelected()) {
 			anzahlSpieler = 1;
 			if (ki1.isSelected()) {
-				name1 = "KI_1";
+				name2 = tf2.getText();
+				if(name2.length() > 1 && name2.substring(0,2).equals("KI")) {
+					new FehlerPanel("Spielername darf nicht mit \"KI\" beginnen!");
+					return false;
+				}
+				if(ki1_durchziehen.isSelected()) {
+					name1 = "KI_1durchziehend";
+				} else {
+					name1 = "KI_1";
+				}
 			} else {
-				name2 = "KI_1";
+				name1 = tf1.getText();
+				if(name1.length() > 1 && name1.substring(0,2).equals("KI")) {
+					new FehlerPanel("Spielername darf nicht mit \"KI\" beginnen!");
+					return false;
+				}
+				if(ki2_durchziehen.isSelected()) {
+					name2 = "KI_2durchziehend";
+				} else {
+					name2 = "KI_2";
+				}
 			}
 		} else {
 			name1 = tf1.getText();
+			if(name1.length() > 1 && name1.substring(0,2).equals("KI")) {
+				new FehlerPanel("Spielername darf nicht mit \"KI\" beginnen!");
+				return false;
+			}
 			name2 = tf2.getText();
+			if(name2.length() > 1 && name2.substring(0,2).equals("KI")) {
+				new FehlerPanel("Spielername darf nicht mit \"KI\" beginnen!");
+				return false;
+			}
 			anzahlSpieler = 2;
 		}
+		return true;
 	}
 }
