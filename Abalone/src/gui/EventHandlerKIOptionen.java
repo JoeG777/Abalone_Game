@@ -15,66 +15,93 @@ public class EventHandlerKIOptionen implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == kiPanel.getKi1Weiter()) {
-			if(c.getBedienerInterface().getSpielerAmZug().equals("KI_1")) {
-				String[] kiZug = {"",""};
-				Spielzug.setZug(kiZug);
-				try {
-					c.ziehe();
-				} catch (SpielException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				c.aktualisiereAlles();
-			}
-		}
-		if(e.getSource() == kiPanel.getKi1Durchziehend()) {
-			if(c.getBedienerInterface().getSpielerAmZug().equals("KI_1")) {
-				String[] kiZug = {"DURCHZIEHEN"};
-				Spielzug.setZug(kiZug);
+		if(e.getSource() == kiPanel.getKiWeiter()) {
+			String[] kiZug = {"", ""};
+			Spielzug.setZug(kiZug);
+			
+			try {
+				c.ziehe();
+			} catch(SpielException e1) {
 				
-				try {
-					c.ziehe();
-				} catch (SpielException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-				c.aktualisiereAlles();
-				kiPanel.aktiviereDurchziehendKI1();
 			}
 			
+			c.aktualisiereAlles();
 		}
-		if(e.getSource() == kiPanel.getKi2Weiter()) {
-			if(c.getBedienerInterface().getSpielerAmZug().equals("KI_2")) {
-				String[] kiZug = {"",""};
-				Spielzug.setZug(kiZug);
-				try {
-					c.ziehe();
-				} catch (SpielException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				}
-			}
 		
-		if(e.getSource() == kiPanel.getKi2Durchziehend()) {
-			if(c.getBedienerInterface().getSpielerAmZug().equals("KI_2")) {
-				String[] kiZug = {"DURCHZIEHEN"};
-				Spielzug.setZug(kiZug);
-
-					try {
-						c.ziehe();
-					} catch (SpielException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-	
-
-				kiPanel.aktiviereDurchziehendKI2();
-				c.aktualisiereAlles();
+		if(e.getSource() == kiPanel.getKiDurchziehend()) {
+			String[] kiZug = {"DURCHZIEHEN", ""};
+			Spielzug.setZug(kiZug);
+			
+			try {
+				c.ziehe();
+			} catch(SpielException e1) {
+				
 			}
+			c.aktualisiereAlles();
+			String[] kiZugReset = {"", ""};
+			Spielzug.setZug(kiZugReset);
+			
 		}
+//		if(e.getSource() == kiPanel.getKiWeiter()) {
+//			if(c.getBedienerInterface().getSpielerAmZug().equals("KI_1")) {
+//				String[] kiZug = {"",""};
+//				Spielzug.setZug(kiZug);
+//				try {
+//					c.ziehe();
+//				} catch (SpielException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//				c.aktualisiereAlles();
+//			}
+//		}
+//		if(e.getSource() == kiPanel.getKi1Durchziehend()) {
+//			if(c.getBedienerInterface().getSpielerAmZug().equals("KI_1")) {
+//				String[] kiZug = {"DURCHZIEHEN"};
+//				Spielzug.setZug(kiZug);
+//				
+//				try {
+//					c.ziehe();
+//				} catch (SpielException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//
+//				c.aktualisiereAlles();
+//				kiPanel.aktiviereDurchziehendKI1();
+//			}
+//			
+//		}
+//		if(e.getSource() == kiPanel.getKi2Weiter()) {
+//			if(c.getBedienerInterface().getSpielerAmZug().equals("KI_2")) {
+//				String[] kiZug = {"",""};
+//				Spielzug.setZug(kiZug);
+//				try {
+//					c.ziehe();
+//				} catch (SpielException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//				}
+//			}
+//		
+//		if(e.getSource() == kiPanel.getKi2Durchziehend()) {
+//			if(c.getBedienerInterface().getSpielerAmZug().equals("KI_2")) {
+//				String[] kiZug = {"DURCHZIEHEN"};
+//				Spielzug.setZug(kiZug);
+//
+//					try {
+//						c.ziehe();
+//					} catch (SpielException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//	
+//
+//				kiPanel.aktiviereDurchziehendKI2();
+//				c.aktualisiereAlles();
+//			}
+//		}
 
 
 		

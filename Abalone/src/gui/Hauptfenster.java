@@ -118,8 +118,7 @@ public class Hauptfenster {
 		
 		kiOptionenPanel = new KIOptionenPanel(controller);
 		kiOptionenPanel.setBorder(BorderFactory.createEtchedBorder());
-		kiOptionenPanel.aktiviereKI1();
-		kiOptionenPanel.aktiviereKI2();
+		kiOptionenPanel.steuereKIPanel(null, false);
 
 		addToGridBag(c,kiOptionenPanel,5,2,0,1);
 		
