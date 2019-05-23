@@ -160,8 +160,8 @@ public class KI extends Spieler {
 	 */
 	public void setDurchziehend(boolean durchziehend) {
 		this.durchziehend = durchziehend;
-		if(durchziehend == true && !(this.getName().endsWith("(durchziehend)"))) {
-			super.setName(this.getName() + "(durchziehend)");
+		if(durchziehend == true) {
+			super.setName(this.getName().substring(0, 4) + "(durchziehend)");
 		}
 		else {
 			super.setName(this.getName().substring(0,4));
