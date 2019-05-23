@@ -149,6 +149,15 @@ public class Controller {
 
 	}
 	
+	public void zieheKI(String[] zug) throws SpielException{
+
+		spiel.ziehe(zug);
+		spieler1.naechsterSpieler();
+		this.aktualisiereAlles();
+		gameFrame.aktualisiere();
+
+	}
+	
 	public String[][] getFeldDaten() {
 		this.aktualisiereSpielStatus();
 		return this.filtereFeldDaten(spielStatus);

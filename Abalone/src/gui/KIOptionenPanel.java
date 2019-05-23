@@ -27,14 +27,32 @@ public class KIOptionenPanel extends JPanel {
 	}
 	
 	private void initLabel() {
-		infoLabel = new JLabel("KI-Optionen");
-		addToGridBag(infoLabel, 0, 0, 2 ,1, GridBagConstraints.REMAINDER);
+		if(infoLabel == null) {
+			infoLabel = new JLabel("KI-Optionen");
+			addToGridBag(infoLabel, 0, 0, 2 ,1, GridBagConstraints.REMAINDER);
+		}
+		
 	}
 	
 	private void initKILabelButtons() {
-		kiLabel = new JLabel();
-		kiWeiter = new JButton();
-		kiDurchziehend = new JButton();
+		if(kiLabel == null) {
+			kiLabel = new JLabel();
+			addToGridBag(kiLabel, 0,1);
+		}
+		
+		if(kiWeiter == null) {
+			kiWeiter = new JButton();
+			kiWeiter.addActionListener(eventHandlerKIOptionen);
+			addToGridBag(kiWeiter, 1,1);
+		}
+		
+		if(kiDurchziehend == null)  {
+			kiDurchziehend = new JButton();
+			kiDurchziehend.addActionListener(eventHandlerKIOptionen);
+			addToGridBag(kiDurchziehend, 2, 1);
+		}
+
+	
 	}
 	
 
@@ -55,7 +73,6 @@ public class KIOptionenPanel extends JPanel {
 		
 		
 		kiWeiter.setText("Weiter");
-		kiWeiter.addActionListener(eventHandlerKIOptionen);
 		kiWeiter.setOpaque(true);
 		kiWeiter.setContentAreaFilled(false);
 		kiWeiter.setEnabled(true);
@@ -71,12 +88,7 @@ public class KIOptionenPanel extends JPanel {
 			kiWeiter.setEnabled(false);
 			kiLabel.setText("(Zieht durch)     ");
 		}
-		else {
-			kiDurchziehend.addActionListener(eventHandlerKIOptionen);
-		}
-		addToGridBag(kiLabel, 0,1);
-		addToGridBag(kiWeiter, 1,1);
-		addToGridBag(kiDurchziehend, 2, 1);
+
 		
 		aktualisiere();
 	}
@@ -85,20 +97,18 @@ public class KIOptionenPanel extends JPanel {
 		kiLabel.setText("(KI nicht am Zug)     ");
 		kiLabel.setOpaque(true);
 		kiLabel.setBackground(Color.WHITE);
-		addToGridBag(kiLabel, 0,1);
+		
 		
 		kiWeiter.setText("inaktiv  ");
 		kiWeiter.setOpaque(true);
 		kiWeiter.setContentAreaFilled(false);
 		kiWeiter.setEnabled(false);
-		addToGridBag(kiWeiter, 1,1);
+		
 		
 		kiDurchziehend.setText("inaktiv  ");
 		kiDurchziehend.setOpaque(true);
 		kiDurchziehend.setContentAreaFilled(false);
 		kiDurchziehend.setEnabled(false);
-		addToGridBag(kiDurchziehend, 2, 1);
-		
 		aktualisiere();
 	}
 	
