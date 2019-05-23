@@ -1,10 +1,15 @@
 
 package gui;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -15,21 +20,35 @@ import javax.swing.JTextArea;
 public class StatusPanel extends JPanel{
 	private static final long serialVersionUID = 3L;
 	private JTextArea statusText;
+	private Font coalition;
 	
 	
 	
 
 	public StatusPanel() {
+		try {
+			coalition = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("AbaloneSchrift.ttf"));
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(coalition);
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
+		coalition = new Font("Coalition", Font.PLAIN, 12);
+		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		c.gridx = 0;
 		c.gridy = 0;
 		JLabel label = new JLabel("Status");
+		label.setFont(coalition);
+		label.setForeground(Color.WHITE);
 		this.add(label,c);
 		
 		statusText = new JTextArea("Hier steht bald der Spiel-Status.",5, 27);
-
+		statusText.setBackground(Color.darkGray);
+		statusText.setForeground(Color.WHITE);
+		statusText.setFont(coalition);
 		statusText.setEditable(false);
 		statusText.setLineWrap(true);
 		

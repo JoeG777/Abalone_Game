@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -18,6 +19,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Startmenue, dass den Einstieg in die graphische Oberflaeche bietet.
+ * @author Team A4
+ *
+ */
 public class Hauptmenue extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = -3874636578097053073L;
@@ -27,12 +33,14 @@ public class Hauptmenue extends JFrame implements ActionListener{
 	private JButton neuesSpiel;
 	private JButton spielLaden;
 	private JButton beenden;
+/**
+ * Konstruktor, der das Fenster auf dem Bildschirm aufleuchten lässt
+ * @param controller Wird speater den folgenden Fenstern uebergeben
+ */
 	private ImageIcon ueberschrift;
 	private ImageIcon neuesSpielIcon;
 	private ImageIcon spielLadenIcon;
 	private ImageIcon beendenIcon;
-
-
 
 	public Hauptmenue (Controller controller){
 		Hauptmenue.controller =controller;
@@ -96,8 +104,8 @@ public class Hauptmenue extends JFrame implements ActionListener{
 	}
 
 	/** 
-	 * Implementierung der actionPerformed 
-	 * @param ActionEvent 
+	 * Implementierung die actionPerformed, deren Aufgabe besteht die Button-Events auszufuehren
+	 * @param ActionEvent Button Klick
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {

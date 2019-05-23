@@ -141,12 +141,19 @@ public class Controller {
 
 	public void ziehe() throws SpielException{
 
-			spiel.ziehe(Spielzug.getZug());
+		spiel.ziehe(Spielzug.getZug());
 
 		spieler1.naechsterSpieler();
-		this.aktualisiereSpielStatus();
-		this.aktualisiereStatus();
-		this.aktualisiereHistorie();
+		this.aktualisiereAlles();
+		gameFrame.aktualisiere();
+
+	}
+	
+	public void zieheKI(String[] zug) throws SpielException{
+
+		spiel.ziehe(zug);
+		spieler1.naechsterSpieler();
+		this.aktualisiereAlles();
 		gameFrame.aktualisiere();
 
 	}
@@ -169,39 +176,22 @@ public class Controller {
 		this.aktualisiereBrett();
 		this.aktualisiereStatus();
 		this.aktualisiereHistorie();
-		this.kiMitspielerPruefen();
+		this.aktualisiereKI();
 		
 	}
 	
 
-	private void kiMitspielerPruefen() {
-		String[] spieler = spiel.getSpielerImSpielInterface().split(",");
-		System.out.println(spieler[0]);
-		if(spieler[0]!= null && spieler[0].startsWith("KI")) {
-			if(spieler[0].length() < 4) {
-			gameFrame.getKiOptionenPanel().aktiviereKI1();
-			}
+	private void aktualisiereKI() {
+		String spielerAmZug = spiel.getSpielerAmZug();
+		
+		if(spielerAmZug != null && spielerAmZug.startsWith("KI")) {
+			gameFrame.getKiOptionenPanel().steuereKIPanel(spielerAmZug, true);
 		}
 		else {
-			gameFrame.getKiOptionenPanel().deaktiviereKI1();
-		}
-		if(spieler[1] != null && spieler[1].startsWith("KI")) {
-			if(spieler[0].length() < 4) {
-			gameFrame.getKiOptionenPanel().aktiviereKI2();
-			}
-		}
-		else {
-			gameFrame.getKiOptionenPanel().deaktiviereKI2();
-		}
-		
-		if(spieler[0] != null && spieler[0].startsWith("KI") && spieler[0].length() > 4) {
-			gameFrame.getKiOptionenPanel().aktiviereDurchziehendKI1();
-		}
-		
-		if(spieler[1] != null && spieler[1].startsWith("KI") &&spieler[1].length() > 4) {
-			gameFrame.getKiOptionenPanel().aktiviereDurchziehendKI2();
+			gameFrame.getKiOptionenPanel().steuereKIPanel(null, false);
 		}
 	}
+	
 	public Hauptfenster getGameFrame() {
 		return this.gameFrame;
 

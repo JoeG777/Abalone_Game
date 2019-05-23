@@ -65,7 +65,7 @@ public class LinienPanel extends JPanel{
 			panels.add(p);
 			this.add(p);
 		}
-		this.setBackground(Color.WHITE);
+		this.setBackground(Color.DARK_GRAY);
 	}
 	
 	public void aktualisiere(String[][] daten) {

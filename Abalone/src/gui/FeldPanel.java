@@ -34,7 +34,7 @@ public class FeldPanel extends JPanel{
 	public FeldPanel(String id, Controller c, String[] daten) {
 		  this.setSize(24, 24);
 		  this.setVisible(true);
-		  this.setBackground(Color.white);
+		  this.setBackground(Color.DARK_GRAY);
 		this.id = id;
 		if(controller == null) {
 			controller = c;
@@ -50,9 +50,9 @@ public class FeldPanel extends JPanel{
 		this.farbe = daten[2];
 		/*if(subscribedFeld != null)
 			auswaehlbar = subscribedFeld.istAuswaehlbar(); */
-		this.backgroundColor=Color.WHITE;
+		this.backgroundColor=Color.DARK_GRAY;
 		if(auswaehlbar) {
-			this.backgroundColor=Color.BLUE;
+			this.backgroundColor=Color.DARK_GRAY;
 			
 		}
 		/*this.subscribedFeld = controller.getSpielfeldMitId(id);
@@ -116,7 +116,7 @@ public class FeldPanel extends JPanel{
 	
 	private JButton createButton(Image img) {
 		button = new JButton();
-		Color bg = Color.WHITE;
+		Color bg = Color.DARK_GRAY;
 		button.setBackground(bg);
 		button.setBorder(null);
 		button.setSize(24, 24);
