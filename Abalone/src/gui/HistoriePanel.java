@@ -45,6 +45,7 @@ public class HistoriePanel extends JPanel{
 	}
 	
 	public void aktualisiereHistorie(String historie) {
+		historieText.setText("");
 		historieText.setText(historie);
 	}
 	

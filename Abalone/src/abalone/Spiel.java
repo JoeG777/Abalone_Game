@@ -426,11 +426,16 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		String[] infoSpieler2 = arraySpieler2[1].split(",");
 		String[] infoAmZug = amZug.split(":");
 		FarbEnum enum1 = FarbEnum.WEISS;
-		if (infoSpieler1[1].equals("schwarz"))
+		if (infoSpieler1[1].equals("schwarz")) {
 			enum1 = FarbEnum.SCHWARZ;
+		}
+
 		FarbEnum enum2 = FarbEnum.SCHWARZ;
-		if (infoSpieler2[1].equals("weiss"))
+		
+		if (infoSpieler2[1].equals("weiss")) {
 			enum2 = FarbEnum.WEISS;
+		}
+			
 		if(infoSpieler1[0].substring(0,2).equals("KI")) {
 			KI sp1 =  new KI(infoSpieler1[0], enum1, this.spielBrett);
 			if(infoSpieler1[0].length() > 4)
@@ -445,7 +450,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 				sp2.setDurchziehend(true);
 			spielerImSpiel[1] = sp2;
 		} else {
-			spielerImSpiel[1] = new Spieler(infoSpieler2[0], enum1);
+			spielerImSpiel[1] = new Spieler(infoSpieler2[0], enum2);
 		}
 		if (infoAmZug[1].equals(spielerImSpiel[0].getName())) {
 			spielerAmZug = spielerImSpiel[0];
