@@ -55,7 +55,7 @@ public class Hauptfenster {
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
-		coalition = new Font("Coalition", Font.PLAIN, 15);
+		coalition = new Font("Coalition", Font.PLAIN, 17);
 		
 		eventHandlerMenu = new EventHandlerHauptfenster(this,controller);
 		GridLayout experimentLayout = new GridLayout(0,1);
@@ -63,6 +63,7 @@ public class Hauptfenster {
 		mainframe = new JFrame();
 		mainframe.setSize(960,640);
 		mainframe.setTitle("Abalone");
+		mainframe.setBackground(Color.DARK_GRAY);
 		mainframe.setLayout(new BorderLayout());
 		
 		mainpanel = new JPanel();

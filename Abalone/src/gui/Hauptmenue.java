@@ -54,7 +54,7 @@ public class Hauptmenue extends JFrame implements ActionListener{
 //		jl = new JLabel("Abalone", SwingConstants.CENTER);
 //		jl.setFont(new Font("Times New Roman", Font.BOLD, 36));
 //		gbc.fill = GridBagConstraints.HORIZONTAL;
-		ueberschrift =  new ImageIcon(getClass().getResource("./assets/burn-in.gif"));
+		ueberschrift =  new ImageIcon(getClass().getResource("./assets/burn-in3.gif"));
 		neuesSpielIcon = new ImageIcon(getClass().getResource("./assets/Neues Spiel.png"));
 		spielLadenIcon =  new ImageIcon(getClass().getResource("./assets/Spiel Laden.png"));
 		beendenIcon =  new ImageIcon(getClass().getResource("./assets/Beenden.png"));
@@ -64,7 +64,7 @@ public class Hauptmenue extends JFrame implements ActionListener{
 		gbc.gridy = 0;
 //		gbc.ipady = 40;
 //		gbc.ipadx = 40;
-		gbc.insets = new Insets(10,0,0,0);
+		gbc.insets = new Insets(14,0,0,0);
 		jl = new JLabel(ueberschrift);
 		jp.add(jl, gbc);
 

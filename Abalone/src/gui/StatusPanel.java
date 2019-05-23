@@ -20,7 +20,7 @@ import javax.swing.JTextArea;
 public class StatusPanel extends JPanel{
 	private static final long serialVersionUID = 3L;
 	private JTextArea statusText;
-	private Font coalition;
+	private Font coalition, coalition2;
 	
 	
 	
@@ -33,7 +33,8 @@ public class StatusPanel extends JPanel{
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
-		coalition = new Font("Coalition", Font.PLAIN, 12);
+		coalition = new Font("Coalition", Font.PLAIN, 10);
+		coalition2 = new Font("Coalition", Font.PLAIN, 14);
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -41,7 +42,7 @@ public class StatusPanel extends JPanel{
 		c.gridx = 0;
 		c.gridy = 0;
 		JLabel label = new JLabel("Status");
-		label.setFont(coalition);
+		label.setFont(coalition2);
 		label.setForeground(Color.WHITE);
 		this.add(label,c);
 		

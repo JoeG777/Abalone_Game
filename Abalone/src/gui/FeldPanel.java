@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
@@ -10,13 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class FeldPanel extends JPanel{
-	private static final String figurSchwarz="./assets/figurSchwarzG.png";
+	private static final String figurSchwarz="./assets/BlaueKugel.png";
 	private static final String figurSchwarzGewaehlt="./assets/figurSchwarzGewaehlt.png";
 	private static final String figurSchwarzWaehlbar="./assets/figurSchwarzWaehlbar.png";
-	private static final String figurWeiss="./assets/figurWeissG.png";
+	private static final String figurWeiss="./assets/RoteKugel2.png";
 	private static final String figurWeissGewaehlt="./assets/figurWeissGewaehlt.png";
 	private static final String figurWeissWaehlbar="./assets/figurWeissWaehlbar.png";
-	private static final String figurLeer="./assets/empty.png";
+	private static final String figurLeer="./assets/leeresFeld.png";
 	private static final String figurLeerWaehlbar="./assets/emptyWaehlbar.png";
 	private static final String figurLeerGewaehlt="./assets/emptyGewaehlt.png";
 	
@@ -105,6 +106,7 @@ public class FeldPanel extends JPanel{
 		  button = createButton(img);
 		  FeldButtonListener fbl = new FeldButtonListener();
 		  button.addActionListener(fbl);
+		  button.setPreferredSize(new Dimension(41,41));
 		  this.add(button);
 		  button.setEnabled(true);
 		  String spielerName = controller.getSpielerAmZug();
