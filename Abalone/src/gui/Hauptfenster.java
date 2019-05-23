@@ -3,6 +3,9 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -37,12 +40,23 @@ public class Hauptfenster {
 	private static Controller controller;
 	private EventHandlerHauptfenster eventHandlerMenu; 
 	private JMenuItem menuNeuesSpiel, menuSpeichern, menuLaden, menuLog, menuBeenden;
-	
+	private Font coalition;
+
 	
 	public Hauptfenster(Controller c) {
 		if(controller == null) {
 			controller = c;
 		}
+		
+		try {
+			coalition = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("AbaloneSchrift.ttf"));
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(coalition);
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
+		coalition = new Font("Coalition", Font.PLAIN, 15);
+		
 		eventHandlerMenu = new EventHandlerHauptfenster(this,controller);
 		GridLayout experimentLayout = new GridLayout(0,1);
 		// Default-Werte
@@ -50,8 +64,10 @@ public class Hauptfenster {
 		mainframe.setSize(960,640);
 		mainframe.setTitle("Abalone");
 		mainframe.setLayout(new BorderLayout());
-
+		
 		mainpanel = new JPanel();
+		mainpanel.setBackground(Color.DARK_GRAY);
+
 		mainpanel.setLayout(new GridBagLayout());
 			
 		initMenuBar();
@@ -59,15 +75,7 @@ public class Hauptfenster {
 		initKIOptionen();
 		initStatusPanel();
 		initHistorie();
-//		initHauptmenue();
 		
-		
-
-
-		
-		
-		
-
 		/*spielfeldPanel = new JPanel();
 		spielfeldPanel.setSize(400,400);
 		spielfeldPanel.setLayout(new BorderLayout());
@@ -78,7 +86,7 @@ public class Hauptfenster {
 		addToGridBag(c,spielfeldPanel, 0,1,0.5,1);
 		addToGridBag(c,spielfeldPane2, 1,1,0.5,1);*/
 		
-
+		
 
 		mainframe.add(mainpanel, BorderLayout.PAGE_START);
 		// Default 
@@ -89,20 +97,21 @@ public class Hauptfenster {
 	}
 	
 
-	private void initHauptmenue() {
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.BOTH;
-		Component hM =new Hauptmenue(controller);
-		c.gridheight = 5;
-		c.gridwidth = 5;
-		addToGridBag(c, hM, 1, 1, 0, 0);
-	}
+//	private void initHauptmenue() {
+//		GridBagConstraints c = new GridBagConstraints();
+//		c.fill = GridBagConstraints.BOTH;
+//		Component hM =new Hauptmenue(controller);
+//		c.gridheight = 5;
+//		c.gridwidth = 5;
+//		addToGridBag(c, hM, 1, 1, 0, 0);
+//	}
 
 
 	private void initSpielbrettPanel() {
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		spielfeldPanel = new BrettPanel(controller,controller.getFeldDaten());
+		spielfeldPanel.setBackground(Color.DARK_GRAY);
 		c.gridheight = 3;
 		c.gridwidth = 5;
 		spielfeldPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -117,6 +126,8 @@ public class Hauptfenster {
 		c.gridwidth=1;
 		
 		kiOptionenPanel = new KIOptionenPanel(controller);
+		kiOptionenPanel.setBackground(Color.DARK_GRAY);
+		kiOptionenPanel.setForeground(Color.WHITE);
 		kiOptionenPanel.setBorder(BorderFactory.createEtchedBorder());
 		kiOptionenPanel.steuereKIPanel(null, false);
 
@@ -129,6 +140,8 @@ public class Hauptfenster {
 		c.anchor = GridBagConstraints.EAST;
 		c.fill = 1; 
 		statusPanel = new StatusPanel();
+		statusPanel.setBackground(Color.DARK_GRAY);
+		statusPanel.setForeground(Color.WHITE);
 		statusPanel.setBorder(BorderFactory.createEtchedBorder());
 		c.gridwidth = 1;
 		addToGridBag(c,statusPanel, 5,1,0,1);
@@ -139,6 +152,8 @@ public class Hauptfenster {
 		c.fill = 1; 
 		c.gridwidth = 1; 
 		historiePanel = new HistoriePanel();
+		historiePanel.setBackground(Color.DARK_GRAY);
+		historiePanel.setForeground(Color.WHITE);
 		historiePanel.setBorder(BorderFactory.createEtchedBorder());
 
 
@@ -154,30 +169,46 @@ public class Hauptfenster {
 //		GridBagConstraints c = new GridBagConstraints();
 		
 		menubar = new JMenuBar();
+		menubar.setForeground(Color.WHITE);
 
 		menuNeuesSpiel = new JMenuItem("Neues Spiel");
+		menuNeuesSpiel.setForeground(Color.WHITE);
+		menuNeuesSpiel.setBackground(Color.DARK_GRAY);
+		menuNeuesSpiel.setFont(coalition);
 		menuNeuesSpiel.addActionListener(eventHandlerMenu);
 		menuNeuesSpiel.setBorder(BorderFactory.createEtchedBorder());
 		menubar.add(menuNeuesSpiel);
 
 		
 		menuSpeichern = new JMenuItem("Speichern");
+		menuSpeichern.setForeground(Color.WHITE);
+		menuSpeichern.setBackground(Color.DARK_GRAY);
+		menuSpeichern.setFont(coalition);
 		menuSpeichern.addActionListener(eventHandlerMenu);
 		menuSpeichern.setBorder(BorderFactory.createEtchedBorder());
 		menubar.add(menuSpeichern);
 		
 		
 		menuLaden = new JMenuItem("Laden");
+		menuLaden.setForeground(Color.WHITE);
+		menuLaden.setBackground(Color.DARK_GRAY);
+		menuLaden.setFont(coalition);
 		menuLaden.addActionListener(eventHandlerMenu);
 		menuLaden.setBorder(BorderFactory.createEtchedBorder());
 		menubar.add(menuLaden);
 		
 		menuLog = new JMenuItem("Log");
+		menuLog.setForeground(Color.WHITE);
+		menuLog.setBackground(Color.DARK_GRAY);
+		menuLog.setFont(coalition);
 		menuLog.addActionListener(eventHandlerMenu);
 		menuLog.setBorder(BorderFactory.createEtchedBorder());
 		menubar.add(menuLog);
 		
 		menuBeenden = new JMenuItem("Spiel beenden");
+		menuBeenden.setForeground(Color.WHITE);
+		menuBeenden.setBackground(Color.DARK_GRAY);
+		menuBeenden.setFont(coalition);
 		menuBeenden.addActionListener(eventHandlerMenu);
 		menuBeenden.setBorder(BorderFactory.createEtchedBorder());
 		menubar.add(menuBeenden);

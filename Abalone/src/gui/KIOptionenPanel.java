@@ -2,21 +2,33 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.IOException;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
 public class KIOptionenPanel extends JPanel {
 	private JLabel infoLabel, kiLabel;
 	private JButton kiWeiter, kiDurchziehend;
+	private Font coalition;
 	
 	private EventHandlerKIOptionen eventHandlerKIOptionen;
 	public KIOptionenPanel(Controller c) {
+		try {
+			coalition = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("AbaloneSchrift.ttf"));
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(coalition);
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
+		coalition = new Font("Coalition", Font.PLAIN, 12);
+		
 		this.setLayout(new GridBagLayout());
 		eventHandlerKIOptionen = new EventHandlerKIOptionen(c,this);
 		initLabel();
@@ -29,6 +41,9 @@ public class KIOptionenPanel extends JPanel {
 	private void initLabel() {
 		if(infoLabel == null) {
 			infoLabel = new JLabel("KI-Optionen");
+			infoLabel.setBackground(Color.DARK_GRAY);
+			infoLabel.setForeground(Color.WHITE);
+			infoLabel.setFont(coalition);
 			addToGridBag(infoLabel, 0, 0, 2 ,1, GridBagConstraints.REMAINDER);
 		}
 		
@@ -37,17 +52,26 @@ public class KIOptionenPanel extends JPanel {
 	private void initKILabelButtons() {
 		if(kiLabel == null) {
 			kiLabel = new JLabel();
+			kiLabel.setBackground(Color.DARK_GRAY);
+			kiLabel.setForeground(Color.WHITE);
+			kiLabel.setFont(coalition);
 			addToGridBag(kiLabel, 0,1);
 		}
 		
 		if(kiWeiter == null) {
 			kiWeiter = new JButton();
+			kiWeiter.setBackground(Color.DARK_GRAY);
+			kiWeiter.setForeground(Color.WHITE);
+			kiWeiter.setFont(coalition);
 			kiWeiter.addActionListener(eventHandlerKIOptionen);
 			addToGridBag(kiWeiter, 1,1);
 		}
 		
 		if(kiDurchziehend == null)  {
 			kiDurchziehend = new JButton();
+			kiDurchziehend.setBackground(Color.DARK_GRAY);
+			kiDurchziehend.setForeground(Color.WHITE);
+			kiDurchziehend.setFont(coalition);
 			kiDurchziehend.addActionListener(eventHandlerKIOptionen);
 			addToGridBag(kiDurchziehend, 2, 1);
 		}
@@ -67,9 +91,10 @@ public class KIOptionenPanel extends JPanel {
 	}
 	
 	private void aktiviereKIPanel(String kiName) {
-		kiLabel.setText((kiName + "                       "));
+		kiLabel.setText((kiName + "             "));
 		kiLabel.setOpaque(true);
-		kiLabel.setBackground(Color.WHITE);
+		kiLabel.setBackground(Color.DARK_GRAY);
+		kiLabel.setForeground(Color.WHITE);
 		
 		
 		kiWeiter.setText("Weiter");
@@ -94,9 +119,10 @@ public class KIOptionenPanel extends JPanel {
 	}
 	
 	private void deaktiviereKIPanel() {
-		kiLabel.setText("(KI nicht am Zug)     ");
+		kiLabel.setText("(KI nicht am Zug)  ");
 		kiLabel.setOpaque(true);
-		kiLabel.setBackground(Color.WHITE);
+		kiLabel.setBackground(Color.DARK_GRAY);
+		kiLabel.setForeground(Color.WHITE);
 		
 		
 		kiWeiter.setText("inaktiv  ");
