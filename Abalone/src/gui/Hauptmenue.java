@@ -127,13 +127,6 @@ public class Hauptmenue extends JFrame implements ActionListener{
 			
 			String ending = selected.toString().substring(selected.toString().lastIndexOf('.'));
 			
-			Controller c = null;
-			try {
-				c = new Controller();
-			} catch (SpielException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 
 			
 			if(ending.equals(".csv")) {
@@ -142,14 +135,15 @@ public class Hauptmenue extends JFrame implements ActionListener{
 			else if(ending.equals(".ser")) {
 				controller.ladenSer(selected.toString());
 			}
-			
+
 			try {
-				c.hauptFensterStarten();
+				Hauptmenue.controller.hauptFensterStarten();
 			} catch (SpielException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
+			this.dispose();
 			
 		}else if(e.getSource() == beenden) {
 			System.exit(0);
