@@ -14,8 +14,10 @@ public class Controller {
 	private Hauptfenster gameFrame;
 	private String[] spielStatus;
 	private String erlaubteZuege;
-	private Spieler spieler1;
-	private Spieler spieler2;
+	private String spielerName1;
+	private FarbEnum spielerFarbe1;
+	private FarbEnum spielerFarbe2;
+	private String spielerName2;
 	
 	public Controller() throws SpielException {
 		try {
@@ -77,11 +79,6 @@ public class Controller {
 		
 		spiel.addSpieler(name1, "weiss", anzahlSpieler);
 		spiel.addSpieler(name2, "schwarz", anzahlSpieler);
-		spieler1 = new Spieler(name1, FarbEnum.WEISS);
-		spieler1.setSpielerAmZug(spieler1);
-		spieler2 = new Spieler(name2, FarbEnum.SCHWARZ);
-		spieler1.setSpieler();
-		spieler2.setSpieler();
 		this.aktualisiereSpielStatus();
 		
 	}
@@ -142,8 +139,6 @@ public class Controller {
 	public void ziehe() throws SpielException{
 
 		spiel.ziehe(Spielzug.getZug());
-
-		spieler1.naechsterSpieler();
 		this.aktualisiereAlles();
 		gameFrame.aktualisiere();
 
@@ -152,7 +147,6 @@ public class Controller {
 	public void zieheKI(String[] zug) throws SpielException{
 
 		spiel.ziehe(zug);
-		spieler1.naechsterSpieler();
 		this.aktualisiereAlles();
 		gameFrame.aktualisiere();
 
@@ -203,6 +197,27 @@ public class Controller {
 	
 	public String getSpielerAmZug() {
 		return spiel.getSpielerAmZug();
+	}
+	
+	public FarbEnum getSpielerAmZugFarbe() {
+		String[] spieler1 = this.spielStatus[1].split(",");
+		String spieler1Name = spieler1[0].split(":")[1];
+		String[] spieler2 = this.spielStatus[2].split(",");
+		String spieler2Name = spieler1[0].split(":")[1];
+		String spielerAmZug = this.spielStatus[3].split(":")[1];
+		if(spieler1Name.equals(spielerAmZug)) {
+			if(spieler1[1].equals("weiss")){
+					return FarbEnum.WEISS;
+			}else {
+				return FarbEnum.SCHWARZ;
+			}
+		}else {
+			if(spieler2[1].equals("weiss")){
+				return FarbEnum.WEISS;
+		}else {
+			return FarbEnum.SCHWARZ;
+		}
+		}
 	}
 }
 
