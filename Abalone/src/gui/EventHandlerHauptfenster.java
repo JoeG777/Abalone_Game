@@ -23,6 +23,7 @@ public class EventHandlerHauptfenster implements ActionListener{
 		this.hauptfenster = hauptfenster;
 		controller = c; 
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == hauptfenster.getMenuNeuesSpiel()) {
@@ -58,6 +59,8 @@ public class EventHandlerHauptfenster implements ActionListener{
 			else if(ending.equals(".ser")) {
 				controller.ladenSer(selected.toString());
 			}
+			
+			controller.aktualisiereAlles();
 		}
 		if(e.getSource() == hauptfenster.getMenuLog()) {
 			LogFenster logFenster = new LogFenster();

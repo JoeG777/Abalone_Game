@@ -125,7 +125,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 		
-		aktualisiereAlles();
+
 	}
 	
 	public void ladenSer(String dateipfad) {
@@ -136,7 +136,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 		
-		aktualisiereAlles();
+
 	}
 
 	public void ziehe() throws SpielException{
