@@ -1,1 +1,141 @@
 
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 23.05.2019 15:26:48 ----------
+
+---------- Beendet am 23.05.2019 15:27:11 ----------
+---------- Gestartet am 23.05.2019 15:27:53 ----------
+
+---------- Beendet am 23.05.2019 15:28:56 ----------
+---------- Gestartet am 23.05.2019 18:08:15 ----------
+
+---------- Beendet am 23.05.2019 18:08:20 ----------
+---------- Gestartet am 23.05.2019 18:10:06 ----------
+
+Fehler am 23.05.2019 18:11:00: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 23.05.2019 18:11:28: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 23.05.2019 18:12:00: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 23.05.2019 18:12:13: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 23.05.2019 18:12:46: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 23.05.2019 18:12:46: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 23.05.2019 18:12:56: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 23.05.2019 18:13:14: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+---------- Beendet am 26.05.2019 08:49:25 ----------
+---------- Gestartet am 26.05.2019 13:17:12 ----------
+
+Fehler am 26.05.2019 13:18:23: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:18:26: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:18:30: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:18:37: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:18:46: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:18:52: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:18:54: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+---------- Beendet am 26.05.2019 13:19:21 ----------
+---------- Gestartet am 26.05.2019 13:19:24 ----------
+
+---------- Beendet am 26.05.2019 13:19:43 ----------
+---------- Gestartet am 26.05.2019 13:19:45 ----------
+
+Fehler am 26.05.2019 13:19:54: 
+Fehler ID 17 aufgetreten: Spielernamen muessen unterschiedlich sein!
+
+Fehler am 26.05.2019 13:20:18: 
+Fehler ID 17 aufgetreten: Spielernamen muessen unterschiedlich sein!
+
+---------- Beendet am 26.05.2019 13:20:59 ----------
+---------- Gestartet am 26.05.2019 13:23:21 ----------
+
+Fehler am 26.05.2019 13:23:38: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:23:59: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:25:58: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:26:05: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:26:11: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:26:29: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:26:35: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:26:59: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+---------- Beendet am 26.05.2019 13:27:05 ----------
+---------- Gestartet am 26.05.2019 13:28:49 ----------
+
+Fehler am 26.05.2019 13:29:07: 
+Fehler ID 17 aufgetreten: Spielernamen muessen unterschiedlich sein!
+
+Fehler am 26.05.2019 13:29:30: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:29:38: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:29:58: 
+Fehler ID 9 aufgetreten: Ungueltige zuglaenge: 13
+
+Fehler am 26.05.2019 13:29:59: 
+Fehler ID 9 aufgetreten: Ungueltige zuglaenge: 13
+
+Fehler am 26.05.2019 13:30:27: 
+Fehler ID 9 aufgetreten: Ungueltige zuglaenge: 13
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 26.05.2019 13:30:52 ----------
+
+Fehler am 26.05.2019 13:31:12: 
+Fehler ID 9 aufgetreten: Ungueltige zuglaenge: 11
+
+Fehler am 26.05.2019 13:31:15: 
+Fehler ID 9 aufgetreten: Ungueltige zuglaenge: 13
+
+Fehler am 26.05.2019 13:31:16: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+---------- Beendet am 26.05.2019 13:31:48 ----------
+---------- Beendet am 26.05.2019 13:31:48 ----------
+---------- Gestartet am 26.05.2019 19:34:44 ----------
+
+---------- Beendet am 26.05.2019 19:35:39 ----------
