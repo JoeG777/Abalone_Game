@@ -119,4 +119,8 @@ public class Spielzug {
 		zug[0] = "";
 		zug[0] = f2+f1;
 	}
+	
+	public static Controller getController() {
+		return controller;
+	}
 }
