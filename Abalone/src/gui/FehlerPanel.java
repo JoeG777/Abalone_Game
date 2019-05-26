@@ -1,6 +1,11 @@
 package gui;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.io.File;
+import java.io.IOException;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -12,15 +17,29 @@ import javax.swing.JOptionPane;
 public class FehlerPanel {
 	private JOptionPane fenster;
 	private String fehlertext;
+	private Font coalition;
 	
 	public FehlerPanel(String ft) {
+		try {
+			coalition = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("AbaloneSchrift.ttf"));
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(coalition);
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
+		coalition = new Font("Coalition", Font.PLAIN, 15);
+		
 //		playSound();
 		this.fehlertext = ft;
 		fenster = new JOptionPane();
+		fenster.setBackground(Color.DARK_GRAY);
+		fenster.setForeground(Color.WHITE);
+		
 		JOptionPane.showMessageDialog(null,
 										fehlertext,
 										"Warning", 
 										JOptionPane.ERROR_MESSAGE);
+		
 	}
 
 	private void playSound() {

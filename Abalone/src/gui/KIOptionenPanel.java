@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class KIOptionenPanel extends JPanel {
 	private JLabel infoLabel, kiLabel;
 	private JButton kiWeiter, kiDurchziehend;
-	private Font coalition;
+	private Font coalition, coalition2;
 	
 	private EventHandlerKIOptionen eventHandlerKIOptionen;
 	public KIOptionenPanel(Controller c) {
@@ -27,7 +27,8 @@ public class KIOptionenPanel extends JPanel {
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
-		coalition = new Font("Coalition", Font.PLAIN, 12);
+		coalition = new Font("Coalition", Font.PLAIN, 10);
+		coalition2 = new Font("Coalition", Font.PLAIN, 14);
 		
 		this.setLayout(new GridBagLayout());
 		eventHandlerKIOptionen = new EventHandlerKIOptionen(c,this);
@@ -43,7 +44,7 @@ public class KIOptionenPanel extends JPanel {
 			infoLabel = new JLabel("KI-Optionen");
 			infoLabel.setBackground(Color.DARK_GRAY);
 			infoLabel.setForeground(Color.WHITE);
-			infoLabel.setFont(coalition);
+			infoLabel.setFont(coalition2);
 			addToGridBag(infoLabel, 0, 0, 2 ,1, GridBagConstraints.REMAINDER);
 		}
 		

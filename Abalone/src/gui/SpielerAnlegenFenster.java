@@ -28,6 +28,7 @@ import abalone.SpielException;
 public class SpielerAnlegenFenster implements ActionListener{
 
 	private JFrame fenster;
+	private JLabel head;
 	private JLabel schwarz;
 	private JLabel weiss;
 	private JPanel jp;
@@ -44,6 +45,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 	private int anzahlSpieler = 0;
 	private static Controller controller;
 	private Font coalition;
+	private ImageIcon ueberschrift;
 
 	public SpielerAnlegenFenster(Controller controller) {
 		SpielerAnlegenFenster.controller = controller;
@@ -62,6 +64,8 @@ public class SpielerAnlegenFenster implements ActionListener{
 		}
 		coalition = new Font("Coalition", Font.PLAIN, 15);
 		
+		ueberschrift =  new ImageIcon(getClass().getResource("./assets/burn-inSpieleranlegen.gif"));
+		
 		fenster = new JFrame("Abalone");
 		fenster.setSize(800,500);
 		fenster.setLocationRelativeTo(null);
@@ -73,12 +77,21 @@ public class SpielerAnlegenFenster implements ActionListener{
 		jp.setLayout(new GridBagLayout());
 
 		GridBagConstraints c = new GridBagConstraints();
+		
+		head = new JLabel(ueberschrift);
+		c.gridx = 1;
+		c.gridy = 0;
+		c.gridwidth = 2;
+		c.insets = new Insets(0,0,20,0);
+		jp.add(head,c);
 
 		weiss = new JLabel("Weiss:   ");
 		weiss.setFont(coalition);
 		weiss.setForeground(Color.WHITE);
+		c.insets = new Insets(0,0,0,0);
+		c.gridwidth = 1;
 		c.gridx = 1;
-		c.gridy = 0;
+		c.gridy = 1;
 		jp.add(weiss,c);
 
 		tf1 = new JTextField(15);
@@ -86,16 +99,16 @@ public class SpielerAnlegenFenster implements ActionListener{
 		tf1.setBackground(new Color(20,68,170));
 		tf1.setForeground(Color.WHITE);
 		c.gridx = 2;
-		c.gridy = 0;
+		c.gridy = 1;
 		jp.add(tf1,c);
 		
 		ki1 = new JRadioButton("KI");
 		ki1.setFont(coalition);
 		ki1.setForeground(Color.WHITE);
+		ki1.setBackground(Color.DARK_GRAY);
 		c.gridx = 1;
 		c.gridy = 2;
-		c.ipady = 55;
-		ki1.setBackground(Color.DARK_GRAY);
+		c.ipady = 25;
 		jp.add(ki1,c);
 		ki1.addActionListener(this);
 		
@@ -111,7 +124,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 
 		schwarz = new JLabel("Schwarz: ");
 		schwarz.setFont(coalition);
-		schwarz.setForeground(Color.DARK_GRAY);
+		schwarz.setForeground(Color.WHITE);
 		c.gridx = 1;
 		c.gridy = 3;
 		c.ipady = 0;
@@ -129,7 +142,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		ki2.setFont(coalition);
 		c.gridx = 1;
 		c.gridy = 4;
-		c.ipady = 55;	
+		c.ipady = 25;	
 		ki2.setForeground(Color.WHITE);
 		ki2.setBackground(Color.DARK_GRAY);
 		jp.add(ki2,c);
@@ -154,7 +167,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		c.gridy = 5;	
 		c.gridwidth = 2;
 		c.ipady = 0;
-		c.insets = new Insets(40,0,0,0);
+		c.insets = new Insets(20,0,0,0);
 		los.setBackground(Color.DARK_GRAY);
 		jp.add(los,c);
 		los.addActionListener(this);

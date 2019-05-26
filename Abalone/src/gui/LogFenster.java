@@ -1,6 +1,11 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.IOException;
 
 import javax.swing.JDialog;
 import javax.swing.JScrollPane;
@@ -15,6 +20,7 @@ import javax.swing.JTextArea;
 public class LogFenster {
 	private JDialog dialog;
 	private String log;
+	private Font coalition, coalition2;
 	
 	/**
 	 * Der Konstruktor der Klasse Log-Fenster.
@@ -22,11 +28,24 @@ public class LogFenster {
 	 * @param logObj Log-Objekt
 	 */
 	public LogFenster() {
+		try {
+			coalition = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("AbaloneSchrift.ttf"));
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(coalition);
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
+		coalition = new Font("Coalition", Font.PLAIN, 12);
+		coalition2 = new Font("Coalition", Font.PLAIN, 15);
+		
 		Log logObj = new Log();
 		log = logObj.logLesen();
 		setLog(log);
 		
 		dialog = new JDialog();
+		dialog.setBackground(Color.DARK_GRAY);
+		dialog.setForeground(Color.WHITE);
+		dialog.setFont(coalition2);
 		dialog.setTitle("Log");
 		dialog.setSize(720, 480);
 		dialog.setResizable(false);
@@ -65,6 +84,9 @@ public class LogFenster {
 	private void logAusgeben(JDialog dialog, String log) {
 		JTextArea text = new JTextArea(720, 480);
 		JScrollPane scrollPane = new JScrollPane(text);
+		text.setBackground(Color.DARK_GRAY);
+		text.setForeground(Color.WHITE);
+		text.setFont(coalition);
 		text.setEditable(false);
 		text.setLineWrap(true);
 		text.setVisible(true);
