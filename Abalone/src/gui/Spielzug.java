@@ -15,7 +15,7 @@ public class Spielzug {
 	public static void toggleString(FarbEnum farbe,String id) {
 		
 			 
-		if(Spieler.getSpielerAmZugFarbe() == controller.getSpielfeldMitId(id).getFigurFarbe()) {
+		if(controller.getSpielerAmZugFarbe() == controller.getSpielfeldMitId(id).getFigurFarbe()) {
 			if(zug[0].contains(id)) {
 				if(zug[0].length() == 4) {
 					if(zug[0].substring(0,2).equals(id)) {

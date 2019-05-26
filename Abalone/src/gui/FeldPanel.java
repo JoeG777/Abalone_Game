@@ -150,4 +150,8 @@ public class FeldPanel extends JPanel{
 		this.istAusgewaehlt = false;
 	}
 	
+	public Controller getController() {
+		return controller;
+	}
+	
 }
