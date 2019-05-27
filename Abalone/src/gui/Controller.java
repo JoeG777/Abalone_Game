@@ -148,17 +148,19 @@ public class Controller {
 
 	}
 	
-	public void gewonnen() {
-		String verlierer;
-		if (spiel.hatGewonnen(spiel.getSpielerAmZug())) {
-			verlierer = spiel.getSpielerAmZug();
-			String[] spielerImSpielArr = spiel.getSpielerImSpielInterface().split(",");
-			for (String s1 : spielerImSpielArr) {
-				if (!s1.equals(verlierer)) {
-					gameFrame.spielGewonnen(s1);
+	public boolean gewonnen() {
+		String spielerAmZug = spiel.getSpielerAmZug();
+		
+		for(String spieler : spiel.getSpielerImSpielInterface().split(",")) {
+			if(!spieler.equals(spielerAmZug)) {
+				if(spiel.hatGewonnen(spieler)) {
+					gameFrame.spielGewonnen(spieler);
+					return true;
 				}
 			}
 		}
+		
+		return false;
 	}
 
 	public void ziehe() throws SpielException{
@@ -166,7 +168,9 @@ public class Controller {
 		spiel.ziehe(Spielzug.getZug());
 		this.aktualisiereAlles();
 		gameFrame.aktualisiere();
-		gewonnen();
+		if(gewonnen()) {
+			return;
+		}
 		if(spiel.getSpielerAmZug().startsWith("KI") 
 				&& spiel.getSpielerAmZug().endsWith("(durchziehend)")) {
 			String[] kiZug = {"",""};
@@ -181,7 +185,9 @@ public class Controller {
 		spiel.ziehe(zug);
 		this.aktualisiereAlles();
 		gameFrame.aktualisiere();
-		
+		if(gewonnen()) {
+			return;
+		}
 		if(!durchziehendAmZug && spiel.getSpielerAmZug().startsWith("KI") 
 				&& spiel.getSpielerAmZug().endsWith("(durchziehend)")) {
 			String[] kiZug = {"",""};
