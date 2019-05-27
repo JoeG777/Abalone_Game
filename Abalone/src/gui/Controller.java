@@ -234,5 +234,14 @@ public class Controller {
 	public bedienerInterface getBenutzerInterface() {
 		return this.spiel;
 	}
+	
+	public boolean nurDurchziehendeKIs() {
+		String[] spieler = spiel.getSpielerImSpielInterface().split(",");
+		
+		boolean spieler1 = spieler[0].startsWith("KI") && spieler[0].endsWith("(durchziehend)");
+		boolean spieler2 = spieler[1].startsWith("KI") && spieler[1].endsWith("(durchziehend)");
+		
+		return spieler1 && spieler2;
+	}
 }
 
