@@ -49,6 +49,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 
 	public SpielerAnlegenFenster(Controller controller) {
 		SpielerAnlegenFenster.controller = controller;
+		controller.spielNeuStarten();
 		try {
 			bild = ImageIO.read(getClass().getResource("./assets/Los Gehts.png"));
 		} catch (IOException e) {

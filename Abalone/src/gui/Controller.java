@@ -20,10 +20,12 @@ public class Controller {
 	private String spielerName2;
 	
 	public Controller() throws SpielException {
-		try {
-			spiel = new Spiel();
-		} catch (SpielfeldException e) {
-		}
+//		try {
+//			spiel = new Spiel();
+//		} catch (SpielfeldException e) {
+//		}
+		
+		new Hauptmenue(this);
 	}
 	
 	private void aktualisiereSpielStatus() {
