@@ -35,7 +35,7 @@ public class StatusPanel extends JPanel {
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(coalition);
 		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Laden der Schriftart!");
 		}
 		coalition = new Font("Coalition", Font.PLAIN, 10);
 		coalition2 = new Font("Coalition", Font.PLAIN, 14);
@@ -103,9 +103,9 @@ public class StatusPanel extends JPanel {
 			spieler2[0] = spieler2[0].substring(0, 4) +durchziehend;
 		}
 		String string = spieler1[0] + " (Rot)\n" + spieler1[4] + " / 14 Kugeln "
-				+ "(Muss " + (Integer.parseInt(spieler2[4]) - 8) + " Kugeln schlagen für Sieg)\n"
+				+ "(Muss " + (Integer.parseInt(spieler2[4]) - 7) + " Kugeln schlagen für Sieg)\n"
 				+ spieler2[0] + " (Blau)\n" + spieler2[4] + " / 14 Kugeln "
-				+ "(Muss " + (Integer.parseInt(spieler1[4]) - 8) + " Kugeln schlagen für Sieg)";
+				+ "(Muss " + (Integer.parseInt(spieler1[4]) - 7) + " Kugeln schlagen für Sieg)";
 		if(amZug != null) {
 			string += "\n Am Zug ist " + amZug + ".";
 		}

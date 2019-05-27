@@ -37,7 +37,8 @@ public class EventHandlerKIOptionen implements ActionListener{
 			try {
 				c.zieheKI(kiZug);
 			} catch(SpielException e1) {
-				
+				new FehlerPanel("Ziehen der KI fehlgeschlagen!");
+				return;
 			}
 			
 			c.aktualisiereAlles();
@@ -49,7 +50,8 @@ public class EventHandlerKIOptionen implements ActionListener{
 			try {
 				c.zieheKI(kiZug);
 			} catch(SpielException e1) {
-				
+				new FehlerPanel("Ziehen der KI fehlgeschlagen!");
+				return;
 			}
 			c.aktualisiereAlles();
 			
@@ -67,26 +69,21 @@ public class EventHandlerKIOptionen implements ActionListener{
 			try {
 				c.getBedienerInterface().ziehe(kiZug);
 			} catch (SpielException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				new FehlerPanel("KI-Ziehen fehlgeschlagen!");
+				return;
 			}
 			c.aktualisiereAlles();
 			
-			new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(5000);
-					System.out.println("angekommen");
-				} catch (InterruptedException e) {
-					
-				}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				new FehlerPanel("Verzögerung der KI fehlgeschlagen!");
+				return;
 			}
-		}).start();
-		}
 		
 		actionPerformed(event);
 		
+	}
 	}
 //	private void startKIvsKI(String[] kiZug) {
 //		while(!c.getBedienerInterface().hatGewonnen(c.getSpielerAmZug())) {

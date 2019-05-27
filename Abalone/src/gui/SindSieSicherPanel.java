@@ -56,14 +56,14 @@ public class SindSieSicherPanel implements ActionListener{
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(coalition);
 		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Laden der Schriftart!");
 		}
 		try {
 			ja = ImageIO.read(getClass().getResource("./assets/JABUTTON.png"));
 			nein = ImageIO.read(getClass().getResource("./assets/NeinButton.png"));
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Laden der Bilder!");
 		}
 		coalition = new Font("Coalition", Font.PLAIN, 20);
 		

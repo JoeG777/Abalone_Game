@@ -23,7 +23,7 @@ public class Controller {
 		try {
 			new Controller();
 		} catch (SpielException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Erstellen des Controllers!");
 		}
 	}
 	
@@ -31,6 +31,7 @@ public class Controller {
 		try {
 			spiel = new Spiel();
 		} catch (SpielfeldException e) {
+			new FehlerPanel("Fehler beim Laden der Spiels!");
 		}
 		
 		new Hauptmenue(this);
@@ -67,6 +68,7 @@ public class Controller {
 		try {
 			erlaubteZuege = spiel.getErlaubteZuegeInterface(ausgangsfelder);
 		} catch (SpielException e) {
+			new FehlerPanel("Fehler beim Laden der erlaubten Zuege!");
 		}
 		return erlaubteZuege;
 		}
@@ -82,7 +84,7 @@ public class Controller {
 			spiel = new Spiel();
 			
 		} catch (SpielfeldException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Neustarten des Spiels!");
 		}
 	}
 	
@@ -100,8 +102,7 @@ public class Controller {
 		try {
 			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Starten des Hauptfensters!");
 		}
 		Spielzug.subscribe(this);
 
@@ -147,17 +148,19 @@ public class Controller {
 
 	}
 	
-	public void gewonnen() {
-		String verlierer;
-		if (spiel.hatGewonnen(spiel.getSpielerAmZug())) {
-			verlierer = spiel.getSpielerAmZug();
-			String[] spielerImSpielArr = spiel.getSpielerImSpielInterface().split(",");
-			for (String s1 : spielerImSpielArr) {
-				if (!s1.equals(verlierer)) {
-					gameFrame.spielGewonnen(s1);
+	public boolean gewonnen() {
+		String spielerAmZug = spiel.getSpielerAmZug();
+		
+		for(String spieler : spiel.getSpielerImSpielInterface().split(",")) {
+			if(!spieler.equals(spielerAmZug)) {
+				if(spiel.hatGewonnen(spieler)) {
+					gameFrame.spielGewonnen(spieler);
+					return true;
 				}
 			}
 		}
+		
+		return false;
 	}
 
 	public void ziehe() throws SpielException{
@@ -165,7 +168,9 @@ public class Controller {
 		spiel.ziehe(Spielzug.getZug());
 		this.aktualisiereAlles();
 		gameFrame.aktualisiere();
-		gewonnen();
+		if(gewonnen()) {
+			return;
+		}
 		if(spiel.getSpielerAmZug().startsWith("KI") 
 				&& spiel.getSpielerAmZug().endsWith("(durchziehend)")) {
 			String[] kiZug = {"",""};
@@ -180,7 +185,9 @@ public class Controller {
 		spiel.ziehe(zug);
 		this.aktualisiereAlles();
 		gameFrame.aktualisiere();
-		
+		if(gewonnen()) {
+			return;
+		}
 		if(!durchziehendAmZug && spiel.getSpielerAmZug().startsWith("KI") 
 				&& spiel.getSpielerAmZug().endsWith("(durchziehend)")) {
 			String[] kiZug = {"",""};

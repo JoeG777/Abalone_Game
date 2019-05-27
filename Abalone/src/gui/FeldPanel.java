@@ -100,6 +100,7 @@ public class FeldPanel extends JPanel{
 			  }
 			  
 		  } catch (Exception ex) {
+			  new FehlerPanel("Fehler beim Laden der Bilder!");
 		  }
 		  if(button != null)
 			  this.remove(button);
