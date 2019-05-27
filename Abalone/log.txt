@@ -133,3 +133,16 @@ Fehler ID 7 aufgetreten: Unzulaessiger Zug
 
 ---------- Beendet am 21.05.2019 18:03:12 ----------
 
+
+---------- Gestartet am 23.05.2019 12:10:03 ----------
+
+Fehler am 23.05.2019 12:10:16: 
+Fehler ID 14 aufgetreten: Ungueltige laenge des Namen: 0
+
+Fehler am 23.05.2019 12:10:49: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 23.05.2019 12:11:07: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+---------- Beendet am 23.05.2019 12:11:38 ----------
