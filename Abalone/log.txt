@@ -137,3 +137,36 @@ Fehler ID 7 aufgetreten: Unzulaessiger Zug
 ---------- Beendet am 26.05.2019 13:31:48 ----------
 ---------- Beendet am 26.05.2019 13:31:48 ----------
 ---------- Gestartet am 26.05.2019 19:34:44 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 27.05.2019 14:21:57 ----------
+
+Fehler am 27.05.2019 14:22:17: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 27.05.2019 14:22:22: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 27.05.2019 14:22:33: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 27.05.2019 14:22:46: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 27.05.2019 14:23:07: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 27.05.2019 14:23:29: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 27.05.2019 14:23:38: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 27.05.2019 14:23:49: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 27.05.2019 14:24:01: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+---------- Beendet am 27.05.2019 14:24:18 ----------
