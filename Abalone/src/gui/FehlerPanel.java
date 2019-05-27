@@ -50,7 +50,7 @@ public class FehlerPanel {
 	}
 
 	/**
-	 * Methode die einen Blitzschlag-Sound ausgibt falls ein Fehlerauftritt(FehlerPanel erzeugt wird).
+	 * Methode die einen Blitzschlag-Sound ausgibt falls ein Fehler auftritt(FehlerPanel erzeugt wird).
 	 */
 	private void playSound() {
 		try{
