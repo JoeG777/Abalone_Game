@@ -23,16 +23,15 @@ public class Controller {
 		try {
 			new Controller();
 		} catch (SpielException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	public Controller() throws SpielException {
-//		try {
-//			spiel = new Spiel();
-//		} catch (SpielfeldException e) {
-//		}
+		try {
+			spiel = new Spiel();
+		} catch (SpielfeldException e) {
+		}
 		
 		new Hauptmenue(this);
 	}
@@ -81,6 +80,7 @@ public class Controller {
 	public void spielNeuStarten() {
 		try {
 			spiel = new Spiel();
+			
 		} catch (SpielfeldException e) {
 			e.printStackTrace();
 		}
@@ -146,8 +146,16 @@ public class Controller {
 		
 
 	}
+	
+	public void gewonnen() {
+		if (spiel.hatGewonnen(spiel.getSpielerAmZug())) {
+			new GewonnenPanel(spiel.getSpielerAmZug(), this);
+		}
+	}
 
 	public void ziehe() throws SpielException{
+		gewonnen();
+		
 		spiel.ziehe(Spielzug.getZug());
 		this.aktualisiereAlles();
 		gameFrame.aktualisiere();
@@ -156,6 +164,7 @@ public class Controller {
 			String[] kiZug = {"",""};
 			zieheKI(kiZug);
 		}
+		
 	}
 	
 	public void zieheKI(String[] zug) throws SpielException{

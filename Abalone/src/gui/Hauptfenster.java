@@ -107,8 +107,6 @@ public class Hauptfenster {
 		mainframe.setLocationRelativeTo(null);
 		mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainframe.setVisible(true);
-		
-
 	}
 
 	/**

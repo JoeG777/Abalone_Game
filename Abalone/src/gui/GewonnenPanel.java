@@ -20,7 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import abalone.SpielException;
 
 public class GewonnenPanel implements ActionListener{
 	private JFrame fenster;
@@ -33,8 +32,10 @@ public class GewonnenPanel implements ActionListener{
 	private JButton beenden;
 	private Controller controller;
 	
-	public GewonnenPanel(String gewinner, Controller controller) {
+	public GewonnenPanel(String name, Controller controller) {
 		this.controller = controller;
+		this.gewinner = name;
+
 		try {
 			bild = ImageIO.read(getClass().getResource("./assets/Hauptmenu.png"));
 		} catch (IOException e) {
@@ -49,7 +50,6 @@ public class GewonnenPanel implements ActionListener{
 		}
 		coalition = new Font("Coalition", Font.PLAIN, 60);
 		
-		this.gewinner = gewinner;
 		fenster = new JFrame("Abalone");
 		fenster.setSize(800,500);
 		fenster.setResizable(false);
@@ -78,28 +78,13 @@ public class GewonnenPanel implements ActionListener{
 		beenden = new JButton();
 		beenden.setIcon(new ImageIcon(bild));
 		beenden.setPreferredSize(new Dimension(227,72));
-//		c.gridwidth = 10;
-//		c.gridx = 1;
 		c.gridy = 2;	
-//		c.gridwidth = 2;
-//		c.ipady = 0;
-//		c.insets = new Insets(40,0,0,0);
 		beenden.setBackground(Color.DARK_GRAY);
 		jp.add(beenden,c);
 		beenden.addActionListener(this);
 		
 		fenster.add(jp);
 		fenster.setVisible(true);
-	}
-	
-	
-	public static void main(String[] spast) {
-		try {
-			new GewonnenPanel("Pisser",new Controller());
-		} catch (SpielException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 

@@ -57,9 +57,7 @@ public class Hauptmenue extends JFrame implements ActionListener{
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-//		jl = new JLabel("Abalone", SwingConstants.CENTER);
-//		jl.setFont(new Font("Times New Roman", Font.BOLD, 36));
-//		gbc.fill = GridBagConstraints.HORIZONTAL;
+
 		ueberschrift =  new ImageIcon(getClass().getResource("./assets/burn-in3.gif"));
 		neuesSpielIcon = new ImageIcon(getClass().getResource("./assets/Neues Spiel.png"));
 		spielLadenIcon =  new ImageIcon(getClass().getResource("./assets/Spiel Laden.png"));
@@ -68,8 +66,6 @@ public class Hauptmenue extends JFrame implements ActionListener{
 		gbc.weightx = 1.0;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-//		gbc.ipady = 40;
-//		gbc.ipadx = 40;
 		gbc.insets = new Insets(14,0,0,0);
 		jl = new JLabel(ueberschrift);
 		jp.add(jl, gbc);
@@ -80,19 +76,13 @@ public class Hauptmenue extends JFrame implements ActionListener{
 		gbc.ipady = 0;
 		gbc.ipadx = 0;
 		gbc.gridy = 1;
-//		gbc.fill = GridBagConstraints.HORIZONTAL;
-//		gbc.gridy = 1;
-//		gbc.gridwidth = 2;
-//		gbc.ipady = 30;
-//		gbc.ipadx = 80;
-//		gbc.insets = new Insets(20,0,0,0);
+
 		neuesSpiel.addActionListener(this);
 		jp.add(neuesSpiel, gbc);
 
 		spielLaden = new JButton ();
 		spielLaden.setIcon(spielLadenIcon);
 		spielLaden.setPreferredSize(new Dimension(227,72));
-//		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridy = 2;
 		spielLaden.addActionListener(this);
 		jp.add(spielLaden,gbc);
@@ -100,7 +90,6 @@ public class Hauptmenue extends JFrame implements ActionListener{
 		beenden = new JButton ();
 		beenden.setIcon(beendenIcon);
 		beenden.setPreferredSize(new Dimension(227,72));
-//		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridy = 3;
 		beenden.addActionListener(this);
 		jp.add(beenden, gbc);
