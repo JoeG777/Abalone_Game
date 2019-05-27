@@ -19,11 +19,21 @@ public class Controller {
 	private FarbEnum spielerFarbe2;
 	private String spielerName2;
 	
+	public static void main(String[] args) {
+		try {
+			new Controller();
+		} catch (SpielException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public Controller() throws SpielException {
 		try {
 			spiel = new Spiel();
 		} catch (SpielfeldException e) {
 		}
+		
+		new Hauptmenue(this);
 	}
 	
 	private void aktualisiereSpielStatus() {
@@ -71,6 +81,7 @@ public class Controller {
 	public void spielNeuStarten() {
 		try {
 			spiel = new Spiel();
+			
 		} catch (SpielfeldException e) {
 			e.printStackTrace();
 		}
@@ -136,8 +147,16 @@ public class Controller {
 		
 
 	}
+	
+	public void gewonnen() {
+		if (spiel.hatGewonnen(spiel.getSpielerAmZug())) {
+			new GewonnenPanel(spiel.getSpielerAmZug(), this);
+		}
+	}
 
 	public void ziehe() throws SpielException{
+		gewonnen();
+		
 		spiel.ziehe(Spielzug.getZug());
 		this.aktualisiereAlles();
 		gameFrame.aktualisiere();
@@ -146,6 +165,7 @@ public class Controller {
 			String[] kiZug = {"",""};
 			zieheKI(kiZug);
 		}
+		
 	}
 	
 	public void zieheKI(String[] zug) throws SpielException{
@@ -234,6 +254,15 @@ public class Controller {
 	
 	public bedienerInterface getBenutzerInterface() {
 		return this.spiel;
+	}
+	
+	public boolean nurDurchziehendeKIs() {
+		String[] spieler = spiel.getSpielerImSpielInterface().split(",");
+		
+		boolean spieler1 = spieler[0].startsWith("KI") && spieler[0].endsWith("(durchziehend)");
+		boolean spieler2 = spieler[1].startsWith("KI") && spieler[1].endsWith("(durchziehend)");
+		
+		return spieler1 && spieler2;
 	}
 }
 

@@ -128,6 +128,7 @@ public class Historie implements java.io.Serializable {
 	 * @param csv String, welcher die zu ladende Historie enthaelt
 	 */
 	public void ladeCSV(String csv) {
+		setZaehler(1);
 		String[] array = csv.split(":");
 		this.setZuege(new ArrayList<String>());
 		if(array.length < 2) {

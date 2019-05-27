@@ -11,15 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class FeldPanel extends JPanel{
-	private static final String figurSchwarz="./assets/BlaueKugel.png";
-	private static final String figurSchwarzGewaehlt="./assets/figurSchwarzGewaehlt.png";
-	private static final String figurSchwarzWaehlbar="./assets/figurSchwarzWaehlbar.png";
-	private static final String figurWeiss="./assets/RoteKugel2.png";
-	private static final String figurWeissGewaehlt="./assets/figurWeissGewaehlt.png";
-	private static final String figurWeissWaehlbar="./assets/figurWeissWaehlbar.png";
+	private static final String figurSchwarz="./assets/figurBlau.png";
+	private static final String figurSchwarzGewaehlt="./assets/figurBlauGewaehlt.png";
+	private static final String figurSchwarzWaehlbar="./assets/figurBlauWaehlbar.png";
+	private static final String figurWeiss="./assets/figurRot.png";
+	private static final String figurWeissGewaehlt="./assets/figurRotGewaehlt.png";
+	private static final String figurWeissWaehlbar="./assets/figurRotWaehlbar.png";
 	private static final String figurLeer="./assets/leeresFeld.png";
-	private static final String figurLeerWaehlbar="./assets/emptyWaehlbar.png";
-	private static final String figurLeerGewaehlt="./assets/emptyGewaehlt.png";
+	private static final String figurLeerGewaehlt="./assets/leeresFeldGewaehlt.png";
+	private static final String figurLeerWaehlbar="./assets/leeresFeldWaehlbar.png";
 	
 	
 	

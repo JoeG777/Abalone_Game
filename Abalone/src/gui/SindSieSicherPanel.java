@@ -30,7 +30,6 @@ public class SindSieSicherPanel implements ActionListener{
 	private JLabel label;
 	private JButton jaButton;
 	private JButton neinButton;
-	private EventHandlerHauptfenster eventHandlerMenu; 
 	private String abfrage;
 	private Controller controller;
 	private JFrame mainframe;
@@ -65,7 +64,6 @@ public class SindSieSicherPanel implements ActionListener{
 		
 		unteresPanel();
 	
-//		fenster.validate();
 		fenster.add(jp, BorderLayout.NORTH);
 		fenster.add(jp2);
 		
@@ -107,10 +105,6 @@ public class SindSieSicherPanel implements ActionListener{
 		jaButton.setPreferredSize(new Dimension(100,50));
 
 		jaButton.setIcon(new ImageIcon(ja));
-//		jaButton.setBackground(Color.DARK_GRAY);
-//		jaButton.setForeground(Color.WHITE);
-//		c.ipady = 20;
-//		c.ipadx = 40;
 		c.insets = new Insets(0,20,0,20);
 		jp2.add(jaButton,c);
 		jaButton.addActionListener(this);
@@ -118,8 +112,6 @@ public class SindSieSicherPanel implements ActionListener{
 		neinButton = new JButton();
 		neinButton.setPreferredSize(new Dimension(100,50));
 		neinButton.setIcon(new ImageIcon(nein));
-//		neinButton.setBackground(Color.DARK_GRAY);
-//		neinButton.setForeground(Color.WHITE);
 		jp2.add(neinButton,c);
 		neinButton.addActionListener(this);
 		
@@ -155,7 +147,6 @@ public class SindSieSicherPanel implements ActionListener{
 				mainframe.setVisible(false);
 				mainframe.dispose();
 				
-				controller.spielNeuStarten();
 				new SpielerAnlegenFenster(controller);
 			}
 			if (e.getSource() == neinButton) {

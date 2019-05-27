@@ -29,7 +29,7 @@ public class FehlerPanel {
 		}
 		coalition = new Font("Coalition", Font.PLAIN, 15);
 		
-//		playSound();
+		playSound();
 		this.fehlertext = ft;
 		fenster = new JOptionPane();
 		fenster.setBackground(Color.DARK_GRAY);
@@ -45,15 +45,11 @@ public class FehlerPanel {
 	private void playSound() {
 		try{
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("abalone/src/gui/assets/Bang.wav"));
-			AudioFormat af = audioInputStream.getFormat();
-			int size = (int) (af.getFrameSize() * audioInputStream.getFrameLength());
-			byte[] audio = new byte[size];
-			DataLine.Info info = new DataLine.Info(Clip.class, af, size);
-			audioInputStream.read(audio, 0, size);
-
-			Clip clip = (Clip) AudioSystem.getLine(info);
-			clip.open(af, audio, 0, size);
+			
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
 			clip.start();
+			
 		}catch(Exception e){ e.printStackTrace(); }
 
 	}
