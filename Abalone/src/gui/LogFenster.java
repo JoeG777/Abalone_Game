@@ -5,11 +5,16 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 /**
  * Diese Klasse erschafft ein Log-Fenster.
@@ -38,24 +43,57 @@ public class LogFenster {
 		coalition = new Font("Coalition", Font.PLAIN, 12);
 		coalition2 = new Font("Coalition", Font.PLAIN, 15);
 		
-		Log logObj = new Log();
-		log = logObj.logLesen();
-		setLog(log);
+		BufferedReader br = null;
+		String datei = ""; 
+		String zeile = ""; 
+		try {
+			br = new BufferedReader(
+				new InputStreamReader(new FileInputStream("log.txt"), "utf-8"));
+			while ((zeile = br.readLine()) != null) {
+				datei = datei + "\n" + zeile;
+			}
+			br.close();
+		} catch (IOException e) {
+			logErstellen();
+			datei = "abc"; 
+		}
+
+				
+		setLog(datei);
 		
 		dialog = new JDialog();
+		logAusgeben(dialog, log);
 		dialog.setBackground(Color.DARK_GRAY);
 		dialog.setForeground(Color.WHITE);
 		dialog.setFont(coalition2);
 		dialog.setTitle("Log");
-		dialog.setSize(720, 480);
+		dialog.setSize(740, 480);
+		
 		dialog.setResizable(false);
 		dialog.setLayout(new BorderLayout());
 		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		logAusgeben(dialog, log);
+		
 	}
 	
+
+
+	
+	/**
+	 * Erstellt eine Log-Datei und loescht die alte.
+	 */
+	private void logErstellen() {
+		File file = new File("log.txt");
+		
+		if (file.exists())
+			file.delete();
+		
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+		}
+	}
 	/**
 	 * Gibt die Log-Informationen als String zurueck
 	 * 
@@ -93,6 +131,8 @@ public class LogFenster {
 		text.append("---LOG---");
 		text.append(log);
 		scrollPane.setSize(720, 480);
+		scrollPane.setViewportView(text);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		dialog.add(scrollPane);
 	}
 
