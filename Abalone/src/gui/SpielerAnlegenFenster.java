@@ -49,6 +49,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 
 	public SpielerAnlegenFenster(Controller controller) {
 		SpielerAnlegenFenster.controller = controller;
+		controller.spielNeuStarten();
 		try {
 			bild = ImageIO.read(getClass().getResource("./assets/Los Gehts.png"));
 		} catch (IOException e) {
@@ -85,7 +86,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		c.insets = new Insets(0,0,20,0);
 		jp.add(head,c);
 
-		weiss = new JLabel("Weiss:   ");
+		weiss = new JLabel("Rot:   ");
 		weiss.setFont(coalition);
 		weiss.setForeground(Color.WHITE);
 		c.insets = new Insets(0,0,0,0);
@@ -122,7 +123,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		jp.add(ki1_durchziehen, c);
 		ki1_durchziehen.addActionListener(this);
 
-		schwarz = new JLabel("Schwarz: ");
+		schwarz = new JLabel("Blau: ");
 		schwarz.setFont(coalition);
 		schwarz.setForeground(Color.WHITE);
 		c.gridx = 1;
@@ -184,6 +185,10 @@ public class SpielerAnlegenFenster implements ActionListener{
 			try {
 				if(vorbereiten()) {
 					controller.spielerAnlegen(name1,name2,anzahlSpieler);
+					if(name1.endsWith("durchziehend") && name1.startsWith("KI")) {						
+						String[] zug = {"", ""};
+						controller.getBedienerInterface().ziehe(zug);
+					}
 					fenster.setVisible(false);
 					fenster.dispose();
 					controller.hauptFensterStarten();

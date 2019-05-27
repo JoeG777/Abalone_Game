@@ -10,14 +10,20 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import abalone.SpielException;
 
 /**
  * Startmenue, dass den Einstieg in die graphische Oberflaeche bietet.
@@ -113,11 +119,83 @@ public class Hauptmenue extends JFrame implements ActionListener{
 			SpielerAnlegenFenster saf = new SpielerAnlegenFenster(controller);
 			this.dispose();
 		}else if(e.getSource() == spielLaden){
+			File selected = generateFileChooser(false);
+			
+			if(selected == null) {
+				return; 
+			}
+			
+			String ending = selected.toString().substring(selected.toString().lastIndexOf('.'));
+			
 
+			
+			if(ending.equals(".csv")) {
+				controller.ladenCSV(selected.toString());
+			}
+			else if(ending.equals(".ser")) {
+				controller.ladenSer(selected.toString());
+			}
+
+			try {
+				Hauptmenue.controller.hauptFensterStarten();
+			} catch (SpielException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			this.dispose();
+			
 		}else if(e.getSource() == beenden) {
 			System.exit(0);
 		}
 
+	}
+	public File generateFileChooser(boolean save) {
+		File selected = null;
+		boolean loop = true; 
+		
+		while(loop) {
+			loop = false;
+			final JFileChooser jfc = new JFileChooser("./sav");
+			jfc.setAcceptAllFileFilterUsed(false);
+			FileFilter filterCSV = new FileNameExtensionFilter(".csv", "csv");
+			FileFilter filterSER = new FileNameExtensionFilter(".ser", "ser");
+			jfc.addChoosableFileFilter(filterCSV);
+			jfc.addChoosableFileFilter(filterSER);
+
+			int option = 0; 
+			if(save) {
+				option = jfc.showSaveDialog(this);
+			}
+			else {
+				option = jfc.showOpenDialog(this);
+			}
+
+			selected = jfc.getSelectedFile();
+			FileFilter filter = jfc.getFileFilter();
+
+			if(option == JFileChooser.CANCEL_OPTION) {
+				return null;
+			}
+
+			if(save) {
+				if(!(selected.toString().endsWith(".csv") || 
+						selected.toString().endsWith(".ser"))) {
+					selected = new File(selected.toString()+filter.getDescription());
+				}
+			}
+			else {
+				if(!selected.exists()) {
+					loop = true; 
+					new FehlerPanel("Bitte gueltige Datei waehlen oder abbrechen!");
+				}
+			}
+		}
+		return selected;
+	}
+	
+	public JButton getSpielLaden() {
+		return this.spielLaden;
 	}
 
 }

@@ -1,148 +1,139 @@
 
----------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
-
----------- Gestartet am 21.05.2019 07:53:34 ----------
-
----------- Beendet am 21.05.2019 07:54:02 ----------
----------- Gestartet am 21.05.2019 07:54:05 ----------
-
----------- Beendet am 21.05.2019 07:54:33 ----------
----------- Gestartet am 21.05.2019 07:55:18 ----------
 
 ---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
 
----------- Gestartet am 21.05.2019 08:33:35 ----------
+---------- Gestartet am 23.05.2019 15:26:48 ----------
 
-Fehler am 21.05.2019 08:33:47: 
-Fehler ID 19 aufgetreten: Spielername darf nicht mit "KI" beginnen!
+---------- Beendet am 23.05.2019 15:27:11 ----------
+---------- Gestartet am 23.05.2019 15:27:53 ----------
 
----------- Beendet am 21.05.2019 08:33:48 ----------
----------- Gestartet am 21.05.2019 08:33:55 ----------
+---------- Beendet am 23.05.2019 15:28:56 ----------
+---------- Gestartet am 23.05.2019 18:08:15 ----------
 
-Fehler am 21.05.2019 08:34:03: 
-Fehler ID 19 aufgetreten: Spielername darf nicht mit "KI" beginnen!
+---------- Beendet am 23.05.2019 18:08:20 ----------
+---------- Gestartet am 23.05.2019 18:10:06 ----------
 
----------- Beendet am 21.05.2019 08:34:05 ----------
----------- Gestartet am 21.05.2019 08:34:18 ----------
-
-Fehler am 21.05.2019 08:34:29: 
-Fehler ID 19 aufgetreten: Spielername darf nicht mit "KI" beginnen!
-
----------- Beendet am 21.05.2019 08:34:30 ----------
----------- Gestartet am 21.05.2019 08:35:09 ----------
-
-Fehler am 21.05.2019 08:35:20: 
-Fehler ID 19 aufgetreten: Spielername darf nicht mit "KI" beginnen!
-
----------- Beendet am 21.05.2019 08:35:22 ----------
----------- Gestartet am 21.05.2019 08:36:02 ----------
-
-Fehler am 21.05.2019 08:36:23: 
-Fehler ID 19 aufgetreten: Spielername darf nicht mit "KI" beginnen!
-
----------- Beendet am 21.05.2019 08:36:24 ----------
----------- Gestartet am 21.05.2019 08:37:51 ----------
-
-Fehler am 21.05.2019 08:38:08: 
-Fehler ID 19 aufgetreten: Spielername darf nicht mit "KI" beginnen!
-
----------- Beendet am 21.05.2019 08:38:10 ----------
-=======
----------- Gestartet am 21.05.2019 14:07:28 ----------
-
----------- Beendet am 21.05.2019 14:07:44 ----------
----------- Gestartet am 21.05.2019 16:12:30 ----------
-
----------- Beendet am 21.05.2019 16:14:44 ----------
----------- Gestartet am 21.05.2019 16:14:47 ----------
-
-Fehler am 21.05.2019 16:21:00: 
+Fehler am 23.05.2019 18:11:00: 
 Fehler ID 7 aufgetreten: Unzulaessiger Zug
 
----------- Beendet am 21.05.2019 16:21:06 ----------
----------- Gestartet am 21.05.2019 16:28:46 ----------
+Fehler am 23.05.2019 18:11:28: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
 
----------- Beendet am 21.05.2019 16:28:55 ----------
----------- Gestartet am 21.05.2019 16:29:11 ----------
+Fehler am 23.05.2019 18:12:00: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
 
----------- Beendet am 21.05.2019 16:29:25 ----------
----------- Gestartet am 21.05.2019 16:54:09 ----------
+Fehler am 23.05.2019 18:12:13: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
 
-Fehler am 21.05.2019 16:54:19: 
-Fehler ID 14 aufgetreten: Ungueltige laenge des Namen: 1
+Fehler am 23.05.2019 18:12:46: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
 
----------- Beendet am 21.05.2019 16:54:26 ----------
----------- Gestartet am 21.05.2019 16:54:40 ----------
+Fehler am 23.05.2019 18:12:46: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 23.05.2019 18:12:56: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 23.05.2019 18:13:14: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+---------- Beendet am 26.05.2019 08:49:25 ----------
+---------- Gestartet am 26.05.2019 13:17:12 ----------
+
+Fehler am 26.05.2019 13:18:23: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:18:26: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:18:30: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:18:37: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:18:46: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:18:52: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:18:54: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+---------- Beendet am 26.05.2019 13:19:21 ----------
+---------- Gestartet am 26.05.2019 13:19:24 ----------
+
+---------- Beendet am 26.05.2019 13:19:43 ----------
+---------- Gestartet am 26.05.2019 13:19:45 ----------
+
+Fehler am 26.05.2019 13:19:54: 
+Fehler ID 17 aufgetreten: Spielernamen muessen unterschiedlich sein!
+
+Fehler am 26.05.2019 13:20:18: 
+Fehler ID 17 aufgetreten: Spielernamen muessen unterschiedlich sein!
+
+---------- Beendet am 26.05.2019 13:20:59 ----------
+---------- Gestartet am 26.05.2019 13:23:21 ----------
+
+Fehler am 26.05.2019 13:23:38: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:23:59: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:25:58: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:26:05: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:26:11: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:26:29: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:26:35: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:26:59: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+---------- Beendet am 26.05.2019 13:27:05 ----------
+---------- Gestartet am 26.05.2019 13:28:49 ----------
+
+Fehler am 26.05.2019 13:29:07: 
+Fehler ID 17 aufgetreten: Spielernamen muessen unterschiedlich sein!
+
+Fehler am 26.05.2019 13:29:30: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:29:38: 
+Fehler ID 7 aufgetreten: Unzulaessiger Zug
+
+Fehler am 26.05.2019 13:29:58: 
+Fehler ID 9 aufgetreten: Ungueltige zuglaenge: 13
+
+Fehler am 26.05.2019 13:29:59: 
+Fehler ID 9 aufgetreten: Ungueltige zuglaenge: 13
+
+Fehler am 26.05.2019 13:30:27: 
+Fehler ID 9 aufgetreten: Ungueltige zuglaenge: 13
 
 ---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
 
----------- Gestartet am 21.05.2019 17:26:42 ----------
+---------- Gestartet am 26.05.2019 13:30:52 ----------
 
----------- Beendet am 21.05.2019 17:26:45 ----------
----------- Gestartet am 21.05.2019 17:38:05 ----------
+Fehler am 26.05.2019 13:31:12: 
+Fehler ID 9 aufgetreten: Ungueltige zuglaenge: 11
 
----------- Beendet am 21.05.2019 17:38:21 ----------
----------- Gestartet am 21.05.2019 17:38:38 ----------
+Fehler am 26.05.2019 13:31:15: 
+Fehler ID 9 aufgetreten: Ungueltige zuglaenge: 13
 
----------- Beendet am 21.05.2019 17:38:42 ----------
----------- Gestartet am 21.05.2019 17:38:46 ----------
-
----------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
-
----------- Gestartet am 21.05.2019 17:40:02 ----------
-
----------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
-
----------- Gestartet am 21.05.2019 17:44:18 ----------
-
----------- Beendet am 21.05.2019 17:44:24 ----------
----------- Gestartet am 21.05.2019 17:44:54 ----------
-
----------- Beendet am 21.05.2019 17:45:01 ----------
----------- Gestartet am 21.05.2019 17:45:17 ----------
-
----------- Beendet am 21.05.2019 17:46:23 ----------
----------- Gestartet am 21.05.2019 17:46:49 ----------
-
----------- Beendet am 21.05.2019 17:46:57 ----------
----------- Gestartet am 21.05.2019 17:49:15 ----------
-
----------- Beendet am 21.05.2019 17:49:44 ----------
----------- Gestartet am 21.05.2019 17:49:48 ----------
-
----------- Beendet am 21.05.2019 17:49:51 ----------
----------- Gestartet am 21.05.2019 17:49:51 ----------
-
----------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
-
----------- Gestartet am 21.05.2019 17:50:31 ----------
-
----------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
-
----------- Gestartet am 21.05.2019 18:02:37 ----------
-
----------- Beendet am 21.05.2019 18:02:39 ----------
-Fehler am 21.05.2019 18:03:00: 
+Fehler am 26.05.2019 13:31:16: 
 Fehler ID 7 aufgetreten: Unzulaessiger Zug
 
-Fehler am 21.05.2019 18:03:03: 
-Fehler ID 7 aufgetreten: Unzulaessiger Zug
-
-Fehler am 21.05.2019 18:03:06: 
-Fehler ID 7 aufgetreten: Unzulaessiger Zug
-
----------- Beendet am 21.05.2019 18:03:12 ----------
-
-
----------- Gestartet am 23.05.2019 12:10:03 ----------
-
-Fehler am 23.05.2019 12:10:16: 
-Fehler ID 14 aufgetreten: Ungueltige laenge des Namen: 0
-
-Fehler am 23.05.2019 12:10:49: 
-Fehler ID 7 aufgetreten: Unzulaessiger Zug
-
-Fehler am 23.05.2019 12:11:07: 
-Fehler ID 7 aufgetreten: Unzulaessiger Zug
-
----------- Beendet am 23.05.2019 12:11:38 ----------
+---------- Beendet am 26.05.2019 13:31:48 ----------
+---------- Beendet am 26.05.2019 13:31:48 ----------
+---------- Gestartet am 26.05.2019 19:34:44 ----------

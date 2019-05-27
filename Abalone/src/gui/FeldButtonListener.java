@@ -10,7 +10,7 @@ public class FeldButtonListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		FeldPanel feld = (FeldPanel)((JButton) e.getSource()).getParent();
-		Spielzug.toggleString(Spieler.getSpielerAmZugFarbe(), feld.getId());
+		Spielzug.toggleString(feld.getController().getSpielerAmZugFarbe(), feld.getId());
 		Spielzug.getMoeglicheZuege();
 		
 	}

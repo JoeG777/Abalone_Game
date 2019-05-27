@@ -19,10 +19,24 @@ public class EventHandlerHauptfenster implements ActionListener{
 	private Hauptfenster hauptfenster;
 	private Controller controller;
 	
+	/**
+	 * Erschafft einen Event-Handler für ein Hauptfenster.
+	 * @param hauptfenster das Hauptfenster, dessen Events koordiniert werden 
+	 * sollen.
+	 * @param c Der Controller, der zum Hauptfenster gehört.
+	 */
 	public EventHandlerHauptfenster(Hauptfenster hauptfenster, Controller c) {
 		this.hauptfenster = hauptfenster;
 		controller = c; 
 	}
+	
+	/**
+	 * Behandelt die Events eines Hauptfensters.
+	 * Diese sind:
+	 * Starten eines neuen Spiels, Speichern eines Spiels, Laden eines Spiels,
+	 * Anzeigen der Log-Datei, Beenden des Spiels.
+	 * @param e das zu behandelnde Event.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == hauptfenster.getMenuNeuesSpiel()) {
@@ -58,6 +72,8 @@ public class EventHandlerHauptfenster implements ActionListener{
 			else if(ending.equals(".ser")) {
 				controller.ladenSer(selected.toString());
 			}
+			
+			controller.aktualisiereAlles();
 		}
 		if(e.getSource() == hauptfenster.getMenuLog()) {
 			LogFenster logFenster = new LogFenster();

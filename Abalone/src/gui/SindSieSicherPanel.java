@@ -155,7 +155,6 @@ public class SindSieSicherPanel implements ActionListener{
 				mainframe.setVisible(false);
 				mainframe.dispose();
 				
-				controller.spielNeuStarten();
 				new SpielerAnlegenFenster(controller);
 			}
 			if (e.getSource() == neinButton) {

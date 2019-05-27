@@ -28,7 +28,14 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import abalone.SpielException;
-
+/**
+ * Die Klasse Hauptfenster beinhaltet die Spielansicht, die Historie, den
+ * Spielstatus und Menuepunkte zum Starten eines neuen Spiels, zum Speichern, 
+ * zum Laden, zum Anzeigen der Log-Datei und zum Spiel beenden.
+ * Ferner beinhaltet sie eine Schaltfläche zum Steuern einer mitspielenden
+ * KI.
+ * 
+ */
 public class Hauptfenster {
 	private JFrame mainframe;
 	private JPanel mainpanel;
@@ -42,7 +49,12 @@ public class Hauptfenster {
 	private JMenuItem menuNeuesSpiel, menuSpeichern, menuLaden, menuLog, menuBeenden;
 	private Font coalition;
 
-	
+	/**
+	 * Erzeugt ein neues Hauptfenster und initialisiert die Komponenten. 
+	 * Die Groesse des Hauptfenster (960x640) ist fest. 
+	 * @param c Controller, der die Kommunikation zwischen Spiel und GUI
+	 * koordniert.
+	 */
 	public Hauptfenster(Controller c) {
 		if(controller == null) {
 			controller = c;
@@ -95,19 +107,13 @@ public class Hauptfenster {
 		mainframe.setLocationRelativeTo(null);
 		mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainframe.setVisible(true);
+		
+
 	}
-	
 
-//	private void initHauptmenue() {
-//		GridBagConstraints c = new GridBagConstraints();
-//		c.fill = GridBagConstraints.BOTH;
-//		Component hM =new Hauptmenue(controller);
-//		c.gridheight = 5;
-//		c.gridwidth = 5;
-//		addToGridBag(c, hM, 1, 1, 0, 0);
-//	}
-
-
+	/**
+	 * Initialisiert das Spielbrettpanel und fügt es zum Hauptpanel hinzu.
+	 */
 	private void initSpielbrettPanel() {
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
@@ -119,7 +125,9 @@ public class Hauptfenster {
 		addToGridBag(c,spielfeldPanel,0, 1, 1, 0);
 
 	}
-	
+	/**
+	 * Initialisiert das KI-Optionen-Panel und fügt es zum Hauptpanel hinzu.
+	 */
 	private void initKIOptionen() {
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.EAST;
@@ -133,9 +141,11 @@ public class Hauptfenster {
 		kiOptionenPanel.steuereKIPanel(null, false);
 
 		addToGridBag(c,kiOptionenPanel,5,2,0,1);
-		
-		
 	}
+	
+	/**
+	 * Initialisiert das Status-Panel und fügt es zum Hauptpanel hinzu.
+	 */
 	private void initStatusPanel() {
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.EAST;
@@ -147,6 +157,9 @@ public class Hauptfenster {
 		c.gridwidth = 1;
 		addToGridBag(c,statusPanel, 5,1,0,1);
 	}
+	/**
+	 * Initialisiert das Historie-Panel und fügt es zum Hauptpanel hinzu.
+	 */
 	private void initHistorie() {
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.EAST;
@@ -165,9 +178,10 @@ public class Hauptfenster {
 	}
 	
 
-	
+	/**
+	 * Initialisiert die Menue-Leiste und fügt sie zum Frame hinzu.
+	 */
 	private void initMenuBar() {
-//		GridBagConstraints c = new GridBagConstraints();
 		
 		menubar = new JMenuBar();
 		menubar.setForeground(Color.WHITE);
@@ -213,17 +227,27 @@ public class Hauptfenster {
 		menuBeenden.addActionListener(eventHandlerMenu);
 		menuBeenden.setBorder(BorderFactory.createEtchedBorder());
 		menubar.add(menuBeenden);
-	
-// 
-//		c.gridwidth = GridBagConstraints.REMAINDER;
-//		c.fill = GridBagConstraints.HORIZONTAL;
 		
 		mainframe.setJMenuBar(menubar);
 
 
-//		addToGridBag(c,menubar, 0, 0,1,0);
+
 	}
-	public void addToGridBag(GridBagConstraints c,Component component, int x, int y, double xWeight, double yWeight) {
+	
+	/**
+	 * Hilfsmethode für das Hinzufügen von Komponenten zum Hauptpanel.
+	 * @param c ein GridBagConstraints-Objekt.
+	 * @param component die Komponente, die hinzugefuegt werden soll. 
+	 * @param x Der zu setzende Wert für das 
+	 * gridx-Attribut des GridbagConstraints-Objektes.
+	 * @param y Der zu setzende Wert für das 
+	 * gridy-Attribut des GridbagConstraints-Objektes.
+	 * @param xWeight Der zu setzende Wert für das 
+	 * weightx-Attribut des GridbagConstraints-Objektes.
+	 * @param yWeight Der zu setzende Wert für das 
+	 * weighty-Attribut des GridbagConstraints-Objektes.
+	 */
+	private void addToGridBag(GridBagConstraints c,Component component, int x, int y, double xWeight, double yWeight) {
 		c.gridx = x; 
 		c.gridy = y; 
 		c.weightx = xWeight;
@@ -232,140 +256,94 @@ public class Hauptfenster {
 		mainpanel.add(component, c);
 	}
 	
-
+	/**
+	 * Schafft ein SindSieSicher-Panel das fragt, ob der Benutzer
+	 * das Spiel beenden möchte.
+	 */
 	public void beendeSpiel() {
 		new SindSieSicherPanel("Spiel beenden?", controller, mainframe);
 	}
-	
+	/**
+	 * Schafft ein SindSieSicher-Panel das fragt, ob der Benutzer ein neues
+	 * Spiel starten möchte..
+	 */
 	public void neuesSpiel() {
 		new SindSieSicherPanel("Spiel Neustarten?", controller, mainframe);
 	}
-	
-	public void aktualisiereKIOptionen() {
-		kiOptionenPanel.aktualisiere();
-		
-	}
-	
+
+	/**
+	 * Aktualisiert das gesamte Spielbrett.
+	 */
 	public void aktualisiere() {
 		this.aktualisiereSpielbrett(controller.getFeldDaten());
 	}
 	
+	/**
+	 * Aktualisiert bestimmte Felder des Spielbretts.
+	 * @param ids die zu aktualisierenden Felder.
+	 */
 	public void aktualisiereSpielbrett(String[][] ids) {
 		((BrettPanel) spielfeldPanel).aktualisiere(ids);
 	}
 
-
+	/**
+	 * Gibt das Mainframe zurück.
+	 * @return Mainframe-Attribut des Hauptfensters.
+	 */
 	public JFrame getMainframe() {
 		return mainframe;
 	}
 
 
-	public void setMainframe(JFrame mainframe) {
-		this.mainframe = mainframe;
-	}
-
-
-	public JPanel getMainpanel() {
-		return mainpanel;
-	}
-
-
-	public void setMainpanel(JPanel mainpanel) {
-		this.mainpanel = mainpanel;
-	}
-
-
-	public JMenuBar getMenubar() {
-		return menubar;
-	}
-
-
-	public void setMenubar(JMenuBar menubar) {
-		this.menubar = menubar;
-	}
-
-
+	/**
+	 * Gibt das Spielfeld-Panel zurück.
+	 * @return SpielfeldPanel-Attribut des Hauptfensters.
+	 */
 	public BrettPanel getSpielfeldPanel() {
 		return spielfeldPanel;
 	}
 
-
-	public void setSpielfeldPanel(BrettPanel spielfeldPanel) {
-		this.spielfeldPanel = spielfeldPanel;
-	}
-
-
+	/**
+	 * Gibt das Historie-Panel zurück.
+	 * @return HistoriePanel-Attribut des Hauptfensters.
+	 */
 	public HistoriePanel getHistoriePanel() {
 		return historiePanel;
 	}
 
-
-	public void setHistoriePanel(HistoriePanel historiePanel) {
-		this.historiePanel = historiePanel;
-	}
-
-
+	/**
+	 * Gibt das Statuspanel zurück.
+	 * @return StatusPanel-Attribut des Hauptfensters.
+	 */
 	public StatusPanel getStatusPanel() {
 		return statusPanel;
 	}
 
-
-	public void setStatusPanel(StatusPanel statusPanel) {
-		this.statusPanel = statusPanel;
-	}
-
-
-
-
-
-	public static Controller getController() {
-		return controller;
-	}
-
-
-	public static void setController(Controller controller) {
-		Hauptfenster.controller = controller;
-	}
-
-
-	public EventHandlerHauptfenster getEventHandlerMenu() {
-		return eventHandlerMenu;
-	}
-
-
-	public void setEventHandlerMenu(EventHandlerHauptfenster eventHandlerMenu) {
-		this.eventHandlerMenu = eventHandlerMenu;
-	}
-
-
+	/**
+	 * Gibt das MenuItem für ein neues Spiel zurück.
+	 * @return neuesSpiel-Menu Item des Menues des Hauptfensters.
+	 */
 	public JMenuItem getMenuNeuesSpiel() {
 		return menuNeuesSpiel;
 	}
 
-
-	public void setMenuNeuesSpiel(JMenuItem menuNeuesSpiel) {
-		this.menuNeuesSpiel = menuNeuesSpiel;
-	}
-
-
+	/**
+	 * Gibt das MenuItem zum Speichern zurück.
+	 * @return menuSpeichern-Menu Item des Menues des Hauptfensters.
+	 */
 	public JMenuItem getMenuSpeichern() {
 		return menuSpeichern;
 	}
 
-
-	public void setMenuSpeichern(JMenuItem menuSpeichern) {
-		this.menuSpeichern = menuSpeichern;
-	}
-
-
+	/**
+	 * Gibt das MenuItem zum Laden eines Spiels zurück.
+	 * @return menuLaden-Menu Item des Menues des Hauptfensters.
+	 */
 	public JMenuItem getMenuLaden() {
 		return menuLaden;
 	}
 
 
-	public void setMenuLaden(JMenuItem menuLaden) {
-		this.menuLaden = menuLaden;
-	}
 
 
 	public JMenuItem getMenuLog() {
@@ -373,9 +351,7 @@ public class Hauptfenster {
 	}
 
 
-	public void setMenuLog(JMenuItem menuLog) {
-		this.menuLog = menuLog;
-	}
+
 
 
 	public JMenuItem getMenuBeenden() {
@@ -383,9 +359,6 @@ public class Hauptfenster {
 	}
 
 
-	public void setMenuBeenden(JMenuItem menuBeenden) {
-		this.menuBeenden = menuBeenden;
-	}
 	
 	public void resetFelderAuswaehlbar() {
 		spielfeldPanel.resetAuswaehlbar();
@@ -397,9 +370,6 @@ public class Hauptfenster {
 	}
 
 
-	public void setKiOptionenPanel(KIOptionenPanel kiOptionenPanel) {
-		this.kiOptionenPanel = kiOptionenPanel;
-	}
 	
 	
 	
