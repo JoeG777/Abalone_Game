@@ -41,7 +41,6 @@ public class EventHandlerKIOptionen implements ActionListener{
 		
 		if(e.getSource() == kiPanel.getKiDurchziehend()) {
 			String[] kiZug = {"DURCHZIEHEN", ""};
-			Spielzug.setZug(kiZug);
 			
 			try {
 				c.zieheKI(kiZug);

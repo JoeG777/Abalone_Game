@@ -184,6 +184,10 @@ public class SpielerAnlegenFenster implements ActionListener{
 			try {
 				if(vorbereiten()) {
 					controller.spielerAnlegen(name1,name2,anzahlSpieler);
+					if(name1.endsWith("durchziehend") && name1.startsWith("KI")) {						
+						String[] zug = {"", ""};
+						controller.getBedienerInterface().ziehe(zug);
+					}
 					fenster.setVisible(false);
 					fenster.dispose();
 					controller.hauptFensterStarten();
