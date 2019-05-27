@@ -149,7 +149,7 @@ public class Controller {
 	
 	public void gewonnen() {
 		String verlierer;
-		if (!spiel.hatGewonnen(spiel.getSpielerAmZug())) {
+		if (spiel.hatGewonnen(spiel.getSpielerAmZug())) {
 			verlierer = spiel.getSpielerAmZug();
 			String[] spielerImSpielArr = spiel.getSpielerImSpielInterface().split(",");
 			for (String s1 : spielerImSpielArr) {

@@ -106,7 +106,7 @@ public class FeldPanel extends JPanel{
 		  button = createButton(img);
 		  FeldButtonListener fbl = new FeldButtonListener();
 		  button.addActionListener(fbl);
-		  button.setPreferredSize(new Dimension(41,41));
+		  button.setPreferredSize(new Dimension(44,44));
 		  this.add(button);
 		  button.setEnabled(true);
 		  String spielerName = controller.getSpielerAmZug();
