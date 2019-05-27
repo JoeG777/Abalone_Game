@@ -31,10 +31,12 @@ public class GewonnenPanel implements ActionListener{
 	private Font coalition;
 	private JButton beenden;
 	private Controller controller;
+	private Hauptfenster mainFrame;
 	
-	public GewonnenPanel(String name, Controller controller) {
+	public GewonnenPanel(String name, Controller controller, Hauptfenster mf) {
 		this.controller = controller;
 		this.gewinner = name;
+		this.mainFrame = mf;
 
 		try {
 			bild = ImageIO.read(getClass().getResource("./assets/Hauptmenu.png"));
@@ -92,6 +94,7 @@ public class GewonnenPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == beenden) {
+			mainFrame.shutdown();
 			new Hauptmenue(controller);
 			fenster.dispose();
 		}
