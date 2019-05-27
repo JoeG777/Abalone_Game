@@ -23,6 +23,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Fenster um den Benutzer nochmals zu Fragen ob er beenden/neu starten will.
+ */
 public class SindSieSicherPanel implements ActionListener{
 	private JDialog fenster;
 	private JPanel jp;
@@ -36,7 +39,13 @@ public class SindSieSicherPanel implements ActionListener{
 	private Font coalition;
 	private Image ja, nein;
 
-	
+	/**
+	 * Erzeugt das SindSieSicherPanel zur Benutzerabfrage.
+	 * @param abfrage Abfrage welche ausgewaelt wurde (spiel beenden/ spiel neu starten).
+	 * @param c Controller, der die Kommunikation zwischen Spiel und GUI
+	 * koordniert.
+	 * @param mf das JFrame des Hauptfensters, welches nach Sicherheits-Abfrage geschlossen werden kann.
+	 */
 	public SindSieSicherPanel(String abfrage, Controller c, JFrame mf) {
 		this.mainframe = mf;
 		this.controller = c;
@@ -71,6 +80,9 @@ public class SindSieSicherPanel implements ActionListener{
 		fenster.setVisible(true);
 	}
 	
+	/**
+	 * legt das Fenster also das JFrame an und erstellt darin ein GridBagLayout.
+	 */
 	public void fensterAnlegen() {
 		fenster = new JDialog();
 		fenster.setSize(400,250);
@@ -81,6 +93,9 @@ public class SindSieSicherPanel implements ActionListener{
 		fenster.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 	}
 	
+	/**
+	 * Erzeugt das obere Panel des Fensters, in dem die Abfrage steht.
+	 */
 	public void oberesPanel() {
 		jp = new JPanel();
 		jp.setBackground(Color.DARK_GRAY);
@@ -95,6 +110,9 @@ public class SindSieSicherPanel implements ActionListener{
 		jp.add(label, c);
 	}
 	
+	/**
+	 * Erzeugt das untere Panel des Fensters, in welchem der Ja- und Nein Button ist.
+	 */
 	public void unteresPanel() {
 		jp2 = new JPanel();
 		jp2.setLayout(new GridBagLayout());	
@@ -117,14 +135,18 @@ public class SindSieSicherPanel implements ActionListener{
 		
 	}
 	
-	public JButton getJaButton() {
-		return jaButton;
-	}
-	
-	public JButton getNeinButton() {
-		return neinButton;
-	}
+//	public JButton getJaButton() {
+//		return jaButton;
+//	}
+//	
+//	public JButton getNeinButton() {
+//		return neinButton;
+//	}
 
+	/**
+	 * Behandelt die Events des SicherheitsPanel.
+	 * Also den Ja-Button und den Nein-Button.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		

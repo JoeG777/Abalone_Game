@@ -25,6 +25,10 @@ import javax.swing.JTextField;
 
 import abalone.SpielException;
 
+/**
+ * Menu zum anlegen der Spieler oder KIs.
+ * Startet bei korrekten Eingaben das Hauptfenster.
+ */
 public class SpielerAnlegenFenster implements ActionListener{
 
 	private JFrame fenster;
@@ -47,6 +51,13 @@ public class SpielerAnlegenFenster implements ActionListener{
 	private Font coalition;
 	private ImageIcon ueberschrift;
 
+	/**
+	 * Konstruktor, der das SpielerAnlegenFenster mit seinen Komponenten
+	 * auf dem Bildschirm anzeigt.
+	 * 
+	 * @param controller Controller, der die Kommunikation zwischen Spiel und GUI
+	 * koordniert.
+	 */
 	public SpielerAnlegenFenster(Controller controller) {
 		SpielerAnlegenFenster.controller = controller;
 		controller.spielNeuStarten();
@@ -177,6 +188,12 @@ public class SpielerAnlegenFenster implements ActionListener{
 		fenster.setVisible(true);
 	}
 
+	/**
+	 * Behandelt die verschiedenen Events des SpielerAnlegenFensters.
+	 * Diese Sind die auswaehlbaren KI Buttons und durchziehen Buttons und ein 
+	 * LOS-Button um das Hauptfenster zu initialisieren.
+	 * @param e das zu behandelnde Event.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == los) {
