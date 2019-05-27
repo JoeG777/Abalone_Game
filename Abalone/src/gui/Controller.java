@@ -19,6 +19,15 @@ public class Controller {
 	private FarbEnum spielerFarbe2;
 	private String spielerName2;
 	
+	public static void main(String[] args) {
+		try {
+			new Controller();
+		} catch (SpielException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public Controller() throws SpielException {
 //		try {
 //			spiel = new Spiel();
