@@ -41,14 +41,14 @@ public class GewonnenPanel implements ActionListener{
 		try {
 			bild = ImageIO.read(getClass().getResource("./assets/Hauptmenu.png"));
 		} catch (IOException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Laden der Bilder!");
 		}
 		try {
 			coalition = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("AbaloneSchrift.ttf"));
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(coalition);
 		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Laden der Schriftart!");
 		}
 		coalition = new Font("Coalition", Font.PLAIN, 60);
 		

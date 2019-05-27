@@ -23,7 +23,7 @@ public class Controller {
 		try {
 			new Controller();
 		} catch (SpielException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Erstellen des Controllers!");
 		}
 	}
 	
@@ -31,6 +31,7 @@ public class Controller {
 		try {
 			spiel = new Spiel();
 		} catch (SpielfeldException e) {
+			new FehlerPanel("Fehler beim Laden der Spiels!");
 		}
 		
 		new Hauptmenue(this);
@@ -67,6 +68,7 @@ public class Controller {
 		try {
 			erlaubteZuege = spiel.getErlaubteZuegeInterface(ausgangsfelder);
 		} catch (SpielException e) {
+			new FehlerPanel("Fehler beim Laden der erlaubten Zuege!");
 		}
 		return erlaubteZuege;
 		}
@@ -82,7 +84,7 @@ public class Controller {
 			spiel = new Spiel();
 			
 		} catch (SpielfeldException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Neustarten des Spiels!");
 		}
 	}
 	
@@ -100,8 +102,7 @@ public class Controller {
 		try {
 			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Starten des Hauptfensters!");
 		}
 		Spielzug.subscribe(this);
 

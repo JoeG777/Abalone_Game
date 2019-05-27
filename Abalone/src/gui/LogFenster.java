@@ -38,7 +38,7 @@ public class LogFenster {
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(coalition);
 		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Laden der Schriftart!");
 		}
 		coalition = new Font("Coalition", Font.PLAIN, 12);
 		coalition2 = new Font("Coalition", Font.PLAIN, 15);
@@ -55,7 +55,8 @@ public class LogFenster {
 			br.close();
 		} catch (IOException e) {
 			logErstellen();
-			datei = "abc"; 
+			datei = "Neue Logdatei erstellt, da keine vorhanden war. Deshalb"
+					+ "steht hier noch nichts."; 
 		}
 
 				
@@ -92,6 +93,7 @@ public class LogFenster {
 		try {
 			file.createNewFile();
 		} catch (IOException e) {
+			new FehlerPanel("Fehler beim Erstellen der Logdatei!");
 		}
 	}
 	/**
