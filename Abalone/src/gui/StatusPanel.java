@@ -2,29 +2,33 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.io.IOException;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class StatusPanel extends JPanel{
+/**
+ * Das Status-Panel erbt vom JPanel und dient zur
+ * Visualisierung des Status des Spiels.
+ * 
+ * @author Gruppe A4
+ *
+ */
+public class StatusPanel extends JPanel {
 	private static final long serialVersionUID = 3L;
 	private JTextArea statusText;
 	private Font coalition, coalition2;
 	
-	
-	
-
+	/**
+	 * Konstruktor des Status-Panels.
+	 * 
+	 */
 	public StatusPanel() {
 		try {
 			coalition = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("AbaloneSchrift.ttf"));
@@ -58,26 +62,40 @@ public class StatusPanel extends JPanel{
 		this.add(statusText,c);
 	}
 
-
-
-
+	/**
+	 * Gibt den Text des StatusPanels als JTextArea zurueck.
+	 * 
+	 * @return JTextArea, die StatusText enthaelt
+	 */
 	public JTextArea getStatusText() {
 		return statusText;
 	}
 
+	/**
+	 * Setzt die JTextArea StatusText.
+	 * 
+	 * @param statusText JTextArea, die StatusText enthaelt
+	 */
 	public void setStatusText(JTextArea statusText) {
 		this.statusText = statusText;
 	}
 	
+	/**
+	 * Aktualisiert den StatusPanel.
+	 * 
+	 * @param amZug String, welcher den Namen des Spielers, der am Zug ist, enthaelt
+	 * @param spieler1 String-Array, welcher notwendige Informationen des 1. Spielers enthaelt
+	 * @param spieler2 String-Array, welcher notwendige Informationen des 2. Spielers enthaelt
+	 */
 	public void aktualisiereStatus(String amZug, String[] spieler1, String spieler2[]) {
-		if(spieler1[0] != null && spieler1[0].startsWith("KI_")) {
+		if (spieler1[0] != null && spieler1[0].startsWith("KI_")) {
 			String durchziehend = ""; 
 			if(spieler1[0].endsWith("(durchziehend)")) {
 				durchziehend += "(durchziehend)";
 			}
 			spieler1[0] = spieler1[0].substring(0, 4) + durchziehend;
 		}
-		if(spieler2[0] != null && spieler2[0].startsWith("KI_")) {
+		if (spieler2[0] != null && spieler2[0].startsWith("KI_")) {
 			String durchziehend = "";
 			if(spieler2[0].endsWith("(durchziehend)")) {
 				durchziehend += "(durchziehend)";
@@ -93,8 +111,5 @@ public class StatusPanel extends JPanel{
 		}
 		statusText.setText(string);
 	}
-	
-	
-	
 	
 }
