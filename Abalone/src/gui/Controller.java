@@ -138,18 +138,29 @@ public class Controller {
 	}
 
 	public void ziehe() throws SpielException{
-
 		spiel.ziehe(Spielzug.getZug());
 		this.aktualisiereAlles();
 		gameFrame.aktualisiere();
-
+		if(spiel.getSpielerAmZug().startsWith("KI") 
+				&& spiel.getSpielerAmZug().endsWith("(durchziehend)")) {
+			String[] kiZug = {"",""};
+			zieheKI(kiZug);
+		}
 	}
 	
 	public void zieheKI(String[] zug) throws SpielException{
-
+		boolean durchziehendAmZug = spiel.getSpielerAmZug().startsWith("KI") 
+				&& spiel.getSpielerAmZug().endsWith("(durchziehend)");
+		
 		spiel.ziehe(zug);
 		this.aktualisiereAlles();
 		gameFrame.aktualisiere();
+		
+		if(!durchziehendAmZug && spiel.getSpielerAmZug().startsWith("KI") 
+				&& spiel.getSpielerAmZug().endsWith("(durchziehend)")) {
+			String[] kiZug = {"",""};
+			zieheKI(kiZug);
+		}
 
 	}
 	
@@ -219,6 +230,10 @@ public class Controller {
 			return FarbEnum.SCHWARZ;
 		}
 		}
+	}
+	
+	public bedienerInterface getBenutzerInterface() {
+		return this.spiel;
 	}
 }
 

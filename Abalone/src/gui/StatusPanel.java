@@ -84,9 +84,9 @@ public class StatusPanel extends JPanel{
 			}
 			spieler2[0] = spieler2[0].substring(0, 4) +durchziehend;
 		}
-		String string = spieler1[0] + " (Weiss)\n" + spieler1[4] + " / 14 Kugeln "
+		String string = spieler1[0] + " (Rot)\n" + spieler1[4] + " / 14 Kugeln "
 				+ "(Muss " + (Integer.parseInt(spieler2[4]) - 8) + " Kugeln schlagen für Sieg)\n"
-				+ spieler2[0] + " (Schwarz)\n" + spieler2[4] + " / 14 Kugeln "
+				+ spieler2[0] + " (Blau)\n" + spieler2[4] + " / 14 Kugeln "
 				+ "(Muss " + (Integer.parseInt(spieler1[4]) - 8) + " Kugeln schlagen für Sieg)";
 		if(amZug != null) {
 			string += "\n Am Zug ist " + amZug + ".";

@@ -389,9 +389,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			DateiIOException ex = new DateiIOException(15, "Die Datei scheint kaputt zu sein!");
 			throw ex;
 		}
-
 		String[] array = csv.split("\n");
-
 		this.ladeCSVSpieler(array[2], array[3], array[4]);
 		historie.ladeCSV(array[5]);
 
@@ -671,7 +669,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		*/
 		
 		String csv = "SPIEL:\n";
-
+		
 		int i = 0;
 		for (Spieler spieler : spielerImSpiel) {
 			csv += spieler.schreibeCSV() + "," +
