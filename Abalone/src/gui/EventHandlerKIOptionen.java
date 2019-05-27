@@ -3,6 +3,8 @@ package gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 import abalone.SpielException;
@@ -52,31 +54,92 @@ public class EventHandlerKIOptionen implements ActionListener{
 			c.aktualisiereAlles();
 			
 			if(c.nurDurchziehendeKIs()) {
-				startKIvsKI(kiZug);
+				startKIvsKI(e, kiZug);
 			}	
 	}
 	}
-		
-	private void startKIvsKI(String[] kiZug) {
-		while(!c.getBedienerInterface().hatGewonnen(c.getSpielerAmZug())) {
-		SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>() {
-
-			@Override
-			protected Boolean doInBackground() throws Exception {
+	
+	private void startKIvsKI(ActionEvent event, String[] kiZug) {
+		if(c.getBedienerInterface().hatGewonnen(c.getSpielerAmZug())) {
+			return;
+		}
+		else {
+			try {
 				c.getBedienerInterface().ziehe(kiZug);
-				Thread.sleep(1000);
-				return true;
+			} catch (SpielException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-
-			@Override
-			protected void done() {
-				c.aktualisiereAlles();
-				super.done();
-			}
+			c.aktualisiereAlles();
 			
-		};
-		worker.execute();
+			new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(5000);
+					System.out.println("angekommen");
+				} catch (InterruptedException e) {
+					
+				}
+			}
+		}).start();
+		}
+		
+		actionPerformed(event);
+		
 	}
-	}
+//	private void startKIvsKI(String[] kiZug) {
+//		while(!c.getBedienerInterface().hatGewonnen(c.getSpielerAmZug())) {
+//			try {
+//				c.getBedienerInterface().ziehe(kiZug);
+//			} catch (SpielException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			c.aktualisiereAlles();
+//			
+//			new Thread(new Runnable() {
+//				@Override
+//				public void run() {
+//					try {
+//						Thread.sleep(1000);
+//					} catch (InterruptedException e) {
+//						System.out.println("angekommen");
+//					}
+//				}
+//			}).start();
+//			
+//			
+//		}
+//	}
+//	private void startKIvsKI(String[] kiZug) {
+//		while(!c.getBedienerInterface().hatGewonnen(c.getSpielerAmZug())) {
+//		SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>() {
+//
+//			@Override
+//			protected Boolean doInBackground() throws Exception {
+//				c.getBedienerInterface().ziehe(kiZug);
+//				return true;
+//			}
+//
+//			@Override
+//			protected void done() {
+//				c.aktualisiereAlles();
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//			
+//		};
+//		worker.execute();
+//		
+//		while(!worker.isDone()) {
+//			
+//		}
+//	}
+//	}
 
 }
