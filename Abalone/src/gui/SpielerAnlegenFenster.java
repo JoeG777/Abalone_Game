@@ -85,7 +85,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		c.insets = new Insets(0,0,20,0);
 		jp.add(head,c);
 
-		weiss = new JLabel("Weiss:   ");
+		weiss = new JLabel("Rot:   ");
 		weiss.setFont(coalition);
 		weiss.setForeground(Color.WHITE);
 		c.insets = new Insets(0,0,0,0);
@@ -122,7 +122,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		jp.add(ki1_durchziehen, c);
 		ki1_durchziehen.addActionListener(this);
 
-		schwarz = new JLabel("Schwarz: ");
+		schwarz = new JLabel("Blau: ");
 		schwarz.setFont(coalition);
 		schwarz.setForeground(Color.WHITE);
 		c.gridx = 1;
