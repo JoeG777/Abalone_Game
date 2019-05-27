@@ -55,6 +55,7 @@ public class GewonnenPanel implements ActionListener{
 		fenster.setResizable(false);
 		fenster.setLocationRelativeTo(null);
 		fenster.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
 		jp = new JPanel();
 		jp.setBackground(Color.DARK_GRAY);
 		jp.setLayout(new GridBagLayout());

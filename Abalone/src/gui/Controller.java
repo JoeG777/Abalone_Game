@@ -148,23 +148,29 @@ public class Controller {
 	}
 	
 	public void gewonnen() {
-		if (spiel.hatGewonnen(spiel.getSpielerAmZug())) {
-			new GewonnenPanel(spiel.getSpielerAmZug(), this);
+		String verlierer;
+		if (!spiel.hatGewonnen(spiel.getSpielerAmZug())) {
+			verlierer = spiel.getSpielerAmZug();
+			String[] spielerImSpielArr = spiel.getSpielerImSpielInterface().split(",");
+			for (String s1 : spielerImSpielArr) {
+				if (!s1.equals(verlierer)) {
+					gameFrame.spielGewonnen(s1);
+				}
+			}
 		}
 	}
 
 	public void ziehe() throws SpielException{
-		gewonnen();
 		
 		spiel.ziehe(Spielzug.getZug());
 		this.aktualisiereAlles();
 		gameFrame.aktualisiere();
+		gewonnen();
 		if(spiel.getSpielerAmZug().startsWith("KI") 
 				&& spiel.getSpielerAmZug().endsWith("(durchziehend)")) {
 			String[] kiZug = {"",""};
 			zieheKI(kiZug);
 		}
-		
 	}
 	
 	public void zieheKI(String[] zug) throws SpielException{

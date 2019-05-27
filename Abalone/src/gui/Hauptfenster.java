@@ -254,6 +254,10 @@ public class Hauptfenster {
 		mainpanel.add(component, c);
 	}
 	
+	public void spielGewonnen(String gewinner) {
+		new GewonnenPanel(gewinner, controller);
+		mainframe.dispose();
+	}
 	/**
 	 * Schafft ein SindSieSicher-Panel das fragt, ob der Benutzer
 	 * das Spiel beenden möchte.
