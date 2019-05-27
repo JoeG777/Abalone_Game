@@ -28,6 +28,7 @@ public class Controller {
 	
 	private void aktualisiereSpielStatus() {
 		spielStatus = spiel.getStatus().split("\\n");
+		System.out.println("ich warte");
 	}
 	
 	private void aktualisiereStatus() {
