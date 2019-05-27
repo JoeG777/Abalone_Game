@@ -149,10 +149,9 @@ public class Controller {
 	}
 	
 	public boolean gewonnen() {
-		String spielerAmZug = spiel.getSpielerAmZug();
-		
 		for(String spieler : spiel.getSpielerImSpielInterface().split(",")) {
-			if(!spieler.equals(spielerAmZug)) {
+			if(!spieler.equals(spiel.getSpielerAmZug())) {
+				System.out.println(spieler);
 				if(spiel.hatGewonnen(spieler)) {
 					gameFrame.spielGewonnen(spieler);
 					return true;
