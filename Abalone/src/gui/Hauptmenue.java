@@ -128,8 +128,7 @@ public class Hauptmenue extends JFrame implements ActionListener{
 			try {
 				Hauptmenue.controller.hauptFensterStarten();
 			} catch (SpielException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				new FehlerPanel("Fehler beim Starten des Schriftart!");
 			}
 			
 			this.dispose();
