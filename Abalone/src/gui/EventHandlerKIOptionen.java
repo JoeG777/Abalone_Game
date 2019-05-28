@@ -56,35 +56,46 @@ public class EventHandlerKIOptionen implements ActionListener{
 			c.aktualisiereAlles();
 			
 			if(c.nurDurchziehendeKIs()) {
-				startKIvsKI(e, kiZug);
+				startKIvsKI(kiZug);
 			}	
 	}
 	}
 	
-	private void startKIvsKI(ActionEvent event, String[] kiZug) {
-		if(c.getBedienerInterface().hatGewonnen(c.getSpielerAmZug())) {
-			return;
-		}
-		else {
+	private void startKIvsKI(String[] kiZug) {
+		while(!c.getBedienerInterface().hatGewonnen(c.getSpielerAmZug())) {
 			try {
 				c.getBedienerInterface().ziehe(kiZug);
 			} catch (SpielException e) {
-				new FehlerPanel("KI-Ziehen fehlgeschlagen!");
-				return;
+				new FehlerPanel("Fehler beim Ziehen der KI!");
 			}
-			c.aktualisiereAlles();
 			
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				new FehlerPanel("Verzögerung der KI fehlgeschlagen!");
-				return;
-			}
-		
-		actionPerformed(event);
-		
+			c.aktualisiereAlles();
+		}
 	}
-	}
+//	private void startKIvsKI(ActionEvent event, String[] kiZug) {
+//		if(c.getBedienerInterface().hatGewonnen(c.getSpielerAmZug())) {
+//			return;
+//		}
+//		else {
+//			try {
+//				c.getBedienerInterface().ziehe(kiZug);
+//			} catch (SpielException e) {
+//				new FehlerPanel("KI-Ziehen fehlgeschlagen!");
+//				return;
+//			}
+//			c.aktualisiereAlles();
+//			
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				new FehlerPanel("Verzögerung der KI fehlgeschlagen!");
+//				return;
+//			}
+//		
+//		actionPerformed(event);
+//		
+//	}
+//	}
 //	private void startKIvsKI(String[] kiZug) {
 //		while(!c.getBedienerInterface().hatGewonnen(c.getSpielerAmZug())) {
 //			try {
