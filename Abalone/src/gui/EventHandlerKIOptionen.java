@@ -70,6 +70,9 @@ public class EventHandlerKIOptionen implements ActionListener{
 			}
 			
 			c.aktualisiereAlles();
+			if(c.gewonnen()) {
+				return;
+			}
 		}
 	}
 //	private void startKIvsKI(ActionEvent event, String[] kiZug) {
