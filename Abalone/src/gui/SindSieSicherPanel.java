@@ -59,8 +59,8 @@ public class SindSieSicherPanel implements ActionListener{
 			new FehlerPanel("Fehler beim Laden der Schriftart!");
 		}
 		try {
-			ja = ImageIO.read(getClass().getResource("./assets/JABUTTON.png"));
-			nein = ImageIO.read(getClass().getResource("./assets/NeinButton.png"));
+			ja = ImageIO.read(getClass().getResource("/assets/JABUTTON.png"));
+			nein = ImageIO.read(getClass().getResource("/assets/NeinButton.png"));
 
 		} catch (IOException e) {
 			new FehlerPanel("Fehler beim Laden der Bilder!");

@@ -48,7 +48,7 @@ public class GewonnenPanel implements ActionListener{
 		this.mainFrame = mf;
 
 		try {
-			bild = ImageIO.read(getClass().getResource("./assets/Hauptmenu.png"));
+			bild = ImageIO.read(getClass().getResource("/assets/Hauptmenu.png"));
 		} catch (IOException e) {
 			new FehlerPanel("Fehler beim Laden der Bilder!");
 		}

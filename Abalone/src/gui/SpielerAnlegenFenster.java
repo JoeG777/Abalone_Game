@@ -62,7 +62,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		SpielerAnlegenFenster.controller = controller;
 		controller.spielNeuStarten();
 		try {
-			bild = ImageIO.read(getClass().getResource("./assets/Los Gehts.png"));
+			bild = ImageIO.read(getClass().getResource("/assets/Los Gehts.png"));
 		} catch (IOException e) {
 			new FehlerPanel("Fehler beim Laden des Bildes!");
 		}
@@ -76,7 +76,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		}
 		coalition = new Font("Coalition", Font.PLAIN, 15);
 		
-		ueberschrift =  new ImageIcon(getClass().getResource("./assets/burn-inSpieleranlegen.gif"));
+		ueberschrift =  new ImageIcon(getClass().getResource("/assets/burn-inSpieleranlegen.gif"));
 		
 		fenster = new JFrame("Abalone");
 		fenster.setSize(800,500);
