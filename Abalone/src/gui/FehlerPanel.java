@@ -36,7 +36,6 @@ public class FehlerPanel {
 		}
 		coalition = new Font("Coalition", Font.PLAIN, 15);
 		
-		playSound();
 		this.fehlertext = ft;
 		fenster = new JOptionPane();
 		fenster.setBackground(Color.DARK_GRAY);
@@ -48,19 +47,5 @@ public class FehlerPanel {
 										JOptionPane.ERROR_MESSAGE);
 		
 	}
-
-	/**
-	 * Methode die einen Blitzschlag-Sound ausgibt falls ein Fehler auftritt(FehlerPanel erzeugt wird).
-	 */
-	private void playSound() {
-		try{
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("abalone/src/gui/assets/Bang.wav"));
-			
-			Clip clip = AudioSystem.getClip();
-			clip.open(audioInputStream);
-			clip.start();
-			
-		}catch(Exception e){ new FehlerPanel("Fehler beim Laden der Sounds!"); }
-
-	}
+	
 }
