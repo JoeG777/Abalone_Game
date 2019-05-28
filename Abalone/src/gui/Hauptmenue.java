@@ -58,10 +58,10 @@ public class Hauptmenue extends JFrame implements ActionListener{
 		this.setResizable(false);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-		ueberschrift =  new ImageIcon(getClass().getResource("./assets/burn-in3.gif"));
-		neuesSpielIcon = new ImageIcon(getClass().getResource("./assets/Neues Spiel.png"));
-		spielLadenIcon =  new ImageIcon(getClass().getResource("./assets/Spiel Laden.png"));
-		beendenIcon =  new ImageIcon(getClass().getResource("./assets/Beenden.png"));
+		ueberschrift =  new ImageIcon(getClass().getResource("/assets/burn-in3.gif"));
+		neuesSpielIcon = new ImageIcon(getClass().getResource("/assets/Neues Spiel.png"));
+		spielLadenIcon =  new ImageIcon(getClass().getResource("/assets/Spiel Laden.png"));
+		beendenIcon =  new ImageIcon(getClass().getResource("/assets/Beenden.png"));
 
 		gbc.weightx = 1.0;
 		gbc.gridx = 0;
