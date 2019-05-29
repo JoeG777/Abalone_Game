@@ -56,6 +56,8 @@ public class EventHandlerKIOptionen implements ActionListener{
 			c.aktualisiereAlles();
 			
 			if(c.nurDurchziehendeKIs()) {
+				new FehlerPanel("Achtung! Nur durchziehende KIs im Spiel.\n Da die "
+						+ "Strategie der KI \n geheim bleiben soll, wird nun nur gezeigt,\n welche KI gewonnen hat! \nEinen Moment bitte...");
 				startKIvsKI(kiZug);
 			}	
 	}
@@ -68,7 +70,6 @@ public class EventHandlerKIOptionen implements ActionListener{
 			} catch (SpielException e) {
 				new FehlerPanel("Fehler beim Ziehen der KI!");
 			}
-			
 			c.aktualisiereAlles();
 			if(c.gewonnen()) {
 				return;
