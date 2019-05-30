@@ -170,12 +170,10 @@ public class SindSieSicherPanel implements ActionListener{
 				
 				mainframe.setVisible(false);
 				mainframe.dispose();
-				try {
-					Controller controllerNeu = new Controller();
-					new SpielerAnlegenFenster(controllerNeu);
-				} catch (SpielException se) {
-					new FehlerPanel("Fehler beim Erstellen des Controllers!");
-				}
+				
+//					Controller controllerNeu = new Controller();
+					controller.spielNeuStarten();
+					new SpielerAnlegenFenster(controller);
 			}
 			if (e.getSource() == neinButton) {
 				fenster.setVisible(false);
