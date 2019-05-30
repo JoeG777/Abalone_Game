@@ -213,6 +213,11 @@ public class SpielerAnlegenFenster implements ActionListener{
 			} catch (SpielException e1) {
 				new FehlerPanel(e1.getMessage());
 			}
+			
+			if(controller.nurDurchziehendeKIs()) {
+				controller.getGameFrame().getKiOptionenPanel().getKiDurchziehend().setEnabled(true);
+				controller.getGameFrame().getKiOptionenPanel().getKiDurchziehend().doClick();
+			}
 		}
 
 		if (ki1.isSelected()) {
