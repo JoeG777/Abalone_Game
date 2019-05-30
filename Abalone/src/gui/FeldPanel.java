@@ -11,15 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class FeldPanel extends JPanel{
-	private static final String figurSchwarz="./assets/figurBlau.png";
-	private static final String figurSchwarzGewaehlt="./assets/figurBlauGewaehlt.png";
-	private static final String figurSchwarzWaehlbar="./assets/figurBlauWaehlbar.png";
-	private static final String figurWeiss="./assets/figurRot.png";
-	private static final String figurWeissGewaehlt="./assets/figurRotGewaehlt.png";
-	private static final String figurWeissWaehlbar="./assets/figurRotWaehlbar.png";
-	private static final String figurLeer="./assets/leeresFeld.png";
-	private static final String figurLeerGewaehlt="./assets/leeresFeldGewaehlt.png";
-	private static final String figurLeerWaehlbar="./assets/leeresFeldWaehlbar.png";
+	private static final String figurSchwarz="/assets/figurBlau.png";
+	private static final String figurSchwarzGewaehlt="/assets/figurBlauGewaehlt.png";
+	private static final String figurSchwarzWaehlbar="/assets/figurBlauWaehlbar.png";
+	private static final String figurWeiss="/assets/figurRot.png";
+	private static final String figurWeissGewaehlt="/assets/figurRotGewaehlt.png";
+	private static final String figurWeissWaehlbar="/assets/figurRotWaehlbar.png";
+	private static final String figurLeer="/assets/leeresFeld.png";
+	private static final String figurLeerGewaehlt="/assets/leeresFeldGewaehlt.png";
+	private static final String figurLeerWaehlbar="/assets/leeresFeldWaehlbar.png";
 	
 	
 	
@@ -100,13 +100,14 @@ public class FeldPanel extends JPanel{
 			  }
 			  
 		  } catch (Exception ex) {
+			  new FehlerPanel("Fehler beim Laden der Bilder!");
 		  }
 		  if(button != null)
 			  this.remove(button);
 		  button = createButton(img);
 		  FeldButtonListener fbl = new FeldButtonListener();
 		  button.addActionListener(fbl);
-		  button.setPreferredSize(new Dimension(41,41));
+		  button.setPreferredSize(new Dimension(44,44));
 		  this.add(button);
 		  button.setEnabled(true);
 		  String spielerName = controller.getSpielerAmZug();

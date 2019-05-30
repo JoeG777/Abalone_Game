@@ -59,6 +59,7 @@ public class Spielzug {
 					try {
 						controller.ziehe();
 					} catch (SpielException e1) {
+						new FehlerPanel("Fehler beim Ziehen!");
 					}
 				}
 			}

@@ -36,7 +36,7 @@ public class HistoriePanel extends JPanel {
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(coalition);
 		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Laden der Schriftart!");
 		}
 		
 		coalition = new Font("Coalition", Font.PLAIN, 12);

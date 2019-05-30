@@ -13,23 +13,29 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.swing.JOptionPane;
-
+/**
+ * Panel zum Anzeigen der verschiedenen Fehler die zum Beispiel bei falschen Eingaben im
+ * SpielerAnlegenFenster geworfen werden.
+ */
 public class FehlerPanel {
 	private JOptionPane fenster;
 	private String fehlertext;
 	private Font coalition;
 	
+	/**
+	 * Zeigt das FehlerPanel als JOptionPane mit Warning.
+	 * @param ft der bestimmte Fehlerttext der geworfen wurde.
+	 */
 	public FehlerPanel(String ft) {
 		try {
 			coalition = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("AbaloneSchrift.ttf"));
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(coalition);
 		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Laden der Schriftart!");
 		}
 		coalition = new Font("Coalition", Font.PLAIN, 15);
 		
-		playSound();
 		this.fehlertext = ft;
 		fenster = new JOptionPane();
 		fenster.setBackground(Color.DARK_GRAY);
@@ -41,16 +47,5 @@ public class FehlerPanel {
 										JOptionPane.ERROR_MESSAGE);
 		
 	}
-
-	private void playSound() {
-		try{
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("abalone/src/gui/assets/Bang.wav"));
-			
-			Clip clip = AudioSystem.getClip();
-			clip.open(audioInputStream);
-			clip.start();
-			
-		}catch(Exception e){ e.printStackTrace(); }
-
-	}
+	
 }

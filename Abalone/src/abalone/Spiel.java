@@ -280,7 +280,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		}
 		for (int i = 0; i < spielerArr.length; i++) {
 			if (spieler != null && !spielerArr[i].equals(spieler)) {
-				if (14 - this.zaehleKugelnMitFarbe(spieler.getFarbe()) >= 7)
+				if (14 - this.zaehleKugelnMitFarbe(spielerArr[i].getFarbe()) > 5)
 					return true;
 			}
 		}

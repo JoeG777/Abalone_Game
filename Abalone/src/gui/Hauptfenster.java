@@ -65,7 +65,7 @@ public class Hauptfenster {
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(coalition);
 		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Laden der Schriftart!");
 		}
 		coalition = new Font("Coalition", Font.PLAIN, 17);
 		
@@ -254,6 +254,14 @@ public class Hauptfenster {
 		mainpanel.add(component, c);
 	}
 	
+	public void shutdown() {
+		mainframe.dispose();
+	}
+	
+	public void spielGewonnen(String gewinner) {
+		mainframe.setEnabled(false);
+		new GewonnenPanel(gewinner, controller, this);
+	}
 	/**
 	 * Schafft ein SindSieSicher-Panel das fragt, ob der Benutzer
 	 * das Spiel beenden möchte.

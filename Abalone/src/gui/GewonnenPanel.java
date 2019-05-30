@@ -20,7 +20,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
+/**
+ * Fenster, welches den Gewinner des Spiels zeigt.
+ */
 public class GewonnenPanel implements ActionListener{
 	private JFrame fenster;
 	private JPanel jp;
@@ -31,22 +33,31 @@ public class GewonnenPanel implements ActionListener{
 	private Font coalition;
 	private JButton beenden;
 	private Controller controller;
+	private Hauptfenster mainFrame;
 	
-	public GewonnenPanel(String name, Controller controller) {
+	/**
+	 * Konstruktor zum erstellen des Fensters.
+	 * @param name Name des Gewinners.
+	 * @param controller Controller, der die Kommunikation zwischen Spiel und GUI
+	 * koordniert.
+	 * @param mf Hauptfenster welches noch geschlossen werden muss.
+	 */
+	public GewonnenPanel(String name, Controller controller, Hauptfenster mf) {
 		this.controller = controller;
 		this.gewinner = name;
+		this.mainFrame = mf;
 
 		try {
-			bild = ImageIO.read(getClass().getResource("./assets/Hauptmenu.png"));
+			bild = ImageIO.read(getClass().getResource("/assets/Hauptmenu.png"));
 		} catch (IOException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Laden der Bilder!");
 		}
 		try {
 			coalition = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("AbaloneSchrift.ttf"));
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(coalition);
 		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
+			new FehlerPanel("Fehler beim Laden der Schriftart!");
 		}
 		coalition = new Font("Coalition", Font.PLAIN, 60);
 		
@@ -55,6 +66,7 @@ public class GewonnenPanel implements ActionListener{
 		fenster.setResizable(false);
 		fenster.setLocationRelativeTo(null);
 		fenster.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
 		jp = new JPanel();
 		jp.setBackground(Color.DARK_GRAY);
 		jp.setLayout(new GridBagLayout());
@@ -88,9 +100,13 @@ public class GewonnenPanel implements ActionListener{
 	}
 
 
+	/**
+	 * Behandelt das Event des GewinnerPanels. Also der Button zurueck zum Hauptmenu.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == beenden) {
+			mainFrame.shutdown();
 			new Hauptmenue(controller);
 			fenster.dispose();
 		}
