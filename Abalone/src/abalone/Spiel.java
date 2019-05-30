@@ -48,11 +48,11 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 		historie = new Historie();
 		this.spielerImSpiel = new Spieler[2];
 		initLog();
-		Runtime.getRuntime().addShutdownHook(new Thread() {
+		/*Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
 				endLog();
 			}
-		});
+		});*/
 	}
 
 	/**

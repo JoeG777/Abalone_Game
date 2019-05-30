@@ -65,7 +65,7 @@ public class FeldPanel extends JPanel{
 			  if(farbe.equals("FIGUR:null")) {
 				  if(istAusgewaehlt) {
 					  img = ImageIO.read(getClass().getResource(figurLeerGewaehlt));
-				  }else if(auswaehlbar){
+				  }else if(auswaehlbar && !istAusgewaehlt){
 					  img = ImageIO.read(getClass().getResource(figurLeerWaehlbar));
 				  }
 				  else {
@@ -79,7 +79,7 @@ public class FeldPanel extends JPanel{
 			  } else if(farbe.equals("FIGUR:weiss")){
 				  if(istAusgewaehlt) {
 					  img = ImageIO.read(getClass().getResource(figurWeissGewaehlt));
-				  }else if(auswaehlbar){
+				  }else if(auswaehlbar && !istAusgewaehlt){
 					  img = ImageIO.read(getClass().getResource(figurWeissWaehlbar));
 				  }else {
 					  img = ImageIO.read(getClass().getResource(figurWeiss));
@@ -90,7 +90,7 @@ public class FeldPanel extends JPanel{
 			  }else {
 				  if(istAusgewaehlt) {
 					  img = ImageIO.read(getClass().getResource(figurSchwarzGewaehlt));
-				  }else if(auswaehlbar){
+				  }else if(auswaehlbar && !istAusgewaehlt){
 					  img = ImageIO.read(getClass().getResource(figurSchwarzWaehlbar));
 				  }else {
 					  img = ImageIO.read(getClass().getResource(figurSchwarz));
@@ -145,6 +145,10 @@ public class FeldPanel extends JPanel{
 		if(istAusgewaehlt) {
 			auswaehlbar = false;
 		}
+	}
+	
+	public boolean istAusgewaehlt() {
+		return this.istAusgewaehlt;
 	}
 	
 	public void resetAusgewaehlt() {
