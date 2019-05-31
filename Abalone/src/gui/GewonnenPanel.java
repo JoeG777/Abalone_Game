@@ -107,6 +107,7 @@ public class GewonnenPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == beenden) {
 			mainFrame.shutdown();
+			controller.spielNeuStarten();
 			new Hauptmenue(controller);
 			fenster.dispose();
 		}

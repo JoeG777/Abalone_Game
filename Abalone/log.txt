@@ -83,3 +83,29 @@
 ---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
 
 ---------- Gestartet am 30.05.2019 19:05:05 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 31.05.2019 15:15:51 ----------
+
+Fehler am 31.05.2019 15:16:06: 
+Fehler ID 17 aufgetreten: Spielernamen muessen unterschiedlich sein!
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 31.05.2019 15:21:12 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 31.05.2019 15:23:28 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 31.05.2019 15:24:04 ----------
+
+---------- Das Spiel wurde nicht ordungsgemaess beendet! ----------
+
+---------- Gestartet am 31.05.2019 15:26:12 ----------
+
+Fehler am 31.05.2019 15:26:22: 
+Fehler ID 17 aufgetreten: Spielernamen muessen unterschiedlich sein!
