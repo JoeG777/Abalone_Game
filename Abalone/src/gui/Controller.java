@@ -335,7 +335,7 @@ public class Controller {
 	/**
 	 * Gibt das Hauptfenster zurueck.
 	 * 
-	 * @return Hauptfenster
+	 * @return Hauptfenster das Hauptfenster, das der Controller koordniert.
 	 */
 	public Hauptfenster getGameFrame() {
 		return this.gameFrame;
@@ -344,7 +344,7 @@ public class Controller {
 	/**
 	 * Gibt das bedienerInterface zurueck.
 	 * 
-	 * @return bedienerInterface
+	 * @return bedienerInterface das Spiel-Attribut des Controllers.
 	 */
 	public bedienerInterface getBedienerInterface() {
 		return this.spiel;
