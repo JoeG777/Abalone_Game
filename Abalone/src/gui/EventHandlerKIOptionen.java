@@ -8,7 +8,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 import abalone.SpielException;
-
+/**
+ * Verwaltet die ActionEvents des KI-Optionen-Panels.
+ * @author julia
+ *
+ */
 public class EventHandlerKIOptionen implements ActionListener{
 	private KIOptionenPanel kiPanel;
 	private Controller c; 
@@ -63,6 +67,11 @@ public class EventHandlerKIOptionen implements ActionListener{
 	}
 	}
 	
+	/**
+	 * Wird aufgerufen, wenn das Spiel von KIs bis zum Ende gespielt werden soll.
+	 * Die GUI wird dabei blockiert.
+	 * @param kiZug ein Zug im Format eines KI-Zuges (leer, oder mit DURCHZIEHEN)
+	 */
 	private void startKIvsKI(String[] kiZug) {
 		while(!c.getBedienerInterface().hatGewonnen(c.getSpielerAmZug())) {
 			try {

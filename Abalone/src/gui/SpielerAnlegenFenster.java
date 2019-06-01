@@ -243,7 +243,11 @@ public class SpielerAnlegenFenster implements ActionListener{
 			ki2_durchziehen.setEnabled(false);
 		}
 	}
-
+	/**
+	 * Bearbeitet die Eingaben im SpielerAnlegen-Fenster und gibt zurück, ob
+	 * diese Schritte erfolgreich waren.
+	 * @return true/false, je nachdem ob Vorbereitung erfolgreich
+	 */
 	private boolean vorbereiten() {
 
 		if (ki1.isSelected() && ki2.isSelected()) {

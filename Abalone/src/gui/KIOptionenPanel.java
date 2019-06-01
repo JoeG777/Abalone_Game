@@ -12,13 +12,20 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+/**
+ * Das KI-Optionen Panel erlaubt es dem Nutzer die KI zu steuern.
+ *
+ */
 public class KIOptionenPanel extends JPanel {
 	private JLabel infoLabel, kiLabel;
 	private JButton kiWeiter, kiDurchziehend;
 	private Font coalition, coalition2;
 	
 	private EventHandlerKIOptionen eventHandlerKIOptionen;
+	/**
+	 * Konstruktor des KI-Optionen-Panels.
+	 * @param c der zugehörige Controller.
+	 */
 	public KIOptionenPanel(Controller c) {
 		try {
 			coalition = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("AbaloneSchrift.ttf"));
@@ -38,7 +45,9 @@ public class KIOptionenPanel extends JPanel {
 		
 
 	}
-	
+	/**
+	 * Initialisiert das "KI-Optionen"-Label (Ueberschrift)
+	 */
 	private void initLabel() {
 		if(infoLabel == null) {
 			infoLabel = new JLabel("KI-Optionen");
@@ -49,7 +58,9 @@ public class KIOptionenPanel extends JPanel {
 		}
 		
 	}
-	
+	/**
+	 * Initialisiert die KI-Buttons.
+	 */
 	private void initKILabelButtons() {
 		if(kiLabel == null) {
 			kiLabel = new JLabel();
@@ -81,7 +92,12 @@ public class KIOptionenPanel extends JPanel {
 	}
 	
 
-	
+	/**
+	 * Aktiviert/deaktiviert die Buttons.
+	 * @param kiName der Name der KI
+	 * @param aktiviert wahr/falsch, je nachdem, ob die Buttons aktiviert
+	 * oder deaktiviert sein sollen.
+	 */
 	public void steuereKIPanel(String kiName, boolean aktiviert) {
 		if(aktiviert) {
 			aktiviereKIPanel(kiName);
@@ -90,7 +106,10 @@ public class KIOptionenPanel extends JPanel {
 			deaktiviereKIPanel();
 		}
 	}
-	
+	/**
+	 * Aktiviert das KI-Panel.
+	 * @param kiName der Name der KI, die am Zug ist
+	 */
 	private void aktiviereKIPanel(String kiName) {
 		kiLabel.setText((kiName + "             "));
 		kiLabel.setOpaque(true);
@@ -119,6 +138,9 @@ public class KIOptionenPanel extends JPanel {
 		aktualisiere();
 	}
 	
+	/**
+	 * Deaktiviert das KI-Panel
+	 */
 	private void deaktiviereKIPanel() {
 		kiLabel.setText("(KI nicht am Zug)  ");
 		kiLabel.setOpaque(true);
@@ -139,11 +161,19 @@ public class KIOptionenPanel extends JPanel {
 		aktualisiere();
 	}
 	
+	/**
+	 * Hilfsmethode. Ruft repaint und revalidate auf die eigene Instanz auf.
+	 */
 	public void aktualisiere() {
 		this.repaint();
 		this.revalidate();
 	}
-	
+	/**
+	 * Hilfsmethode zum Hinzufuegen zum Layout.
+	 * @param comp Komponente die Hinzugefügt werden soll.
+	 * @param x x-Wert der Komponente im Layout.
+	 * @param y y-Wert der Komponente im Layout.
+	 */
 	private void addToGridBag(Component comp, int x, int y) {
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx= x;
@@ -153,7 +183,15 @@ public class KIOptionenPanel extends JPanel {
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		this.add(comp,c);
 	}
-	
+	/**
+	 * Hilfsmethode zum Hinzufuegen zum Layout.
+	 * @param comp Komponente die Hinzugefügt werden soll.
+	 * @param x x-Wert der Komponente im Layout.
+	 * @param y y-Wert der Komponente im Layout.
+	 * @param width der Weite der Komponente im Layout.
+ 	 * @param height die Höhe der Komponente im Layout.
+	 * @param fill der Fill-Wert der Komponente im Layout.
+	 */
 	private void addToGridBag(Component comp, int x, int y, int width, int height, int fill) {
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx= x;
@@ -165,19 +203,32 @@ public class KIOptionenPanel extends JPanel {
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		this.add(comp,c);
 	}
-
+	
+	/**
+	 * Gibt den KI-Weiter Button des KIOptionenPanels zurück.
+	 * @return KI-Weiter Button
+	 */
 	public JButton getKiWeiter() {
 		return kiWeiter;
 	}
-
+	/**
+	 * Setzt den KI-Weiter Button des KIOptionenPanels.
+	 * @param kiWeiter
+	 */
 	public void setKiWeiter(JButton kiWeiter) {
 		this.kiWeiter = kiWeiter;
 	}
-
+	/**
+	 * Gibt den durchziehend-Button des KI-OptionenPanels zurueck.
+	 * @return der durchziehend-Button des Panels.
+	 */
 	public JButton getKiDurchziehend() {
 		return kiDurchziehend;
 	}
-
+	/**
+	 * Setzt den durchziehend-Button des KI-OptionenPanels.
+	 * @param kiDurchziehend durchziehend-Button, der gesetzt werden soll.
+	 */
 	public void setKiDurchziehend(JButton kiDurchziehend) {
 		this.kiDurchziehend = kiDurchziehend;
 	}
