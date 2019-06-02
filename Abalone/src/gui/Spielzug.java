@@ -101,16 +101,18 @@ public class Spielzug {
 	
 	public static void setzeMoeglicheAuswahl() {
 		controller.resetAuswaehlbar();
+		
 		if(checkGewaehlteFelder()) {
 			getMoeglicheZuege();
 			
 		}
+		versucheZug();
 		controller.aktualisiereBrett();
 	}
 	
 	public static void toggleString(FarbEnum farbe,String id) {
 		controller.getSpielfeldMitId(id).toggleAusgewaehlt();
-		versucheZug();
+		
 		/*
 		if(controller.getSpielerAmZugFarbe() == controller.getSpielfeldMitId(id).getFigurFarbe()) {
 			if(zug[0].contains(id)) {
