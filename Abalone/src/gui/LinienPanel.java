@@ -97,4 +97,14 @@ public class LinienPanel extends JPanel{
 			f.resetAusgewaehlt();
 		}
 	}
+
+	public ArrayList<FeldPanel> bekommeGewaehlteFelder() {
+		ArrayList<FeldPanel> geWahlteFelder = new ArrayList<>();
+		for(FeldPanel p : panels) {
+			if(p.istAusgewaehlt()) {
+				geWahlteFelder.add(p);
+			}
+		}
+		return geWahlteFelder;
+	}
 }

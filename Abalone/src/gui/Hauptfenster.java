@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.MenuItem;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -380,6 +381,11 @@ public class Hauptfenster {
 	 */
 	public KIOptionenPanel getKiOptionenPanel() {
 		return kiOptionenPanel;
+	}
+
+	public ArrayList<FeldPanel> bekommeGewaehlteFelder() {
+		return spielfeldPanel.bekommeGewaehlteFelder();
+		
 	}
 
 

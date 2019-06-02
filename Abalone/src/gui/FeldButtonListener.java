@@ -17,7 +17,8 @@ public class FeldButtonListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		FeldPanel feld = (FeldPanel)((JButton) e.getSource()).getParent();
 		Spielzug.toggleString(feld.getController().getSpielerAmZugFarbe(), feld.getId());
-		Spielzug.getMoeglicheZuege();
+		Spielzug.setzeMoeglicheAuswahl();
+		//Spielzug.getMoeglicheZuege();
 		
 	}
 

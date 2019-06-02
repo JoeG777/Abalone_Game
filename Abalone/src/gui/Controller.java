@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import abalone.Spiel;
@@ -109,6 +110,17 @@ public class Controller {
 		return erlaubteZuege;
 		}
 		return null;
+	}
+	
+	public String getErlaubteZuege(String[] ausgangsfelder) {
+		if(!ausgangsfelder[0].equals("")) {
+			try {
+				return spiel.getErlaubteZuegeInterface(ausgangsfelder);
+			} catch (SpielException e) {
+				new FehlerPanel("Fehler beim Laden der erlaubten Zuege!");
+			}
+			}
+			return null;
 	}
 	
 	/**
@@ -405,5 +417,9 @@ public class Controller {
 		boolean spieler2 = spieler[1].startsWith("KI") && spieler[1].endsWith("(durchziehend)");
 		
 		return spieler1 && spieler2;
+	}
+
+	public ArrayList<FeldPanel> bekommeGewahlteFelder() {
+		return gameFrame.bekommeGewaehlteFelder();
 	}
 }

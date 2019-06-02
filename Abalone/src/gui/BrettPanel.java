@@ -221,5 +221,15 @@ public class BrettPanel extends JPanel{
 			p.resetAusgewaehlt();
 		}
 	}
+
+
+	public ArrayList<FeldPanel> bekommeGewaehlteFelder() {
+		ArrayList<FeldPanel> gewaehlteFelder = new ArrayList<>();
+		for(LinienPanel p : panels) {
+			ArrayList<FeldPanel> ergebnisFelder = p.bekommeGewaehlteFelder();
+			if(ergebnisFelder != null && ergebnisFelder.size() != 0) gewaehlteFelder.addAll(p.bekommeGewaehlteFelder());
+		}
+		return gewaehlteFelder;
+	}
 }
 
