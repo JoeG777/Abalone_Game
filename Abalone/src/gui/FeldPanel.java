@@ -54,7 +54,13 @@ public class FeldPanel extends JPanel{
 		this.backgroundColor=Color.DARK_GRAY;
 		if(auswaehlbar) {
 			this.backgroundColor=Color.DARK_GRAY;
-			
+		}
+		 if(farbe.equals("FIGUR:null")) figurFarbe = null;
+		 if(farbe.equals("FIGUR:weiss")) figurFarbe = FarbEnum.WEISS;
+		 if(farbe.equals("FIGUR:schwarz"))  figurFarbe = FarbEnum.SCHWARZ;
+		 
+		if(this.auswaehlbar && figurFarbe == controller.getSpielerAmZugFarbe()) {
+			this.istAusgewaehlt = true;
 		}
 		/*this.subscribedFeld = controller.getSpielfeldMitId(id);
 		if(subscribedFeld.istAuswaehlbar())
@@ -62,7 +68,7 @@ public class FeldPanel extends JPanel{
 		Image img = null;
 		  try {
 			  
-			  if(farbe.equals("FIGUR:null")) {
+			  if(figurFarbe == null) {
 				  if(istAusgewaehlt) {
 					  img = ImageIO.read(getClass().getResource(figurLeerGewaehlt));
 				  }else if(auswaehlbar && !istAusgewaehlt){
@@ -72,11 +78,10 @@ public class FeldPanel extends JPanel{
 					  img = ImageIO.read(getClass().getResource(figurLeer));
 				  }
 				   
-				   imgStr = figurLeer;
-				   figurFarbe = null;
+				  imgStr = figurLeer;
 				 
 
-			  } else if(farbe.equals("FIGUR:weiss")){
+			  } else if(figurFarbe == FarbEnum.WEISS){
 				  if(istAusgewaehlt) {
 					  img = ImageIO.read(getClass().getResource(figurWeissGewaehlt));
 				  }else if(auswaehlbar && !istAusgewaehlt){
@@ -85,7 +90,7 @@ public class FeldPanel extends JPanel{
 					  img = ImageIO.read(getClass().getResource(figurWeiss));
 				  }
 				   imgStr = figurWeiss;
-				   figurFarbe = FarbEnum.WEISS;
+				   
 
 			  }else {
 				  if(istAusgewaehlt) {
@@ -96,9 +101,7 @@ public class FeldPanel extends JPanel{
 					  img = ImageIO.read(getClass().getResource(figurSchwarz));
 				  }
 				  imgStr = figurSchwarz;
-				  figurFarbe = FarbEnum.SCHWARZ;
 			  }
-			  
 		  } catch (Exception ex) {
 			  new FehlerPanel("Fehler beim Laden der Bilder!");
 		  }
