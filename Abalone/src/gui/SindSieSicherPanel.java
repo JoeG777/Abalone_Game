@@ -23,6 +23,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import abalone.SpielException;
+
 /**
  * Fenster um den Benutzer nochmals zu Fragen ob er beenden/neu starten will.
  */
@@ -169,7 +171,9 @@ public class SindSieSicherPanel implements ActionListener{
 				mainframe.setVisible(false);
 				mainframe.dispose();
 				
-				new SpielerAnlegenFenster(controller);
+//					Controller controllerNeu = new Controller();
+					controller.spielNeuStarten();
+					new SpielerAnlegenFenster(controller);
 			}
 			if (e.getSource() == neinButton) {
 				fenster.setVisible(false);

@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Das Brettpanel verwaltet das Spielbrett der GUI.
+ *
+ */
 public class BrettPanel extends JPanel{
 	private static Controller controller;
 	private ArrayList<LinienPanel> panels;
@@ -42,6 +46,19 @@ public class BrettPanel extends JPanel{
 		this.setBackground(Color.WHITE);
 	}
 	
+	
+	/**
+	 * Hilfsmethode für das Hinzufügen von Komponenten zum Hauptpanel.
+	 * @param component die Komponente, die hinzugefuegt werden soll. 
+	 * @param x Der zu setzende Wert für das 
+	 * gridx-Attribut des GridbagConstraints-Objektes.
+	 * @param y Der zu setzende Wert für das 
+	 * gridy-Attribut des GridbagConstraints-Objektes.
+	 * @param xWeight Der zu setzende Wert für das 
+	 * weightx-Attribut des GridbagConstraints-Objektes.
+	 * @param yWeight Der zu setzende Wert für das 
+	 * weighty-Attribut des GridbagConstraints-Objektes.
+	 */
 	public void addToGridBag(Component component, int x, int y, double xWeight, double yWeight) {
 		GridBagConstraints c = new GridBagConstraints(); 
 		c.gridx = x; 
@@ -52,6 +69,20 @@ public class BrettPanel extends JPanel{
 		this.add(component,c);
 	}
 	
+	/**
+	 * Hilfsmethode für das Hinzufügen von Komponenten zum Hauptpanel.
+	 * @param component die Komponente, die hinzugefuegt werden soll. 
+	 * @param x Der zu setzende Wert für das 
+	 * gridx-Attribut des GridbagConstraints-Objektes.
+	 * @param y Der zu setzende Wert für das 
+	 * gridy-Attribut des GridbagConstraints-Objektes.
+	 * @param xWeight Der zu setzende Wert für das 
+	 * weightx-Attribut des GridbagConstraints-Objektes.
+	 * @param yWeight Der zu setzende Wert für das 
+	 * weighty-Attribut des GridbagConstraints-Objektes.
+	 * @param width Der zu setzende Wert für die Weite 
+	 * des GridbagConstraints-Objektes.
+	 */
 	public void addToGridBag(Component component, int x, int y, double xWeight, double yWeight, int width) {
 		GridBagConstraints c = new GridBagConstraints(); 
 		c.gridx = x; 
@@ -61,7 +92,10 @@ public class BrettPanel extends JPanel{
 		c.gridwidth = width;
 	}
 	
-	
+	/**
+	 * Aktualisiert alle Felder mit den übergebenen IDs.
+	 * @param ids IDs, die aktualisiert werden sollen.
+	 */
 	public void aktualisiere(String ids[][]) {
 		String[][][] sortiert = this.sortiereFeldDaten(ids);
 		for(int i = 0; i < panels.size(); i++) {
@@ -70,6 +104,11 @@ public class BrettPanel extends JPanel{
 		this.validate();
 	}
 	
+	/**
+	 * Sortiert die übergebenen Felddaten.
+	 * @param feldDaten die Felddaten, die sortiert werden sollen.
+	 * @return sortierte Felddaten
+	 */
 	private String[][][] sortiereFeldDaten(String[][] feldDaten){
 		String[][][] sortiert = new String[9][][];
 		int anzahlFelder = 0;
@@ -125,11 +164,21 @@ public class BrettPanel extends JPanel{
 		return sortiert;
 	}
 	
+	/**
+	 * Gibt das Feld mit der übergebenen ID zurück.
+	 * @param id
+	 * @return
+	 */
 	public FeldPanel getFeld(String id) {
 		return panels.get(getIndexByBuchstabe(id.charAt(0))).getFeld(id);
 		
 	}
 	
+	/**
+	 * Wandelt einen Buchstabe zum passenden Index des Brettpanels um.
+	 * @param feldBuchstabe der Buchstabe, der umgewandelt werden soll
+	 * @return der Index des Buchstaben im Brettpanel.
+	 */
 	private int getIndexByBuchstabe(char feldBuchstabe) {
 		int buchstabenIndex = 0;
 		switch(feldBuchstabe) {
@@ -155,12 +204,18 @@ public class BrettPanel extends JPanel{
 		return buchstabenIndex;
 	}
 	
+	/**
+	 * Bestimmt, ob ein Reset gewählt werden kann. 
+	 */
 	public void resetAuswaehlbar() {
 		for(LinienPanel p : panels) {
 			p.resetAuswaehlbar();
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void resetAusgewaehlt() {
 		for(LinienPanel p : panels) {
 			p.resetAusgewaehlt();

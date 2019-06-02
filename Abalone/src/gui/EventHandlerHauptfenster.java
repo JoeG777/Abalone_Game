@@ -12,7 +12,11 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import abalone.DateiIOException;
-
+/**
+ * Der EventHandler für das Hauptfenster des Spiels. Verwaltet die Action-
+ * Listener des Hauptfensters.
+ *
+ */
 
 
 public class EventHandlerHauptfenster implements ActionListener{
@@ -83,6 +87,13 @@ public class EventHandlerHauptfenster implements ActionListener{
 		}
 	}
 	
+	/**
+	 * Öffnet einen FileChooser und erlaubt es dem Nutzer eine
+	 * Datei auszuwählen. Es wird geprueft, ob die Datei existiert
+	 * und anschließend ein passendes File-Objekt zurückgegeben. 
+	 * @param save wahr/falsch je nachdem ob speichern/laden
+	 * @return File-Objekt, das ausgewählt wurde
+	 */
 	public File generateFileChooser(boolean save) {
 		File selected = null;
 		boolean loop = true; 

@@ -60,7 +60,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 	 */
 	public SpielerAnlegenFenster(Controller controller) {
 		SpielerAnlegenFenster.controller = controller;
-		controller.spielNeuStarten();
+//		controller.spielNeuStarten();
 		try {
 			bild = ImageIO.read(getClass().getResource("/assets/Los Gehts.png"));
 		} catch (IOException e) {
@@ -210,14 +210,14 @@ public class SpielerAnlegenFenster implements ActionListener{
 					fenster.dispose();
 					controller.hauptFensterStarten();
 				}
+				if(controller.nurDurchziehendeKIs()) {
+					controller.getGameFrame().getKiOptionenPanel().getKiDurchziehend().setEnabled(true);
+					controller.getGameFrame().getKiOptionenPanel().getKiDurchziehend().doClick();
+				}
 			} catch (SpielException e1) {
 				new FehlerPanel(e1.getMessage());
 			}
 			
-			if(controller.nurDurchziehendeKIs()) {
-				controller.getGameFrame().getKiOptionenPanel().getKiDurchziehend().setEnabled(true);
-				controller.getGameFrame().getKiOptionenPanel().getKiDurchziehend().doClick();
-			}
 		}
 
 		if (ki1.isSelected()) {
@@ -243,7 +243,11 @@ public class SpielerAnlegenFenster implements ActionListener{
 			ki2_durchziehen.setEnabled(false);
 		}
 	}
-
+	/**
+	 * Bearbeitet die Eingaben im SpielerAnlegen-Fenster und gibt zurück, ob
+	 * diese Schritte erfolgreich waren.
+	 * @return true/false, je nachdem ob Vorbereitung erfolgreich
+	 */
 	private boolean vorbereiten() {
 
 		if (ki1.isSelected() && ki2.isSelected()) {

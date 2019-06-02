@@ -19,7 +19,6 @@ import javax.swing.ScrollPaneConstants;
 /**
  * Diese Klasse erschafft ein Log-Fenster.
  * 
- * @author Gruppe A4
  *
  */
 public class LogFenster {

@@ -17,7 +17,6 @@ import javax.swing.JTextArea;
  * Das Status-Panel erbt vom JPanel und dient zur
  * Visualisierung des Status des Spiels.
  * 
- * @author Gruppe A4
  *
  */
 public class StatusPanel extends JPanel {

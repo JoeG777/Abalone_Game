@@ -99,7 +99,7 @@ public class Hauptmenue extends JFrame implements ActionListener{
 	}
 
 	/** 
-	 * Implementierung die actionPerformed, deren Aufgabe besteht die Button-Events auszufuehren
+	 * Implementiert die actionPerformed, deren Aufgabe darin besteht die Button-Events auszufuehren
 	 * @param ActionEvent Button Klick
 	 */
 	@Override
@@ -138,6 +138,13 @@ public class Hauptmenue extends JFrame implements ActionListener{
 		}
 
 	}
+	/**
+	 * Öffnet einen FileChooser und erlaubt es dem Nutzer eine
+	 * Datei auszuwählen. Es wird geprueft, ob die Datei existiert
+	 * und anschließend ein passendes File-Objekt zurückgegeben. 
+	 * @param save wahr/falsch je nachdem ob speichern/laden
+	 * @return File-Objekt, das ausgewählt wurde
+	 */
 	public File generateFileChooser(boolean save) {
 		File selected = null;
 		boolean loop = true; 
@@ -182,6 +189,10 @@ public class Hauptmenue extends JFrame implements ActionListener{
 		return selected;
 	}
 	
+	/**
+	 * Gibt das Spielladen-Attribut des Hauptmenues zurück.
+	 * @return JButton "Spielladen" des Hauptmenues
+	 */
 	public JButton getSpielLaden() {
 		return this.spielLaden;
 	}

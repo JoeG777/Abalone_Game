@@ -351,26 +351,33 @@ public class Hauptfenster {
 
 
 
-
+	/**
+	 * Gibt das JMenuItem für das Log zurueck.
+	 * @return JMenuItem für das Log.
+	 */
 	public JMenuItem getMenuLog() {
 		return menuLog;
 	}
 
-
-
-
-
+	/**
+	 * Gibt das JMenuItem für das Beenden zurueck. 
+	 * @return JMenuItem für das Beenden
+	 */
 	public JMenuItem getMenuBeenden() {
 		return menuBeenden;
 	}
 
-
-	
+	/**
+	 * Aktiviert das Resetten eines Feldes.
+	 */
 	public void resetFelderAuswaehlbar() {
 		spielfeldPanel.resetAuswaehlbar();
 	}
 
-
+	/**
+	 * Gibt das KI-Optionen-Panel des Hauptfenster zurueck.
+	 * @return das KI-Optionen-Panel des Hauptfensters.
+	 */
 	public KIOptionenPanel getKiOptionenPanel() {
 		return kiOptionenPanel;
 	}
