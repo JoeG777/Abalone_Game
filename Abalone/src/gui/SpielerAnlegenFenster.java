@@ -79,6 +79,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 		ueberschrift =  new ImageIcon(getClass().getResource("/assets/burn-inSpieleranlegen.gif"));
 		
 		fenster = new JFrame("Abalone");
+		fenster.setUndecorated(true);
 		fenster.setSize(800,500);
 		fenster.setLocationRelativeTo(null);
 		fenster.setResizable(false);

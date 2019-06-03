@@ -74,6 +74,7 @@ public class Hauptfenster {
 		GridLayout experimentLayout = new GridLayout(0,1);
 		// Default-Werte
 		mainframe = new JFrame();
+		mainframe.setUndecorated(true);
 		mainframe.setSize(960,640);
 		mainframe.setTitle("Abalone");
 		mainframe.setBackground(Color.DARK_GRAY);

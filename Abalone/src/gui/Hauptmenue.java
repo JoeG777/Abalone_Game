@@ -49,6 +49,7 @@ public class Hauptmenue extends JFrame implements ActionListener{
 	private ImageIcon beendenIcon;
 
 	public Hauptmenue (Controller controller){
+		this.setUndecorated(true);
 		Hauptmenue.controller =controller;
 		jp = new JPanel(new GridBagLayout());
 		jp.setBackground(Color.DARK_GRAY);

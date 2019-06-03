@@ -87,6 +87,7 @@ public class SindSieSicherPanel implements ActionListener{
 	 */
 	public void fensterAnlegen() {
 		fenster = new JDialog();
+		fenster.setUndecorated(true);
 		fenster.setSize(400,250);
 		fenster.setLocationRelativeTo(null);
 		fenster.setResizable(false);
