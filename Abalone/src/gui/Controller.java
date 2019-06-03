@@ -1,7 +1,12 @@
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.JButton;
+import javax.swing.SwingWorker;
 
 import abalone.Spiel;
 import abalone.SpielException;
@@ -274,7 +279,6 @@ public class Controller {
 	public void zieheKI(String[] zug) throws SpielException {
 		boolean durchziehendAmZug = spiel.getSpielerAmZug().startsWith("KI") 
 				&& spiel.getSpielerAmZug().endsWith("(durchziehend)");
-		
 		spiel.ziehe(zug);
 		this.aktualisiereAlles();
 		gameFrame.aktualisiere();
@@ -284,9 +288,11 @@ public class Controller {
 		if(!durchziehendAmZug && spiel.getSpielerAmZug().startsWith("KI") 
 				&& spiel.getSpielerAmZug().endsWith("(durchziehend)")) {
 			String[] kiZug = {"",""};
+//			new EventHandlerHauptfenster(gameFrame, this).warten();
 			zieheKI(kiZug);
+			
 		}
-
+		
 	}
 	
 	/**
@@ -422,4 +428,5 @@ public class Controller {
 	public ArrayList<FeldPanel> bekommeGewahlteFelder() {
 		return gameFrame.bekommeGewaehlteFelder();
 	}
+	
 }

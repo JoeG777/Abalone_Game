@@ -6,8 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -32,7 +34,25 @@ public class EventHandlerHauptfenster implements ActionListener{
 	public EventHandlerHauptfenster(Hauptfenster hauptfenster, Controller c) {
 		this.hauptfenster = hauptfenster;
 		controller = c; 
+		
 	}
+//	public void warten() {
+//		EventHandlerHauptfenster ha = this;
+//		SwingWorker<Void, Void> w = new SwingWorker<Void, Void>() {
+//
+//			@Override
+//			protected Void doInBackground() throws Exception {
+//				Thread.sleep(100);
+//				JButton button = new JButton();
+//				button.addActionListener(ha);
+//				button.setActionCommand("autoClick");
+//				button.doClick();
+//				return null;
+//			}
+//			
+//		};
+//		w.execute();
+//	}
 	
 	/**
 	 * Behandelt die Events eines Hauptfensters.
