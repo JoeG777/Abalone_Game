@@ -21,9 +21,9 @@ import javax.swing.JTextArea;
  */
 public class StatusPanel extends JPanel {
 	private static final long serialVersionUID = 3L;
-	private JTextArea statusText;
+	private JTextArea statusText, statusText2, statusText3;
 	private Font coalition, coalition2;
-	
+
 	/**
 	 * Konstruktor des Status-Panels.
 	 * 
@@ -38,7 +38,7 @@ public class StatusPanel extends JPanel {
 		}
 		coalition = new Font("Coalition", Font.PLAIN, 10);
 		coalition2 = new Font("Coalition", Font.PLAIN, 14);
-		
+
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -48,17 +48,39 @@ public class StatusPanel extends JPanel {
 		label.setFont(coalition2);
 		label.setForeground(Color.WHITE);
 		this.add(label,c);
-		
-		statusText = new JTextArea("Hier steht bald der Spiel-Status.",5, 27);
+
+		statusText = new JTextArea("Hier steht bald der Spiel-Status.",3, 28);
 		statusText.setBackground(Color.darkGray);
-		statusText.setForeground(Color.WHITE);
+		statusText.setForeground(Color.RED);
 		statusText.setFont(coalition);
 		statusText.setEditable(false);
 		statusText.setLineWrap(true);
-		
+
 		c.gridx = 0;
 		c.gridy = 1;
 		this.add(statusText,c);
+
+		statusText2 = new JTextArea("", 3, 28);
+		statusText2.setBackground(Color.DARK_GRAY);
+		statusText2.setForeground(Color.BLUE);
+		statusText2.setFont(coalition);
+		statusText2.setEditable(false);
+		statusText2.setLineWrap(true);
+
+		c.gridx = 0;
+		c.gridy = 2;
+		this.add(statusText2,c);
+
+		statusText3 = new JTextArea("", 2, 22);
+		statusText3.setBackground(Color.DARK_GRAY);
+		statusText3.setForeground(Color.WHITE);
+		statusText3.setFont(coalition2);
+		statusText3.setEditable(false);
+		statusText3.setLineWrap(true);
+
+		c.gridx = 0;
+		c.gridy = 3;
+		this.add(statusText3,c);
 	}
 
 	/**
@@ -78,7 +100,7 @@ public class StatusPanel extends JPanel {
 	public void setStatusText(JTextArea statusText) {
 		this.statusText = statusText;
 	}
-	
+
 	/**
 	 * Aktualisiert den StatusPanel.
 	 * 
@@ -102,12 +124,21 @@ public class StatusPanel extends JPanel {
 			spieler2[0] = spieler2[0].substring(0, 4) +durchziehend;
 		}
 		String string = spieler1[0] + " (Rot)\n" + spieler1[4] + " / 14 Kugeln "
-				+ "(Muss " + (Integer.parseInt(spieler2[4]) - 8) + " Kugeln schlagen fuer Sieg)\n"
-				+ spieler2[0] + " (Blau)\n" + spieler2[4] + " / 14 Kugeln "
-				+ "(Muss " + (Integer.parseInt(spieler1[4]) - 8) + " Kugeln schlagen fuer Sieg)";
-		if(amZug != null)
-			string += "\n Am Zug ist " + amZug + ".";
+				+ "(Muss " + (Integer.parseInt(spieler2[4]) - 8) + " Kugeln schlagen fuer den Sieg)\n";
+
 		statusText.setText(string);
+
+		String string2 = spieler2[0] + " (Blau)\n" + spieler2[4] + " / 14 Kugeln "
+				+ "(Muss " + (Integer.parseInt(spieler1[4]) - 8) + " Kugeln schlagen fuer den Sieg)\n";
+
+		statusText2.setText(string2);
+		if(amZug != null) {
+			statusText3.setText("\nAm Zug ist " + amZug + ".");
+			if (amZug.equals(spieler1[0])) {
+				statusText3.setForeground(Color.RED);
+			} else {
+				statusText3.setForeground(Color.BLUE);;
+			}
+		}
 	}
-	
 }

@@ -3,6 +3,8 @@ package gui;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.SwingWorker;
+
 import abalone.Spiel;
 import abalone.SpielException;
 import abalone.bedienerInterface;
@@ -290,6 +292,12 @@ public class Controller {
 		
 	}
 	
+	public void zieheKI2(String[] zug) throws SpielException {
+		spiel.ziehe(zug);
+		this.aktualisiereAlles();
+		gameFrame.aktualisiere();
+	}
+	
 	/**
 	 * Gibt die Daten des Spielbrettes als 2-dimensionales String-Array zurueck.
 	 * 
@@ -427,4 +435,33 @@ public class Controller {
 		return gameFrame.bekommeGewaehlteFelder();
 	}
 	
+	public void getGeschlagenenStein() {
+		String text = gameFrame.getHistoriePanel().getHistorieText().getText();
+		String[] split = text.split(" - ");
+		String zielStein = split[split.length -1];
+	}
+	
+	public void klasseErstellen() {
+		KIDurchziehend ki = new KIDurchziehend();
+		ki.execute();
+	}
+	
+	class KIDurchziehend  extends SwingWorker<Void, Void> {
+
+		@Override
+		protected Void doInBackground() throws Exception {
+			boolean durchziehendAmZug = spiel.getSpielerAmZug().startsWith("KI") 
+					&& spiel.getSpielerAmZug().endsWith("(durchziehend)");
+			while(durchziehendAmZug) {
+				String[] kiZug = {"",""};
+				zieheKI2(kiZug);
+				Thread.sleep(350);
+				if(gewonnen()) {
+					break;
+				}
+			}
+			return null;
+
+		}
+	}
 }
