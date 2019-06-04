@@ -43,7 +43,7 @@ public class Hauptmenue extends JFrame implements ActionListener{
 	/**
 	 * Konstruktor, der das Fenster auf dem Bildschirm aufleuchten laesst.
 	 * 
-	 * @param controller Controller, der zum Hauptfenster gehört
+	 * @param controller Controller, der zum Hauptfenster gehoert
 	 */
 	public Hauptmenue (Controller controller){
 		this.setUndecorated(true);
@@ -135,10 +135,10 @@ public class Hauptmenue extends JFrame implements ActionListener{
 	/**
 	 * Oeffnet einen FileChooser und erlaubt es dem Nutzer eine
 	 * Datei auszuwaehlen. Es wird geprueft, ob die Datei existiert
-	 * und anschließend ein passendes File-Objekt zurueckgegeben.
+	 * und anschliessend ein passendes File-Objekt zurueckgegeben.
 	 * 
 	 * @param save wahr/falsch je nachdem ob speichern/laden
-	 * @return File-Objekt, das ausgewählt wurde
+	 * @return File-Objekt, das ausgewaehlt wurde
 	 */
 	public File generateFileChooser(boolean save) {
 		File selected = null;

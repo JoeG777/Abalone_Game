@@ -89,6 +89,7 @@ public class SpielException extends Exception{
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		sc.close();
 	}
 }
 

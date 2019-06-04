@@ -245,7 +245,7 @@ public class SpielerAnlegenFenster implements ActionListener{
 	}
 	
 	/**
-	 * Bearbeitet die Eingaben im SpielerAnlegen-Fenster und gibt zurück, ob
+	 * Bearbeitet die Eingaben im SpielerAnlegen-Fenster und gibt zurueck, ob
 	 * diese Schritte erfolgreich waren.
 	 * 
 	 * @return true/false, je nachdem ob Vorbereitung erfolgreich

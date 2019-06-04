@@ -28,7 +28,7 @@ public class KIOptionenPanel extends JPanel {
 	/**
 	 * Konstruktor des KI-Optionen-Panels.
 	 * 
-	 * @param Controller, der zum Hauptfenster gehört
+	 * @param Controller, der zum Hauptfenster gehoert
 	 */
 	public KIOptionenPanel(Controller c) {
 		try {
@@ -174,7 +174,7 @@ public class KIOptionenPanel extends JPanel {
 	/**
 	 * Hilfsmethode zum Hinzufuegen zum Layout.
 	 * 
-	 * @param comp Komponente die Hinzugefügt werden soll
+	 * @param comp Komponente die hinzugefuegt werden soll
 	 * @param x x-Wert der Komponente im Layout
 	 * @param y y-Wert der Komponente im Layout
 	 */
@@ -191,11 +191,11 @@ public class KIOptionenPanel extends JPanel {
 	/**
 	 * Hilfsmethode zum Hinzufuegen zum Layout.
 	 * 
-	 * @param comp Komponente die Hinzugefügt werden soll
+	 * @param comp Komponente die hinzugefuegt werden soll
 	 * @param x x-Wert der Komponente im Layout
 	 * @param y y-Wert der Komponente im Layout
 	 * @param width der Weite der Komponente im Layout
- 	 * @param height die Höhe der Komponente im Layout
+ 	 * @param height die Hoehe der Komponente im Layout
 	 * @param fill der Fill-Wert der Komponente im Layout
 	 */
 	private void addToGridBag(Component comp, int x, int y, int width, int height, int fill) {

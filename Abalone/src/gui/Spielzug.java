@@ -18,7 +18,7 @@ public class Spielzug {
 	/**
 	 * Controller nimmt Referenz des uebergebenen Controllers an.
 	 * 
-	 * @param c Controller, der zum Hauptfenster gehört
+	 * @param c Controller, der zum Hauptfenster gehoert
 	 */
 	public static void subscribe(Controller c) {
 		controller = c;

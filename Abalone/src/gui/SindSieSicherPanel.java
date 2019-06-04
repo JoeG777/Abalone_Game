@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 
 /**
  * <h1>SindSieSicherPanel</h1>
- * Fenster um den Benutzer nochmals zu Fragen ob er beenden/neu starten will.
+ * Fenster um den Benutzer nochmals zu Fragen ob er beenden oder neu starten will.
  * 
  */
 public class SindSieSicherPanel implements ActionListener{

@@ -50,7 +50,7 @@ public class FeldPanel extends JPanel{
 	 * Der Konstruktor des FeldPanels.
 	 * 
 	 * @param id ID des Feldes
-	 * @param c Controller, der zum Hauptfenster gehört
+	 * @param c Controller, der zum Hauptfenster gehoert
 	 * @param daten String-Array, der Daten des Spielfeldes enthaelt
 	 */
 	public FeldPanel(String id, Controller c, String[] daten) {

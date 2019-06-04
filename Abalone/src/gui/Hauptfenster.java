@@ -23,7 +23,7 @@ import javax.swing.JPanel;
  * Die Klasse Hauptfenster beinhaltet die Spielansicht, die Historie, den
  * Spielstatus und Menuepunkte zum Starten eines neuen Spiels, zum Speichern, 
  * zum Laden, zum Anzeigen der Log-Datei und zum Spiel beenden.
- * Ferner beinhaltet sie eine Schaltfläche zum Steuern einer mitspielenden KI.
+ * Ferner beinhaltet sie eine Schaltflaeche zum Steuern einer mitspielenden KI.
  * 
  */
 public class Hauptfenster {
@@ -210,14 +210,14 @@ public class Hauptfenster {
 	}
 	
 	/**
-	 * Hilfsmethode für das Hinzufuegen von Komponenten zum HauptPanel.
+	 * Hilfsmethode fuer das Hinzufuegen von Komponenten zum HauptPanel.
 	 * 
 	 * @param c ein GridBagConstraints-Objekt
 	 * @param component die Komponente, die hinzugefuegt werden soll.
-	 * @param x Der zu setzende Wert für das gridx-Attribut des GridbagConstraints-Objektes
-	 * @param y Der zu setzende Wert für das gridy-Attribut des GridbagConstraints-Objektes
-	 * @param xWeight Der zu setzende Wert für das weightx-Attribut des GridbagConstraints-Objektes
-	 * @param yWeight Der zu setzende Wert für das weighty-Attribut des GridbagConstraints-Objektes
+	 * @param x Der zu setzende Wert fuer das gridx-Attribut des GridbagConstraints-Objektes
+	 * @param y Der zu setzende Wert fuer das gridy-Attribut des GridbagConstraints-Objektes
+	 * @param xWeight Der zu setzende Wert fuer das weightx-Attribut des GridbagConstraints-Objektes
+	 * @param yWeight Der zu setzende Wert fuer das weighty-Attribut des GridbagConstraints-Objektes
 	 */
 	private void addToGridBag(GridBagConstraints c,Component component, int x, int y, double xWeight, double yWeight) {
 		c.gridx = x; 
@@ -248,7 +248,7 @@ public class Hauptfenster {
 	
 	/**
 	 * Schafft ein SindSieSicherPanel das fragt, ob der Benutzer
-	 * das Spiel beenden möchte.
+	 * das Spiel beenden moechte.
 	 * 
 	 */
 	public void beendeSpiel() {
@@ -257,7 +257,7 @@ public class Hauptfenster {
 	
 	/**
 	 * Schafft ein SindSieSicher-Panel das fragt, ob der Benutzer ein neues
-	 * Spiel starten möchte..
+	 * Spiel starten moechte..
 	 * 
 	 */
 	public void neuesSpiel() {
@@ -318,7 +318,7 @@ public class Hauptfenster {
 	}
 
 	/**
-	 * Gibt das MenuItem für ein neues Spiel zurueck.
+	 * Gibt das MenuItem fuer ein neues Spiel zurueck.
 	 * 
 	 * @return neuesSpiel-Menu Item des Menues des Hauptfensters
 	 */
@@ -354,9 +354,9 @@ public class Hauptfenster {
 	}
 
 	/**
-	 * Gibt das JMenuItem für das Beenden zurueck.
+	 * Gibt das JMenuItem fuer das Beenden zurueck.
 	 * 
-	 * @return JMenuItem für das Beenden
+	 * @return JMenuItem fuer das Beenden
 	 */
 	public JMenuItem getMenuBeenden() {
 		return menuBeenden;

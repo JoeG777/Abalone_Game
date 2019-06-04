@@ -471,22 +471,6 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 			
 			return "FIGUR:" + farbe;
 		}
-		
-		/**
-		 * Diese Methode setzt die Farbe einer Figur fuer ein bestimmtes Feld
-		 * oder weist 'null' zu abhaengig von dem uebergebenen String
-		 * @param figur String, welcher die Farbe der Figur oder null enthaelt
-		 */
-		private void ladeCSV(String figur) {
-			if (figur == "null")
-				this.farbe = null;
-			else if (figur == "weiss")
-				this.farbe = FarbEnum.WEISS;
-			else if (figur == "schwarz")
-				this.farbe = FarbEnum.SCHWARZ;
-			else
-				throw new IllegalArgumentException("Farbe ungueltig!");
-		}
 	}
 	
 }

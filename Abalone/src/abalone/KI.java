@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import abalone.spielbrett.Spielbrett;
 import abalone.spielbrett.SpielbrettException;
-import abalone.spielbrett.SpielfeldException;
 
 /**
  * Die Klasse KI bietet Methoden zur Bewertung von Spielbrettern.
@@ -150,7 +149,7 @@ public class KI extends Spieler {
 	 * @param durchziehend true, wenn die KI durchziehend soll, false, wenn nicht.
 	 * @return das durchziehend-Attribut der KI.
 	 */
-	private boolean getDurchziehend(boolean durchziehend) {
+	public boolean getDurchziehend(boolean durchziehend) {
 		return this.durchziehend;
 	}
 

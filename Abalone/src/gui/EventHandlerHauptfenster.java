@@ -80,11 +80,11 @@ public class EventHandlerHauptfenster implements ActionListener {
 	
 	/**
 	 * Oeffnet einen FileChooser und erlaubt es dem Nutzer eine
-	 * Datei auszuw‰hlen. Es wird geprueft, ob die Datei existiert
-	 * und anschlieﬂend ein passendes File-Objekt zurueckgegeben.
+	 * Datei auszuwaehlen. Es wird geprueft, ob die Datei existiert
+	 * und anschliessend ein passendes File-Objekt zurueckgegeben.s
 	 * 
 	 * @param save wahr/falsch je nachdem ob speichern/laden
-	 * @return File-Objekt, das ausgew‰hlt wurde
+	 * @return File-Objekt, das ausgewaehlt wurde
 	 */
 	public File generateFileChooser(boolean save) {
 		File selected = null;

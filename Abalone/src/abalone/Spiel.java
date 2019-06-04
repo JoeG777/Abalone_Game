@@ -253,18 +253,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	}
 
 	/**
-	 * Ermittelt die Farbe die momentan NICHT am Zug ist
-	 * 
-	 * @return FarbeDieNichtAmZuIst Farbe nicht am Zug
-	 */
-	private FarbEnum getFarbeNichtAmZug() {
-		if (getFarbeAmZug() == FarbEnum.SCHWARZ) {
-			return FarbEnum.WEISS;
-		}
-		return FarbEnum.SCHWARZ;
-	}
-
-	/**
 	 * Fragt ab, ob ein Spieler gewonnen hat. zi
 	 * 
 	 * @param name Name eines Spielers.
@@ -1033,22 +1021,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	}
 
 	/**
-	 * Prueft, ob ein gegnerischer Stein durch Ausfuehrung des Zuges vom Spielbrett
-	 * geworfen wird. Falls dies zutrifft, wird die Figur vom Spielfeld entfernt.
-	 * 
-	 * @param gegnerStein Das Feld, auf dem der Stein ist.
-	 * @param richtung          Richtung des Spielzuges.
-	 * @return boolean true, wenn der Stein runtergeworfen wird, false, wenn nicht.
-	 */
-	private boolean steinAbgeraeumt(String gegnerStein, int richtung) {
-		if (spielBrett.getNachbarByIdInRichtung(gegnerStein, richtung) == null) {
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
 	 * Prueft, ob ein Zwei-zu-drei Sumito moeglich ist.
 	 * 
 	 * @param vordersterStein der vorderste Stein eines Spielzuges in dem drei
@@ -1196,216 +1168,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 
 		Collections.reverse(geordneteFelder); // Dreht um, sodass erster Stein vorne steht
 		return geordneteFelder.toArray(new String[0]);
-	}
-
-	/**
-	 * Formatiert einen Spielzug in die intern benutzte Notation.
-	 * 
-	 * @param zug Der geplante Spielzug.
-	 * @return formatiertenZug Formatierter Spielzug.
-	 */
-	private Spielzug formatieren(Spielzug zug) {
-		if (zug.getVon().length() == 2) {
-			return zug;
-		}
-
-		String vonFeld1 = zug.getVon().substring(0, 2);
-		String vonFeld2 = zug.getVon().substring(2, 4);
-		String nachFeld = zug.getNach();
-		if (!(spielBrett.hatNachbarById(vonFeld2, spielBrett.getFeld(nachFeld)))
-				|| (spielBrett.hatNachbarById(vonFeld1, spielBrett.getFeld(vonFeld2))
-						&& (spielBrett.hatNachbarById(vonFeld1, nachFeld)
-								&& spielBrett.hatNachbarById(vonFeld2, nachFeld)))
-				|| (spielBrett.hatNachbarById(vonFeld1, nachFeld) && spielBrett.hatNachbarById(vonFeld2, nachFeld))) {
-			int richtung = spielBrett.getNachbarIndexById(vonFeld1, spielBrett.getFeld(nachFeld));
-			// (spielBrett.getFeld(vonFeld1).hatNachbar(nachFeld)&&
-			// spielBrett.getFeld(vonFeld2).hatNachbar(nachFeld)))
-			if (vonFeld1.charAt(1) > vonFeld2.charAt(1) || vonFeld1.charAt(0) > vonFeld2.charAt(0)) {
-				String halter = vonFeld1;
-				vonFeld1 = vonFeld2;
-				vonFeld2 = halter;
-			}
-			if (spielBrett.getNachbarByIdInRichtung(vonFeld2, richtung) != null) {
-				nachFeld = spielBrett.getNachbarByIdInRichtung(vonFeld2, richtung);
-			} else {
-				nachFeld = null;
-			}
-		}
-
-		return new Spielzug(vonFeld1 + "" + vonFeld2, nachFeld);
-
-	}
-
-	/**
-	 * Fuegt fuer geschlagene Kugeln einen Stern am Spielfeldrand an.
-	 * 
-	 * @param brettAlsString Das aktuelle Brett als String.
-	 * @param zug            Der aktuell ausgefuehrte Zug.
-	 * @return Das aktuelle Brett als String mit angefuegtem Sternchen.
-	 */
-	private String addSternchen(String brettAlsString, Spielzug zug) {
-		String[] brettAlsArray = brettAlsString.split("\n");
-		char[] spielZugVon = zug.getVon().toCharArray();
-		int richtung = zug.getRichtung();
-		spielZugVon[0] = zug.getVon().charAt(0);
-		spielZugVon[1] = zug.getVon().charAt(1);
-		int zeilenIndex = 0;
-		boolean gefunden = false;
-		char[] alsArray = null;
-		if (!(spielZugVon[0] == 'A' && richtung == 2 || spielZugVon[0] == 'A' && richtung == 5)) {
-			for (int i = 0; i < brettAlsArray.length; i++) {
-				if (richtung == 1 || richtung == 4) {
-					if (brettAlsArray[i].charAt(0) == spielZugVon[0] && !gefunden) {
-						zeilenIndex = i - 1;
-						gefunden = true;
-					}
-				}
-				if (richtung == 0 || richtung == 3) {
-					if (brettAlsArray[i].charAt(0) == spielZugVon[0] && !gefunden) {
-						zeilenIndex = i;
-						gefunden = true;
-					}
-				}
-				if (richtung == 2 || richtung == 5) {
-					if (brettAlsArray[i].charAt(0) == spielZugVon[0] && !gefunden) {
-						zeilenIndex = i + 1;
-						gefunden = true;
-					}
-				}
-			}
-			gefunden = false;
-			alsArray = brettAlsArray[zeilenIndex].toCharArray();
-			for (int i = 0; i < brettAlsArray[zeilenIndex].length(); i++) {
-				char aktuellerChar = alsArray[i];
-				if (richtung >= 0 && richtung < 3) {
-					aktuellerChar = alsArray[i];
-					if ((aktuellerChar == 'O' || aktuellerChar == 'X' || aktuellerChar == '-') && !gefunden) {
-						if (richtung != 0)
-							alsArray[i - 2] = '*';
-						else
-							alsArray[i - 2] = '*';
-						gefunden = true;
-					}
-				}
-				if (richtung >= 3 && richtung < 6) {
-					aktuellerChar = alsArray[i];
-					if ((aktuellerChar == 'O' || aktuellerChar == 'X' || aktuellerChar == '-') && !gefunden) {
-						if (alsArray[i + 2] == ' ') {
-							alsArray[i + 2] = '*';
-							gefunden = true;
-						}
-					}
-				}
-			}
-		}
-		if (spielZugVon[0] == 'I') {
-			alsArray = brettAlsArray[0].toCharArray();
-			zeilenIndex = 0;
-			switch (spielZugVon[1]) {
-			case '5':
-				if (richtung == 1) {
-					alsArray[6] = '*';
-				}
-				if (richtung == 4) {
-					alsArray[8] = '*';
-				}
-				break;
-			case '6':
-				if (richtung == 1) {
-					alsArray[8] = '*';
-				}
-				if (richtung == 4) {
-					alsArray[10] = '*';
-				}
-				break;
-			case '7':
-				if (richtung == 1) {
-					alsArray[10] = '*';
-				}
-				if (richtung == 4) {
-					alsArray[12] = '*';
-				}
-				break;
-			case '8':
-				if (richtung == 1) {
-					alsArray[12] = '*';
-				}
-				if (richtung == 4) {
-					alsArray[14] = '*';
-				}
-				break;
-			case '9':
-				if (richtung == 1) {
-					alsArray[14] = '*';
-				}
-				if (richtung == 4) {
-					alsArray[16] = '*';
-				}
-				break;
-
-			}
-
-		}
-		if (spielZugVon[0] == 'A') {
-			alsArray = brettAlsArray[10].toCharArray();
-			zeilenIndex = 10;
-			switch (spielZugVon[1]) {
-			case '1':
-				if (richtung == 2) {
-					alsArray[6] = '*';
-				}
-				if (richtung == 5) {
-					alsArray[7] = '*';
-				}
-				break;
-			case '2':
-				if (richtung == 2) {
-					alsArray[8] = '*';
-				}
-				if (richtung == 5) {
-					alsArray[10] = '*';
-				}
-				break;
-			case '3':
-				if (richtung == 2) {
-					alsArray[10] = '*';
-				}
-				if (richtung == 5) {
-					alsArray[12] = '*';
-				}
-				break;
-			case '4':
-				if (richtung == 2) {
-					alsArray[12] = '*';
-				}
-				if (richtung == 5) {
-					alsArray[14] = '*';
-				}
-				break;
-			case '5':
-				if (richtung == 2) {
-					alsArray[14] = '*';
-				}
-				if (richtung == 5) {
-					alsArray[16] = '*';
-				}
-				break;
-
-			}
-
-		}
-		gefunden = false;
-		String zeile = "";
-		for (int i = 0; i < alsArray.length; i++) {
-			zeile += alsArray[i];
-		}
-		brettAlsArray[zeilenIndex] = zeile;
-		String neuesBrett = "";
-		for (int i = 0; i < brettAlsArray.length; i++) {
-			neuesBrett += brettAlsArray[i] + "\n";
-		}
-		return neuesBrett;
-
 	}
 
 	/**
@@ -1653,6 +1415,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 			logger.close();
 		} catch (IOException e) {
 		}
+		sc.close();
 	}
 
 	/**

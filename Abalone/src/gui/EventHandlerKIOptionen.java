@@ -16,9 +16,9 @@ public class EventHandlerKIOptionen implements ActionListener{
 	private Controller c; 
 	
 	/**
-	 * Schafft einen EventHandler für ein KiPanel eines Hauptfensters.
+	 * Schafft einen EventHandler fuer ein KIPanel eines Hauptfensters.
 	 * 
-	 * @param c der Controller des Hauptfensters des Ki-Panels
+	 * @param c der Controller des Hauptfensters des KI-Panels
 	 * @param kiPanel das KI-Panel, dessen Events koordiniert werden sollen
 	 */
 	public EventHandlerKIOptionen(Controller c, KIOptionenPanel kiPanel) {

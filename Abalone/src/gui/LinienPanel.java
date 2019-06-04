@@ -19,7 +19,7 @@ public class LinienPanel extends JPanel {
 	/**
 	 * Der Konstruktor des Linien-Panels.
 	 * 
-	 * @param c Controller, der zum Hauptfenster gehört
+	 * @param c Controller, der zum Hauptfenster gehoert
 	 * @param linienZahl Linienzahl
 	 * @param feldDaten Die Daten der Felder
 	 */

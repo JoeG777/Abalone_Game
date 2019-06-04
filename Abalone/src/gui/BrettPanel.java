@@ -207,7 +207,7 @@ public class BrettPanel extends JPanel{
 	}
 	
 	/**
-	 * Bestimmt, ob ein Reset gewählt werden kann.
+	 * Bestimmt, ob ein Reset gewaehlt werden kann.
 	 * 
 	 */
 	public void resetAuswaehlbar() {
