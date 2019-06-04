@@ -17,9 +17,9 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 /**
+ * <h1>LogFenster</h1>
  * Diese Klasse erschafft ein Log-Fenster.
  * 
- *
  */
 public class LogFenster {
 	private JDialog dialog;
@@ -58,7 +58,6 @@ public class LogFenster {
 					+ "steht hier noch nichts."; 
 		}
 
-				
 		setLog(datei);
 		
 		dialog = new JDialog();
@@ -77,11 +76,9 @@ public class LogFenster {
 		
 	}
 	
-
-
-	
 	/**
 	 * Erstellt eine Log-Datei und loescht die alte.
+	 * 
 	 */
 	private void logErstellen() {
 		File file = new File("log.txt");
@@ -117,7 +114,7 @@ public class LogFenster {
 	 * Befuellt das uebergebene Fenster mit Labels, anhand eines
 	 * uebergebenen Strings.
 	 * 
-	 * @param Log-Fenster als Jdialog
+	 * @param Log-Fenster als JDialog
 	 * @param log String, der die Log-Informationen enthaelt
 	 */
 	private void logAusgeben(JDialog dialog, String log) {

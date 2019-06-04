@@ -23,10 +23,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import abalone.SpielException;
-
 /**
+ * <h1>SindSieSicherPanel</h1>
  * Fenster um den Benutzer nochmals zu Fragen ob er beenden/neu starten will.
+ * 
  */
 public class SindSieSicherPanel implements ActionListener{
 	private JDialog fenster;
@@ -43,10 +43,10 @@ public class SindSieSicherPanel implements ActionListener{
 
 	/**
 	 * Erzeugt das SindSieSicherPanel zur Benutzerabfrage.
-	 * @param abfrage Abfrage welche ausgewaelt wurde (spiel beenden/ spiel neu starten).
-	 * @param c Controller, der die Kommunikation zwischen Spiel und GUI
-	 * koordniert.
-	 * @param mf das JFrame des Hauptfensters, welches nach Sicherheits-Abfrage geschlossen werden kann.
+	 * 
+	 * @param abfrage Abfrage welche ausgewaelt wurde (spiel beenden/ spiel neu starten)
+	 * @param c Controller, der die Kommunikation zwischen Spiel und GUI koordniert
+	 * @param mf das JFrame des Hauptfensters, welches nach Sicherheits-Abfrage geschlossen werden kann
 	 */
 	public SindSieSicherPanel(String abfrage, Controller c, JFrame mf) {
 		this.mainframe = mf;
@@ -70,9 +70,7 @@ public class SindSieSicherPanel implements ActionListener{
 		coalition = new Font("Coalition", Font.PLAIN, 20);
 		
 		fensterAnlegen();
-		
 		oberesPanel();
-		
 		unteresPanel();
 	
 		fenster.add(jp, BorderLayout.NORTH);
@@ -83,7 +81,8 @@ public class SindSieSicherPanel implements ActionListener{
 	}
 	
 	/**
-	 * legt das Fenster also das JFrame an und erstellt darin ein GridBagLayout.
+	 * Legt das Fenster also das JFrame an und erstellt darin ein GridBagLayout.
+	 * 
 	 */
 	public void fensterAnlegen() {
 		fenster = new JDialog();
@@ -98,6 +97,7 @@ public class SindSieSicherPanel implements ActionListener{
 	
 	/**
 	 * Erzeugt das obere Panel des Fensters, in dem die Abfrage steht.
+	 * 
 	 */
 	public void oberesPanel() {
 		jp = new JPanel();
@@ -115,6 +115,7 @@ public class SindSieSicherPanel implements ActionListener{
 	
 	/**
 	 * Erzeugt das untere Panel des Fensters, in welchem der Ja- und Nein Button ist.
+	 * 
 	 */
 	public void unteresPanel() {
 		jp2 = new JPanel();
@@ -138,25 +139,18 @@ public class SindSieSicherPanel implements ActionListener{
 		
 	}
 	
-//	public JButton getJaButton() {
-//		return jaButton;
-//	}
-//	
-//	public JButton getNeinButton() {
-//		return neinButton;
-//	}
 
 	/**
 	 * Behandelt die Events des SicherheitsPanel.
 	 * Also den Ja-Button und den Nein-Button.
+	 * 
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		if (abfrage.equals("Spiel beenden?")) {
-			if (e.getSource() == jaButton) {
+			if (e.getSource() == jaButton)
 				System.exit(0);
-			}
 			if (e.getSource() == neinButton) {
 				fenster.setVisible(false);
 				fenster.dispose();
@@ -172,9 +166,8 @@ public class SindSieSicherPanel implements ActionListener{
 				mainframe.setVisible(false);
 				mainframe.dispose();
 				
-//					Controller controllerNeu = new Controller();
-					controller.spielNeuStarten();
-					new SpielerAnlegenFenster(controller);
+				controller.spielNeuStarten();
+				new SpielerAnlegenFenster(controller);
 			}
 			if (e.getSource() == neinButton) {
 				fenster.setVisible(false);

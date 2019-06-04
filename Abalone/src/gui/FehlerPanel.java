@@ -4,18 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.io.File;
 import java.io.IOException;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
 import javax.swing.JOptionPane;
 /**
+ * <h1>FehlerPanel</h1>
  * Panel zum Anzeigen der verschiedenen Fehler die zum Beispiel bei falschen Eingaben im
  * SpielerAnlegenFenster geworfen werden.
+ * 
  */
 public class FehlerPanel {
 	private JOptionPane fenster;
@@ -23,7 +19,9 @@ public class FehlerPanel {
 	private Font coalition;
 	
 	/**
+	 * Konstruktor des FehlerPanels.
 	 * Zeigt das FehlerPanel als JOptionPane mit Warning.
+	 * 
 	 * @param ft der bestimmte Fehlerttext der geworfen wurde.
 	 */
 	public FehlerPanel(String ft) {
@@ -41,10 +39,7 @@ public class FehlerPanel {
 		fenster.setBackground(Color.DARK_GRAY);
 		fenster.setForeground(Color.WHITE);
 		
-		JOptionPane.showMessageDialog(null,
-										fehlertext,
-										"Warning", 
-										JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, fehlertext, "Warning", JOptionPane.ERROR_MESSAGE);
 		
 	}
 	

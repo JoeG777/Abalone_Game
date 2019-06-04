@@ -14,10 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 /**
+ * <h1>StatusPanel</h1>
  * Das Status-Panel erbt vom JPanel und dient zur
  * Visualisierung des Status des Spiels.
  * 
- *
  */
 public class StatusPanel extends JPanel {
 	private static final long serialVersionUID = 3L;
@@ -105,9 +105,8 @@ public class StatusPanel extends JPanel {
 				+ "(Muss " + (Integer.parseInt(spieler2[4]) - 8) + " Kugeln schlagen für Sieg)\n"
 				+ spieler2[0] + " (Blau)\n" + spieler2[4] + " / 14 Kugeln "
 				+ "(Muss " + (Integer.parseInt(spieler1[4]) - 8) + " Kugeln schlagen für Sieg)";
-		if(amZug != null) {
+		if(amZug != null)
 			string += "\n Am Zug ist " + amZug + ".";
-		}
 		statusText.setText(string);
 	}
 	

@@ -1,12 +1,7 @@
 package gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-
-import javax.swing.JButton;
-import javax.swing.SwingWorker;
 
 import abalone.Spiel;
 import abalone.SpielException;
@@ -14,6 +9,7 @@ import abalone.bedienerInterface;
 import abalone.spielbrett.SpielfeldException;
 
 /**
+ * <h1>Controller</h1>
  * Die Controller-Klasse steuert das Spiel und enthaelt
  * die Main zum Ausfuehren des Spiels als GUI.
  * 
@@ -288,7 +284,6 @@ public class Controller {
 		if(!durchziehendAmZug && spiel.getSpielerAmZug().startsWith("KI") 
 				&& spiel.getSpielerAmZug().endsWith("(durchziehend)")) {
 			String[] kiZug = {"",""};
-//			new EventHandlerHauptfenster(gameFrame, this).warten();
 			zieheKI(kiZug);
 			
 		}
@@ -388,17 +383,15 @@ public class Controller {
 		String[] spieler2 = this.spielStatus[2].split(",");
 		String spielerAmZug = this.spielStatus[3].split(":")[1];
 		if(spieler1Name.equals(spielerAmZug)) {
-			if(spieler1[1].equals("weiss")){
+			if(spieler1[1].equals("weiss"))
 					return FarbEnum.WEISS;
-			}else {
+			else
 				return FarbEnum.SCHWARZ;
-			}
-		}else {
-			if(spieler2[1].equals("weiss")){
+		} else {
+			if(spieler2[1].equals("weiss"))
 				return FarbEnum.WEISS;
-		}else {
+			else
 			return FarbEnum.SCHWARZ;
-		}
 		}
 	}
 	
@@ -425,6 +418,11 @@ public class Controller {
 		return spieler1 && spieler2;
 	}
 
+	/**
+	 * Gibt die ausgewaehlten Felder als ArrayList von FeldPanels zurueck.
+	 * 
+	 * @return ausgewaehlte Felder als ArrayList aus FeldPanels
+	 */
 	public ArrayList<FeldPanel> bekommeGewahlteFelder() {
 		return gameFrame.bekommeGewaehlteFelder();
 	}

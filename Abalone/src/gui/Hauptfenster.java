@@ -9,32 +9,21 @@ import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.MenuItem;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 
-import abalone.SpielException;
 /**
+ * <h1>Hauptfenster</h1>
  * Die Klasse Hauptfenster beinhaltet die Spielansicht, die Historie, den
  * Spielstatus und Menuepunkte zum Starten eines neuen Spiels, zum Speichern, 
  * zum Laden, zum Anzeigen der Log-Datei und zum Spiel beenden.
- * Ferner beinhaltet sie eine Schaltfläche zum Steuern einer mitspielenden
- * KI.
+ * Ferner beinhaltet sie eine Schaltfläche zum Steuern einer mitspielenden KI.
  * 
  */
 public class Hauptfenster {
@@ -52,14 +41,14 @@ public class Hauptfenster {
 
 	/**
 	 * Erzeugt ein neues Hauptfenster und initialisiert die Komponenten. 
-	 * Die Groesse des Hauptfenster (960x640) ist fest. 
+	 * Die Groesse des Hauptfenster (960x640) ist fest.
+	 * 
 	 * @param c Controller, der die Kommunikation zwischen Spiel und GUI
-	 * koordniert.
+	 * koordniert
 	 */
 	public Hauptfenster(Controller c) {
-		if(controller == null) {
+		if(controller == null)
 			controller = c;
-		}
 		
 		try {
 			coalition = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("AbaloneSchrift.ttf"));
@@ -71,7 +60,8 @@ public class Hauptfenster {
 		coalition = new Font("Coalition", Font.PLAIN, 17);
 		
 		eventHandlerMenu = new EventHandlerHauptfenster(this,controller);
-		GridLayout experimentLayout = new GridLayout(0,1);
+		new GridLayout(0,1);
+		
 		// Default-Werte
 		mainframe = new JFrame();
 		mainframe.setUndecorated(true);
@@ -90,20 +80,9 @@ public class Hauptfenster {
 		initKIOptionen();
 		initStatusPanel();
 		initHistorie();
-		
-		/*spielfeldPanel = new JPanel();
-		spielfeldPanel.setSize(400,400);
-		spielfeldPanel.setLayout(new BorderLayout());
-		spielfeldPanel.add(new BrettPanel(), BorderLayout.PAGE_START);
-		JPanel spielfeldPane2 = new JPanel();
-		spielfeldPane2.setSize(400,400);
-		spielfeldPane2.add(new JLabel("TEST2"));
-		addToGridBag(c,spielfeldPanel, 0,1,0.5,1);
-		addToGridBag(c,spielfeldPane2, 1,1,0.5,1);*/
-		
-		
 
 		mainframe.add(mainpanel, BorderLayout.PAGE_START);
+		
 		// Default 
 		mainframe.setResizable(false);
 		mainframe.setLocationRelativeTo(null);
@@ -112,7 +91,8 @@ public class Hauptfenster {
 	}
 
 	/**
-	 * Initialisiert das Spielbrettpanel und fügt es zum Hauptpanel hinzu.
+	 * Initialisiert das Spielbrettpanel und fuegt es zum Hauptpanel hinzu.
+	 * 
 	 */
 	private void initSpielbrettPanel() {
 		GridBagConstraints c = new GridBagConstraints();
@@ -126,7 +106,8 @@ public class Hauptfenster {
 
 	}
 	/**
-	 * Initialisiert das KI-Optionen-Panel und fügt es zum Hauptpanel hinzu.
+	 * Initialisiert das KI-Optionen-Panel und fuegt es zum Hauptpanel hinzu.
+	 * 
 	 */
 	private void initKIOptionen() {
 		GridBagConstraints c = new GridBagConstraints();
@@ -144,7 +125,8 @@ public class Hauptfenster {
 	}
 	
 	/**
-	 * Initialisiert das Status-Panel und fügt es zum Hauptpanel hinzu.
+	 * Initialisiert das Status-Panel und fuegt es zum Hauptpanel hinzu.
+	 * 
 	 */
 	private void initStatusPanel() {
 		GridBagConstraints c = new GridBagConstraints();
@@ -157,8 +139,10 @@ public class Hauptfenster {
 		c.gridwidth = 1;
 		addToGridBag(c,statusPanel, 5,1,0,1);
 	}
+	
 	/**
-	 * Initialisiert das Historie-Panel und fügt es zum Hauptpanel hinzu.
+	 * Initialisiert das Historie-Panel und fuegt es zum Hauptpanel hinzu.
+	 * 
 	 */
 	private void initHistorie() {
 		GridBagConstraints c = new GridBagConstraints();
@@ -169,17 +153,13 @@ public class Hauptfenster {
 		historiePanel.setBackground(Color.DARK_GRAY);
 		historiePanel.setForeground(Color.WHITE);
 		historiePanel.setBorder(BorderFactory.createEtchedBorder());
-
-
-		
-
 		addToGridBag(c,historiePanel, 5,3,0,1);
-
 	}
 	
 
 	/**
-	 * Initialisiert die Menue-Leiste und fügt sie zum Frame hinzu.
+	 * Initialisiert die Menue-Leiste und fuegt sie zum Frame hinzu.
+	 * 
 	 */
 	private void initMenuBar() {
 		
@@ -194,7 +174,6 @@ public class Hauptfenster {
 		menuNeuesSpiel.setBorder(BorderFactory.createEtchedBorder());
 		menubar.add(menuNeuesSpiel);
 
-		
 		menuSpeichern = new JMenuItem("Speichern");
 		menuSpeichern.setForeground(Color.WHITE);
 		menuSpeichern.setBackground(Color.DARK_GRAY);
@@ -202,7 +181,6 @@ public class Hauptfenster {
 		menuSpeichern.addActionListener(eventHandlerMenu);
 		menuSpeichern.setBorder(BorderFactory.createEtchedBorder());
 		menubar.add(menuSpeichern);
-		
 		
 		menuLaden = new JMenuItem("Laden");
 		menuLaden.setForeground(Color.WHITE);
@@ -229,23 +207,17 @@ public class Hauptfenster {
 		menubar.add(menuBeenden);
 		
 		mainframe.setJMenuBar(menubar);
-
-
-
 	}
 	
 	/**
-	 * Hilfsmethode für das Hinzufügen von Komponenten zum Hauptpanel.
-	 * @param c ein GridBagConstraints-Objekt.
-	 * @param component die Komponente, die hinzugefuegt werden soll. 
-	 * @param x Der zu setzende Wert für das 
-	 * gridx-Attribut des GridbagConstraints-Objektes.
-	 * @param y Der zu setzende Wert für das 
-	 * gridy-Attribut des GridbagConstraints-Objektes.
-	 * @param xWeight Der zu setzende Wert für das 
-	 * weightx-Attribut des GridbagConstraints-Objektes.
-	 * @param yWeight Der zu setzende Wert für das 
-	 * weighty-Attribut des GridbagConstraints-Objektes.
+	 * Hilfsmethode für das Hinzufuegen von Komponenten zum HauptPanel.
+	 * 
+	 * @param c ein GridBagConstraints-Objekt
+	 * @param component die Komponente, die hinzugefuegt werden soll.
+	 * @param x Der zu setzende Wert für das gridx-Attribut des GridbagConstraints-Objektes
+	 * @param y Der zu setzende Wert für das gridy-Attribut des GridbagConstraints-Objektes
+	 * @param xWeight Der zu setzende Wert für das weightx-Attribut des GridbagConstraints-Objektes
+	 * @param yWeight Der zu setzende Wert für das weighty-Attribut des GridbagConstraints-Objektes
 	 */
 	private void addToGridBag(GridBagConstraints c,Component component, int x, int y, double xWeight, double yWeight) {
 		c.gridx = x; 
@@ -256,24 +228,37 @@ public class Hauptfenster {
 		mainpanel.add(component, c);
 	}
 	
+	/**
+	 * Beendet das Hauptfenster.
+	 * 
+	 */
 	public void shutdown() {
 		mainframe.dispose();
 	}
 	
+	/**
+	 * Gibt Gewinner des Spiels in einem GewonnenPanel aus.
+	 * 
+	 * @param gewinner Name, des Gewinners
+	 */
 	public void spielGewonnen(String gewinner) {
 		mainframe.setEnabled(false);
 		new GewonnenPanel(gewinner, controller, this);
 	}
+	
 	/**
-	 * Schafft ein SindSieSicher-Panel das fragt, ob der Benutzer
+	 * Schafft ein SindSieSicherPanel das fragt, ob der Benutzer
 	 * das Spiel beenden möchte.
+	 * 
 	 */
 	public void beendeSpiel() {
 		new SindSieSicherPanel("Spiel beenden?", controller, mainframe);
 	}
+	
 	/**
 	 * Schafft ein SindSieSicher-Panel das fragt, ob der Benutzer ein neues
 	 * Spiel starten möchte..
+	 * 
 	 */
 	public void neuesSpiel() {
 		new SindSieSicherPanel("Spiel Neustarten?", controller, mainframe);
@@ -281,6 +266,7 @@ public class Hauptfenster {
 
 	/**
 	 * Aktualisiert das gesamte Spielbrett.
+	 * 
 	 */
 	public void aktualisiere() {
 		this.aktualisiereSpielbrett(controller.getFeldDaten());
@@ -288,81 +274,88 @@ public class Hauptfenster {
 	
 	/**
 	 * Aktualisiert bestimmte Felder des Spielbretts.
-	 * @param ids die zu aktualisierenden Felder.
+	 * 
+	 * @param ids Die zu aktualisierenden Felder
 	 */
 	public void aktualisiereSpielbrett(String[][] ids) {
 		((BrettPanel) spielfeldPanel).aktualisiere(ids);
 	}
 
 	/**
-	 * Gibt das Mainframe zurück.
-	 * @return Mainframe-Attribut des Hauptfensters.
+	 * Gibt das Mainframe zurueck.
+	 * 
+	 * @return Mainframe-Attribut des Hauptfensters
 	 */
 	public JFrame getMainframe() {
 		return mainframe;
 	}
 
-
 	/**
-	 * Gibt das Spielfeld-Panel zurück.
-	 * @return SpielfeldPanel-Attribut des Hauptfensters.
+	 * Gibt das Spielfeld-Panel zurueck.
+	 * 
+	 * @return SpielfeldPanel-Attribut des Hauptfensters
 	 */
 	public BrettPanel getSpielfeldPanel() {
 		return spielfeldPanel;
 	}
 
 	/**
-	 * Gibt das Historie-Panel zurück.
-	 * @return HistoriePanel-Attribut des Hauptfensters.
+	 * Gibt das Historie-Panel zurueck.
+	 * 
+	 * @return HistoriePanel-Attribut des Hauptfensters
 	 */
 	public HistoriePanel getHistoriePanel() {
 		return historiePanel;
 	}
 
 	/**
-	 * Gibt das Statuspanel zurück.
-	 * @return StatusPanel-Attribut des Hauptfensters.
+	 * Gibt das Statuspanel zurueck.
+	 * 
+	 * @return StatusPanel-Attribut des Hauptfensters
 	 */
 	public StatusPanel getStatusPanel() {
 		return statusPanel;
 	}
 
 	/**
-	 * Gibt das MenuItem für ein neues Spiel zurück.
-	 * @return neuesSpiel-Menu Item des Menues des Hauptfensters.
+	 * Gibt das MenuItem für ein neues Spiel zurueck.
+	 * 
+	 * @return neuesSpiel-Menu Item des Menues des Hauptfensters
 	 */
 	public JMenuItem getMenuNeuesSpiel() {
 		return menuNeuesSpiel;
 	}
 
 	/**
-	 * Gibt das MenuItem zum Speichern zurück.
-	 * @return menuSpeichern-Menu Item des Menues des Hauptfensters.
+	 * Gibt das MenuItem zum Speichern zurueck.
+	 * 
+	 * @return menuSpeichern-Menu Item des Menues des Hauptfensters
 	 */
 	public JMenuItem getMenuSpeichern() {
 		return menuSpeichern;
 	}
 
 	/**
-	 * Gibt das MenuItem zum Laden eines Spiels zurück.
+	 * Gibt das MenuItem zum Laden eines Spiels zurueck.
+	 * 
 	 * @return menuLaden-Menu Item des Menues des Hauptfensters.
 	 */
 	public JMenuItem getMenuLaden() {
 		return menuLaden;
 	}
 
-
-
 	/**
-	 * Gibt das JMenuItem für das Log zurueck.
-	 * @return JMenuItem für das Log.
+	 * Gibt das JMenuItem fuer das Log zurueck.
+	 * 
+	 * @return JMenuItem fuer das Log
 	 */
 	public JMenuItem getMenuLog() {
 		return menuLog;
 	}
 
 	/**
-	 * Gibt das JMenuItem für das Beenden zurueck. 
+	 * Gibt das JMenuItem für das Beenden zurueck.
+	 * 
 	 * @return JMenuItem für das Beenden
 	 */
 	public JMenuItem getMenuBeenden() {
@@ -371,6 +364,7 @@ public class Hauptfenster {
 
 	/**
 	 * Aktiviert das Resetten eines Feldes.
+	 * 
 	 */
 	public void resetFelderAuswaehlbar() {
 		spielfeldPanel.resetAuswaehlbar();
@@ -378,19 +372,20 @@ public class Hauptfenster {
 
 	/**
 	 * Gibt das KI-Optionen-Panel des Hauptfenster zurueck.
-	 * @return das KI-Optionen-Panel des Hauptfensters.
+	 * 
+	 * @return Das KI-Optionen-Panel des Hauptfensters.
 	 */
 	public KIOptionenPanel getKiOptionenPanel() {
 		return kiOptionenPanel;
 	}
 
+	/**
+	 * Gibt ausgewaehlte Felder als ArrayList aus FeldPanels zurueck.
+	 * 
+	 * @return Ausgewaehlte Felder als ArrayList aus FeldPanels zurueck
+	 */
 	public ArrayList<FeldPanel> bekommeGewaehlteFelder() {
 		return spielfeldPanel.bekommeGewaehlteFelder();
-		
 	}
 
-
-	
-	
-	
 }

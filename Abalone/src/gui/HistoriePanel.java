@@ -15,11 +15,11 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 /**
+ * <h1>HistoriePanel</h1>
  * Das Historie-Panel erbt vom JPanel und dient zur
  * Visualisierung der Historie
  * 
  * @author Gruppe A4
- *
  */
 public class HistoriePanel extends JPanel {
 	private static final long serialVersionUID = 1L;

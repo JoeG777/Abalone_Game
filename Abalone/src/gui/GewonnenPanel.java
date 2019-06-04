@@ -21,9 +21,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
+ * <h1>GewonnenPanel</h1>
  * Fenster, welches den Gewinner des Spiels zeigt.
+ * 
  */
-public class GewonnenPanel implements ActionListener{
+public class GewonnenPanel implements ActionListener {
 	private JFrame fenster;
 	private JPanel jp;
 	private String gewinner;
@@ -36,11 +38,12 @@ public class GewonnenPanel implements ActionListener{
 	private Hauptfenster mainFrame;
 	
 	/**
-	 * Konstruktor zum erstellen des Fensters.
-	 * @param name Name des Gewinners.
+	 * Konstruktor des GewonnenPanels.
+	 * 
+	 * @param name Name des Gewinners
 	 * @param controller Controller, der die Kommunikation zwischen Spiel und GUI
-	 * koordniert.
-	 * @param mf Hauptfenster welches noch geschlossen werden muss.
+	 * koordniert
+	 * @param mf Hauptfenster welches noch geschlossen werden muss
 	 */
 	public GewonnenPanel(String name, Controller controller, Hauptfenster mf) {
 		this.controller = controller;
@@ -101,7 +104,9 @@ public class GewonnenPanel implements ActionListener{
 
 
 	/**
-	 * Behandelt das Event des GewinnerPanels. Also der Button zurueck zum Hauptmenu.
+	 * Behandelt das Event des GewinnerPanels. Also der Button zurueck zum Hauptmenue.
+	 * 
+	 * @param e ActionEvent
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {

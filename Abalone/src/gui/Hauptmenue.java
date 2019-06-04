@@ -2,18 +2,13 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -26,9 +21,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import abalone.SpielException;
 
 /**
+ * <h1>Hauptmenue</h1>
  * Startmenue, dass den Einstieg in die graphische Oberflaeche bietet.
- * @author Team A4
- *
+ * 
+ * @author Gruppe A4
  */
 public class Hauptmenue extends JFrame implements ActionListener{
 
@@ -39,15 +35,16 @@ public class Hauptmenue extends JFrame implements ActionListener{
 	private JButton neuesSpiel;
 	private JButton spielLaden;
 	private JButton beenden;
-/**
- * Konstruktor, der das Fenster auf dem Bildschirm aufleuchten lässt
- * @param controller Wird speater den folgenden Fenstern uebergeben
- */
 	private ImageIcon ueberschrift;
 	private ImageIcon neuesSpielIcon;
 	private ImageIcon spielLadenIcon;
 	private ImageIcon beendenIcon;
 
+	/**
+	 * Konstruktor, der das Fenster auf dem Bildschirm aufleuchten laesst.
+	 * 
+	 * @param controller Controller, der zum Hauptfenster gehört
+	 */
 	public Hauptmenue (Controller controller){
 		this.setUndecorated(true);
 		Hauptmenue.controller =controller;
@@ -100,31 +97,27 @@ public class Hauptmenue extends JFrame implements ActionListener{
 	}
 
 	/** 
-	 * Implementiert die actionPerformed, deren Aufgabe darin besteht die Button-Events auszufuehren
+	 * Implementiert die actionPerformed, deren Aufgabe darin besteht die Button-Events auszufuehren.
+	 * 
 	 * @param ActionEvent Button Klick
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == neuesSpiel) {
-			SpielerAnlegenFenster saf = new SpielerAnlegenFenster(controller);
+			new SpielerAnlegenFenster(controller);
 			this.dispose();
-		}else if(e.getSource() == spielLaden){
+		} else if(e.getSource() == spielLaden){
 			File selected = generateFileChooser(false);
 			
-			if(selected == null) {
-				return; 
-			}
+			if(selected == null)
+				return;
 			
 			String ending = selected.toString().substring(selected.toString().lastIndexOf('.'));
 			
-
-			
-			if(ending.equals(".csv")) {
+			if(ending.equals(".csv"))
 				controller.ladenCSV(selected.toString());
-			}
-			else if(ending.equals(".ser")) {
+			else if(ending.equals(".ser"))
 				controller.ladenSer(selected.toString());
-			}
 
 			try {
 				Hauptmenue.controller.hauptFensterStarten();
@@ -134,15 +127,16 @@ public class Hauptmenue extends JFrame implements ActionListener{
 			
 			this.dispose();
 			
-		}else if(e.getSource() == beenden) {
+		} else if(e.getSource() == beenden) {
 			System.exit(0);
 		}
-
 	}
+	
 	/**
-	 * Öffnet einen FileChooser und erlaubt es dem Nutzer eine
-	 * Datei auszuwählen. Es wird geprueft, ob die Datei existiert
-	 * und anschließend ein passendes File-Objekt zurückgegeben. 
+	 * Oeffnet einen FileChooser und erlaubt es dem Nutzer eine
+	 * Datei auszuwaehlen. Es wird geprueft, ob die Datei existiert
+	 * und anschließend ein passendes File-Objekt zurueckgegeben.
+	 * 
 	 * @param save wahr/falsch je nachdem ob speichern/laden
 	 * @return File-Objekt, das ausgewählt wurde
 	 */
@@ -160,19 +154,16 @@ public class Hauptmenue extends JFrame implements ActionListener{
 			jfc.addChoosableFileFilter(filterSER);
 
 			int option = 0; 
-			if(save) {
+			if(save)
 				option = jfc.showSaveDialog(this);
-			}
-			else {
+			else
 				option = jfc.showOpenDialog(this);
-			}
 
 			selected = jfc.getSelectedFile();
 			FileFilter filter = jfc.getFileFilter();
 
-			if(option == JFileChooser.CANCEL_OPTION) {
+			if(option == JFileChooser.CANCEL_OPTION)
 				return null;
-			}
 
 			if(save) {
 				if(!(selected.toString().endsWith(".csv") || 
@@ -191,7 +182,8 @@ public class Hauptmenue extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * Gibt das Spielladen-Attribut des Hauptmenues zurück.
+	 * Gibt das Spielladen-Attribut des Hauptmenues zurueck.
+	 * 
 	 * @return JButton "Spielladen" des Hauptmenues
 	 */
 	public JButton getSpielLaden() {

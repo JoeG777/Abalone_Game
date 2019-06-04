@@ -11,7 +11,6 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -26,8 +25,10 @@ import javax.swing.JTextField;
 import abalone.SpielException;
 
 /**
- * Menu zum anlegen der Spieler oder KIs.
+ * <h1>SpielerAnlegenFenster</h1>
+ * Menue zum Anlegen der Spieler oder KIs.
  * Startet bei korrekten Eingaben das Hauptfenster.
+ * 
  */
 public class SpielerAnlegenFenster implements ActionListener{
 
@@ -56,11 +57,11 @@ public class SpielerAnlegenFenster implements ActionListener{
 	 * auf dem Bildschirm anzeigt.
 	 * 
 	 * @param controller Controller, der die Kommunikation zwischen Spiel und GUI
-	 * koordniert.
+	 * koordniert
 	 */
 	public SpielerAnlegenFenster(Controller controller) {
 		SpielerAnlegenFenster.controller = controller;
-//		controller.spielNeuStarten();
+		
 		try {
 			bild = ImageIO.read(getClass().getResource("/assets/Los Gehts.png"));
 		} catch (IOException e) {
@@ -171,7 +172,6 @@ public class SpielerAnlegenFenster implements ActionListener{
 		jp.add(ki2_durchziehen, c);
 		ki2_durchziehen.addActionListener(this);
 
-
 		los = new JButton();
 		los.setIcon(new ImageIcon(bild));
 		los.setPreferredSize(new Dimension(227,72));
@@ -191,15 +191,14 @@ public class SpielerAnlegenFenster implements ActionListener{
 
 	/**
 	 * Behandelt die verschiedenen Events des SpielerAnlegenFensters.
-	 * Diese Sind die auswaehlbaren KI Buttons und durchziehen Buttons und ein 
+	 * Diese sind die auswaehlbaren KI Buttons und durchziehen Buttons und ein 
 	 * LOS-Button um das Hauptfenster zu initialisieren.
-	 * @param e das zu behandelnde Event.
+	 * 
+	 * @param e das zu behandelnde Event
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == los) {
-
-
 			try {
 				if(vorbereiten()) {
 					controller.spielerAnlegen(name1,name2,anzahlSpieler);
@@ -244,26 +243,25 @@ public class SpielerAnlegenFenster implements ActionListener{
 			ki2_durchziehen.setEnabled(false);
 		}
 	}
+	
 	/**
 	 * Bearbeitet die Eingaben im SpielerAnlegen-Fenster und gibt zurück, ob
 	 * diese Schritte erfolgreich waren.
+	 * 
 	 * @return true/false, je nachdem ob Vorbereitung erfolgreich
 	 */
 	private boolean vorbereiten() {
-
 		if (ki1.isSelected() && ki2.isSelected()) {
 			anzahlSpieler = 0;
-			if (ki1_durchziehen.isSelected()) {
+			if (ki1_durchziehen.isSelected())
 				name1 = "KI_1durchziehend";
-			} else {
+			else
 				name1 = "KI_1";
-			}
-			if (ki2_durchziehen.isSelected()) {
+			if (ki2_durchziehen.isSelected())
 				name2 = "KI_2durchziehend";
-			} else {
+			else
 				name2 = "KI_2";
-			}
-
+			
 		} else if (ki1.isSelected() || ki2.isSelected()) {
 			anzahlSpieler = 1;
 			if (ki1.isSelected()) {
@@ -272,22 +270,20 @@ public class SpielerAnlegenFenster implements ActionListener{
 					new FehlerPanel("Spielername darf nicht mit \"KI\" beginnen!");
 					return false;
 				}
-				if(ki1_durchziehen.isSelected()) {
+				if(ki1_durchziehen.isSelected())
 					name1 = "KI_1durchziehend";
-				} else {
+				else
 					name1 = "KI_1";
-				}
 			} else {
 				name1 = tf1.getText();
 				if(name1.length() > 1 && name1.substring(0,2).equals("KI")) {
 					new FehlerPanel("Spielername darf nicht mit \"KI\" beginnen!");
 					return false;
 				}
-				if(ki2_durchziehen.isSelected()) {
+				if(ki2_durchziehen.isSelected())
 					name2 = "KI_2durchziehend";
-				} else {
+				else
 					name2 = "KI_2";
-				}
 			}
 		} else {
 			name1 = tf1.getText();
@@ -304,4 +300,5 @@ public class SpielerAnlegenFenster implements ActionListener{
 		}
 		return true;
 	}
+
 }

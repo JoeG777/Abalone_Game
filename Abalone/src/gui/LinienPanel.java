@@ -5,10 +5,24 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class LinienPanel extends JPanel{
+/**
+ * <h1>LinienPanel</h1>
+ * Das LinienPanel verwaltet das Spielbrett der GUI.
+ *
+ */
+public class LinienPanel extends JPanel {
+	private static final long serialVersionUID = 2229L;
 	int linienZahl;
 	private static Controller controller;
 	private ArrayList<FeldPanel> panels;
+	
+	/**
+	 * Der Konstruktor des Linien-Panels.
+	 * 
+	 * @param c Controller, der zum Hauptfenster gehört
+	 * @param linienZahl Linienzahl
+	 * @param feldDaten Die Daten der Felder
+	 */
 	public LinienPanel(Controller c,int linienZahl,String[][] feldDaten) {
 		if(controller == null)
 			controller = c;
@@ -68,8 +82,12 @@ public class LinienPanel extends JPanel{
 		this.setBackground(Color.DARK_GRAY);
 	}
 	
+	/**
+	 * Aktualisiert das LinienPanel.
+	 * 
+	 * @param daten Zu schreibende Daten
+	 */
 	public void aktualisiere(String[][] daten) {
-		ArrayList <String> ids = new ArrayList<String>();
 		for(FeldPanel p : panels) {
 			for(String[] datenArr : daten) {
 				if(datenArr[1].equals(p.getId()))
@@ -78,6 +96,12 @@ public class LinienPanel extends JPanel{
 		}
 	}
 	
+	/**
+	 * Gibt FeldPanel zu einer uebergebenen ID zurueck.
+	 * 
+	 * @param id ID des Feldes, dessen FeldPanel man will
+	 * @return FeldPanel des Feldes der uebergebenen ID
+	 */
 	public FeldPanel getFeld(String id) {
 		for(FeldPanel panel : panels) {
 			if(panel.getId().equals(id))
@@ -86,18 +110,31 @@ public class LinienPanel extends JPanel{
 		return null;
 	}
 	
+	/**
+	 * Resettet Auswaehlbarkeit.
+	 * 
+	 */
 	public void resetAuswaehlbar() {
 		for(FeldPanel f : panels) {
 			f.resetAuswaehlbar();
 		}
 	}
 	
+	/**
+	 * Setzt Auswahl des Resets der FeldPanels auf false.
+	 * 
+	 */
 	public void resetAusgewaehlt() {
 		for(FeldPanel f : panels) {
 			f.resetAusgewaehlt();
 		}
 	}
 
+	/**
+	 * Gibt alle ausgewaehlten Felder als ArrayList von FeldPanels zurueck.
+	 * 
+	 * @return ArrayList von FeldPanels, welche ausgewaehlte Felder enthaelt
+	 */
 	public ArrayList<FeldPanel> bekommeGewaehlteFelder() {
 		ArrayList<FeldPanel> geWahlteFelder = new ArrayList<>();
 		for(FeldPanel p : panels) {
@@ -107,4 +144,5 @@ public class LinienPanel extends JPanel{
 		}
 		return geWahlteFelder;
 	}
+
 }
