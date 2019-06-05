@@ -62,7 +62,7 @@ public class GewonnenPanel implements ActionListener {
 		} catch (FontFormatException | IOException e) {
 			new FehlerPanel("Fehler beim Laden der Schriftart!");
 		}
-		coalition = new Font("Coalition", Font.PLAIN, 60);
+		coalition = new Font("Coalition", Font.PLAIN, 50);
 		
 		fenster = new JFrame("Abalone");
 		fenster.setSize(800,500);
