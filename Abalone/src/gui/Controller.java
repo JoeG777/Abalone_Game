@@ -256,8 +256,9 @@ public class Controller {
 	public void ziehe() throws SpielException {
 		
 		spiel.ziehe(Spielzug.getZug());
+		getGeschlagenenStein();
 		this.aktualisiereAlles();
-		gameFrame.aktualisiere();
+//		gameFrame.aktualisiere();
 		if(gewonnen()) {
 			return;
 		}
@@ -278,8 +279,9 @@ public class Controller {
 		boolean durchziehendAmZug = spiel.getSpielerAmZug().startsWith("KI") 
 				&& spiel.getSpielerAmZug().endsWith("(durchziehend)");
 		spiel.ziehe(zug);
+		getGeschlagenenStein();
 		this.aktualisiereAlles();
-		gameFrame.aktualisiere();
+//		gameFrame.aktualisiere();
 		if(gewonnen()) {
 			return;
 		}
@@ -294,8 +296,9 @@ public class Controller {
 	
 	public void zieheKI2(String[] zug) throws SpielException {
 		spiel.ziehe(zug);
+		getGeschlagenenStein();
 		this.aktualisiereAlles();
-		gameFrame.aktualisiere();
+//		gameFrame.aktualisiere();
 	}
 	
 	/**
@@ -436,9 +439,17 @@ public class Controller {
 	}
 	
 	public void getGeschlagenenStein() {
-		String text = gameFrame.getHistoriePanel().getHistorieText().getText();
-		String[] split = text.split(" - ");
-		String zielStein = split[split.length -1];
+		String feld;
+		String status = spiel.getStatus();
+		if (status.contains("true")) {
+			String[] split = status.split(";");
+			for(String s : split) {
+				if (s.contains("true")) {
+					feld = s.substring(12,14);
+					this.getSpielfeldMitId(feld).setGeschlagen(true);
+				}
+			}
+		}
 	}
 	
 	public void klasseErstellen() {

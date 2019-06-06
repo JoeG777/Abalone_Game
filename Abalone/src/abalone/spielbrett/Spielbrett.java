@@ -317,6 +317,7 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 					bewegeFigur(zug.getVon(), zug.getNach());
 				}
 				else {
+					this.getFeldById(getFeld(zug.getVon())).setHerausgedraengt(true);
 					steinAbraeumen(this.getFeldById(getFeld(zug.getVon())));
 				}
 			}
@@ -510,6 +511,16 @@ public class Spielbrett implements java.io.Serializable, Cloneable {
 		    Spielfeld feld = brett.get(key);
 		    feld.ladeCSV(array[zaehler]);
 		    zaehler++;
+		}
+	}
+	
+	public void setFeldHerausgedraengt(String id, boolean h) {
+		brett.get(id).setHerausgedraengt(h);	
+	}
+	
+	public void resetHerausgedraengt() {
+		for (Spielfeld s : brett.values()) {
+			s.setHerausgedraengt(false);		
 		}
 	}
 }

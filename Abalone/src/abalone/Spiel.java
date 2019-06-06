@@ -493,6 +493,7 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	 * @since 1.0
 	 */
 	private void ziehen(String[] zug) throws SpielbrettException, UngueltigerZugException {
+		spielBrett.resetHerausgedraengt();
 		if (koordinatenValidieren(spielzugParser(zug))) {
 			Spielzug spielzug = new Spielzug(zug[0], zug[1]);
 			if (spielzug.getNach() == null) {
@@ -1426,5 +1427,6 @@ public class Spiel implements bedienerInterface, java.io.Serializable {
 	private Spielbrett getSpielbrett() {
 		return this.spielBrett;
 	}
+	 
 
 }

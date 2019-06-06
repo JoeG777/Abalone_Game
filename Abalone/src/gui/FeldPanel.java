@@ -26,6 +26,9 @@ public class FeldPanel extends JPanel{
 	private static final String figurLeer="/assets/leeresFeld.png";
 	private static final String figurLeerGewaehlt="/assets/leeresFeldGewaehlt.png";
 	private static final String figurLeerWaehlbar="/assets/leeresFeldWaehlbar.png";
+	private static final String figurWeissGeschlagen="/assets/figurRotGeschlagen.png";
+	private static final String figurSchwarzGeschlagen="/assets/figurBlauGeschlagen.png";
+
 	
 	private static Controller controller;
 	private String id;
@@ -45,6 +48,9 @@ public class FeldPanel extends JPanel{
 	private Image figurLeerBild;
 	private Image figurLeerGewaehltBild;
 	private Image figurLeerWaehlbarBild;
+	private Image figurWeissGeschlagenBild;
+	private Image figurSchwarzGeschlagenBild;
+	private boolean geschlagen = false;
 
 	/**
 	 * Der Konstruktor des FeldPanels.
@@ -64,6 +70,9 @@ public class FeldPanel extends JPanel{
 			figurLeerBild = ImageIO.read(getClass().getResource(figurLeer));
 			figurLeerGewaehltBild = ImageIO.read(getClass().getResource(figurLeerGewaehlt));
 			figurLeerWaehlbarBild = ImageIO.read(getClass().getResource(figurLeerWaehlbar));
+			figurWeissGeschlagenBild = ImageIO.read(getClass().getResource(figurWeissGeschlagen));
+			figurSchwarzGeschlagenBild = ImageIO.read(getClass().getResource(figurSchwarzGeschlagen));
+
 		} catch (Exception e) {
 			  new FehlerPanel("Fehler beim Laden der Bilder!");
 		}
@@ -120,7 +129,9 @@ public class FeldPanel extends JPanel{
 				  setImgStr(figurLeer);
 				 
 			  } else if(figurFarbe == FarbEnum.WEISS){
-				  if(istAusgewaehlt)
+				  if(istGeschlagen()) 
+					  img = figurWeissGeschlagenBild;
+				  else if(istAusgewaehlt)
 					  img = figurWeissGewaehltBild;
 				  else if(auswaehlbar && !istAusgewaehlt)
 					  img = figurWeissWaehlbarBild;
@@ -130,7 +141,9 @@ public class FeldPanel extends JPanel{
 				   setImgStr(figurWeiss);
 				   
 			  } else {
-				  if(istAusgewaehlt)
+				  if(istGeschlagen()) 
+					  img = figurSchwarzGeschlagenBild;
+				  else if(istAusgewaehlt)
 					  img = figurSchwarzGewaehltBild;
 				  else if(auswaehlbar && !istAusgewaehlt)
 					  img = figurSchwarzWaehlbarBild;
@@ -139,6 +152,7 @@ public class FeldPanel extends JPanel{
 				  
 				  setImgStr(figurSchwarz);
 			  }
+			  
 			  
 		  } catch (Exception ex) {
 			  new FehlerPanel("Fehler beim Laden der Bilder!");
@@ -156,6 +170,7 @@ public class FeldPanel extends JPanel{
 			button.setEnabled(false);
 		  this.repaint();
 		  this.revalidate();
+		  this.setGeschlagen(false);
 	}
 	
 	/**
@@ -181,6 +196,14 @@ public class FeldPanel extends JPanel{
 	 */
 	public void setAuswaehlbar() {
 		this.auswaehlbar = true;
+	}
+	
+	public void setGeschlagen(boolean ges) {
+		this.geschlagen = ges;
+	}
+	
+	public boolean istGeschlagen() {
+		return this.geschlagen;
 	}
 	
 	/**

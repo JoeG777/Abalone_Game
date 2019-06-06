@@ -15,6 +15,7 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 	private FarbEnum farbe;
 	private Spielfigur figur;
 	private String[] nachbarn;
+	private boolean herausgedraengt;
 	
 	
 	/**
@@ -343,7 +344,7 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 		else
 			figur = this.figur.schreibeCSV();
 		
-		csv += "," + this.id + "," + figur;
+		csv += "," + this.id + "," + figur + "," + herausgedraengt + ";";
 		
 		return csv;
 	}
@@ -363,6 +364,10 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 			Spielfigur figurObjekt = new Spielfigur(figur[1]);
 			this.setFigur(figurObjekt);
 		}
+	}
+	
+	public void setHerausgedraengt(boolean h) {
+		this.herausgedraengt = h;
 	}
 	
 	
@@ -471,6 +476,7 @@ class Spielfeld implements java.io.Serializable, Cloneable {
 			
 			return "FIGUR:" + farbe;
 		}
+		
 	}
 	
 }
